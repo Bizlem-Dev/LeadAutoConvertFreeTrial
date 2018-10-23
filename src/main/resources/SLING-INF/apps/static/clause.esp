@@ -1,0 +1,663 @@
+
+<html>
+
+<head>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/apps/docgencss/bootstrap.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="<%=request.getContextPath()%>/apps/docgenjs/jquery.min.js"></script>
+<script>
+$(function() {
+	$( "#first-savenext" ).click(function() {
+   
+	var mainJson = {};
+	var arrMetaData = [];
+	var arrRest = [];
+	var arrParentClause = [];
+	
+	                   var clausename = document.getElementById("firstclausename").value;     
+	                     mainJson["clause_name"]=clausename;      
+                                    var metadata=document.getElementsByName("metadata");
+                                    
+                                    for (var i = 0; i <  metadata.length - 1 ; i++) {
+                                    	arrMetaData.push(metadata[i].value);
+                                     }
+                                    var restrictions=document.getElementsByName("restrictions");
+                                                                         
+                                    for (var i = 0; i <  restrictions.length - 1 ; i++) {
+                                    	arrRest.push(restrictions[i].value);
+                                     }
+                                   var parents=document.getElementsByName("parents");
+                                  for (var i = 0; i <  parents.length - 1 ; i++) {
+                                    	arrParentClause.push(parents[i].value);
+                                     }
+                                     if(arrMetaData[0] != ""){
+                                    	 
+                                     mainJson["metadata"] = arrMetaData;
+                                     }
+                                     if(arrRest[0] != ""){
+                                    mainJson["restrictions"] = arrRest;
+                                    }
+                                    if(arrParentClause[0] != ""){
+                                    mainJson["parent_clause"] = arrParentClause;
+                                     }
+                                     console.log(JSON.stringify(mainJson));
+                                     $.ajax({
+                                        type : 'POST',
+                                        url :'<%=request.getContextPath()%>/servlet/service/docgen.clausesavefirst',
+                                        data: {
+                                            result : JSON.stringify(mainJson),
+                                            user:'<%=request.getRemoteUser()%>'
+
+                                        },
+                                        async:true,
+                                        datatype: "json",
+										success: function (dataa) {
+										//alert(dataa);
+										var response=dataa.split("~");
+										if(response[0] == "true"){
+										//alert(response[0]);
+										//alert("if");
+
+										document.getElementById("secondclausename").value = response[1];
+										$( ".first-page" ).addClass('hidden');
+										$( ".second-page" ).removeClass('hidden');
+										}
+										else{
+											
+											//alert("Else");
+										}
+										
+										}
+                                   });
+	
+});
+});
+$(function() {
+	$( "#scnd-previous" ).click(function() {
+    $( ".first-page" ).removeClass('hidden');
+	$( ".second-page" ).addClass('hidden');
+});
+});
+$(function() {
+	$( "#scnd-next" ).click(function() {
+    	var mainJsonSecondpage = {};
+    	var clausesecondname=document.getElementById("secondclausename").value;
+    	//alert(clausesecondname);
+   	    var clausetextarea = document.getElementById("clausetextarea").value;
+   	     	  	                     mainJsonSecondpage["clause_name"]=clausesecondname;      
+   	  
+   	  	                   mainJsonSecondpage["clause_description"]=clausetextarea;      
+   	  
+   	    $.ajax({
+                                        type : 'POST',
+                                        url :'<%=request.getContextPath()%>/servlet/service/docgen.clausesavesecond',
+                                       data: {
+                                            result : JSON.stringify(mainJsonSecondpage)
+                                             },
+                                             datatype:"json",
+										success: function (dataa) {
+                                       //  alert("Data :  : :"+dataa);
+ 										var response=dataa.split("~");
+										if(response[0] == "true"){
+											  
+										  	document.getElementById("thirdclausename").value = response[1];
+										  	$( ".second-page" ).addClass('hidden');
+									    	$( ".third-page" ).removeClass('hidden');
+										}
+										else{
+											
+											
+										}
+										
+
+
+										}
+                                   });
+   	       
+   
+});
+});
+$(function() {
+	$( "#third-previous" ).click(function() {
+    $( ".second-page" ).removeClass('hidden');
+	$( ".third-page" ).addClass('hidden');
+});
+});
+$(function() {
+	$( "#third-next" ).click(function() {
+  
+	var mainJsonthirdpage = {};
+	var arrCommunicateto = [];
+	var arrTrigger = [];
+	var arrType = [];
+	
+	var thirdclausename=document.getElementById("thirdclausename").value;
+    mainJsonthirdpage["clause_name"]=thirdclausename;
+
+                                    var communicateto=document.getElementsByName("communicateto");
+                                       
+                                    for (var i = 0; i <  communicateto.length - 1 ; i++) {
+                                    	arrCommunicateto.push(communicateto[i].value);
+                                     }
+                                    var trigger=document.getElementsByName("trigger");
+                                                                         
+                                    for (var i = 0; i <  trigger.length - 1 ; i++) {
+                                    	arrTrigger.push(trigger[i].value);
+                                     }
+                                   var type=document.getElementsByName("type");
+                                  for (var i = 0; i <  type.length - 1 ; i++) {
+                                    	arrType.push(type[i].value);
+                                     }
+                                     if(arrCommunicateto[0]!=""){
+
+                                     mainJsonthirdpage["Communicate_to"] = arrCommunicateto;
+                                     }
+                                          if(arrTrigger[0]!=""){
+                                     
+                                    mainJsonthirdpage["Trigger"] = arrTrigger;
+                                    }
+                                           if(arrType[0]!=""){
+                                    
+                                    mainJsonthirdpage["Type"] = arrType;
+                                     
+                                     }
+                                     console.log(JSON.stringify(mainJsonthirdpage));
+                                     $.ajax({
+                                        type : 'POST',
+                                        url :'<%=request.getContextPath()%>/servlet/service/docgen.clausesavethree',
+                                       data: {
+                                            result : JSON.stringify(mainJsonthirdpage)
+                                        },
+                                        datatype: "json",
+										success: function (dataa) {
+										var response=dataa.split("~");
+										if(response[0] == "true"){
+											
+										  	document.getElementById("fourthclausename").value = response[1];
+											  $( ".third-page" ).addClass('hidden');
+												$( ".fourth-page" ).removeClass('hidden');
+										
+										}
+										else{
+											
+										}
+
+										}
+                                   });
+	
+});
+});
+$(function() {
+	$( "#fourth-previous" ).click(function() {
+    $( ".third-page" ).removeClass('hidden');
+	$( ".fourth-page" ).addClass('hidden');
+});
+});
+$(function() {
+	$( "#fourth-next" ).click(function() {
+    $( ".fourth-page" ).addClass('hidden');
+	$( ".first-page" ).removeClass('hidden');
+	var mainJsonfourthpage = {};
+	var arrApprover = [];
+	var fourthclausename=document.getElementById("fourthclausename").value;
+    mainJsonfourthpage["clause_name"]=fourthclausename;
+    var approver=document.getElementsByName("approver");
+    for (var i = 0; i <  approver.length - 1 ; i++) {
+    	arrApprover.push(approver[i].value);
+     }
+    if(arrApprover[0]!=""){
+
+        mainJsonfourthpage["approver"] = arrApprover;
+        }
+    $.ajax({
+        type : 'POST',
+        url :'<%=request.getContextPath()%>/servlet/service/docgen.clausesavefourth',
+       data: {
+            result : JSON.stringify(mainJsonfourthpage)
+             },
+             datatype:"json",
+		success: function (dataa) {
+       //  alert("Data :  : :"+dataa);
+
+		}
+   });
+
+
+});
+});
+
+$(document).ready(function() {
+$(".addButton").click(function(){
+	var counter=0;
+	var $textarray = $('#hidden-buttons'),
+		$clone    = $textarray
+						.clone()
+						.removeClass('hidden')
+						.removeAttr('id')
+						.insertBefore($textarray),
+		$item   = $clone.find('[name="metadata"]');
+		<!-- item.attr('id', 'metadata'+counter); -->
+         
+});
+});
+
+$(document).on('click','.removeButton',function(e) {
+<!-- $(".removeButton").click(function(){ -->
+	var $row    = $(this).parents('.form-group'),
+	$item = $row.find('[name="metadata"]');
+	$row.remove();
+<!-- }); -->
+});
+
+$(document).ready(function() {
+$(".addButton-rest").click(function(){
+	var counter=0;
+	var $textarray = $('#hidden-restrictions'),
+		$clone    = $textarray
+						.clone()
+						.removeClass('hidden')
+						.removeAttr('id')
+						.insertBefore($textarray),
+		$item   = $clone.find('[name="restrictions"]');     
+});
+});
+ 
+$(document).on('click','.removeButton-rest',function(e) {
+	var $row    = $(this).parents('.form-group'),
+	$item = $row.find('[name="restrictions"]');
+	$row.remove();
+}); 
+$(document).ready(function() {
+$(".addButton-parents").click(function(){
+	var counter=0;
+	var $textarray = $('#hidden-parents'),
+		$clone    = $textarray
+						.clone()
+						.removeClass('hidden')
+						.removeAttr('id')
+						.insertBefore($textarray),
+		$item   = $clone.find('[name="parents"]');     
+});
+});
+ 
+$(document).on('click','.removeButton-parents',function(e) {
+	var $row    = $(this).parents('.form-group'),
+	$item = $row.find('[name="parents"]');
+	$row.remove();
+}); 
+$(document).ready(function() {
+$(".addButton-commuto").click(function(){
+	var counter=0;
+	var $textarray = $('#hidden-commuto'),
+		$clone    = $textarray
+						.clone()
+						.removeClass('hidden')
+						.removeAttr('id')
+						.insertBefore($textarray),
+		$item   = $clone.find('[name="communicateto"]');     
+});
+});
+ 
+$(document).on('click','.removeButton-commuto',function(e) {
+	var $row    = $(this).parents('.form-group'),
+	$item = $row.find('[name="communicateto"]');
+	$row.remove();
+}); 
+$(document).ready(function() {
+$(".addButton-trigger").click(function(){
+	var counter=0;
+	var $textarray = $('#hidden-trigger'),
+		$clone    = $textarray
+						.clone()
+						.removeClass('hidden')
+						.removeAttr('id')
+						.insertBefore($textarray),
+		$item   = $clone.find('[name="trigger"]');     
+});
+});
+ 
+$(document).on('click','.removeButton-trigger',function(e) {
+	var $row    = $(this).parents('.form-group'),
+	$item = $row.find('[name="trigger"]');
+	$row.remove();
+}); 
+$(document).ready(function() {
+$(".addButton-type").click(function(){
+	var counter=0;
+	var $textarray = $('#hidden-type'),
+		$clone    = $textarray
+						.clone()
+						.removeClass('hidden')
+						.removeAttr('id')
+						.insertBefore($textarray),
+		$item   = $clone.find('[name="type"]');     
+});
+});
+ 
+$(document).on('click','.removeButton-type',function(e) {
+	var $row    = $(this).parents('.form-group'),
+	$item = $row.find('[name="type"]');
+	$row.remove();
+}); 
+$(document).ready(function() {
+$(".addButton-approver").click(function(){
+	var counter=0;
+	var $textarray = $('#hidden-approver'),
+		$clone    = $textarray
+						.clone()
+						.removeClass('hidden')
+						.removeAttr('id')
+						.insertBefore($textarray),
+		$item   = $clone.find('[name="approver[]"]');     
+});
+});
+ 
+$(document).on('click','.removeButton-approver',function(e) {
+	var $row    = $(this).parents('.form-group'),
+	$item = $row.find('[name="approver"]');
+	$row.remove();
+}); 
+</script>
+</head>
+
+<body>
+<div class = "page-header">  
+   <h5>
+      <center>Clause Page</center>
+      <!-- <small>Subtext for header</small> -->
+   </h5>
+</div>
+<div class="container-fluid" style="margin-top:20px;">
+	<form action="" method="">
+		<div class="first-page">
+			<div class="col-md-10 col-md-offset-4">
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-3">
+							<label for="exampleTextarea">Clause Name</label>
+						</div>
+						<div class="col-md-3">
+							<input type="text" name="firstclausename" id="firstclausename" class="form-control" id="">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-3">
+							<label for="exampleTextarea">Metadata</label>
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control" id="exampleTextarea" name="metadata">
+						</div>
+						<div class="col-md-4">
+							 <button type="button" class="btn btn-default addButton"><i class="fa fa-plus"></i></button>
+						 </div>
+					</div>
+				</div>
+				<div class="form-group hidden" id="hidden-buttons">
+					<div class="row">
+						<div class="col-md-3">
+								<label for="exampleTextarea">Metadata</label>
+							</div>
+						<div class="col-md-3">
+								<input type="text" class="form-control" id="metadata0" name="metadata">
+						</div>
+						<div class="col-md-4">
+							<button type="button" class="btn btn-default removeButton"><i class="fa fa-minus"></i></button>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-3">
+							<label for="exampleTextarea">Restrictions</label>
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control" name="restrictions" >
+						</div>
+						<div class="col-md-4">
+							 <button type="button" class="btn btn-default addButton-rest"><i class="fa fa-plus"></i></button>
+						 </div>
+					</div>
+				</div>
+				<div class="form-group hidden" id="hidden-restrictions">
+					<div class="row">
+						<div class="col-md-3">
+							<label for="exampleTextarea">Restrictions</label>
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control" name="restrictions" >
+						</div>
+						<div class="col-md-4">
+							<button type="button" class="btn btn-default removeButton-rest"><i class="fa fa-minus"></i></button>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-3">
+							<label for="exampleTextarea">Parents</label>
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control" id="exampleTextarea" name="parents">
+						</div>
+						<div class="col-md-4">
+							 <button type="button" class="btn btn-default addButton-parents"><i class="fa fa-plus"></i></button>
+						 </div>
+					</div>
+				</div>
+				<div class="form-group hidden" id="hidden-parents">
+					<div class="row">
+						<div class="col-md-3">
+							<label for="exampleTextarea">Parents</label>
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control" name="parents">
+						</div>
+						<div class="col-md-4">
+							<button type="button" class="btn btn-default removeButton-parents"><i class="fa fa-minus"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-10 col-md-offset-6">
+					<button type="button" class="btn btn-primary">Save</button>
+					<button type="button" id="first-savenext" class="btn btn-primary">Save & Next</button>
+					 
+				</div>
+			</div>
+		</div>
+	</form>
+	<!-- end first -->
+	<form action="" method="">
+		<div class="second-page hidden" style="margin-top:20px;">
+			<div class="col-md-10 col-md-offset-4">
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-3">
+							<label for="exampleTextarea">Clause Name</label>
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control" id="secondclausename" name="secondclausename" disabled>
+						</div>
+					</div>
+				</div>
+			  <div class="form-group">
+				<div class="row">
+					<div class="col-md-3">
+						<label for="exampleTextarea">Clause</label>
+					</div>
+					<div class="col-md-3">
+						<textarea type="text" class="form-control" id="clausetextarea" name="clausetextarea"></textarea>
+					</div>
+				</div>
+			  </div>
+			</div>
+			<div class="row">
+				<div class="col-md-10 col-md-offset-6">
+					<button type="button" id="scnd-previous" class="btn btn-primary">Previous</button>
+					<button type="button" class="btn btn-primary">Upload</button>
+					<button type="button" class="btn btn-primary">Save</button>
+					<button type="button" id="scnd-next" class="btn btn-primary">Save & Next</button>
+				</div>
+			</div>
+		</div>
+	</form>
+	<!-- end second -->
+	<form action="" method="">
+		<div class="third-page hidden" style="margin-top:20px;">
+			<div class="col-md-10 col-md-offset-4">
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-3">
+							<label for="exampleTextarea">Clause Name</label>
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control" id="thirdclausename" name="thirdclausename" disabled>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-3">
+							<label for="exampleTextarea">Communicate to</label>
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control" name="communicateto">
+						</div>
+						<div class="col-md-4">
+							 <button type="button" class="btn btn-default addButton-commuto"><i class="fa fa-plus"></i></button>
+						 </div>
+					</div>
+				</div>
+				<div class="form-group hidden" id="hidden-commuto">
+					<div class="row">
+						<div class="col-md-3">
+							<label for="exampleTextarea">Communicate to</label>
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control" name="communicateto">
+						</div>
+						<div class="col-md-4">
+							<button type="button" class="btn btn-default removeButton-commuto"><i class="fa fa-minus"></i></button>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-3">
+							<label for="exampleTextarea">Trigger</label>
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control" name="trigger">
+						</div>
+						<div class="col-md-4">
+							 <button type="button" class="btn btn-default addButton-trigger"><i class="fa fa-plus"></i></button>
+						 </div>
+					</div>
+				</div>
+				<div class="form-group hidden" id="hidden-trigger">
+					<div class="row">
+						<div class="col-md-3">
+							<label for="exampleTextarea">Trigger</label>
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control" name="trigger">
+						</div>
+						<div class="col-md-4">
+							<button type="button" class="btn btn-default removeButton-trigger"><i class="fa fa-minus"></i></button>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-3">
+							<label for="exampleTextarea">Type</label>
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control" name="type">
+						</div>
+						<div class="col-md-4">
+							 <button type="button" class="btn btn-default addButton-type"><i class="fa fa-plus"></i></button>
+						 </div>
+					</div>
+				</div>
+				<div class="form-group hidden" id="hidden-type">
+					<div class="row">
+						<div class="col-md-3">
+							<label for="exampleTextarea">Type</label>
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control" name="type">
+						</div>
+						<div class="col-md-4">
+							<button type="button" class="btn btn-default removeButton-type"><i class="fa fa-minus"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-10 col-md-offset-6">
+					<button type="button" id="third-previous" class="btn btn-primary">Previous</button>
+					<button type="button" class="btn btn-primary">Save</button>
+					<button type="button" id="third-next" class="btn btn-primary">Save & Next</button>
+				</div>
+			</div>
+		</div>
+	</form>
+	<!-- end third page -->
+	<form action="" method="">
+		<div class="fourth-page hidden" style="margin-top:20px;">
+			<div class="col-md-10 col-md-offset-4" style="margin-top:20px;">
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-3">
+							<label for="exampleTextarea">Clause Name</label>
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control" id="fourthclausename" name="fourthclausename" disabled>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-3">
+							<label for="exampleTextarea">Approver</label>
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control" name="approver">
+						</div>
+						<div class="col-md-4">
+							 <button type="button" class="btn btn-default addButton-approver"><i class="fa fa-plus"></i></button>
+						 </div>
+					</div>
+				</div>
+				<div class="form-group hidden" id="hidden-approver">
+					<div class="row">
+						<div class="col-md-3">
+							<label for="exampleTextarea">Approver</label>
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control" name="approver">
+						</div>
+						<div class="col-md-4">
+							<button type="button" class="btn btn-default removeButton-approver"><i class="fa fa-minus"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-10 col-md-offset-6">
+					<button type="button" id="fourth-previous" class="btn btn-primary">Previous</button>
+					<button type="button" class="btn btn-primary">Save</button>
+					<button type="button" id="fourth-next" class="btn btn-primary">Save & Next</button>
+				</div>
+			</div>
+		</div>
+	</form>
+	<!-- end fourth -->
+</div>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Blank Template for Bootstrap</title>
+       
+    </head>
+	<body>
+	<form action="http://35.221.160.146:8082/portal//servlet/service/arabic.savear" type="POST">
+	<textarea name="contentAr" ></textarea>
+	<input type="submit" value="submit"/>
+	</form>
+	</body>
+	</html>

@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mass Mailer - List</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuW  VxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+<link
+	href="<%=request.getContextPath()%>/apps/LeadConverterNewUICss/app.css"
+	rel="stylesheet">
+
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/apps/LeadConverterNewUIJs/jquery-ui-1.10.4.min.js"></script>
+
+<!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'> -->
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link
+	href="<%=request.getContextPath()%>/apps/LeadConverterNewUICss/style.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="<%=request.getContextPath()%>/apps/LeadConverterNewUICss/newsletter-builder.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="<%=request.getContextPath()%>/apps/LeadConverterNewUICss/newsletter.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="<%=request.getContextPath()%>/apps/LeadConverterNewUICss/Style.css"
+	rel="stylesheet" type="text/css" />
+	<script src="<%=request.getContextPath()%>/apps/LeadConverterNewUIJs/LeadConverterSelection.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/apps/LeadConverterNewUIJs/javascript.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+   <!-- Scripts -->
+<script src="<%=request.getContextPath()%>/apps/LeadConverterJs/breakpoints.min599c.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+	type="text/javascript"></script>
+<script
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/jqueryfunction.js"></script>
+<script src="<%=request.getContextPath()%>/apps/LeadConverterNewUIJs/type.js"></script>
+<link
+	href="<%=request.getContextPath()%>/apps/LeadConverterCss/style.css"
+	rel="stylesheet" type="text/css" />
+
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/arial.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/cuf_run.js"></script>
+<script rel="stylesheet"
+	src="<%=request.getContextPath()%>/apps/LeadConverterCss/bootstrap.min.css"></script>
+<script
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/amcharts.js"></script>
+<script
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/serial.js"></script>
+<script
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/export.min.js"></script>
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/apps/LeadConverterCss/export.css"
+	type="text/css" media="all" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/apps/LeadConverterCss/bootstrap.min.css">
+<script
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/jquery.min.js"></script>
+<script
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/bootstrap.min.js"></script>
+<script
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/light.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/option-fill-color.js"></script>
+<script src="https://cdn.ckeditor.com/4.9.0/standard/ckeditor.js"></script>
+<script
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/uploadfile.js"></script>
+
+<!--<script src="https://cdn.ckeditor.com/4.9.0/standard/ckeditor.js"></script> -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
+    <script >
+$(function () {
+	$('#datetimepicker1').datetimepicker({
+	    defaultDate: new Date(),
+	    format: 'YYYY-MM-DD hh:mm:ss A',
+	    sideBySide: true
+	});
+	 });
+</script>
+<script >
+$(function () {
+	$('#datetimepicker2').datetimepicker({
+	    defaultDate: new Date(),
+	    format: 'YYYY-MM-DD hh:mm:ss A',
+	    sideBySide: true
+	});
+	 });
+</script>
+<script >
+$(function () {
+	$('#datetimepicker3').datetimepicker({
+	    defaultDate: new Date(),
+	    format: 'YYYY-MM-DD hh:mm:ss A',
+	    sideBySide: true
+	});
+	 });
+</script>
+<script >
+$(function () {
+	$('#datetimepicker4').datetimepicker({
+	    defaultDate: new Date(),
+	    format: 'YYYY-MM-DD hh:mm:ss A',
+	    sideBySide: true
+	});
+	 });
+</script>
+<script >
+$(function () {
+	$('#datetimepicker5').datetimepicker({
+	    defaultDate: new Date(),
+	    format: 'YYYY-MM-DD hh:mm:ss A',
+	    sideBySide: true
+	});
+	 });
+</script>
+
+</head>
+<body>
+	<div class="container">
+		<div id="campaign" class="carousel slide" data-ride="carousel"
+			data-interval="false">
+			<ol class="capm-steps carousel-indicators">
+				<li data-target="#campaign" data-slide-to="0" class="active"><span
+					class="count">1</span> Create Campaign</li>
+				<li data-target="#campaign" data-slide-to="1"><span
+					class="count">2</span> Choose List</li>
+				<li data-target="#campaign" data-slide-to="2"><span
+					class="count">3</span> Details of Campaign</li>
+				<li data-target="#campaign" data-slide-to="3" id="page3"><span
+					class="count">4</span> Template</li>
+				<li data-target="#campaign" data-slide-to="4"><span
+					class="count" id="page5">5</span> Customize Mail</li>
+			</ol>
+
+			<div class="carousel-inner" role="listbox">
+				<div class="item active">
+					<form class="fields">
+						<div class="field">
+							<label class="flabel">Funnel Name</label> <input type="text"
+								class="form-control" id="campaignname">
+						</div>
+						<div class="field">
+							<label class="flabel">Email Adress</label> <input type="text"
+								class="form-control">
+						</div>
+						<div class="field">
+							<label class="flabel">From Name</label> <input type="text"
+								class="form-control">
+						</div>
+						<div class="btn-block">
+							<button data-target="#campaign" data-slide-to="1"
+								class="btn btn-primary btn-lg">
+								NEXT <i class="glyphicon glyphicon-chevron-right"></i>
+							</button>
+						</div>
+					</form>
+				</div>
+				<div class="item">
+					<div class="row">
+
+						<div class="col-sm-5step-inner2">
+							<h3 style="padding: 0px 0px 10px 0px;">Who are you sending
+								to?</h3>
+							<select class="choose-list form-control"
+								style="margin: 10px 0px 10px 0px;" id="listdropbox">
+								<!-- <option>Choose list</option>
+								<option >List 1</option>
+								<option >List 2</option>
+								<option >List 3</option>
+								-->
+							</select>
+							<div class="segment-selects" style="margin: 40px 0px 10px 0px;">
+								<label class="radio-inline"> <input type="radio"
+									onclick="javascript:yesnoCheck();" name="yesno" id="yesCheck" />Entire
+									list
+								</label> <label class="radio-inline"> <input type="radio"
+									onclick="javascript:yesnoCheck();" name="yesno" id="noCheck" />New
+									list
+								</label>
+							</div>
+						</div>
+
+						<div class="blue box" id="ifYes">
+							<div class="col-sm-5" style="margin: 40px 0px 10px 0px;">
+								<p>Choose your favorite Email.</p>
+								<div class="listbox-area">
+									<div class="left-area">
+										<span id="ss_elem"> Transuranium elements: </span>
+										<ul id="ss_elem_list_from_server" tabindex="0" role="listbox"
+											aria-labelledby="ss_elem">											
+										</ul>
+										<!-- 
+										<ul id="ss_elem_list" tabindex="0" role="listbox"
+											aria-labelledby="ss_elem">
+											<li id="ss_elem_Cm" role="option">
+											</li>
+										</ul>
+										-->
+									</div>
+								</div>
+							</div>
+						</div>
+	<form method="post" id="emailid"
+										action="<%=request.getContextPath()%>/servlet/service/SendJsonDataLeadConverter.Email"
+										enctype="multipart/form-data" class="form-horizontal">
+						<div id="ifNo" style="display: none">
+							<div class="row">
+								<div class="col-md-12">
+								
+										<div class="form-group">
+											<label for="exampleInputEmail1">List Name*</label> 
+											<input type="text" class="form-control" id="listname" name="listname" placeholder="List Name">
+											<span id="listspan" style="display: none">list already	exists </span>
+										</div>
+
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="exampleInputPassword1">First Name*</label> <input
+														type="text" class="form-control"
+														id="exampleInputPassword1" placeholder="First Name">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="exampleInputPassword1">Last Name*</label> <input
+														type="text" class="form-control"
+														id="exampleInputPassword1" placeholder="Last Name">
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputEmail1">Email*</label> <input
+												type="email" class="form-control" id="exampleInputEmail1"
+												placeholder="Email">
+										</div>
+										<button type="submit" class="btn btn-default new-btn">Add
+											New</button>
+										<br />
+										<div class="row">
+											<div class="col-md-12">
+												<div class="up-box">
+													<h4>
+														<cufon class="cufon cufon-canvas" alt="Upload "
+															style="width: 63px; height: 18px;">
+														<canvas width="101" height="24"
+															style="width: 101px; height: 24px; top: -4px; left: -12px;"></canvas>
+														<cufontext>Upload </cufontext></cufon>
+														<cufon class="cufon cufon-canvas" alt="File"
+															style="width: 29px; height: 18px;">
+														<canvas width="63" height="24"
+															style="width: 63px; height: 24px; top: -4px; left: -12px;"></canvas>
+														<cufontext>File</cufontext></cufon>
+													</h4>
+													<div class="row">
+														<div class="col-md-6">
+															<div class="fileUpload btn btn-default new-btn">
+																<span>Upload CSV</span> 
+															<input id="uploadBtn" name="file" type="file" class="upload" />
+																
+															</div>
+															<input id="input-uploadBtn"
+																style="background-color: #f5f5f5; border: none;"
+																class="input-upload">
+
+															<!-- <p class="up-boxp">+ Upload File</p> -->
+														</div>
+														<div class="col-md-6">
+															<h3>Upload From</h3>
+															<!-- <p class="up-boxp">+ Upload From <img src="img.png"></p> -->
+															<div class="row col-md-offset-1 col-xs-offset-1">
+																<img src="<%=request.getContextPath()%>/apps/LeadConverterImg/fb.jpg" height="20px" width="20px"> <img
+																	src="<%=request.getContextPath()%>/apps/LeadConverterImg/gdrive.jpg" height="25px" width="25px"> <img
+																	src="<%=request.getContextPath()%>/apps/LeadConverterImg/Linkedin.png" height="20px" width="20px"> <img
+																	src="<%=request.getContextPath()%>/apps/LeadConverterImg/dropbox.jpg" height="20px" width="20px">
+															</div>
+														</div>
+													</div>
+
+												</div>
+											</div>
+										</div>
+								</div>
+  <button type="submit" id="savefirstpage" class="btn btn-default new-btn btn-block">Save</button>
+								</form>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="btn-block">
+								<button data-target="#campaign" data-slide-to="2"
+									class="btn btn-primary btn-lg">
+									NEXT <i class="glyphicon glyphicon-chevron-right"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+<div class="item">
+<section>
+    <h3 align="center" style="color:#999">Screen 3</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12" style="background-color:#eeeeee; padding:10px 0px 0px 250px; 
+							margin:10px 0px 0px 0px" height="30px" width="1200px">
+							<input type="hidden" id="funnelname">
+                <nav aria-label="...">
+                    <div class="row">
+                        <ul class="pagination pagination-lg">
+                           
+                            <li class="page-item">
+                                <a class="page-link" href="#EXP" onclick="myFunctionA()"   role="tab1" aria-controls="home" aria-selected="true" id="explore">Explore</a>
+                        	    </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#INF" onclick="myFunctionB()"  role="tab2" aria-controls="home" aria-selected="false" id="inform">Inform</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#WAR" onclick="myFunctionC()"  role="tab3" aria-controls="home" aria-selected="false" id="warm">Warm</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#ENT" onclick="myFunctionD()"  role="tab4" aria-controls="home" aria-selected="false" id="entice">Entice</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#CON" onclick="myFunctionE()"  role="tab5" aria-controls="home" aria-selected="false" id="convert">Convert</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+			</div>
+				</br>
+				</br>
+<div id="EXP">
+    <div class="row" style="padding:10px 0px 0px 0px;">
+        <div class="col-sm-12">
+            <form>
+               <div class="form-group">
+                    <label for="exampleInputName">No of Days Distance</label>
+                    <input type="number" class="form-control" id="distanceexplore" placeholder="" />
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName">No of Campaign</label>
+                    <input type="number" id="numexplore" onchange="getNum()">
+                </div>                 
+                    <input type='text'  id="user"/>
+               
+                             <div class='col-md-6'>
+			   <div class="form-group">
+			   <label>Prefered Time</label>
+                 <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control" id="datetimepickerexplore"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+               </div>  	
+                </div>               
+            </form>
+        </div>
+    </div>
+	<div class="row">
+	<table id="tab1" border="1" width="500px" height="200px">
+		</table>
+	</div>
+</div>
+<div id="INF">
+    <div class="row" style="padding:10px 0px 0px 0px;">
+        <div class="col-sm-12">
+            <form>
+               <div class="form-group">
+                    <label for="exampleInputName">No of Days Distance</label>
+                    <input type="number" class="form-control" id="distanceinform" placeholder="" />
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName">No of Campaign</label>
+                    <input type="number" id="numinform" onchange="getNum2()">
+                </div>                 
+                    <input type='text'  id="user"/>
+               
+                             <div class='col-md-6'>
+			   <div class="form-group">
+			   <label>Prefered Time</label>
+                 <div class='input-group date' id='datetimepicker2'>
+                    <input type='text' class="form-control" id="datetimepickerinform"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+               </div>  	
+                </div>               
+            </form>
+      </div>
+    </div>
+	<table id="tab2" border="1" width="500px" height="200px">
+		</table>
+</div>
+
+<div id="WAR">
+    <div class="row" style="padding:10px 0px 0px 0px;">
+        <div class="col-sm-12">
+            <form>
+                            <div class="form-group">
+                    <label for="exampleInputName">No of Days Distance</label>
+                    <input type="text" class="form-control" id="distancewarm" placeholder="" />
+                </div>  	
+                <div class="form-group">
+                    <label for="exampleInputName">No of Campaign</label>
+                    <input type="number" id="numwarm" onchange="getNum3()">
+                </div>                 
+
+       <div class='col-md-6'>
+			   <div class="form-group">
+			   <label>Prefered Time</label>
+                 <div class='input-group date' id='datetimepicker3'>
+                    <input type='text' class="form-control" id="datetimepickerwarm"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+               </div>  	
+                </div>
+            </form>
+        </div>
+    </div>
+	<table id="tab3" border="1" width="500px" height="200px">
+		</table>
+</div>
+
+<div id="ENT">
+    <div class="row" style="padding:10px 0px 0px 0px;">
+        <div class="col-sm-12">
+            <form>
+			  <div class="form-group">
+                    <label for="exampleInputName">No of Days Distance</label>
+                    <input type="text" class="form-control" id="distanceentice" placeholder="" />
+                </div>
+			
+                <div class="form-group">
+                    <label for="exampleInputName">No of Campaign</label>
+                    <input type="number" id="numentice" onchange="getNum4()">
+                </div>                 
+                
+				       <div class='col-md-6'>
+			   <div class="form-group">
+			   <label>Prefered Time</label>
+                 <div class='input-group date' id='datetimepicker4'>
+                    <input type='text' class="form-control" id="datetimepickerentice"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+               </div>  	
+                </div>            </form>
+        </div>
+    </div>
+	<table id="tab4" border="1" width="500px" height="200px">
+
+		</table>
+	
+</div>
+
+<div id="CON">
+    <div class="row" style="padding:10px 0px 0px 0px;">
+        <div class="col-sm-12">
+            <form>	
+               <div class="form-group">
+                    <label for="exampleInputName">No of Days Distance</label>
+                    <input type="text" class="form-control" id="distanceconvert" placeholder="" />
+                </div>		
+                <div class="form-group">
+                    <label for="exampleInputName">No of Campaign</label>
+                    <input type="number" id="numconvert" onchange="getNum5()" href="#tab5" >
+                </div>                 
+				       <div class='col-md-6'>
+			   <div class="form-group">
+			   <label>Prefered Time</label>
+                 <div class='input-group date' id='datetimepicker5'>
+                    <input type='text' class="form-control" id="datetimepickerconvert"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+               </div>  	
+                </div>            </form>
+        </div>
+    </div>
+		<table id="tab5" border="1" width="500px" height="200px">
+
+		</table>
+	
+</div>
+	<div class="row">
+	</div>
+	<div class="row">
+			  <div class="btn-block">
+					<button data-target="#campaign" data-slide-to="3" class="btn btn-primary btn-lg" >NEXT <i class="glyphicon glyphicon-chevron-right"></i></button>
+				</div>
+		</div>
+	
+</div>
+</section>
+</div>																	<div class="item">
+					<div class="step-inner3">
+						<h3>Select Template</h3>
+						<div class="select-template">
+
+							<div class="col-sm-12"
+								style="background-color: #eeeeee; padding: 10px 0px 0px 250px; margin: 10px 0px 0px 0px"
+								height="30px" width="1200px">
+								<nav aria-label="...">
+									<div class="row">
+										<ul class="pagination pagination-lg">
+											       <input type="text" name="list_id" id="list_id">
+										
+							<input type="text" name="Type" id="typeid">
+
+											<li class="page-item"><a class="page-link" href="#">Custom</a>
+											</li>
+											<li class="page-item"><a class="page-link" href="#">Standard</a>
+											</li>
+											<li class="page-item"><a class="page-link" href="#">My templates</a>
+											
+											</li>
+										</ul>
+										<div class="optionBox">
+    <div class="block" id="typeDyna">
+</div> 
+    </div>							
+									</div>
+								</nav>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-3"
+									style="padding: 10px 0px 0px 16px; margine: 0px 0px 0px 10px;">
+									<input type="file" id="selectedFile1" style="display: none;">
+									<input type="button" value="Upload Template"
+										class="btn btn-default new-btn btn-block"
+										onclick="document.getElementById('selectedFile1').click();">									
+										
+										<script>
+//window.onload = function ()
+$(document).ready(function() {
+		var fileInput = document.getElementById('selectedFile1');
+		var fileDisplayArea = document.getElementById('editor1');
+
+		fileInput.addEventListener('change', function(e) {
+			var file = fileInput.files[0];
+			var textType = /html.*/;
+
+			if (file.type.match(textType)) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					fileDisplayArea.innerHTML = reader.result;
+				}
+
+				reader.readAsText(file);	
+			} else {
+				fileDisplayArea.innerHTML = "File type not supported!"
+			}
+		});
+})
+</script>
+<script type="text/javascript">
+	function move(type,node,editorId) {
+  var remoteuser= '<%=request.getRemoteUser()%>';
+	$.ajax({
+        type : 'POST',
+        url :'<%=request.getContextPath()%>/servlet/service/LEAD_CONVERTER_NodeAdd_Email.displaydata',
+       data: {
+    	   remoteuser : remoteuser,
+    	   type:type,
+    	   node:node
+             },
+		success: function (dataa) {
+	//alert("Display_Data");
+			//alert(dataa);
+			  document.getElementById(editorId).innerHTML = dataa;
+					}
+	});
+
+	}
+	</script>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="item builder-item">
+					<div class="row">
+						<h4 style="padding: 0px 0px 0px 0px; margin: 0px 0px 0px 200px;">Spam
+							Score:786</h4>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<h3 style="padding: 0px 0px 0px 0px; margin: 0px 0px 0px 20px;">Subject</h3>
+						</div>
+						<div class="col-sm-6"></div>
+					</div>
+					<div id="ifNo" style="display: show">
+												<input type="text" name="type" id="typeid2">
+			
+				
+						<div class="col-sm-12" style="margin: 40px 0px 10px 0px;">
+							<div class="container">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="collapse in show" id="collapseExample2"
+											aria-expanded="true" style="">
+											<div class="well">
+												<div class="row">
+													<div class="col-md-12">
+														<div class="tabbable">
+
+						<div class="tab-content" style="margin-top: 10px;">
+						<div class="tab-pane active" id="Explore">
+																	<!-- Dynamically add Frame ends -->
+							<div class="col-md-6" style="margin-bottom: 2%;">
+						<form method="post" action="#">
+							<input type="text" name="sub" id="subject"
+								placeholder="write your subject here"
+									class="form-control input-lg">
+								</form>
+										</div>
+								<div class="col-md-12">
+
+									<div class="col-md-12"
+										style="border: solid 1px #999; min-height: 578px; margin-bottom: 2%; background-color: #fff; overflow: hidden; display: inline-block;">
+
+									<!-- main editor -->
+		<div id="editor1" contenteditable="true" style="min-height: 578px; height: 590px; overflow-y: scroll; position: relative;" class="cke_editable cke_editable_inline cke_contents_ltr cke_show_borders" tabindex="0" spellcheck="false" role="textbox" aria-label="Rich Text Editor, editor1" title="Rich Text Editor, editor1" aria-describedby="cke_70"><p><br></p></div>  
+<!-- main editor ends -->
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+                  	  
+	  </div>
+</div>
+	  
+																						<div class="btn-block">
+									<button type="submit" data-target="#campaign" data-slide-to="2"
+						class="btn btn-primary btn-lg" >Save & Previous</button>
+				<br>
+				<br>
+					<button type="submit" data-target="#campaign" data-slide-to="5"
+						class="btn btn-primary btn-lg" onclick="typefunction()">Save & Exit</button>
+				</div>
+				
+				
+    </div>
+  </div>
+</div>
+</div>
+			
+<script type="text/javascript">
+
+function yesnoCheck() {
+    if (document.getElementById('yesCheck').checked) {
+        document.getElementById('ifYes').style.visibility = 'visible';
+    } else {
+        document.getElementById('ifYes').style.visibility = 'hidden';
+    }
+
+</script>
+<script type="text/javascript">
+ window.onload = function() {
+    document.getElementById('ifYes').style.display = 'none';
+    document.getElementById('ifNo').style.display = 'none';
+}
+function yesnoCheck() {
+    if (document.getElementById('yesCheck').checked) {
+        document.getElementById('ifYes').style.display = 'block';
+        document.getElementById('ifNo').style.display = 'none';
+        document.getElementById('redhat1').style.display = 'none';
+        document.getElementById('aix1').style.display = 'none';
+    } 
+    else if(document.getElementById('noCheck').checked) {
+        document.getElementById('ifNo').style.display = 'block';
+        document.getElementById('ifYes').style.display = 'none';
+        document.getElementById('redhat1').style.display = 'none';
+        document.getElementById('aix1').style.display = 'none';
+   }
+}
+function yesnoCheck1() {
+   if(document.getElementById('redhat').checked) {
+       document.getElementById('redhat1').style.display = 'block';
+       document.getElementById('aix1').style.display = 'none';
+    }
+   if(document.getElementById('aix').checked) {
+       document.getElementById('aix1').style.display = 'block';
+       document.getElementById('redhat1').style.display = 'none';
+    }
+}
+
+</script>
+
+<script>
+$(document).ready(function(){
+    $("#listname").blur(function(){
+
+       if( $("#listname").val().length > 4){
+        var value = this.value;
+    	$.ajax({
+            type : 'POST',
+            url :'<%=request.getContextPath()%>/servlet/service/checkingavailabledata.data',
+           data: {
+        	   listnameresult : value
+                 },
+			success: function (dataa) {
+				if(dataa == "true"){
+					document.getElementById("listname").value = "";
+					document.getElementById("savefirstpage").disabled = true;
+					document.getElementById("listspan").style.display = "";
+				}else {
+					document.getElementById("savefirstpage").disabled = false;
+				}
+			}
+       });
+       }
+    });
+});
+</script>
+<script>
+								$("#page5").click(function(){
+								//alert("Function Called");
+document.getElementById("typeid2").value=document.getElementById("typeid").value;
+								});
+
+								$("#page3").click(function(){
+document.getElementById("funnelname").value=document.getElementById("campaignname").value;
+								});
+								
+</script>
+<script>
+$( document).ready(function() {
+    var remoteuser ='<%=request.getRemoteUser()%>';
+	$.ajax({
+        type : 'POST',
+        url :'<%=request.getContextPath()%>/servlet/service/LEAD_CONVERTER_NodeAdd_Email.userdata',
+       data: {
+    	   remoteuser : remoteuser,
+             },
+		success: function (dataa) {
+			alert	(dataa);
+			var jsonData = JSON.parse(dataa);
+			var remoteuser=jsonData.remoteuser;		
+	var typeDynamic = "";
+			for (var i = 0; i < jsonData.data.length; i++) {
+			    var data = jsonData.data[i];
+			    var subject=data.Subject;
+			    var type=data.type;
+			 
+			  if(type == "Explore"){
+				 // '<a style=cursor:pointer onclick=OpenChatBox("'+array.List_id+'","'+array.List_Name+'")>'+array.List_Name+'</a><br>'
+				  typeDynamic = typeDynamic + '<div  style="cursor:pointer;width:150px;overflow:hidden;border:1px solid #000" onclick=move("'+type+'","'+data.Nodes+'","editor1");>'+subject+'</div> <br>';
+				//	document.getElementById("typeDyna").innerHTML = explore; 
+			  }
+			  if(type == "Inform"){
+				  typeDynamic = typeDynamic + '<div  style="cursor:pointer;width:150px; overflow:hidden; border:1px solid #000" onclick=move("'+type+'","'+data.Nodes+'","editor1");>'+subject+'</div> <br>';
+					//document.getElementById("typeDyna").innerHTML = inform; 
+
+			  }
+			  if(type == "Warm"){
+				  typeDynamic = typeDynamic + '<div  style="cursor:pointer;width:150px; overflow:hidden; border:1px solid #000" onclick=move("'+type+'","'+data.Nodes+'","editor1");>'+subject+'</div> <br>';
+					///document.getElementById("typeDyna").innerHTML = warm; 
+
+			  }
+			  if(type == "Entice"){
+				  typeDynamic = typeDynamic + '<div  style="cursor:pointer;width:150px; overflow:hidden; border:1px solid #000" onclick=move("'+type+'","'+data.Nodes+'","editor1");>'+subject+'</div> <br>';
+					//document.getElementById("typeDyna").innerHTML = entice; 
+ 
+			  }
+			  if(type == "Convert"){
+				  typeDynamic = typeDynamic + '<div  style="cursor:pointer;width:150px; overflow:hidden; border:1px solid #000" onclick=move("'+type+'","'+data.Nodes+'","editor1");>'+subject+'</div> <br>';
+					//document.getElementById("typeDyna").innerHTML = convert; 
+			  }
+			}
+			  document.getElementById("typeDyna").innerHTML = typeDynamic;
+		}	
+   });	
+});
+</script>
+<script>
+$( document).ready(function() {
+    var remoteuser ='<%=request.getRemoteUser()%>';
+    alert(remoteuser);
+	$.ajax({
+        type : 'POST',
+        url :'<%=request.getContextPath()%>/servlet/service/Searchlist.listsearch',
+       data: {
+    	   remoteuser : remoteuser,
+             },
+		success: function (dataa) {
+			alert	(dataa);
+			var jsonData = JSON.parse(dataa);
+			var optionMap = "";
+			for(var i=0;i<jsonData.JsonArray.length;i++){
+				 var array=jsonData.JsonArray[i];
+				 //var listId = "'" + array.List_id + "'";
+				  //var listname="'" + array.List_Name + "'";
+				  //alert(array.List_Name);
+				  //alert(array.List_id);
+				 optionMap = optionMap + "<option value="+array.List_id+">"+array.List_Name+"</option>";
+				    /*var x = document.getElementById("listdropbox");
+				    alert(x);
+				    var option = document.createElement("option");
+				    option.text = listname;
+				  alert(listId);*/
+			}
+			document.getElementById("listdropbox").innerHTML  = "<option>Choose list</option>" + optionMap;
+				}
+   });	
+});
+</script>
+
+<script>
+$(document).ready(function(){
+    $("select").change(function(){
+var e = document.getElementById("listdropbox");
+var struser = e.options[e.selectedIndex].value; 
+var list="";
+$.ajax({
+    type : 'POST',
+    url :'<%=request.getContextPath()%>/servlet/service/Searchlist.getlist_data',
+   data: {
+	  selectedlistid  : struser,
+         },
+	success: function (dataa) {
+		alert	(dataa);
+		var jsonData = JSON.parse(dataa);
+		var text="";
+		for(var i=0;i<jsonData.Email_Array.length;i++){
+		
+			 var emailid=jsonData.Email_Array[i];
+			 //alert(emailid.Email_Name);
+	        text=text+'<li id="ss_elem_Am" role="option"><input type="checkbox">'+emailid.Email_Name+'</li>';
+		}
+		//alert(text);
+		//list = list + "<input type="'checkbox'">"+dataa;
+		 
+		//<li id="ss_elem_Am" role="option"><input type="checkbox">pooja@gmail.com
+			//</li>
+		document.getElementById("ss_elem_list_from_server").innerHTML =  text;
+
+			}	
+});	
+});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+    $("#numexplore").change(function getNum(){
+       var num= document.getElementById("numexplore").value;//noofcampaign
+	num = parseInt(num) + 1;
+	var tr="";	
+	for(var i=1; i<num; i++){
+		tr=tr+"<tr><td>"+i+"</td><td><input type='text' id='usercampaignvalueexplore"+i+"' value='<%=request.getRemoteUser()%>_Explore_"+i+"'/></td><td><input type='button' value='Configure'  id='configureexplore"+i+"' onclick='explorefun(this.id)'/></td></tr>";	
+		
+	
+	}
+
+	document.getElementById("tab1").innerHTML = tr;
+    });
+});
+</script>
+<script type="text/javascript">
+
+    $("#numinform").change(function getNum2(){
+       var num2= document.getElementById("numinform").value;
+ 	var tr="";
+	for(var i=1; i<num2; i++){
+		tr=tr+"<tr><td>"+i+"</td><td><input type='text' id='usercampaignvalueinform"+i+"' value='<%=request.getRemoteUser()%>_Inform_"+i+"'/></td><td><input type='button' value='Configure'  id='configureinform"+i+"' onclick='informfun(this.id)'/></td></tr>";	
+		
+	}
+	document.getElementById("tab2").innerHTML = tr;
+    });
+</script>
+<script type="text/javascript">
+
+    $("#numwarm").change(function getNum3(){
+       var num3= document.getElementById("numwarm").value;
+	num3 = parseInt(num3) + 1;
+	var tr="";
+	for(var i=1; i<num3; i++){
+		tr=tr+"<tr><td>"+i+"</td><td><input type='text' id='usercampaignvaluewarm"+i+"' value='<%=request.getRemoteUser()%>_Warm_"+i+"'/></td><td><input type='button' value='Configure'  id='configurewarm"+i+"' onclick='warmfun(this.id)'/></td></tr>";	
+		
+	}
+	document.getElementById("tab3").innerHTML = tr;
+    });
+</script>
+<script type="text/javascript">
+
+    $("#numentice").change(function getNum4(){
+       var num4= document.getElementById("numentice").value;
+	num4 = parseInt(num4) + 1;
+	var tr="";
+	for(var i=1; i<num4; i++){
+		tr=tr+"<tr><td>"+i+"</td><td><input type='text' id='usercampaignvalueentice"+i+"' value='<%=request.getRemoteUser()%>_Entice_"+i+"'/></td><td><input type='button' value='Configure'  id='configureentice"+i+"' onclick='enticefun(this.id)'/></td></tr>";	
+		
+	}
+	document.getElementById("tab4").innerHTML = tr;
+    });
+</script>
+<script type="text/javascript">
+
+    $("#numconvert").change(function getNum5(){ 
+       var num5= document.getElementById("numconvert").value;
+	num5 = parseInt(num5) + 1;
+	var tr="";
+	
+	for(var i=1; i<num5; i++){
+		tr=tr+"<tr><td>"+i+"</td><td><input type='text' id='usercampaignvalueconvert"+i+"' value='<%=request.getRemoteUser()%>_Convert_"+i+"'/></td><td><input type='button' value='Configure'  id='configureconvert"+i+"' onclick='convertfun(this.id)'/></td></tr>";	
+		
+	}
+	document.getElementById("tab5").innerHTML = tr;
+    });
+</script>
+<script>
+$('label.select-template').click(function() {
+  $('.t-default').hide();
+  $('.' + $(this).data('rel')).show();
+});
+
+$(document).ready(function(){
+  $("select").change(function(){
+      $(this).find("option:selected").each(function(){
+          var optionValue = $(this).attr("value");
+          if(optionValue){
+              $(".box").not("." + optionValue).hide();
+              $("." + optionValue).show();
+          } else{
+              $(".box").hide();
+          }
+      });
+  }).change();
+});
+</script>
+<script type="text/javascript">
+
+function explorefun(clicked_id){
+var type="Explore";
+var remoteuser= '<%=request.getRemoteUser()%>';
+alert("explorefun");
+		var num= parseInt(document.getElementById("numexplore").value);
+		//noofcampaign
+		var distance=document.getElementById("distanceexplore").value;
+		num = parseInt(num) + 1;		
+	var res = clicked_id.split("configureexplore");
+	var numconfig=parseInt(res[1]);
+	for(var i=1; i<num; i++){
+	var uservalue=document.getElementById("usercampaignvalueexplore"+i).value;
+	//alert(uservalue);
+		var currentdate=new Date();
+		var year="";
+		var date=new Date(document.getElementById("datetimepickerexplore").value);
+	  var result =new Date(date);
+
+					if(i==numconfig){
+					document.getElementById("user").value=uservalue;
+
+					currentdate=result.setDate(result.getDate()+ parseInt((numconfig-1)*document.getElementById("distanceexplore").value));
+						var user=document.getElementById("user").value;
+						alert('user : '+user);
+					var todayTime = new Date(currentdate);
+					var dd = todayTime.getDate();
+					var mm = todayTime.getMonth()+1;
+					var yyyy = todayTime.getFullYear();
+					var time =todayTime.getHours();
+					var minutes=todayTime.getMinutes();
+					var seconds=todayTime.getSeconds();
+							var year=yyyy+"-"+mm+"-"+dd+" "+time+":"+minutes+":"+seconds;
+							alert(year);
+							$.ajax({
+						        type : 'POST',
+						        url :'<%=request.getContextPath()%>/servlet/service/LEAD_CONVERTER_NodeAdd_Email.campaignuseradd',
+						       data: {
+						    	   user : user,
+						    	   year:year,
+						    	   type:type,
+						    	   remoteuser:remoteuser,
+						    	   distance:distance
+						             },
+								success: function (dataa) {
+									alert(dataa);
+											}
+							});						
+						}
+		}
+	}
+</script>
+<script type="text/javascript">
+function informfun(clicked_id){
+var type="Inform";	
+var remoteuser= '<%=request.getRemoteUser()%>';
+
+		var num= parseInt(document.getElementById("numinform").value);
+		//noofcampaign
+		var distance=document.getElementById("distanceinform").value;
+		num = parseInt(num) + 1;		
+	var res = clicked_id.split("configureinform");
+	var numconfig=parseInt(res[1]);
+	for(var i=1; i<num; i++){
+	var uservalue=document.getElementById("usercampaignvalueinform"+i).value;
+	alert(uservalue);
+		var currentdate=new Date();
+		var year="";
+		var date=new Date(document.getElementById("datetimepickerinform").value);
+	  var result =new Date(date);
+
+					if(i==numconfig){
+					document.getElementById("user").value=uservalue;
+
+					currentdate=result.setDate(result.getDate()+ parseInt((numconfig-1)*document.getElementById("distanceinform").value));
+						var user=document.getElementById("user").value;
+					var todayTime = new Date(currentdate);
+					var dd = todayTime.getDate();
+					var mm = todayTime.getMonth()+1;
+					var yyyy = todayTime.getFullYear();
+					var time =todayTime.getHours();
+					var minutes=todayTime.getMinutes();
+					var seconds=todayTime.getSeconds();
+							var year=yyyy+"-"+mm+"-"+dd+" "+time+":"+minutes+":"+seconds;
+							$.ajax({
+						        type : 'POST',
+						        url :'<%=request.getContextPath()%>/servlet/service/LEAD_CONVERTER_NodeAdd_Email.campaignuseradd',
+						       data: {
+						    	   user : user,
+						    	   year:year,
+						    	   type:type,
+						    	   remoteuser:remoteuser,
+						    	   distance:distance
+
+						             },
+								success: function (dataa) {
+									alert(dataa);
+											}
+							});
+						}				
+		}
+	}
+</script>
+<script type="text/javascript">
+function warmfun(clicked_id){
+	var remoteuser= '<%=request.getRemoteUser()%>';
+
+var type="Warm";
+	var num= parseInt(document.getElementById("numwarm").value);
+		//noofcampaign
+		var distance=document.getElementById("distancewarm").value;
+		num = parseInt(num) + 1;		
+	var res = clicked_id.split("configurewarm");
+	var numconfig=parseInt(res[1]);
+	for(var i=1; i<num; i++){
+	var uservalue=document.getElementById("usercampaignvaluewarm"+i).value;
+	alert(uservalue);
+	var currentdate=new Date();
+	var year="";
+	var date=new Date(document.getElementById("datetimepickerwarm").value);
+  var result =new Date(date);
+
+				if(i==numconfig){
+				document.getElementById("user").value=uservalue;
+				currentdate=result.setDate(result.getDate()+ parseInt((numconfig-1)*document.getElementById("distancewarm").value));
+					var user=document.getElementById("user").value;
+				var todayTime = new Date(currentdate);
+				var dd = todayTime.getDate();
+				var mm = todayTime.getMonth()+1;
+				var yyyy = todayTime.getFullYear();
+				var time =todayTime.getHours();
+				var minutes=todayTime.getMinutes();
+				var seconds=todayTime.getSeconds();
+						var year=yyyy+"-"+mm+"-"+dd+" "+time+":"+minutes+":"+seconds;
+						$.ajax({
+					        type : 'POST',
+					        url :'<%=request.getContextPath()%>/servlet/service/LEAD_CONVERTER_NodeAdd_Email.campaignuseradd',
+					       data: {
+					    	   user : user,
+					    	   year:year,
+					    	   type:type,
+					    	   remoteuser:remoteuser,
+					    	   distance:distance
+					             },
+							success: function (dataa) {
+								alert(dataa);
+										}
+						});					
+					}
+	}
+}
+</script>
+<script type="text/javascript">
+function enticefun(clicked_id){
+	
+var type="Entice";
+var remoteuser= '<%=request.getRemoteUser()%>';
+
+	var num= parseInt(document.getElementById("numentice").value);
+	var distance=document.getElementById("distanceentice").value;
+
+		//noofcampaign
+		num = parseInt(num) + 1;		
+	var res = clicked_id.split("configureentice");
+	var numconfig=parseInt(res[1]);
+	for(var i=1; i<num; i++){
+	var uservalue=document.getElementById("usercampaignvalueentice"+i).value;
+	alert(uservalue);
+		var currentdate=new Date();
+		var year="";
+		var date=new Date(document.getElementById("datetimepickerentice").value);
+	  var result =new Date(date);
+
+					if(i==numconfig){
+					document.getElementById("user").value=uservalue;
+
+					currentdate=result.setDate(result.getDate()+ parseInt((numconfig-1)*document.getElementById("distanceentice").value));
+						var user=document.getElementById("user").value;
+					var todayTime = new Date(currentdate);
+					var dd = todayTime.getDate();
+					var mm = todayTime.getMonth()+1;
+					var yyyy = todayTime.getFullYear();
+					var time =todayTime.getHours();
+					var minutes=todayTime.getMinutes();
+					var seconds=todayTime.getSeconds();
+							var year=yyyy+"-"+mm+"-"+dd+" "+time+":"+minutes+":"+seconds;
+							$.ajax({
+						        type : 'POST',
+						        url :'<%=request.getContextPath()%>/servlet/service/LEAD_CONVERTER_NodeAdd_Email.campaignuseradd',
+						       data: {
+						    	   user : user,
+						    	   year:year,
+						    	   type:type,
+						    	   remoteuser:remoteuser,
+						    	   distance:distance
+						             },
+								success: function (dataa) {
+									alert(dataa);
+											}
+							});
+						}				
+		}
+	}
+
+	
+</script>
+<script type="text/javascript">
+function convertfun(clicked_id){
+	
+var type="Convert"; 
+var remoteuser= '<%=request.getRemoteUser()%>';
+
+var num= parseInt(document.getElementById("numconvert").value);
+		//noofcampaign
+			var distance=document.getElementById("distanceconvert").value;
+
+		num = parseInt(num) + 1;		
+	var res = clicked_id.split("configureconvert");
+	var numconfig=parseInt(res[1]);
+	for(var i=1; i<num; i++){
+	var uservalue=document.getElementById("usercampaignvalueconvert"+i).value;
+	alert(uservalue);
+		var currentdate=new Date();
+		var year="";
+		var date=new Date(document.getElementById("datetimepickerconvert").value);
+	  var result =new Date(date);
+
+					if(i==numconfig){
+					document.getElementById("user").value=uservalue;
+
+					currentdate=result.setDate(result.getDate()+ parseInt((numconfig-1)*document.getElementById("distanceconvert").value));
+						var user=document.getElementById("user").value;
+					var todayTime = new Date(currentdate);
+					var dd = todayTime.getDate();
+					var mm = todayTime.getMonth()+1;
+					var yyyy = todayTime.getFullYear();
+					var time =todayTime.getHours();
+					var minutes=todayTime.getMinutes();
+					var seconds=todayTime.getSeconds();
+							var year=yyyy+"-"+mm+"-"+dd+" "+time+":"+minutes+":"+seconds;
+							$.ajax({
+						        type : 'POST',
+						        url :'<%=request.getContextPath()%>/servlet/service/LEAD_CONVERTER_NodeAdd_Email.campaignuseradd',
+						       data: {
+						    	   user : user,
+						    	   year:year,
+						    	   type:type,
+						    	   remoteuser:remoteuser,
+						    	   distance:distance
+						             },
+								success: function (dataa) {
+									alert(dataa);
+											}
+							});
+						}				
+		}
+	}
+</script>
+
+		<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+	<link rel="stylesheet"
+		href="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css">
+	<script src="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js"></script>
+  
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en">
+
+
+<head>
+  <title>Admin</title>
+
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="<%=request.getContextPath()%>/apps/LeadConverterJs/type.js"></script>
+    
+<script type="text/javascript">
+    function standardtemplate() {
+        var editor=document.getElementById("standardeditor").innerHTML;
+var subjectvalue=document.getElementById("standardtemplatesubject").value;
+var type=document.getElementById("type").value;
+
+
+$.ajax({
+
+type: 'POST',
+url :'http://35.221.160.146:8082/portal//servlet/service/LEAD_CONVERTER_NodeAdd_Email.StandardTemplate',
+
+data: {
+ckcontent : editor,
+type:type,
+subject:subjectvalue
+},
+success: function (dataa) {
+
+alert(dataa);
+
+
+}
+
+});
+
+
+}
+    
+    
+    
+    </script>
+
+</head>
+<body>
+<div class="col-md-6" style="margin-bottom:2%;">
+
+    <div class="col-md-6">
+	<input type="text" id="standardtemplatesubject" name="standardtemplatesubject" placeholder="write your subject here" class="form-control input-lg"> 
+<select id="type" name="type">
+  <option value="Explore">Explore</option>
+  <option value="Inform">Inform</option>
+  <option value="Warm">Warm</option>
+  <option value="Entice">Entice</option>
+    <option value="Convert">Convert</option>
+  
+</select>
+<br>
+<div class="col-md-12" style="border:solid 1px #999; min-height:578px;  margin-bottom:2%; background-color:#fff; overflow:hidden; display:inline-block;">
+<div id="standardeditor" contenteditable="true" style="min-height:578px; height:590px; overflow-y: scroll"></div>  
+</div>
+<div class="col-md-12">
+ <div class="col-md-12">
+<input type="file" id="selectedFiletemplate1" style="display: none;" />
+<input type="button" value="Upload Template"  class="btn btn-default new-btn btn-block" onclick="document.getElementById('selectedFiletemplate1').click();" />
+<script>
+$(document).ready(function() {
+		var fileInput = document.getElementById('selectedFiletemplate1');
+		var fileDisplayArea = document.getElementById('standardeditor');
+
+		fileInput.addEventListener('change', function(e) {
+			var file = fileInput.files[0];
+			var textType = /html.*/;
+
+			if (file.type.match(textType)) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					fileDisplayArea.innerHTML = reader.result;
+				}
+
+				reader.readAsText(file);	
+			} else {
+				fileDisplayArea.innerHTML = "File type not supported!"
+			}
+		});
+})
+</script>
+<!-- DISPLAY UPLOADED FILE IN EDITOR -->
+
+
+</div>
+</div>
+<div class="col-md-12 save-buttons" style="margin-top:10px;">
+   <div class="col-md-4">
+ <button type="submit" class="btn btn-default new-btn btn-block">Back</button>
+</div>                                     
+<div class="col-md-4">
+ <button type="submit" class="btn btn-default new-btn btn-block">Cancel</button>
+ </div>
+<div class="col-md-4">
+<input type="button" value="Next"   onclick="standardtemplate()"/>
+</div>
+	</div>  
+<!-- buttons ends -->
+
+
+													</div>
+													</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+

@@ -1,0 +1,2447 @@
+<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+<meta name="description" content="bootstrap admin template">
+<meta name="author" content="">
+<title>Demo</title>
+<link rel="apple-touch-icon"
+	href="<%=request.getContextPath()%>/apps/LeadConverterImg/apple-touch-icon.png">
+<link rel="shortcut icon"
+	href="<%=request.getContextPath()%>/apps/LeadConverterImg/favicon.ico">
+<!-- Stylesheets -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/apps/LeadConverterCss/bootstrap.min599c.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/apps/LeadConverterCss/bootstrap-extend.min599c.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/apps/LeadConverterCss/site.min599c.css">
+<!-- .s -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/apps/LeadConverterCss/animsition.min599c.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/apps/LeadConverterCss/asScrollable.min599c.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/apps/LeadConverterCss/switchery.min599c.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/apps/LeadConverterCss/introjs.min599c.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/apps/LeadConverterCss/slidePanel.min599c.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/apps/LeadConverterCss/flag-icon.min599c.css">
+<!-- Plugins For This Page -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/apps/LeadConverterCss/jquery-wizard.min599c.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/apps/LeadConverterCss/formValidation.min599c.css">
+
+<!-- Fonts -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/apps/LeadConverterCss/web-icons.min599c.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/apps/LeadConverterCss/brand-icons.min599c.css">
+<link rel='stylesheet'
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/apps/LeadConverterCss/leadconverter.css">
+<!-- Scripts -->
+<script
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/movefunction.js"></script>
+
+<script
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/breakpoints.min599c.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+	type="text/javascript"></script>
+<script
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/jqueryfunction.js"></script>
+<script src="<%=request.getContextPath()%>/apps/LeadConverterJs/type.js"></script>
+<link
+	href="<%=request.getContextPath()%>/apps/LeadConverterCss/style.css"
+	rel="stylesheet" type="text/css" />
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/cufon-yui.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/arial.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/cuf_run.js"></script>
+<script rel="stylesheet"
+	src="<%=request.getContextPath()%>/apps/LeadConverterCss/bootstrap.min.css"></script>
+<script
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/amcharts.js"></script>
+<script
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/serial.js"></script>
+<script
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/export.min.js"></script>
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/apps/LeadConverterCss/export.css"
+	type="text/css" media="all" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/apps/LeadConverterCss/bootstrap.min.css">
+<script
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/jquery.min.js"></script>
+<script
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/bootstrap.min.js"></script>
+<script
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/light.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/option-fill-color.js"></script>
+<script src="https://cdn.ckeditor.com/4.9.0/standard/ckeditor.js"></script>
+<script
+	src="<%=request.getContextPath()%>/apps/LeadConverterJs/uploadfile.js"></script>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
+<!-- Scripts -->
+<script>
+$(function () {
+	$('#datetimepicker1').datetimepicker({
+	    defaultDate: new Date(),
+	    format: 'YYYY-MM-DD hh:mm:ss A',
+	    sideBySide: true
+	});
+	 });
+
+</script>
+
+<script>
+    Breakpoints();
+  </script>
+
+<script type="text/javascript">
+var mainjson=null;
+var JSonArray=null;
+var JSONObject=null;
+function searching(){
+var listname= document.getElementById("userlist").value;
+ alert(listname);
+     $.ajax({
+            type : 'POST',
+            url :'<%=request.getContextPath()%>/servlet/service/Search.list',
+           data: {
+            listnameresult : listname
+            },
+   success: function (data) {
+	   alert(data);
+ mainjson= JSON.parse(data);
+ var aTag = "";
+ for(var i=0;i<mainjson.JsonArray.length;i++){
+ var array=mainjson.JsonArray[i];
+ var listId = "'" + array.List_id + "'";
+  var listname="'" + array.List_Name + "'";
+  aTag = aTag + '<a style=cursor:pointer onclick=OpenChatBox("'+array.List_id+'","'+array.List_Name+'")>'+array.List_Name+'</a><br>';
+ 
+ } 
+ 
+ var ss= document.getElementById("show").innerHTML = aTag;
+ 
+ }
+       });
+     }
+	 function OpenChatBox(id,name) {
+	 
+ var id1=id;
+ var name1=name;
+document.getElementById("listn").value =name1;
+document.getElementById("listi").value =id1;
+  }
+      
+</script>
+</head>
+<body class="animsition ">
+
+	<!-- Page -->
+	<div class="page">
+		<div class="page-content container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<!-- Panel Wizard Form Container -->
+					<div class="panel" id="exampleWizardForm">
+						<div class="panel-body">
+							<!-- Steps -->
+							<div class="pearls row" style="margin-left: 175px;">
+								<div class="pearl current col-2">
+									<div class="pearl-icon">
+										<i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+									</div>
+									<span class="pearl-title">Upload a List</span>
+								</div>
+								<div class="pearl col-2">
+									<div class="pearl-icon">
+										<i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+									</div>
+									<span class="pearl-title">Choose Funnel</span>
+								</div>
+								<div class="pearl col-2">
+									<div class="pearl-icon">
+										<i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+									</div>
+									<span class="pearl-title">Choose WorkFlow</span>
+								</div>
+								<div class="pearl col-2">
+									<div class="pearl-icon">
+										<i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+									</div>
+									<span class="pearl-title">Choose your template</span>
+								</div>
+								<div class="pearl col-2">
+									<div class="pearl-icon">
+										<i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+									</div>
+									<span class="pearl-title">Analytics</span>
+								</div>
+							</div>
+							<!-- End Steps -->
+
+							<!-- Wizard Content -->
+							<form method="post" id="emailid"
+								action="<%=request.getContextPath()%>/servlet/service/SendJsonDataLeadConverter.Email"
+								enctype="multipart/form-data" class="form-horizontal">
+								<div class="wizard-content">
+									<div class="wizard-pane active" id="exampleAccountOne"
+										role="tabpanel">
+										<div class="product-listing "
+											style="width: 80%; margin-left: 135px; margin-top: 100px;"
+											data-toggle="collapse" href="#collapseExample"
+											aria-expanded="false" aria-controls="collapseExample">
+											<div class="row">
+												<div class="col-lg-3 col-md-3 col-sm-3"
+													style="margin-left: -55px;">
+													<img
+														src="<%=request.getContextPath()%>/apps/LeadConverterImg/upload-file-2.jpg"
+														class="img-responsive" style="height: 80px; float: right;">
+												</div>
+
+												<div class="col-lg-9 col-md-9 col-sm-9">
+													<div class="row">
+														<div class="col-lg-12 col-md-12 col-sm-12">
+															<span style="font-size: 25px; float: left;">Upload
+																a file</span>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-lg-12 col-md-12 col-sm-12">
+															<span style="font-size: 15px;">Upload a data file
+																that contains emails, phone numbers, Facebook user IDs
+																or mobile advertiser IDs.</span>
+														</div>
+													</div>
+
+												</div>
+											</div>
+										</div>
+										<div class="container">
+											<div class="row">
+												<div class="col-md-10 col-md-offset-1">
+													<div class="collapse" id="collapseExample">
+														<div class="well">
+															<center>
+																<ul
+																	class=" nav-j nav md-pills nav-justified pills-secondary">
+																	<li class="nav-item"><a
+																		class=" nav-11 nav-1 nav-link active"
+																		data-toggle="tab" href="#panel11" role="tab">Email</a>
+																	</li>
+																	<li class="nav-item"><a
+																		class=" nav-11 nav-2 nav-link" data-toggle="tab"
+																		href="#panel12" role="tab">SMS</a></li>
+																</ul>
+															</center>
+															<!-- Tab panels -->
+															<div class="tab-content">
+
+																<!--Panel 1-->
+																<div class="tab-pane fade in show active" id="panel11"
+																	role="tabpanel">
+																	<br>
+
+																	<div class="row upload-new-class">
+																		<div class="col-md-4 upload-options">
+																			<ul style="list-style: none;">
+																				<li><input type="radio" name="uploadnew" id=""
+																					value="uploadnew" /><label class="mleft" for="r1">Upload
+																						New</label></li>
+																				<li><input type="radio" name="uploadnew" id=""
+																					value="existing" /><label class="mleft" for="r1">Select
+																						Existing</label></li>
+																			</ul>
+																		</div>
+																		<div class="col-md-6">
+																			<div class="form-group">
+																				<label for="exampleInputEmail1">List Name*</label> <input
+																					type="text" class="form-control" id="listname"
+																					name="listname" placeholder="List Name"> <span
+																					id="listspan" style="display: none">list
+																					already exists </span>
+																			</div>
+
+																			<div class="row">
+																				<div class="col-md-6">
+																					<div class="form-group">
+																						<label for="exampleInputPassword1">First
+																							Name*</label> <input type="text" class="form-control"
+																							id="exampleInputPassword1"
+																							placeholder="First Name">
+																					</div>
+																				</div>
+																				<div class="col-md-6">
+																					<div class="form-group">
+																						<label for="exampleInputPassword1">Last
+																							Name*</label> <input type="text" class="form-control"
+																							id="exampleInputPassword1"
+																							placeholder="Last Name">
+																					</div>
+																				</div>
+																			</div>
+																			<div class="form-group">
+																				<label for="exampleInputEmail1">Email*</label> <input
+																					type="email" class="form-control"
+																					id="exampleInputEmail1" placeholder="Email">
+																			</div>
+																			<button type="submit" class="btn btn-default new-btn">Add
+																				New</button>
+																			<br />
+
+																			<div class="row">
+																				<div class="col-md-12">
+																					<div class="up-box">
+																						<h4>Upload File</h4>
+																						<div class="row">
+																							<div class="col-md-6">
+
+																								<div class="fileUpload btn btn-default new-btn">
+																									<span>Upload CSV</span> <input id="uploadBtn"
+																										name="file" type="file" class="upload" />
+																								</div>
+																								<input id="input-uploadFile"
+																									style="background-color: #f5f5f5; border: none;" />
+
+																								<!-- <p class="up-boxp">+ Upload File</p> -->
+																							</div>
+																							<div class="col-md-6">
+																								<button type="submit"
+																									class="btn btn-default new-btn btn-block"
+																									style="margin-top: 12px;">Upload From</button>
+																								<!-- <p class="up-boxp">+ Upload From <img src="img.png"></p> -->
+																								<img
+																									src="<%=request.getContextPath()%>/apps/LeadConverterImg/img.png">
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-md-2 save-buttons">
+																			<button type="submit" id="savefirstpage"
+																				class="btn btn-default new-btn btn-block">Save</button>
+																			<button type="submit"
+																				class="btn btn-default new-btn btn-block">Cancel</button>
+																			<button type="submit"
+																				class="btn btn-default new-btn btn-block">Next</button>
+							</form>
+						</div>
+					</div>
+					<!-- select existing form -->
+					<div class="row  existing-tab hidden">
+						<div class="col-md-4 upload-options ">
+							<ul style="list-style: none;">
+								<li><input type="radio" name="uploadnew2" id=""
+									value="new2" /><label class="mleft" for="r1">Upload
+										New</label></li>
+								<li><input type="radio" name="uploadnew2" id=""
+									value="existing2" checked="checked" /><label class="mleft"
+									for="r1">Select Existing</label></li>
+							</ul>
+						</div>
+						<div class="col-md-6">
+							<form method="post" id="emailid"
+								action="<%=request.getContextPath()%>/servlet/service/SendJsonDataLeadConverter.searchuser"
+								enctype="multipart/form-data" class="form-horizontal">
+								<div class="row">
+									<div class="form-group col-md-7" id="show">
+										<label for="exampleInputEmail1">Search List</label> <input
+											type="text" class="form-control" id="userlist"
+											placeholder="List Name">
+									</div>
+									<div class="form-group col-md-3">
+										<button type="button" onclick="searching()"
+											class="btn btn-default new-btn search-btn"
+											style="margin-left: -27px">Search</button>
+									</div>
+									<div class="form-group col-md-2">
+										<button type="submit"
+											class="btn btn-default new-btn search-btn"
+											style="margin-left: -24px">Edit</button>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">List Name*</label> <input
+										type="text" name="listn" class="form-control" id="listn"
+										placeholder="List Name"> <input type="hidden"
+										name="listi" class="form-control" id="listi"
+										placeholder="List id">
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="exampleInputPassword1">First Name*</label> <input
+												type="text" class="form-control" id="exampleInputPassword1"
+												placeholder="First Name">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="exampleInputPassword1">Last Name*</label> <input
+												type="text" class="form-control" id="exampleInputPassword1"
+												placeholder="Last Name">
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">Email*</label> <input
+										type="email" class="form-control" id="exampleInputEmail1"
+										placeholder="Email">
+								</div>
+								<button type="submit" class="btn btn-default new-btn">Add
+									New</button>
+								<br />
+								<div class="row ">
+									<div class="col-md-12">
+										<div class="up-box">
+											<h4>Upload File</h4>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="fileUpload btn btn-default new-btn">
+														<span>Upload CSV</span> <input id="uploadBtn" name="file"
+															type="file" class="upload" />
+													</div>
+													<input id="input-uploadFile"
+														style="background-color: #f5f5f5; border: none;" />
+												</div>
+												<div class="col-md-6">
+													<p class="up-boxp">
+														+ Upload From <img
+															src="<%=request.getContextPath()%>/apps/LeadConverterImg/img.png">
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+						</div>
+						<div class="col-md-2 save-buttons">
+
+							<button type="submit" id="savesecondpage"
+								class="btn btn-default new-btn btn-block">Save</button>
+							<button type="submit" class="btn btn-default new-btn btn-block">Cancel</button>
+							<button type="submit" class="btn btn-default new-btn btn-block">Next</button>
+
+							</form>
+
+						</div>
+					</div>
+				</div>
+				<!-- end select existing -->
+				<!-- </div> -->
+				<!--/.Panel 1-->
+
+				<div class="tab-pane fade" id="panel12" role="tabpanel">
+					<br>
+
+					<div class="row upload-new-class-sms">
+						<div class="col-md-4 upload-options">
+							<ul style="list-style: none;">
+								<li><input type="radio" name="uploadnew-sms" id=""
+									value="uploadnewsms" checked="checked" /><label class="mleft"
+									for="r1">Upload New</label></li>
+								<li><input type="radio" name="uploadnew-sms" id=""
+									value="existingsms" /><label class="mleft" for="r1">Select
+										Existing</label></li>
+							</ul>
+						</div>
+						<div class="col-md-6">
+							<form>
+								<div class="form-group">
+									<label for="exampleInputEmail1">List Name*</label> <input
+										type="text" class="form-control" id="exampleInputEmail1"
+										placeholder="List Name">
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="exampleInputEmail1">First Name*</label> <input
+												type="text" class="form-control" id="exampleInputEmail1"
+												placeholder="First Name">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="exampleInputPassword1">Last Name*</label> <input
+												type="text" class="form-control" id="exampleInputPassword1"
+												placeholder="Last Name">
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">Mobile Number*</label> <input
+										type="text" class="form-control" id="exampleInputEmail1"
+										placeholder="Mobile Number">
+								</div>
+								<button type="submit" class="btn btn-default new-btn">Add
+									New</button>
+							</form>
+							<br />
+							<form method="post" id="emailid"
+								action="<%=request.getContextPath()%>/servlet/service/SendJsonDataLeadConverter.Phone"
+								enctype="multipart/form-data" class="form-horizontal">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="up-box">
+											<h4>Upload File</h4>
+											<div class="row">
+												<div class="col-md-6">
+													<!-- <p class="up-boxp"> + Upload CSV</p> -->
+													<!-- <label for="file-upload" class="custom-file-upload"> -->
+													<!-- Upload CSV -->
+													<!-- </label> -->
+													<!-- <input id="file-upload" type="file"/> -->
+													<div class="fileUpload btn btn-default new-btn">
+														<span>Upload CSV</span> <input id="uploadBtn" name="file"
+															type="file" class="upload" />
+													</div>
+													<input id="input-uploadFile"
+														style="background-color: #f5f5f5; border: none;" />
+													<!-- <p class="up-boxp">+ Upload File</p> -->
+												</div>
+												<div class="col-md-6">
+													<button type="submit"
+														class="btn btn-default new-btn btn-block"
+														style="margin-top: 12px;">Upload From</button>
+													<!-- <p class="up-boxp">+ Upload From <img src="img.png"></p> -->
+													<img
+														src="<%=request.getContextPath()%>/apps/LeadConverterImg/img.png">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+						</div>
+						<div class="col-md-2 save-buttons">
+
+							<button type="submit" class="btn btn-default new-btn btn-block">Save</button>
+							<button type="submit" class="btn btn-default new-btn btn-block">Cancel</button>
+							<button type="submit" class="btn btn-default new-btn btn-block">Next</button>
+							</form>
+
+						</div>
+					</div>
+					<!-- select existing form sms -->
+					<div class="row  existing-tab-sms hidden">
+						<div class="col-md-4 upload-options">
+							<ul style="list-style: none;">
+								<li><input type="radio" name="uploadnew2-sms" id=""
+									value="new2sms" /><label class="mleft" for="r1">Upload
+										New</label></li>
+								<li><input type="radio" name="uploadnew2-sms" id=""
+									value="existing2sms" checked="checked" /><label class="mleft"
+									for="r1">Select Existing</label></li>
+							</ul>
+						</div>
+						<div class="col-md-6">
+							<form>
+								<div class="row">
+									<div class="form-group col-md-7">
+										<label for="exampleInputEmail1">Search List</label> <input
+											type="text" class="form-control" id="exampleInputEmail1"
+											placeholder="List Name">
+									</div>
+									<div class="form-group col-md-3">
+										<button type="submit"
+											class="btn btn-default new-btn search-btn"
+											style="margin-left: -27px">Search</button>
+									</div>
+									<div class="form-group col-md-2">
+										<button type="submit"
+											class="btn btn-default new-btn search-btn"
+											style="margin-left: -24px">Edit</button>
+									</div>
+								</div>
+								<!-- </div> 
+										  <div class="form-group">
+											<label for="exampleInputEmail1">List Name*</label>
+											<input type="text" class="form-control" id="exampleInputEmail1" placeholder="List Name">
+										  </div>
+										  -->
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="exampleInputPassword1">First Name*</label> <input
+												type="text" class="form-control" id="exampleInputPassword1"
+												placeholder="First Name" name="firstnamesms">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="exampleInputPassword1">Last Name*</label> <input
+												type="text" class="form-control" id="exampleInputPassword1"
+												placeholder="Last Name" name="lastnamesms">
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">Mobile Number*</label> <input
+										type="text" class="form-control" id="exampleInputEmail1"
+										placeholder="Mobile Number" name="mobilenumbersms">
+								</div>
+								<button type="submit" class="btn btn-default new-btn">Add
+									New</button>
+							</form>
+							<br />
+
+							<div class="row ">
+								<div class="col-md-12">
+									<div class="up-box">
+										<h4>Upload File</h4>
+										<div class="row">
+											<div class="col-md-6">
+
+												<div class="fileUpload btn btn-default new-btn">
+													<span>Upload CSV</span> <input id="uploadBtn-sms-search"
+														name="filename" type="file" class="upload" />
+												</div>
+												<input id="input-uploadBtn-sms-search"
+													style="background-color: #f5f5f5; border: none;"
+													class="input-upload" />
+
+												<!-- <p class="up-boxp">+ Upload File</p> -->
+											</div>
+
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2 save-buttons">
+							<button type="submit" class="btn btn-default new-btn btn-block">Save</button>
+							<button type="submit" class="btn btn-default new-btn btn-block">Cancel</button>
+							<button type="submit" class="btn btn-default new-btn btn-block">Next</button>
+
+							</form>
+						</div>
+					</div>
+					<!-- end select existing sms -->
+				</div>
+				<!--/.Panel 2-->
+			</div>
+		</div>
+	</div>
+	</div>
+	</div>
+	</div>
+
+	<div class="product-listing "
+		style="width: 80%; margin-left: 135px; margin-top: 20px;"
+		data-toggle="collapse" href="#collapseExample1" aria-expanded="false"
+		aria-controls="collapseExample">
+		<div class="row">
+			<div class="col-lg-3 col-md-3 col-sm-3" style="margin-left: -55px;">
+				<img
+					src="<%=request.getContextPath()%>/apps/LeadConverterImg/funnel2.jpg"
+					class="img-responsive" style="height: 80px; float: right;">
+			</div>
+			<div class="col-lg-9 col-md-9 col-sm-9">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12">
+						<span style="font-size: 25px; float: left;">Select Funnel</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12">
+						<span style="font-size: 15px;">Copy and paste emails, phone
+							numbers, Facebook user IDs or IDs of your customers and create a
+							custom.</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="collapse" id="collapseExample1">
+					<div class="well">
+						<div class="row">
+							<style>
+.btn1.active {
+	background-color: #630;
+}
+</style>
+							<div class="btn-group text-center" role="group" aria-label="...">
+								<button type="button" class="btn1 btn-default" id="b1">
+									<img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/crop1.png"
+										class="img-responsive" height="150" width="150">
+									<h4>1 Month</h4>
+								</button>
+								<button type="button" class="btn1 btn-default" id="b2">
+									<img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/crop1.png"
+										class="img-responsive" height="150" width="150">
+									<h4>3 Month</h4>
+								</button>
+								<button type="button" class="btn1 btn-default" id="b3">
+									<img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/crop1.png"
+										class="img-responsive" height="150" width="150">
+									<h4>6 Month</h4>
+								</button>
+								<button type="button" class="btn1 btn-default" id="b4">
+									<img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/crop1.png"
+										class="img-responsive" height="150" width="150">
+									<h4>1 Year</h4>
+								</button>
+								<button type="button" class="btn1 btn-default" id="b5">
+									<img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/crop1.png"
+										class="img-responsive" height="150" width="150">
+									<h4>Customize</h4>
+								</button>
+							</div>
+							<script>
+  $('.btn-group button').on('click', function(){
+    $(this).siblings().removeClass('active')
+    $(this).addClass('active');
+})
+  </script>
+							<!-- add buttons -->
+							<div class="col-md-12 save-buttons" style="margin-top: 10px;">
+								<div class="col-md-3">
+									<button type="submit" class="btn btn-default new-btn btn-block">Select</button>
+								</div>
+								<div class="col-md-3">
+									<button type="submit" class="btn btn-default new-btn btn-block">Save</button>
+								</div>
+								<div class="col-md-3">
+									<button type="submit" class="btn btn-default new-btn btn-block">Cancel</button>
+								</div>
+								<div class="col-md-3">
+									<button type="submit" class="btn btn-default new-btn btn-block">Next</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="product-listing "
+		style="width: 80%; margin-left: 135px; margin-top: 20px;"
+		data-toggle="collapse" href="#collapseExample2" aria-expanded="false"
+		aria-controls="collapseExample">
+		<div class="row">
+			<div class="col-lg-3 col-md-3 col-sm-3" style="margin-left: -55px;">
+				<img
+					src="<%=request.getContextPath()%>/apps/LeadConverterImg/template-icon.png"
+					class="img-responsive" style="height: 80px; float: right;">
+			</div>
+			<div class="col-lg-9 col-md-9 col-sm-9">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12">
+						<span style="font-size: 25px; float: left;">Select
+							Templates</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12">
+						<span style="font-size: 15px;">Import a customer list from
+							a third-party email service.</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<style>
+/* for centering tabs */
+.center-pills {
+	display: flex;
+	justify-content: center;
+}
+</style>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="collapse" id="collapseExample2">
+					<div class="well">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="tabbable">
+									<ul class="nav nav-tabs center-pills">
+										<li class="active" id="explore"><a href="#Explore"
+											id="explorevalue" data-toggle="tab">Explore</a></li>
+										<li id="inform"><a href="#Inform" id="informvalue"
+											data-toggle="tab">Inform</a></li>
+										<li id="warm"><a href="#Warm" id="warmvalue"
+											data-toggle="tab">Warm</a></li>
+										<li id="entice"><a href="#Entice" id="enticevalue"
+											data-toggle="tab">Entice</a></li>
+										<li id="convert"><a href="#Convert" id="convertvalue"
+											data-toggle="tab">Convert</a></li>
+									</ul>
+									<div class="tab-content" style="margin-top: 10px;">
+										<div class="tab-pane active" id="Explore">
+											<div class="col-md-3">
+												<div class="row">
+													<h4>List of Explore Campaign Subjects</h4>
+													<br>
+													<div class="optionBox">
+														<div class="block" id="exploreDyna"></div>
+													</div>
+													<script>
+$('.add').click(function() {
+    $('.block:last').before('<div class="block"><div id="d3" style="width:150px; overflow:hidden; border:1px solid #000;"> Testing div tag here <img src="<%=request.getContextPath()%>/apps/LeadConverterImg/dropbox.png" height="60" width="60"/></div> <span class="remove label label-danger" style="cursor:pointer;">Remove</span></div>');
+});
+$('.optionBox').on('click','.remove',function() {
+ 	$(this).parent().remove();
+});
+</script>
+													<!-- iframe/div ends -->
+												</div>
+											</div>
+											<!-- Dynamically add Frame ends -->
+											<div class="col-md-6" style="margin-bottom: 2%;">
+												<form method="post" action="#"></form>
+
+												<input type="text" id="subject" name="subject"
+													placeholder="write your subject here"
+													class="form-control input-lg">
+											</div>
+											<div class="col-md-6">
+
+												<div class="col-md-12"
+													style="border: solid 1px #999; min-height: 578px; margin-bottom: 2%; background-color: #fff;">
+													<div id="editor1" contenteditable="true"
+														style="min-height: 578px; height: 590px; overflow-y: scroll"></div>
+												</div>
+												<div class="col-md-12">
+													<div class='col-md-6'>
+														<div class="form-group">
+															<div class='input-group date' id='datetimepicker1'>
+																<input type='text' class="form-control"
+																	id="datetimepicker" /> <span class="input-group-addon">
+																	<span class="glyphicon glyphicon-calendar"></span>
+																</span>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-12">
+														<input type="file" id="selectedFile1"
+															style="display: none;" /> <input type="button"
+															value="Upload Template"
+															class="btn btn-default new-btn btn-block"
+															onclick="document.getElementById('selectedFile1').click();" />
+														<!-- Get your iframe here -->
+														<script type="text/javascript">
+	function move(type,node,editorId) {
+  var remoteuser= '<%=request.getRemoteUser()%>';
+	$.ajax({
+        type : 'POST',
+        url :'<%=request.getContextPath()%>/servlet/service/LEAD_CONVERTER_NodeAdd_Email.displaydata',
+       data: {
+    	   remoteuser : remoteuser,
+    	   type:type,
+    	   node:node
+             },
+		success: function (dataa) {
+			alert("Display_Data");
+			alert(dataa);
+			  document.getElementById(editorId).innerHTML = dataa;
+					}
+	});
+
+	}
+	</script>
+
+														<script type="text/javascript">
+
+ function standardmove(node,editorId) {
+ $.ajax({
+        type : 'POST',
+        url :'<%=request.getContextPath()%>/servlet/service/LEAD_CONVERTER_NodeAdd_Email.displaysubjectdata',
+        data: {
+        	   node:node
+              },
+        success: function (data) {
+			alert("Display_Subject_Data");
+
+         alert(data);
+     document.getElementById(editorId).innerHTML = data;
+            }
+   
+     
+ });
+
+ }
+ </script>
+														<script>
+$(document).ready(function() {
+		var fileInput = document.getElementById('selectedFile1');
+		var fileDisplayArea = document.getElementById('editor1');
+
+		fileInput.addEventListener('change', function(e) {
+			var file = fileInput.files[0];
+			var textType = /html.*/;
+
+			if (file.type.match(textType)) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					fileDisplayArea.innerHTML = reader.result;
+				}
+
+				reader.readAsText(file);	
+			} else {
+				fileDisplayArea.innerHTML = "File type not supported!"
+			}
+		});
+})
+</script>
+													</div>
+												</div>
+												<div class="col-md-12 save-buttons"
+													style="margin-top: 10px;">
+													<div class="col-md-4">
+														<button type="submit"
+															class="btn btn-default new-btn btn-block">Back</button>
+													</div>
+													<div class="col-md-4">
+														<button type="submit"
+															class="btn btn-default new-btn btn-block">Cancel</button>
+													</div>
+													<div class="col-md-4">
+														<input type="button" value="Next" name=""
+															onclick="explore()" /> <input type="hidden"
+															name="list_id" id="list_id" value="">
+
+
+													</div>
+												</div>
+											</div>
+
+											<div class="col-md-3" style="margin-bottom: 1.5%;">
+												<!-- search box -->
+												<form class="navbar-form" role="search">
+													<div class="input-group add-on">
+														<input class="form-control" placeholder="Search"
+															name="srch-term" id="srch-term" type="text">
+														<div class="input-group-btn">
+															<button class="btn btn-default" type="submit">
+																<i class="glyphicon glyphicon-search"></i>
+															</button>
+														</div>
+													</div>
+												</form>
+												<!-- search box ends -->
+											</div>
+
+											<!-- sidebar -->
+											<div class="col-md-3">
+
+												<div class="dropdown">
+													<button class="btn btn-secondary dropdown-toggle"
+														type="button" id="dropdownMenuButton"
+														data-toggle="dropdown" aria-haspopup="true"
+														aria-expanded="false">
+														<span>SELECT DOMAINS</span>
+													</button>
+													<div class="dropdown-menu"
+														aria-labelledby="dropdownMenuButton">
+														<a class="dropdown-item" href="#">All</a> <a
+															class="dropdown-item" href="#">Real Estate</a> <a
+															class="dropdown-item" href="#">Telecom</a> <a
+															class="dropdown-item" href="#">Banking</a> <a
+															class="dropdown-item" href="#">Retail</a> <a
+															class="dropdown-item" href="#">Transport</a> <a
+															class="dropdown-item" href="#">Other</a>
+													</div>
+													<!-- ADDING TEMPLATES -->
+													<div class="col-md-3" style="margin-top: 2%">
+														<div class="block" id="standardtemplateexplore"></div>
+
+
+
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="tab-pane" id="Inform">
+											<div class="col-md-3">
+												<div class="row">
+													<h4>List of Inform Campaign Subjects</h4>
+													<br>
+													<div class="optionBox">
+														<div class="block" id="informDyna"></div>
+													</div>
+
+													<script>
+$('.add').click(function() {
+    $('.block:last').before('<div class="block"><div id="d3" style="width:150px; overflow:hidden; border:1px solid #000;"> Testing div tag here <img src="<%=request.getContextPath()%>/apps/LeadConverterImg/dropbox.png" height="60" width="60"/></div> <span class="remove label label-danger" style="cursor:pointer;">Remove</span></div>');
+});
+$('.optionBox').on('click','.remove',function() {
+ 	$(this).parent().remove();
+});
+</script>
+													<!-- iframe/div ends 	-->
+												</div>
+											</div>
+											<div class="col-md-6" style="margin-bottom: 2%;">
+												<form method="post" action="#"></form>
+
+												<input type="text" id="informsubject" name="subject"
+													placeholder="write your subject here"
+													class="form-control input-lg">
+											</div>
+											<div class="col-md-6">
+
+												<div class="col-md-12"
+													style="border: solid 1px #999; min-height: 578px; margin-bottom: 2%; background-color: #fff;">
+													<div id="editor2" contenteditable="true"
+														style="min-height: 578px; height: 590px; overflow-y: scroll"></div>
+
+												</div>
+												<div class="col-md-12">
+													<div class="col-md-12">
+														<input type="file" id="selectedFile2"
+															style="display: none;" /> <input type="button"
+															value="Upload Template"
+															class="btn btn-default new-btn btn-block"
+															onclick="document.getElementById('selectedFile2').click();" />
+													</div>
+												</div>
+
+												<div class="col-md-12 save-buttons"
+													style="margin-top: 10px;">
+													<div class="col-md-4">
+														<button type="submit"
+															class="btn btn-default new-btn btn-block">Back</button>
+													</div>
+													<div class="col-md-4">
+														<button type="submit"
+															class="btn btn-default new-btn btn-block">Cancel</button>
+													</div>
+													<div class="col-md-4">
+														<input type="button" value="Next" name=""
+															onclick="inform()" />
+													</div>
+													<input type="hidden" name="list_id" id="list_id" value="">
+
+												</div>
+												<!-- buttons ends -->
+											</div>
+											<div class="col-md-3" style="margin-bottom: 1.5%;">
+												<!-- search box -->
+												<form class="navbar-form" role="search">
+													<div class="input-group add-on">
+														<input class="form-control" placeholder="Search"
+															name="srch-term" id="srch-term" type="text">
+														<div class="input-group-btn">
+															<button class="btn btn-default" type="submit">
+																<i class="glyphicon glyphicon-search"></i>
+															</button>
+														</div>
+													</div>
+												</form>
+												<!-- search box ends -->
+											</div>
+											<!-- sidebar -->
+											<div class="col-md-3">
+
+												<div class="dropdown">
+													<button class="btn btn-secondary dropdown-toggle"
+														type="button" id="dropdownMenuButton"
+														data-toggle="dropdown" aria-haspopup="true"
+														aria-expanded="false">
+														<span>SELECT DOMAINS</span>
+													</button>
+													<div class="dropdown-menu"
+														aria-labelledby="dropdownMenuButton">
+														<a class="dropdown-item" href="#">All</a> <a
+															class="dropdown-item" href="#">Real Estate</a> <a
+															class="dropdown-item" href="#">Telecom</a> <a
+															class="dropdown-item" href="#">Banking</a> <a
+															class="dropdown-item" href="#">Retail</a> <a
+															class="dropdown-item" href="#">Transport</a> <a
+															class="dropdown-item" href="#">Other</a>
+													</div>
+													<div class="col-md-3" style="margin-top: 2%">
+														<div class="block" id="standardtemplateinform"></div>
+
+
+
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="tab-pane" id="Warm">
+											<div class="col-md-3">
+												<div class="row">
+													<h4>List of Warm Campaign Subjects</h4>
+													<br>
+													<div class="optionBox">
+														<div class="block" id="warmDyna"></div>
+													</div>
+
+													<script>
+$('.add').click(function() {
+    $('.block:last').before('<div class="block"><div id="d3" style="width:150px; overflow:hidden; border:1px solid #000;"> Testing div tag here <img src="<%=request.getContextPath()%>/apps/LeadConverterImg/dropbox.png" height="60" width="60"/></div> <span class="remove label label-danger" style="cursor:pointer;">Remove</span></div>');
+});
+$('.optionBox').on('click','.remove',function() {
+ 	$(this).parent().remove();
+});
+</script>
+													<!-- iframe/div ends -->
+												</div>
+											</div>
+											<div class="col-md-6" style="margin-bottom: 2%;">
+												<form method="post" action="#"></form>
+
+												<input type="text" id="warmsubject" name="subject"
+													placeholder="write your subject here"
+													class="form-control input-lg">
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-12"
+													style="border: solid 1px #999; min-height: 578px; margin-bottom: 2%; background-color: #fff;">
+													<div id="editor3" contenteditable="true"
+														style="min-height: 578px; height: 590px; overflow-y: scroll"></div>
+												</div>
+												<div class="col-md-12">
+													<div class="col-md-12">
+														<input type="file" id="selectedFile3"
+															style="display: none;" /> <input type="button"
+															value="Upload Template"
+															class="btn btn-default new-btn btn-block"
+															onclick="document.getElementById('selectedFile3').click();" />
+
+													</div>
+												</div>
+												<div class="col-md-12 save-buttons"
+													style="margin-top: 10px;">
+													<div class="col-md-4">
+														<button type="submit"
+															class="btn btn-default new-btn btn-block">Back</button>
+													</div>
+													<div class="col-md-4">
+														<button type="submit"
+															class="btn btn-default new-btn btn-block">Cancel</button>
+													</div>
+													<div class="col-md-4">
+														<input type="button" value="Next" name="" onclick="warm()" />
+													</div>
+													<input type="hidden" name="list_id" id="list_id" value="">
+
+												</div>
+												<!-- buttons ends -->
+											</div>
+											<div class="col-md-3" style="margin-bottom: 1.5%;">
+												<!-- search box -->
+												<form class="navbar-form" role="search">
+													<div class="input-group add-on">
+														<input class="form-control" placeholder="Search"
+															name="srch-term" id="srch-term" type="text">
+														<div class="input-group-btn">
+															<button class="btn btn-default" type="submit">
+																<i class="glyphicon glyphicon-search"></i>
+															</button>
+														</div>
+													</div>
+												</form>
+												<!-- search box ends -->
+											</div>
+											<!-- sidebar -->
+											<div class="col-md-3">
+
+												<div class="dropdown">
+													<button class="btn btn-secondary dropdown-toggle"
+														type="button" id="dropdownMenuButton"
+														data-toggle="dropdown" aria-haspopup="true"
+														aria-expanded="false">
+														<span>SELECT DOMAINS</span>
+													</button>
+													<div class="dropdown-menu"
+														aria-labelledby="dropdownMenuButton">
+														<a class="dropdown-item" href="#">All</a> <a
+															class="dropdown-item" href="#">Real Estate</a> <a
+															class="dropdown-item" href="#">Telecom</a> <a
+															class="dropdown-item" href="#">Banking</a> <a
+															class="dropdown-item" href="#">Retail</a> <a
+															class="dropdown-item" href="#">Transport</a> <a
+															class="dropdown-item" href="#">Other</a>
+													</div>
+													<div class="col-md-3" style="margin-top: 2%">
+														<div class="block" id="standardtemplatewarm"></div>
+
+
+
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="tab-pane" id="Entice">
+											<div class="col-md-3">
+												<div class="row">
+													<h4>List of Entice Campaign Subjects</h4>
+													<br>
+													<div class="optionBox">
+														<div class="block" id="enticeDyna"></div>
+													</div>
+
+													<script>
+$('.add').click(function() {
+    $('.block:last').before('<div class="block"><div id="d3" style="width:150px; overflow:hidden; border:1px solid #000;"> Testing div tag here <img src="<%=request.getContextPath()%>/apps/LeadConverterImg/dropbox.png" height="60" width="60"/></div> <span class="remove label label-danger" style="cursor:pointer;">Remove</span></div>');
+});
+$('.optionBox').on('click','.remove',function() { 	
+ 	$(this).parent().remove();
+});
+</script>
+													<!-- iframe/div ends -->
+												</div>
+											</div>
+											<div class="col-md-6" style="margin-bottom: 2%;">
+												<form method="post" action="#"></form>
+												<input type="text" id="enticesubject" name="subject"
+													placeholder="write your subject here"
+													class="form-control input-lg">
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-12"
+													style="border: solid 1px #999; min-height: 578px; margin-bottom: 2%; background-color: #fff;">
+													<div id="editor4" contenteditable="true"
+														style="min-height: 578px; height: 590px; overflow-y: scroll"></div>
+												</div>
+												<div class="col-md-12">
+													<div class="col-md-12">
+														<input type="file" id="selectedFile4"
+															style="display: none;" /> <input type="button"
+															value="Upload Template"
+															class="btn btn-default new-btn btn-block"
+															onclick="document.getElementById('selectedFile4').click();" />
+													</div>
+												</div>
+												<div class="col-md-12 save-buttons"
+													style="margin-top: 10px;">
+													<div class="col-md-4">
+														<button type="submit"
+															class="btn btn-default new-btn btn-block">Back</button>
+													</div>
+													<div class="col-md-4">
+														<button type="submit"
+															class="btn btn-default new-btn btn-block">Cancel</button>
+													</div>
+													<div class="col-md-4">
+														<input type="button" value="Next" name=""
+															onclick="entice()" />
+													</div>
+													<input type="hidden" name="list_id" id="list_id" value="">
+
+												</div>
+											</div>
+											<div class="col-md-3" style="margin-bottom: 1.5%;">
+												<!-- search box -->
+												<form class="navbar-form" role="search">
+													<div class="input-group add-on">
+														<input class="form-control" placeholder="Search"
+															name="srch-term" id="srch-term" type="text">
+														<div class="input-group-btn">
+															<button class="btn btn-default" type="submit">
+																<i class="glyphicon glyphicon-search"></i>
+															</button>
+														</div>
+													</div>
+												</form>
+												<!-- search box ends -->
+											</div>
+											<!-- sidebar -->
+											<div class="col-md-3">
+												<div class="dropdown">
+													<button class="btn btn-secondary dropdown-toggle"
+														type="button" id="dropdownMenuButton"
+														data-toggle="dropdown" aria-haspopup="true"
+														aria-expanded="false">
+														<span>SELECT DlOMAINS</span>
+													</button>
+													<div class="dropdown-menu"
+														aria-labelledby="dropdownMenuButton">
+														<a class="dropdown-item" href="#">All</a> <a
+															class="dropdown-item" href="#">Real Estate</a> <a
+															class="dropdown-item" href="#">Telecom</a> <a
+															class="dropdown-item" href="#">Banking</a> <a
+															class="dropdown-item" href="#">Retail</a> <a
+															class="dropdown-item" href="#">Transport</a> <a
+															class="dropdown-item" href="#">Other</a>
+													</div>
+													<div class="col-md-3" style="margin-top: 2%">
+														<div class="block" id="standardtemplateentice"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="tab-pane" id="Convert">
+											<div class="col-md-3">
+												<div class="row">
+													<h4>List of Convert Campaign Subjects</h4>
+													<br>
+													<div class="optionBox">
+														<div class="block" id="convertDyna"></div>
+													</div>
+													<script>
+$('.add').click(function() {
+    $('.block:last').before('<div class="block"><div id="d3" style="width:150px; overflow:hidden; border:1px solid #000;"> Testing div tag here <img src="<%=request.getContextPath()%>/apps/LeadConverterImg/dropbox.png" height="60" width="60"/></div> <span class="remove label label-danger" style="cursor:pointer;">Remove</span></div>');
+});
+$('.optionBox').on('click','.remove',function() {
+ 	$(this).parent().remove();
+});
+</script>
+												</div>
+											</div>
+											<div class="col-md-6" style="margin-bottom: 2%;">
+												<form method="post" action="#"></form>
+
+												<input type="text" id="convertsubject" name="convertsubject"
+													placeholder="write your subject here"
+													class="form-control input-lg">
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-12"
+													style="border: solid 1px #999; min-height: 578px; margin-bottom: 2%; background-color: #fff;">
+													<!-- main editor -->
+													<div id="editor5" contenteditable="true"
+														style="min-height: 578px; height: 590px; overflow-y: scroll"></div>
+
+													<div class="col-md-12">
+														<div class="col-md-12">
+															<input type="file" id="selectedFile5"
+																style="display: none;" /> <input type="button"
+																value="	Upload Template"
+																class="btn btn-default new-btn btn-block"
+																onclick="document.getElementById('selectedFile5').click();" />
+														</div>
+													</div>
+													<div class="col-md-12 save-buttons"
+														style="margin-top: 10px;">
+														<div class="col-md-4">
+															<button type="submit"
+																class="btn btn-default new-btn btn-block">Back</button>
+														</div>
+														<div class="col-md-4">
+															<button type="submit"
+																class="btn btn-default new-btn btn-block">Cancel</button>
+														</div>
+														<div class="col-md-4">
+															<input type="button" value="Next" name=""
+																onclick="convert()" />
+														</div>
+														<input type="hidden" name="list_id" id="list_id" value="">
+
+													</div>
+												</div>
+												<div class="col-md-3" style="margin-bottom: 1.5%;">
+													<!-- search box -->
+													<form class="navbar-form" role="search">
+														<div class="input-group add-on">
+															<input class="form-control" placeholder="Search"
+																name="srch-term" id="srch-term" type="text">
+															<div class="input-group-btn">
+																<button class="btn btn-default" type="submit">
+																	<i class="glyphicon glyphicon-search"></i>
+																</button>
+															</div>
+														</div>
+													</form>
+													<!-- search box ends -->
+												</div>
+												<!-- sidebar -->
+												<div class="col-md-3">
+
+													<div class="dropdown">
+														<button class="btn btn-secondary dropdown-toggle"
+															type="button" id="dropdownMenuButton"
+															data-toggle="dropdown" aria-haspopup="true"
+															aria-expanded="false">
+															<span>SELECT DOMAINS</span>
+														</button>
+														<div class="dropdown-menu"
+															aria-labelledby="dropdownMenuButton">
+															<a class="dropdown-item" href="#">All</a> <a
+																class="dropdown-item" href="#">Real Estate</a> <a
+																class="dropdown-item" href="#">Telecom</a> <a
+																class="dropdown-item" href="#">Banking</a> <a
+																class="dropdown-item" href="#">Retail</a> <a
+																class="dropdown-item" href="#">Transport</a> <a
+																class="dropdown-item" href="#">Other</a>
+														</div>
+														<div class="col-md-3" style="margin-top: 2%">
+															<div class="block" id="standardtemplateconvert"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="product-listing "
+			style="width: 80%; margin-left: 135px; margin-top: 20px;"
+			data-toggle="collapse" href="#collapseExample3" aria-expanded="false"
+			aria-controls="collapseExample">
+			<div class="row">
+				<div class="col-lg-3 col-md-3 col-sm-3" style="margin-left: -55px;">
+					<img
+						src="<%=request.getContextPath()%>/apps/LeadConverterImg/p3.png"
+						class="img-responsive" style="height: 80px; float: right;">
+				</div>
+				<div class="col-lg-9 col-md-9 col-sm-9">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<span style="font-size: 25px; float: left;">Configuration</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<span style="font-size: 15px;">Copy and paste emails,
+								phone numbers, Facebook user IDs or IDs of your customers and
+								create a custom.</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1">
+					<div class="collapse" id="collapseExample3">
+						<div class="well">
+							<div class="row">
+								<div class="col-md-3" align="center">
+									<div class="box-f1">
+										<h4>Google Analytics</h4>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="box-f1">
+
+										<h4>Salesforce</h4>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="box-f1">
+
+										<h4>Personal Domain</h4>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="box-f1">
+
+										<h4>SMS</h4>
+									</div>
+								</div>
+							</div>
+							<br />
+							<div class="row">
+								<div class="col-md-12" align="right">
+									<button type="submit" class="btn btn-default new-btn">Select</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wizard-pane" id="exampleBillingOne" role="tabpanel">
+			<div class="product-listing "
+				style="width: 80%; margin-left: 135px; margin-top: 100px;">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12"
+						style="margin-left: 55px;">
+						<div id="myGroup">
+							<button type="button" style="width: 90%" class="btn dropdown"
+								data-toggle="collapse" data-target="#attrs"
+								data-parent="#myGroup">
+								<span style="float: left;"><i
+									class="glyphicon glyphicon-chevron-right"></i> Short term
+									compaign</span>
+							</button>
+
+							<div class="accordion-group">
+								<div class="collapse indent" id="attrs">
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/crop1.png"
+										class="img-responsive" style="height: 305px; float: left;"></a>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/crop2.jpeg"
+										class="img-responsive" style="height: 305px; float: left;"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-12 col-md-12 col-sm-12"
+						style="margin-left: 55px; margin-top: 10px;">
+						<div id="myGroup1">
+							<button type="button" style="width: 90%" class="btn dropdown"
+								data-toggle="collapse" data-target="#attrs1"
+								data-parent="#myGroup">
+								<span style="float: left;"><i
+									class="glyphicon glyphicon-chevron-right"></i> Lead categories</span>
+							</button>
+
+							<div class="accordion-group">
+								<div class="collapse indent" id="attrs1">
+									<div class="product-listing "
+										style="width: 90%; margin-top: 10px; padding: 10px;">
+										<div class="row">
+											<div class="col-lg-1 col-md-1 col-sm-1">
+												<img
+													src="<%=request.getContextPath()%>/apps/LeadConverterImg/reachable.jpg"
+													class="img-responsive" style="height: 50px;">
+											</div>
+											<div class="col-lg-4 col-md-4 col-sm-4">
+												<span style="font-size: 18px; float: left;">Reachale</span>
+											</div>
+											<div class="col-lg-7 col-md-7 col-sm-7">
+												<!-- Checked checkbox -->
+												<div class="checkbox">
+													<label> <input type="checkbox" value=""> <span
+														class="cr"><i
+															class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="product-listing "
+										style="width: 90%; margin-top: 10px; padding: 10px;">
+										<div class="row">
+											<div class="col-lg-1 col-md-1 col-sm-1">
+												<img
+													src="<%=request.getContextPath()%>/apps/LeadConverterImg/agre.jpg"
+													class="img-responsive" style="height: 50px;">
+											</div>
+											<div class="col-lg-4 col-md-4 col-sm-4">
+												<span style="font-size: 18px; float: left;">Agressively
+													not interested</span>
+											</div>
+											<div class="col-lg-7 col-md-7 col-sm-7">
+												<div class="checkbox">
+													<label> <input type="checkbox" value=""> <span
+														class="cr"><i
+															class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="product-listing "
+										style="width: 90%; margin-top: 10px; padding: 10px;">
+										<div class="row">
+											<div class="col-lg-1 col-md-1 col-sm-1">
+												<img
+													src="<%=request.getContextPath()%>/apps/LeadConverterImg/Not_Interested.png"
+													class="img-responsive" style="height: 50px;">
+											</div>
+											<div class="col-lg-4 col-md-4 col-sm-4">
+												<span style="font-size: 18px; float: left;">Not
+													interested</span>
+											</div>
+											<div class="col-lg-7 col-md-7 col-sm-7">
+												<div class="checkbox">
+													<label> <input type="checkbox" value=""> <span
+														class="cr"><i
+															class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="product-listing "
+										style="width: 90%; margin-top: 10px; padding: 10px;">
+										<div class="row">
+											<div class="col-lg-1 col-md-1 col-sm-1">
+												<img
+													src="<%=request.getContextPath()%>/apps/LeadConverterImg/Cold_Lead.png"
+													class="img-responsive" style="height: 50px;">
+											</div>
+											<div class="col-lg-4 col-md-4 col-sm-4">
+												<span style="font-size: 18px; float: left;">Interested
+													(cold)</span>
+											</div>
+											<div class="col-lg-7 col-md-7 col-sm-7">
+												<div class="checkbox">
+													<label> <input type="checkbox" value=""> <span
+														class="cr"><i
+															class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="product-listing "
+										style="width: 90%; margin-top: 10px; padding: 10px;">
+										<div class="row">
+											<div class="col-lg-1 col-md-1 col-sm-1">
+												<img
+													src="<%=request.getContextPath()%>/apps/LeadConverterImg/Warm.png"
+													class="img-responsive" style="height: 50px;">
+											</div>
+											<div class="col-lg-4 col-md-4 col-sm-4">
+												<span style="font-size: 18px; float: left;">Warm</span>
+											</div>
+											<div class="col-lg-7 col-md-7 col-sm-7">
+												<div class="checkbox">
+													<label> <input type="checkbox" value=""> <span
+														class="cr"><i
+															class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="product-listing "
+										style="width: 90%; margin-top: 10px; padding: 10px;">
+										<div class="row">
+											<div class="col-lg-1 col-md-1 col-sm-1">
+												<img
+													src="<%=request.getContextPath()%>/apps/LeadConverterImg/Hot.png"
+													class="img-responsive" style="height: 50px;">
+											</div>
+											<div class="col-lg-4 col-md-4 col-sm-4">
+												<span style="font-size: 18px; float: left;">Hot Lead</span>
+											</div>
+											<div class="col-lg-7 col-md-7 col-sm-7">
+												<div class="checkbox">
+													<label> <input type="checkbox" value=""> <span
+														class="cr"><i
+															class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="product-listing "
+										style="width: 90%; margin-top: 10px; padding: 10px;">
+										<div class="row">
+											<div class="col-lg-1 col-md-1 col-sm-1">
+												<img
+													src="<%=request.getContextPath()%>/apps/LeadConverterImg/ExtremlyHot.png"
+													class="img-responsive" style="height: 50px;">
+											</div>
+											<div class="col-lg-4 col-md-4 col-sm-4">
+												<span style="font-size: 18px; float: left;">Extremely
+													hot</span>
+											</div>
+											<div class="col-lg-7 col-md-7 col-sm-7">
+												<div class="checkbox">
+													<label> <input type="checkbox" value=""> <span
+														class="cr"><i
+															class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="product-listing "
+										style="width: 90%; margin-top: 10px; padding: 10px;">
+										<div class="row">
+											<div class="col-lg-1 col-md-1 col-sm-1">
+												<img
+													src="<%=request.getContextPath()%>/apps/LeadConverterImg/PartialInterest.png"
+													class="img-responsive" style="height: 50px;">
+											</div>
+											<div class="col-lg-4 col-md-4 col-sm-4">
+												<span style="font-size: 18px; float: left;">Partial
+													interest</span>
+											</div>
+											<div class="col-lg-7 col-md-7 col-sm-7">
+												<div class="checkbox">
+													<label> <input type="checkbox" value=""> <span
+														class="cr"><i
+															class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="product-listing "
+										style="width: 90%; margin-top: 10px; padding: 10px;">
+										<div class="row">
+											<div class="col-lg-1 col-md-1 col-sm-1">
+												<img
+													src="<%=request.getContextPath()%>/apps/LeadConverterImg/ConditionalInteret.jpg"
+													class="img-responsive" style="height: 50px;">
+											</div>
+											<div class="col-lg-4 col-md-4 col-sm-4">
+												<span style="font-size: 18px; float: left;">Conditional
+													interest</span>
+											</div>
+											<div class="col-lg-7 col-md-7 col-sm-7">
+												<div class="checkbox">
+													<label> <input type="checkbox" value=""> <span
+														class="cr"><i
+															class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wizard-pane" id="exampleBillingOne" role="tabpanel">
+			<div class="product-listing "
+				style="width: 80%; margin-left: 135px; margin-top: 100px;">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12">
+						<div
+							style="overflow-x: scroll; overflow-y: scroll; height: 300px;">
+							<img
+								src="<%=request.getContextPath()%>/apps/LeadConverterImg/img_work.png"
+								class="img-responsive"
+								style="height: 400px; width: 100%; float: right;">
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="wizard-pane" id="exampleBillingOne" role="tabpanel">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<h4>Featured</h4>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/1.png"
+										class="img-responsive"
+										style="height: 250px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Art Newsletter</span>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/2.jpg"
+										class="img-responsive"
+										style="height: 250px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Member Welcome</span>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/3.jpg"
+										class="img-responsive"
+										style="height: 250px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Monthly Contest</span>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/4.jpg"
+										class="img-responsive"
+										style="height: 250px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">New Collection</span>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/5.jpg"
+										class="img-responsive"
+										style="height: 250px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Sale Announcement</span>
+								</center>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 50px;">
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<h4>E-commerce</h4>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/6.jpg"
+										class="img-responsive"
+										style="height: 300px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Boutique</span>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/7.jpg"
+										class="img-responsive"
+										style="height: 300px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Color Box</span>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/8.jpg"
+										class="img-responsive"
+										style="height: 300px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Contrast</span>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/9.jpg"
+										class="img-responsive"
+										style="height: 300px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Cutout</span>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/10.jpg"
+										class="img-responsive"
+										style="height: 300px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Flyer</span>
+								</center>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/11.jpg"
+										class="img-responsive"
+										style="height: 300px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Hero Card</span>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<a href=""><img
+									src="<%=request.getContextPath()%>/apps/LeadConverterImg/12.jpg"
+									class="img-responsive"
+									style="height: 300px; width: 100%; float: right; margin-bottom: 15px;"></a>
+								<span style="font-size: 18px;">Hero Image</span>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/13.jpg"
+										class="img-responsive"
+										style="height: 300px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Member Welcome</span>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/14.jpg"
+										class="img-responsive"
+										style="height: 300px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Monochromic</span>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/15.jpg"
+										class="img-responsive"
+										style="height: 300px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Monthly Contest</span>
+								</center>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/16.jpg"
+										class="img-responsive"
+										style="height: 250px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">New Collection</span>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""> <img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/17.jpg"
+										class="img-responsive"
+										style="height: 250px; width: 90%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Sale Announcement</span>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""> <img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/18.jpg"
+										class="img-responsive"
+										style="height: 250px; width: 90%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Soft</span>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""> <img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/19.jpg"
+										class="img-responsive"
+										style="height: 250px; width: 90%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Sophisticated</span>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""> <img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/20.jpg"
+										class="img-responsive"
+										style="height: 250px; width: 90%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Subtle</span>
+								</center>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row" style="margin-top: 50px;">
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<h4>Events</h4>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/21.jpg"
+										class="img-responsive"
+										style="height: 250px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Competition Invitation</span><br>
+									<span style="font-size: 13px; color: #FFFFFF;">Competition
+										Invitation</span>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/22.png"
+										class="img-responsive"
+										style="height: 250px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Event</span><br> <span
+										style="font-size: 13px;">Jon Hicks</span>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/23.png"
+										class="img-responsive"
+										style="height: 250px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Event</span><br> <span
+										style="font-size: 13px;">Veerle Pieters</span>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/24.jpg"
+										class="img-responsive"
+										style="height: 250px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Invitation</span><br> <span
+										style="font-size: 13px;">Jon Hicks</span>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/25.jpg"
+										class="img-responsive"
+										style="height: 250px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 18px;">Invitation</span><br> <span
+										style="font-size: 13px;">Terris Kremer</span>
+								</center>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/26.jpg"
+										class="img-responsive"
+										style="height: 250px; width: 100%; float: right; margin-bottom: 15px;"></a><br>
+									<span style="font-size: 20px;">Multiple Event</span>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div style="width: 18%; float: left; margin-right: 2%">
+						<div class="product-listing "
+							style="width: 100%; margin-top: 20px;">
+							<div class="row">
+								<center>
+									<a href=""><img
+										src="<%=request.getContextPath()%>/apps/LeadConverterImg/27.jpg"
+										class="img-responsive"
+										style="height: 250px; width: 100%; float: right; margin-bottom: 15px;"></a>
+									<span style="font-size: 20px;">Ticket</span>
+								</center>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="wizard-pane" id="exampleGettingOne" role="tabpanel">
+			<div class="content">
+				<br>
+				<div class="content_resize"
+					style="background-color: #fff; border-radius: 16px;">
+					<br>
+					<div class="mainbar" style="width: 100%;">
+						<div class="article"
+							style="background-color: #fff; border-radius: 16px;">
+							<!--          <div id="chartdiv" style="height:400px;"></div> -->
+						</div>
+					</div>
+					<div class="clr"></div>
+				</div>
+				<br>
+			</div>
+		</div>
+	</div>
+	</div>
+	</form>
+	<!-- Wizard Content -->
+	</div>
+	</div>
+	<!-- End Panel Wizard Form Container -->
+	</div>
+	</div>
+	</div>
+	</div>
+	<!-- End Page -->
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/babel-external-helpers599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/jquery.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/popper.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/bootstrap.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/animsition.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/jquery.mousewheel599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/jquery-asScrollbar.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/jquery-asScrollable.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/jquery-asHoverScroll.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/switchery.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/intro.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/screenfull599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/jquery-slidePanel.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/formValidation.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/bootstrap.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/jquery.matchHeight-min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/jquery-wizard.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/Component.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/Plugin.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/Base.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/Config.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/Menubar.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/Sidebar.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/PageAside.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/menu.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/colors.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/tour.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/Site.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/asscrollable.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/slidepanel.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/switchery.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/jquery-wizard.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/matchheight.min599c.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/apps/LeadConverterJs/wizard.min599c.js"></script>
+
+	<script>
+$(document).ready(function(){
+
+    $("#listname").blur(function(){
+       if( $("#listname").val().length > 4){
+        var value = this.value;
+    	$.ajax({
+            type : 'POST',
+            url :'<%=request.getContextPath()%>/servlet/service/checkingavailabledata.data',
+           data: {
+        	   listnameresult : value
+                 },
+			success: function (dataa) {
+				if(dataa == "true"){
+					document.getElementById("listname").value = "";
+					document.getElementById("savefirstpage").disabled = true;
+					document.getElementById("listspan").style.display = "";
+				}else {
+					document.getElementById("savefirstpage").disabled = false;
+				}
+			}
+       });
+       }
+    });
+});
+</script>
+	<script>
+$( document).ready(function() {
+    var remoteuser ='<%=request.getRemoteUser()%>';
+	$.ajax({
+        type : 'POST',
+        url :'<%=request.getContextPath()%>/servlet/service/LEAD_CONVERTER_NodeAdd_Email.userdata',
+       data: {
+    	   remoteuser : remoteuser,
+             },
+		success: function (dataa) {
+		//	alert	(dataa);
+			var jsonData = JSON.parse(dataa);
+			var remoteuser=jsonData.remoteuser;
+			var explore = "";
+			var inform="";
+			var warm="";
+			var entice="";
+			var convert="";
+		//	alert(remoteuser);
+			for (var i = 0; i < jsonData.data.length; i++) {
+			    var data = jsonData.data[i];
+			    var subject=data.Subject;
+			  //  alert(subject);
+			    var type=data.type;
+			  //  alert(type);
+			  //exploreDyna
+			  if(type == "Explore"){
+				 // '<a style=cursor:pointer onclick=OpenChatBox("'+array.List_id+'","'+array.List_Name+'")>'+array.List_Name+'</a><br>'
+				  explore = explore + '<div  style="cursor:pointer;width:150px;overflow:hidden;border:1px solid #000" onclick=move("'+type+'","'+data.Nodes+'","editor1");>'+subject+'</div> <br>';
+			   
+			  }
+			  if(type == "Inform" ){
+				  inform = inform + '<div  style="cursor:pointer;width:150px; overflow:hidden; border:1px solid #000" onclick=move("'+type+'","'+data.Nodes+'","editor2");>'+subject+'</div> <br>';
+			   }
+			  if(type == "Warm"){
+				  warm = warm + '<div  style="cursor:pointer;width:150px; overflow:hidden; border:1px solid #000" onclick=move("'+type+'","'+data.Nodes+'","editor3");>'+subject+'</div> <br>';
+			   }
+			  if(type == "Entice"){
+				  entice = entice + '<div  style="cursor:pointer;width:150px; overflow:hidden; border:1px solid #000" onclick=move("'+type+'","'+data.Nodes+'","editor4");>'+subject+'</div> <br>';
+			   }
+			  if(type == "Convert"){
+				  convert = convert + '<div  style="cursor:pointer;width:150px; overflow:hidden; border:1px solid #000" onclick=move("'+type+'","'+data.Nodes+'","editor5");>'+subject+'</div> <br>';
+			   }
+			}
+			document.getElementById("exploreDyna").innerHTML = explore; 
+			document.getElementById("informDyna").innerHTML = inform; 
+			document.getElementById("warmDyna").innerHTML = warm; 
+			document.getElementById("enticeDyna").innerHTML = entice; 
+			document.getElementById("convertDyna").innerHTML = convert; 
+		}	
+   });	
+});
+</script>
+
+	<script>
+$( document).ready(function() {
+
+        $.ajax({
+            type : 'POST',
+            url :'<%=request.getContextPath()%>
+		/servlet/service/LEAD_CONVERTER_NodeAdd_Email.subjectdata',
+
+										success : function(dataa) {
+											var standardtemplate = null;
+											var mainjson = JSON.parse(dataa);
+											for (var i = 0; i < mainjson.data.length; i++) {
+												var array = mainjson.data[i];
+												var type = array.Type;
+												// alert(type);
+												var standardtemplateexplore = "";
+												var standardtemplateinform = "";
+												var standardtemplatewarm = "";
+												var standardtemplateentice = "";
+												var standardtemplateconvert = "";
+
+												//exploreDyna
+												if (type == "Explore") {
+													// '<a style=cursor:pointer onclick=OpenChatBox("'+array.List_id+'","'+array.List_Name+'")>'+array.List_Name+'</a><br>'
+													standardtemplateexplore = standardtemplateexplore
+															+ '<div style="cursor:pointer;width:150px; overflow:hidden; border:1px solid #000" onclick=standardmove("'
+															+ array.Nodes
+															+ '","editor1");>'
+															+ array.Subject_Name
+															+ '</div> <br>';
+												}
+												if (type == "Inform") {
+													standardtemplateinform = standardtemplateinform
+															+ '<div style="cursor:pointer;width:150px; overflow:hidden; border:1px solid #000" onclick=standardmove("'
+															+ array.Nodes
+															+ '","editor2");>'
+															+ array.Subject_Name
+															+ '</div> <br>';
+												}
+												if (type == "Warm") {
+													standardtemplatewarm = standardtemplatewarm
+															+ '<div style="cursor:pointer;width:150px; overflow:hidden; border:1px solid #000" onclick=standardmove("'
+															+ array.Nodes
+															+ '","editor3");>'
+															+ array.Subject_Name
+															+ '</div> <br>';
+												}
+												if (type == "Entice") {
+													standardtemplateentice = standardtemplateentice
+															+ '<div style="cursor:pointer;width:150px; overflow:hidden; border:1px solid #000" onclick=standardmove("'
+															+ array.Nodes
+															+ '","editor4");>'
+															+ array.Subject_Name
+															+ '</div> <br>';
+												}
+												if (type == "Convert") {
+													standardtemplateconvert = standardtemplateconvert
+															+ '<div style="cursor:pointer;width:150px; overflow:hidden; border:1px solid #000" onclick=standardmove("'
+															+ array.Nodes
+															+ '","editor5");>'
+															+ array.Subject_Name
+															+ '</div> <br>';
+												}
+
+											}
+											document
+													.getElementById("standardtemplateexplore").innerHTML = standardtemplateexplore;
+											document
+													.getElementById("standardtemplateinform").innerHTML = standardtemplateinform;
+											document
+													.getElementById("standardtemplatewarm").innerHTML = standardtemplatewarm;
+											document
+													.getElementById("standardtemplateentice").innerHTML = standardtemplateentice;
+											document
+													.getElementById("standardtemplateconvert").innerHTML = standardtemplateconvert;
+
+										}
+									});
+						});
+	</script>
+	<script src="../assets/examples/js/forms/wizard.min599c.js?v4.0.2"></script>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+	<link rel="stylesheet"
+		href="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css">
+	<script
+		src="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js"></script>
+</body>
+</html>
