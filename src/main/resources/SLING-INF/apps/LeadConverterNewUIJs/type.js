@@ -58,7 +58,7 @@ function typefunction() {
 
 		$.ajax({
 					type : 'POST',
-					url : 'http://35.201.178.201:8082/portal/servlet/service/LEAD_CONVERTER_NodeAdd_Email.CampaignNodeAdd',
+					url : 'http://35.221.160.146:8082/portal/servlet/service/LEAD_CONVERTER_NodeAdd_Email.CampaignNodeAdd',
 					data : {
 						ckcontent : editor,
 						type : type,
@@ -94,7 +94,7 @@ function typefunction() {
 		//var noofdays=document.getElementById("noofdays").value;
 		$.ajax({
 					type : 'POST',
-					url : 'http://35.201.178.201:8082/portal/servlet/service/LEAD_CONVERTER_NodeAdd_Email.CampaignNodeAdd',
+					url : 'http://35.221.160.146:8082/portal/servlet/service/LEAD_CONVERTER_NodeAdd_Email.CampaignNodeAdd',
 					data : {
 						ckcontent : editor,
 						type : type,
@@ -130,7 +130,7 @@ function typefunction() {
 		//var noofdays=document.getElementById("noofdays").value;
 		$.ajax({
 					type : 'POST',
-					url : 'http://35.201.178.201:8082/portal/servlet/service/LEAD_CONVERTER_NodeAdd_Email.CampaignNodeAdd',
+					url : 'http://35.221.160.146:8082/portal/servlet/service/LEAD_CONVERTER_NodeAdd_Email.CampaignNodeAdd',
 					data : {
 						ckcontent : editor,
 						type : type,
@@ -167,7 +167,7 @@ function typefunction() {
 		//var noofdays=document.getElementById("noofdays").value;
 		$.ajax({
 					type : 'POST',
-					url : 'http://35.201.178.201:8082/portal/servlet/service/LEAD_CONVERTER_NodeAdd_Email.CampaignNodeAdd',
+					url : 'http://35.221.160.146:8082/portal/servlet/service/LEAD_CONVERTER_NodeAdd_Email.CampaignNodeAdd',
 					data : {
 						ckcontent : editor,
 						type : type,
