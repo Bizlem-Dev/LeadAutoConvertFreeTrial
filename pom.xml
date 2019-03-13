@@ -46,6 +46,12 @@
 							jackrabbit-jcr-commons;inline="org/apache/jackrabbit/util/ISO9075.*|org/apache/jackrabbit/util/ISO8601.*|org/apache/jackrabbit/util/XMLChar.*",
 							org.apache.sling.commons.osgi;inline="org/apache/sling/commons/osgi/OsgiUtil.*"
 						</Embed-Dependency>
+						<Import-Package>
+                         !org.json.simple.*,
+                         !com.googlecode.json-simple.*,
+                         
+                         *
+                        </Import-Package>
 						
 					</instructions>
 				</configuration>
@@ -53,7 +59,52 @@
 		</plugins>
 	</build>
 	<dependencies>
-
+	    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-log4j12</artifactId>
+		    <version>1.5.6</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-api</artifactId>
+		    <version>1.5.6</version>
+		</dependency>
+				
+        <!-- https://mvnrepository.com/artifact/servlets.com/cos -->
+		<dependency>
+		    <groupId>servlets.com</groupId>
+		    <artifactId>cos</artifactId>
+		    <version>05Nov2002</version>
+		</dependency>
+	
+	    <dependency>
+	       <groupId>junit</groupId>
+	       <artifactId>junit</artifactId>
+	       <version>4.8.2</version>
+	       <scope>test</scope>
+	   </dependency>
+        
+        <dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.2.4</version>
+	   </dependency>
+	   <!-- https://mvnrepository.com/artifact/org.mongodb/mongo-driver -->
+		<dependency>
+	        <groupId>org.mongodb</groupId>
+	        <artifactId>mongodb-driver</artifactId>
+	        <version>3.4.3</version>
+	    </dependency>
+	   <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+		<dependency>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>net.sourceforge.jexcelapi</groupId>
 			<artifactId>jxl</artifactId>
@@ -176,8 +227,8 @@
     <artifactId>commons-io</artifactId>
     <version>2.1</version>
 </dependency>
-		
-		
+		<!-- https://mvnrepository.com/artifact/charset/charset -->
+	
 	</dependencies>
 
 

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta name="description" content="bootstrap admin template">
+  <meta name="author" content="">
+  <title>Funnel</title>
+  <link rel="stylesheet" href="../../global/css/bootstrap.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="../../global/css/bootstrap-extend.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="../assets/css/site.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="../../global/vendor/asscrollable/asScrollable.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="../../global/vendor/switchery/switchery.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="../../global/vendor/intro-js/introjs.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="../../global/vendor/slidepanel/slidePanel.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="../../global/vendor/flag-icon-css/flag-icon.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="../../global/vendor/jquery-wizard/jquery-wizard.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="../../global/vendor/formvalidation/formValidation.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="../../global/fonts/web-icons/web-icons.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="../../global/fonts/brand-icons/brand-icons.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/custom.css">
+<script>
+</script>
+</script>
+  <style type="text/css">
+  .new-btn{
+    background-color: #4dbae3;
+    border-radius: 20px;
+    color: #fff;
+  }
+  .list-table-part{
+    background:#fff;
+  }
+  select.form-control:not([size]):not([multiple]){
+    color:#000 !important;
+  }
+  select option{
+    color:#000 !important;
+  }
+  a{
+    text-decoration: none !important;
+  }
+  .wizard-content .nav .btn-secondary{
+    color: #fff !important;
+  }
+  .btn.active{
+    background-color: #3C3692 !important;
+    color: #fff !important;
+    border: 1px solid #3C3692 !important;
+  }
+  .wizard-content .nav{
+    padding-left: 15px;
+  }
+  .wizard-content .nav a{
+    margin-right: 3px;
+  }
+</style>
+</head>
+<body class="animsition">
+  <div class="row-fluid main-header">
+    <div class="container-fluid">
+      <div class="col-md-12 menubar">
+	      <ul class="pt-5 m-0 pull-left"> 
+	      <li><a href="<%=request.getContextPath()%>/servlet/service/ui.index"><img src="<%=request.getContextPath()%>/apps/global/assets/images/lead-auto-convert-logo.png" style="width:205px;margin-left:-60px;"></a></li>
+	      <li><a href="<%=request.getContextPath()%>/servlet/service/ui.funnel" target="_blank"> Funnel</a></li>
+	      <li><a href="<%=request.getContextPath()%>/servlet/service/ui.list" target="_blank"> List</a></li>
+	      <li><a href="<%=request.getContextPath()%>/servlet/service/ui.statistic"> Dashboard</a></li>
+	      </ul>
+	      <ul class="pt-15 pull-right">
+	        <li><a href="<%=request.getContextPath()%>/servlet/service/ui.configuration" target="_blank"><img src="<%=request.getContextPath()%>/apps/global/assets/images/shedule.png"> Configuration</a></li>
+	        <li><a href="#" class="creat-new-campaigns-menu"> Create New Campaigns</a></li>
+	      </ul>
+      </div>
+    </div>
+  </div>
+  <!-- Page -->
+  <div class="page">
+    <div class="page-content container-fluid">
+      <div class="row">
+        <div class="panel" id="exampleWizardForm" style="width:100%;margin:0px 20px;">
+          <div class="col-md-11" style="padding:15px 0px 0px 25px;">
+            <h3 class="text-color" style="display: inline-block;margin-left:60px;">Funnel</h3>
+            <h3 style="margin-right:-22px;float:right;display: inline-block;">
+                <a href="index.html#funnel" class="btn custom-btn create-new-list">Set Up Funnel</a>
+            </h3>
+          </div>
+          <div class="col-lg-12">
+            <div class="panel-body">
+              <form id="exampleFormContainer">
+                <div class="wizard-content">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-5 nav">
+                          <a data-toggle="tab" href="#Sent" class="active btn btn-secondary">Sent</a>
+                          <a data-toggle="tab" href="#Active" class="btn btn-secondary">Active</a>
+                          <a data-toggle="tab" href="#Draft" class="btn btn-secondary">Draft</a>
+                      </div>
+                      <div class="col-md-2" style="margin-left:80px;margin-right:-20px;">
+                        <select class="form-control">
+                          <option value="am">---filter----</option>
+                          <option value="pm">1 Week</option>
+                          <option value="pm">2 Weeks</option>
+                          <option value="pm">3 Weeks</option>
+                          <option value="pm">4 Weeks</option>
+                        </select>
+                      </div>
+                      <div class="col-md-1" style="margin-right:-20px;">
+                        <select class="form-control">
+                          <option value="am">5</option>
+                          <option value="pm">1 Week</option>
+                          <option value="pm">2 Weeks</option>
+                          <option value="pm">3 Weeks</option>
+                          <option value="pm">4 Weeks</option>
+                        </select>
+                      </div>
+                      <div class="col-md-2" style="margin-right:-20px;">
+                        <select class="form-control">
+                          <option value="am">Sort by</option>
+                          <option value="pm">1 Week</option>
+                          <option value="pm">2 Weeks</option>
+                          <option value="pm">3 Weeks</option>
+                          <option value="pm">4 Weeks</option>
+                        </select>
+                      </div>
+                      <div class="col-md-1" style="margin-right:-20px;">
+                        <a href="#" class="btn custom-btn" style="padding:7px 25px;">Go</a>
+                      </div>
+                      <div class="col-md-1">
+                        <a href="#" class="btn custom-btn" style="padding:7px 15px;">Clear</a>
+                      </div>
+                    </div>
+                    <div class="row pt-4 mt-4">
+                      <div class="col-md-12">
+                        <div class="tab-content">
+                          <div id="Sent" class="tab-pane fade in active">
+                            <table class="table table-bordered">
+                              <thead>
+                                <tr class="text-color">
+                                  <th>CAMPAIGN</th>
+                                  <th>ENTERED</th>
+                                  <th>STATUS</th>
+                                  <th>ACTION</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td><a href="#">Test</a></td>
+                                  <td width="250px">4 January 2019 06:29:22</td>
+                                  <td width="250px">Draft</td>
+                                  <td width="120">
+                                    <a href="#" class="btn btn-info btn-xs text-white"><i class="fa fa-search-plus" aria-hidden="true"></i></a>
+                                    <a href="#" class="btn btn-primary text-white btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                    <a href="#" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                    <a href="#" class="btn btn-success btn-xs text-white"><i class="fa fa-pause" aria-hidden="true"></i></a>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <a href="#">(no subject)</a>
+                                  </td>
+                                  <td>4 January 2019 06:29:22</td>
+                                  <td>Draft</td>
+                                  <td width="100">
+                                    <a href="#" class="btn btn-info btn-xs text-white"><i class="fa fa-search-plus" aria-hidden="true"></i></a>
+                                    <a href="#" class="btn btn-primary text-white btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                    <a href="#" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                    <a href="#" class="btn btn-success btn-xs text-white"><i class="fa fa-pause" aria-hidden="true"></i></a>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div id="Active" class="tab-pane fade">
+                            1
+                          </div>
+                          <div id="Draft" class="tab-pane fade">
+                            2
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="wizard-buttons"><a class="btn btn-default btn-outline disabled" href="#" data-wizard="back" role="button">Back</a><a class="btn btn-primary btn-outline custom-btn float-right" href="#" data-wizard="next" role="button">Next</a><a class="btn btn-success btn-outline float-right hidden-xs-up" href="#" data-wizard="finish" role="button">Finish</a></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script data-cfasync="false" src="../../../cdn-cgi/scripts/d07b1474/cloudflare-static/email-decode.min.js"></script><script src="../../global/vendor/babel-external-helpers/babel-external-helpers599c.js?v4.0.2"></script>
+  <script src="../../global/vendor/jquery/jquery.min599c.js?v4.0.2"></script>
+  <script src="../../global/vendor/popper-js/umd/popper.min599c.js?v4.0.2"></script>
+  <script src="../../global/vendor/bootstrap/bootstrap.min599c.js?v4.0.2"></script>
+  <script src="../../global/vendor/asscrollbar/jquery-asScrollbar.min599c.js?v4.0.2"></script>
+  <!-- <script src="../../global/vendor/formvalidation/formValidation.min599c.js?v4.0.2"></script> -->
+  <script src="../../global/vendor/jquery-wizard/jquery-wizard.min599c.js?v4.0.2"></script>
+  <script src="../../global/js/Plugin.min599c.js?v4.0.2"></script>
+  <script src="../../global/js/Config.min599c.js?v4.0.2"></script>
+  <script src="../../global/js/Plugin/jquery-wizard.min599c.js?v4.0.2"></script>
+  <script src="../assets/examples/js/forms/wizard.min599c.js?v4.0.2"></script>
+  <script src="js/custom.js"></script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>New Tamplate forth</title>
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/LeadConverterReportCSS/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/LeadConverterReportCSS/custom.css">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="<%=request.getContextPath()%>/apps/LeadConverterReportJS/bootstrap.js"></script>
+	<script src="<%=request.getContextPath()%>/apps/LeadConverterReportJS/custom.js"></script>
+</head>
+<body>
+<section class="container-fluid main-head-section">
+<div class="container">
+	<div class="row">
+		<div class="col-md-3 left-head-logo">
+			<h1>Logo</h1>
+		</div>
+		<div class="col-md-9 right-head-detail">
+			
+		</div>
+	</div>
+</div>
+</section>
+<section class="container-fluid main-menubar-secion p-0">
+<div id="menu_area" class="menu-area">
+    <div class="container">
+        <div class="row">
+            <nav class="navbar navbar-light navbar-expand-lg mainmenu">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <h3><span class="" id="funnel_path"></span></h3>
+                    <ul class="navbar-nav mr-auto">
+                    <!-- 
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Funnel</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a href="#">Option 1</a></li>
+                            <li><a href="#">Option 2</a></li>
+                            <li><a href="#">Option 3</a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown2</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown3</a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a href="#">Action</a></li>
+                                        <li><a href="#">Another action</a></li>
+                                        <li><a href="#">Something else here</a></li>
+                                    </ul>
+                                </li>
+                                </ul>
+                            </li> 
+                            </ul>
+                        </li>
+                        -->
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+</section>
+<section class="container mt-4">
+<div class="row">
+	<div class="col-md-12">
+	    <!--
+		<h2>Test View</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		-->
+	</div>
+</div>
+</section>
+<section class="container table-section-second mt-3">
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-striped border">
+		    <thead>
+			  <tr>
+		        <th>URL</th>
+		        <th>FIRST CLICK</th>
+		        <th>LATEST CLICK</th>
+		        <th>CLICK</th>
+		      </tr>
+		    </thead>
+		    <tbody id='url_details'>
+		      <!--
+		      <tr>
+		        <td>http://abc.com</td>
+		        <td>29 Oct 2018 12:45</td>
+		        <td>15 Des 2018 1:12</td>
+		        <td>1</td>
+		      </tr>
+		      -->
+		    </tbody>
+		  </table>
+	</div>
+</div>
+</section>
+<script type="text/javascript">
+$('.option').click(function(){
+    $('.table-section').slideDown();
+});
+</script>
+
+<script>
+
+$( document).ready(function() {
+var remoteuser ='<%=request.getRemoteUser()%>';
+//alert("remoteuser : "+remoteuser);
+$.ajax({
+    type : 'GET',
+    url :'<%=request.getContextPath()%>/servlet/service/CampaignReportApi.urlViewData',
+    data: {
+	campaign_id : '<%=request.getParameter("campaign_id")%>',
+	funnel_name : '<%=request.getParameter("funnel_name")%>',
+	subfunnel_name : '<%=request.getParameter("subfunnel_name")%>',
+	userid : '<%=request.getParameter("userid")%>'
+ 
+         },
+	success: function (dataa) {
+        	    //alert("dataa : "+dataa);
+        	    var urlClickedJsonArray = JSON.parse(dataa);
+        	    var finalRow = "";
+        	    var funnel_path = "";
+        	    
+        	    for(var i=0;i<urlClickedJsonArray.length;i++){
+        	    	//var campaignclickstatisticsJsonObj=urlClickedJsonArray[i];
+        	    	 finalRow=finalRow+"<tr><td>"+urlClickedJsonArray[i].url+"</td><td>"+urlClickedJsonArray[i].firstclick+"</td><td>"+urlClickedJsonArray[i].latestclick+"</td><td><a href='#' target='_blank'>"+urlClickedJsonArray[i].clicked+"</td></tr>";					
+				}
+				
+				
+        	    //alert	("finalRow : "+finalRow);
+				document.getElementById("url_details").innerHTML  =finalRow;
+				document.getElementById("funnel_path").innerHTML  ='<%=request.getParameter("funnel_path")%>';
+				
+				
+         }
+    });	
+});
+
+</script>
+
+<link rel="stylesheet"
+href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script type="text/javascript"
+src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script
+src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+<link rel="stylesheet"
+href="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css">
+<script src="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js"></script>
+
+</body>
+</html>

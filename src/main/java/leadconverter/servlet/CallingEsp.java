@@ -71,7 +71,7 @@ public class CallingEsp extends SlingAllMethodsServlet {
 			throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 
-			 if (request.getRequestPathInfo().getExtension().equals("leadconverternew3")) {
+			 if (request.getRequestPathInfo().getExtension().equals("LeadConverterNew3")) {
 
 				PrintWriter o = response.getWriter();
 				try {

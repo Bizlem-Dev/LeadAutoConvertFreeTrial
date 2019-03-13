@@ -105,7 +105,7 @@ public class SendJsonDataLeadConverter extends SlingAllMethodsServlet {
 
 							if (request.getRequestPathInfo().getExtension().equals("Email")) {
 								//
-try {
+                            try {
 								String listname = request.getParameter("listname");
 								out.println("ListName : : " + listname);
 								BufferedReader reader = null;
@@ -195,15 +195,24 @@ try {
 									if (integrationstatus.equals(("success"))) {
 
 										// out.println("Total Data "+totaldatajson);
-										String totaldata = "?totalresult=" + totaldatajson;
-
+										//commented by Akhilesh 
+										//String totaldata = "?totalresult=" + totaldatajson;
+										String totaldata =totaldatajson.toString();
+                                      
+										/* commented by akhilesh
 										String slingresponse = this.sendpostdata(slingurl,
 												totaldata.replace(" ", "%20"), response);
+										*/
+										String slingresponse = this.sendpostdataToCreateList(slingurl,
+												totaldata.replace(" ", "%20"), response);
+										
 
 										out.println("Sling Response : " + slingresponse);
+										// commented by akhilesh
 										response.sendRedirect(
 												"http://35.221.160.146:8082/portal//servlet/service/CallingEsp.leadconverternew2?list_id="
 														+ listid);
+									   
 
 									}
 									session.save();
@@ -399,8 +408,8 @@ try {
 			throws ServletException, IOException {
 
 		PrintWriter out = response.getWriter();
-
-		URL url = new URL(callurl + urlParameters);
+		out.println("urlParameters :" + urlParameters);
+		URL url = new URL(callurl + urlParameters.replace("\\", ""));
 		out.println("Url :" + url);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setDoOutput(true);
@@ -434,6 +443,49 @@ try {
 		return buffer.toString();
 
 	}
+	
+	public String sendpostdataToCreateList(String callurl, String urlParameters, SlingHttpServletResponse response)
+			throws ServletException, IOException {
+
+		PrintWriter out = response.getWriter();
+		out.println("urlParameters :" + urlParameters);
+		//URL url = new URL(callurl + urlParameters.replace("\\", ""));
+		URL url = new URL(callurl);
+		out.println("Url :" + url);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestProperty("Content-Type", "application/json");
+		conn.setDoOutput(true);
+		conn.setUseCaches(false);
+		conn.setRequestMethod("POST");
+
+		//
+		OutputStream writer = conn.getOutputStream();
+
+		writer.write(urlParameters.getBytes());
+		// out.println("Writer Url : "+writer);
+		int responseCode = conn.getResponseCode();
+		out.println("POST Response Code :: " + responseCode);
+		StringBuffer buffer = new StringBuffer();
+		//
+		if (responseCode == 200) { // success
+			BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String inputLine;
+
+			while ((inputLine = in.readLine()) != null) {
+				buffer.append(inputLine);
+			}
+			in.close();
+			//
+			// out.println(buffer.toString());
+		} else {
+			out.println("POST request not worked");
+		}
+		writer.flush();
+		writer.close();
+		return buffer.toString();
+
+	}
+
 
 	// public String callPostService(String urlStr, String[] paramName, String[]
 	// paramValue,

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>New Tamplate second</title>
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/LeadConverterReportCSS/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/LeadConverterReportCSS/custom.css">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="<%=request.getContextPath()%>/apps/LeadConverterReportJS/bootstrap.js"></script>
+	<script src="<%=request.getContextPath()%>/apps/LeadConverterReportJS/custom.js"></script>
+</head>
+<body>
+
+	<section class="container-fluid main-head-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 left-head-logo">
+					<h1>Logo</h1>
+				</div>
+				<div class="col-md-9 right-head-detail">
+					
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="container-fluid main-menubar-secion p-0">
+		<div id="menu_area" class="menu-area">
+		    <div class="container">
+		        <div class="row">
+		            <nav class="navbar navbar-light navbar-expand-lg mainmenu">
+		                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		                <h4><span class="navbar-toggler-icon"></span></h4>
+		                </button>
+		                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		                    <h3><span class="" id="funnel_path"></span></h3>
+		                    <ul class="navbar-nav mr-auto">
+		                        <li class="dropdown">
+		                        <!--
+		                            <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Funnel</a>
+		                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+			                            <li><a href="#">Option 1</a></li>
+			                            <li><a href="#">Option 2</a></li>
+			                            <li><a href="#">Option 3</a></li>
+		                           
+		                            </ul>
+		                         -->
+		                        </li>
+		                    </ul>
+		                   
+		                </div>
+		            </nav>
+		        </div>
+		    </div>
+		</div>
+	</section>
+	<section class="container table-section-second mt-5">
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-striped border">
+				    <thead>
+				      <tr>
+				        <th>CAMPAIGN</th>
+				        <th>SENT</th>
+				        <th>BNCS</th>
+				        <th>FWDS</th>
+				        <th>VIEWS</th>
+				        <th>CLICKS</th>
+				      </tr>
+				    </thead>
+				    <tbody id='campaign_details'>
+				    <!-- 
+				      <tr>
+				        <td>Test</td>
+				        <td>4</td>
+				        <td>0</td>
+				        <td>0</td>
+				        <td><a href="index3.html" target="_blank">3</a></td>
+				        <td><a href="index4.html" target="_blank">0</a></td>
+				      </tr>
+				      -->
+				    </tbody>
+				  </table>
+			</div>
+		</div>
+	</section>
+	<script type="text/javascript">
+	$('.option').click(function(){
+	    $('.table-section').slideDown();
+	});
+</script>
+
+<script>
+
+$( document).ready(function() {
+	var remoteuser ='<%=request.getRemoteUser()%>';
+    //alert("remoteuser : "+remoteuser);
+    $.ajax({
+        type : 'GET',
+        url :'<%=request.getContextPath()%>/servlet/service/CampaignReportApi.campaignViewData',
+        data: {
+		campaign_id : '<%=request.getParameter("campaign_id")%>',
+		funnel_name : '<%=request.getParameter("funnel_name")%>',
+		subfunnel_name : '<%=request.getParameter("subfunnel_name")%>'
+     
+             },
+		success: function (dataa) {
+            	    // alert("dataa : "+dataa);
+            	    var campaignJsonArray = JSON.parse(dataa);
+            	    //alert(campaignJsonArray);
+            	    var finalRow = "";
+            	    var funnel_path = "";
+            	    for(var i=0;i<campaignJsonArray.length;i++){
+            	    	var campaignJsonObject=JSON.parse(campaignJsonArray[i]);
+            	    	if(i==0){
+            	    		funnel_path = campaignJsonObject.funnelNodeName+"/"+campaignJsonObject.subFunnelNodeName;
+            	    	}
+            	    	//finalRow=finalRow+"<tr><td>"+campaignJsonObject.Sling_Subject+"</td><td>"+campaignJsonObject.sent+"</td><td>"+campaignJsonObject.bounce_count+"</td><td>"+campaignJsonObject.fwds+"</td><td><a href='#' target='_blank'>"+campaignJsonObject.viewed+"</td><td><a href='#' target='_blank'>"+campaignJsonObject.clicks+"</a></td></tr>";
+            	    	//finalRow=finalRow+"<tr><td>"+campaignJsonObject.Sling_Subject+"</td><td>"+campaignJsonObject.sent+"</td><td>"+campaignJsonObject.bounce_count+"</td><td>"+campaignJsonObject.fwds+"</td><td><a href='<%=request.getContextPath()%>/servlet/service/CampaignReportApi.subscribersView?campaign_id="+campaignJsonObject.Sling_Campaign_Id+"' target='_blank'>"+campaignJsonObject.viewed+"</a></td><td><a href='<%=request.getContextPath()%>/servlet/service/CampaignReportApi.urlView?funnel_path="+funnel_path+"/"+viewed_subscribersDataJsonObj.email+"&userid="+viewed_subscribersDataJsonObj.userid+"' target='_blank'>"+campaignJsonObject.clicks+"</a></td></tr>";
+            	    	finalRow=finalRow+"<tr><td>"+campaignJsonObject.Sling_Subject+"</td><td>"+campaignJsonObject.sent+"</td><td>"+campaignJsonObject.bounce_count+"</td><td>"+campaignJsonObject.fwds+"</td><td><a href='<%=request.getContextPath()%>/servlet/service/CampaignReportApi.subscribersView?campaign_id="+campaignJsonObject.Sling_Campaign_Id+"' target='_blank'>"+campaignJsonObject.viewed+"</a></td><td>"+campaignJsonObject.clicks+"</td></tr>";
+            	    }
+            	    //var campaignJsonObj=JSON.parse(campaignJsonArray[0]);
+            	    //var campaignJsonObj=campaignJsonArray[0];
+					//alert	("finalRow : "+finalRow);
+					document.getElementById("campaign_details").innerHTML  =finalRow;
+					document.getElementById("funnel_path").innerHTML  =funnel_path;
+					
+					
+             }
+        });	
+});
+
+</script>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+<link rel="stylesheet"
+	href="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css">
+<script src="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js"></script>
+
+</body>
+</html>

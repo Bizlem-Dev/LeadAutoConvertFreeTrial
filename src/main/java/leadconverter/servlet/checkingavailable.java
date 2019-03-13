@@ -78,7 +78,7 @@ public class checkingavailable extends SlingAllMethodsServlet {
 
 		try {
 			Session session = null;
-Node tempRulNode=null;
+            Node tempRulNode=null;
 			session = repo.login(new SimpleCredentials("admin", "admin".toCharArray()));
 			Node content = session.getRootNode().getNode("content");
 			
@@ -87,8 +87,8 @@ Node tempRulNode=null;
 		//	out.println("List Name from AJax : : :"+ajaxlistname);
 
 			
-			String querystr ="select [List_Name] from [nt:base] where (contains('List_Name','*"+ajaxlistname+"*'))  and ISDESCENDANTNODE('/content/Lead_Converter/List/')";
-			//out.println(querystr);
+			String querystr ="select [LIST_NAME] from [nt:base] where (contains('LIST_NAME','*"+ajaxlistname+"*'))  and ISDESCENDANTNODE('/content/LEAD_CONVERTER/LIST/')";
+			out.println(querystr);
 
 		    Workspace workspace = session.getWorkspace();
 		    Query query = workspace.getQueryManager().createQuery(querystr, Query.JCR_SQL2);

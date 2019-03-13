@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>New Tamplate</title>
+	<!--
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous">
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuW  VxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+		type="text/javascript"></script>
+	
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+		
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/apps/LeadConverterNewUIJs/jquery-ui-1.10.4.min.js"></script>
+		
+	<link rel="stylesheet"
+		href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/apps/LeadConverterNewUIJs/javascript.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	
+	-->
+	
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/LeadConverterReportCSS/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/LeadConverterReportCSS/custom.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="<%=request.getContextPath()%>/apps/LeadConverterReportJS/bootstrap.js"></script>
+	<script src="<%=request.getContextPath()%>/apps/LeadConverterReportJS/custom.js"></script>
+</head>
+<body>
+	<section class="container-fluid main-head-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 left-head-logo">
+					<h1>Logo</h1>
+				</div>
+				<div class="col-md-9 right-head-detail">
+					
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="container-fluid main-menubar-secion p-0">
+		<div id="menu_area" class="menu-area">
+		    <div class="container">
+		        <div class="row">
+		            <nav class="navbar navbar-light navbar-expand-lg mainmenu">
+		                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		                <span class="navbar-toggler-icon"></span>
+		                </button>
+		                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		                    <ul class="navbar-nav mr-auto">
+		                        <li class="dropdown">
+		                            <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Funnel</a>
+		                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="funnelSelect">
+		                            
+		                            </ul>
+		                        </li>
+		                    </ul>
+		                </div>
+		            </nav>
+		        </div>
+		    </div>
+		</div>
+	</section>
+	<section class="container table-section mt-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-striped border">
+				     <!-- 
+					 <thead>
+					      <tr>
+					        <th>Funnel ID</th>
+					        <th>Sub Funnel Name</th>
+					        <th>Campaign ID</th>
+					        <th>Campaign Name</th>
+					        <th>Subscribers</th>
+						  </tr>
+					  </thead>
+					  -->
+				    <thead id='funnel_thead'></thead> 
+				    <tbody id='funnel_tbody'></tbody>
+				  </table>
+			</div>
+		</div>
+	</section>
+	<script type="text/javascript">
+		$('.option').click(function(){
+		    $('.table-section').slideDown();
+		});
+	</script>
+	
+<script>
+	
+	$( document).ready(function() {
+		var remoteuser ='<%=request.getRemoteUser()%>';
+	    //alert("remoteuser : "+remoteuser);
+		$.ajax({
+	        type : 'GET',
+	        url :'<%=request.getContextPath()%>/servlet/service/CampaignReportApi.funnelList',
+	        data: {
+	    	      remoteuser : remoteuser,
+	             },
+			success: function (dataa) {
+					//alert	("CampaignReportApi.funnelList : "+dataa);
+					var JsonArray = JSON.parse(dataa);
+					var optionMap = "";
+					
+					for(var i=0;i<JsonArray.length;i++){
+						 optionMap = optionMap + "<li><a href='#' onclick='showFunnelData(this.id)' id='"+JsonArray[i]+"'>"+JsonArray[i]+"</a></li>";
+					}
+					document.getElementById("funnelSelect").innerHTML  =optionMap;
+				}
+	        });	
+	});
+	
+	function showFunnelData(funnelId){
+		var remoteuser ='<%=request.getRemoteUser()%>';
+		//alert(funnelId);
+		//$('.table-section').slideDown();
+		//alert	("CampaignReportApi.campaignList : "+dataa);
+		var funnel_thead = "<tr><th>Drop Down(Filter)</th><th>Unsubscribers</th>";
+		var subFunnelJsonArray;
+		$.ajax({
+	        type : 'GET',
+	        url :'<%=request.getContextPath()%>/servlet/service/CampaignReportApi.subFunnelList',
+	        data: {
+	    	      remoteuser : remoteuser,
+	    	      funnel_id : funnelId
+	             },
+			success: function (dataa) {
+					subFunnelJsonArray = JSON.parse(dataa);
+					//alert	("subFunnelJsonArray : "+subFunnelJsonArray);
+					for(var i=0;i<subFunnelJsonArray.length;i++){
+					   funnel_thead=funnel_thead+"<th><a href='<%=request.getContextPath()%>/servlet/service/CampaignReportApi.campaignView?subfunnel_name="+subFunnelJsonArray[i]+"&funnel_name="+funnelId+"' target='_blank'>"+subFunnelJsonArray[i]+"</th>";
+					}
+					funnel_thead=funnel_thead+"</tr>";
+					//alert	("funnel_thead : "+funnel_thead);
+					//document.getElementById("funnelSelect").innerHTML  =optionMap;
+					
+				}
+	        });	
+			
+		function checkSubFunnelIndex(subFunnelNodeName) {
+		     var subNodeIndex=0;
+		     for (var i=0;i<subFunnelJsonArray.length;i++) {
+					//alert('step 1');
+					var z=subFunnelJsonArray[i];
+					if(z==subFunnelNodeName){
+						subNodeIndex=i;
+					}
+				}
+             return subNodeIndex;
+        }
+		
+		$.ajax({
+	        type : 'GET',
+	        url :'<%=request.getContextPath()%>/servlet/service/CampaignReportApi.campaignList',
+	        data: {
+	    	      remoteuser : remoteuser,
+	    	      funnel_id : funnelId
+	             },
+			success: function (dataa) {
+	            	var campaignJsonArray = JSON.parse(dataa);
+					//alert	("subFunnelJsonArray : "+subFunnelJsonArray);
+					//alert	("campaignJsonArray : "+campaignJsonArray.length);
+					var campaignRow = "<tr><td><a href='#' target='_blank'>Campaign</a></td>";
+					var subscriberRow = "<tr><td><a href='#' target='_blank'>Subscribers</a></td>";
+					var finalRow = "";
+					var campSubFinalRow= "";
+					
+					for(var i=0;i<campaignJsonArray.length;i++){
+						var campaignJsonObject=JSON.parse(campaignJsonArray[i]);
+		                console.log("funnelNodeName : "+campaignJsonObject.funnelNodeName);
+						console.log("subFunnelNodeName : "+campaignJsonObject.subFunnelNodeName);
+						console.log("Sling_Campaign_Id : "+campaignJsonObject.Sling_Campaign_Id);
+						console.log("Sling_Subject : "+campaignJsonObject.Sling_Subject);
+						console.log("viewed_subscribers total  : "+campaignJsonObject.viewed_subscribers.total);
+						//alert(campaignJsonObject.subFunnelNodeName);
+						finalRow=finalRow+"<tr><td><a href='#' onclick='showFunnelData(this.id)' id='"+campaignJsonObject.funnelNodeName+"'>"+campaignJsonObject.funnelNodeName+"</a></td>"
+						+"<td><a href='#' onclick='showFunnelData(this.id)' id='"+campaignJsonObject.subFunnelNodeName+"'>"+campaignJsonObject.subFunnelNodeName+"</a></td>"
+						+"<td><a href='#' onclick='showFunnelData(this.id)' id='"+campaignJsonObject.Sling_Campaign_Id+"'>"+campaignJsonObject.Sling_Campaign_Id+"</a></td>"
+						+"<td><a href='#' onclick='showFunnelData(this.id)' id='"+campaignJsonObject.Sling_Campaign_Id+"'>"+campaignJsonObject.Sling_Subject+"</a></td>"
+						+"<td><a href='#' onclick='showFunnelData(this.id)' id='"+campaignJsonObject.Sling_Campaign_Id+"'>"+campaignJsonObject.viewed_subscribers.total+"</a></td></tr>";
+						var subNodeIndex=checkSubFunnelIndex(campaignJsonObject.subFunnelNodeName);
+						//alert(subNodeIndex);
+						var campRowOut="";
+						
+						var campaignOuterTr="<tr><td>Campaign Name</td><td></td>";
+						var subscriberOuterTr="<tr><td>Subscribers</td><td></td>";
+						
+						for(var j=0;j<subFunnelJsonArray.length;j++){
+						    var campaignInnerTr="";
+							var subscriberInnerTr="";
+						    if(subNodeIndex==j){
+							   campaignInnerTr="<td><a href='<%=request.getContextPath()%>/servlet/service/CampaignReportApi.campaignView?campaign_id="+campaignJsonObject.Sling_Campaign_Id+"' target='_blank'>"+campaignJsonObject.Sling_Subject+"</a></td>";
+							   subscriberInnerTr="<td><a href='<%=request.getContextPath()%>/servlet/service/CampaignReportApi.subscribersView?campaign_id="+campaignJsonObject.Sling_Campaign_Id+"' target='_blank'>"+campaignJsonObject.viewed_subscribers.total+"</a></td>";
+							   //alert("subscriberInnerTr : "+subscriberInnerTr);
+							   //href="index3.html" target="_blank"
+							}else{
+							   campaignInnerTr="<td></td>"
+							   subscriberInnerTr="<td></td>"
+							}
+							
+							campaignOuterTr=campaignOuterTr+campaignInnerTr;
+							subscriberOuterTr=subscriberOuterTr+subscriberInnerTr;
+							//alert("campaignOuterTr : "+campaignOuterTr);
+						}
+						campaignOuterTr=campaignOuterTr+"</tr>";
+						//alert("campaignOuterTr : "+campaignOuterTr);
+						subscriberOuterTr=subscriberOuterTr+"</tr>";
+						
+						
+						campSubFinalRow=campSubFinalRow+campaignOuterTr+subscriberOuterTr;
+						/*
+						var subNodeIndex;
+						for (var i=0;i<subFunnelJsonArray.length;i++) {
+						    //alert('step 1');
+							var z=subFunnelJsonArray[i];
+							 //alert(z);
+							 //alert(campaignJsonObject.subFunnelNodeName);
+							 //alert(z===campaignJsonObject.subFunnelNodeName);
+							if(z==campaignJsonObject.subFunnelNodeName){
+							   //alert('step 2');
+							  subNodeIndex=i;
+							}
+							//alert("subFunnelNodeName index : "+subNodeIndex);
+						}
+						*/
+						
+						//campaignRow=campaignRow+"<td><a href='#' onclick='showFunnelData(this.id)' //id='"+campaignJsonObject.Sling_Campaign_Id+"'>"+campaignJsonObject.Sling_Subject+"</a></td></tr>";
+						
+						//subscriberRow=subscriberRow+"<td><a href='#' onclick='showFunnelData(this.id)' id='"+campaignJsonObject.Sling_Campaign_Id+"'>"+campaignJsonObject.viewed_subscribers.total+"</a></td></tr>";
+						
+						//finalRow=finalRow+campaignRow+subscriberRow;
+						//console.log('campaignJsonArray : '+JSON.stringify(campaignJsonArray[i]));
+						//console.log("Sling_Campaign_Id : "+campaignJsonArray[i].Sling_Campaign_Id+" Sling_Campaign_Id : "+campaignJsonArray[i].Sling_Subject);
+						//alert("Sling_Campaign_Id : "+campaignJsonArray[i].Sling_Campaign_Id+" Sling_Campaign_Id : "+campaignJsonArray[i].Sling_Subject);
+						// optionMap = optionMap + "<li><a href='#' onclick='showFunnelData(this.id)' id='"+JsonArray[i]+"'>"+JsonArray[i]+"</a></li>";
+					}
+					//alert(campSubFinalRow);
+					document.getElementById("funnel_thead").innerHTML  =funnel_thead;
+					document.getElementById("funnel_tbody").innerHTML  =campSubFinalRow;
+					$('.table-section').slideDown();
+					
+				}
+	        });	
+			
+	}
+	
+	</script>
+	
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+	<link rel="stylesheet"
+		href="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css">
+	<script src="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js"></script>
+
+</body>
+</html>

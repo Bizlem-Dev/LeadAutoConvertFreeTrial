@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>New Tamplate</title>
+	<!--
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous">
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuW  VxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+		type="text/javascript"></script>
+	
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+		
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/apps/LeadConverterNewUIJs/jquery-ui-1.10.4.min.js"></script>
+		
+	<link rel="stylesheet"
+		href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/apps/LeadConverterNewUIJs/javascript.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	
+	-->
+	
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/LeadConverterReportCSS/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/LeadConverterReportCSS/custom.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="<%=request.getContextPath()%>/apps/LeadConverterReportJS/bootstrap.js"></script>
+	<script src="<%=request.getContextPath()%>/apps/LeadConverterReportJS/custom.js"></script>
+</head>
+<body>
+	<section class="container-fluid main-head-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 left-head-logo">
+					<h1>Logo</h1>
+				</div>
+				<div class="col-md-9 right-head-detail">
+					
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="container-fluid main-menubar-secion p-0">
+		<div id="menu_area" class="menu-area">
+		    <div class="container">
+		        <div class="row">
+		            <nav class="navbar navbar-light navbar-expand-lg mainmenu">
+		                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		                <span class="navbar-toggler-icon"></span>
+		                </button>
+		                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		                <h3><span class="" id="url_text"></span></h3>
+		                <!--
+		                    <ul class="navbar-nav mr-auto">
+		                        <li class="dropdown">
+		                            <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Funnel</a>
+		                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="funnelSelect">
+		                            
+		                            </ul>
+		                        </li>
+		                    </ul>
+		                -->
+		                </div>
+		            </nav>
+		        </div>
+		    </div>
+		</div>
+	</section>
+	<section class="container table-section-second mt-3">
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-striped border">
+			    <thead>
+				    <tr>
+			        <th>CAMPAIGN CLICK STATISTICS</th>
+			        <th>CLICKS</th>
+			        <th>CLICK RATE</th>
+			        </tr>
+			    </thead>
+			    <tbody id='campaign_click_details'>
+			      <!--
+			      <tr>
+			        <td>http://abc.com</td>
+			        <td>29 Oct 2018 12:45</td>
+			        <td>15 Des 2018 1:12</td>
+			        <td>1</td>
+			      </tr>
+			      -->
+			    </tbody>
+			  </table>
+		</div>
+	</div>
+	</section>
+	<script type="text/javascript">
+		$('.option').click(function(){
+		    $('.table-section').slideDown();
+		});
+	</script>
+	<script>
+
+	        $( document).ready(function() {
+	        var remoteuser ='<%=request.getRemoteUser()%>';
+	        //alert("remoteuser : "+remoteuser);
+	        $.ajax({
+	            type : 'GET',
+	            url :'<%=request.getContextPath()%>/servlet/service/CampaignReportApi.ucsCampaignClickStatisticsData',
+	            data: {
+	        	       url : '<%=request.getParameter("url")%>',
+	        	       campaign_id : '<%=request.getParameter("campaign_id")%>'
+	        	      },
+	        	success: function (dataa) {
+	                	    //alert("dataa : "+dataa);
+	                	    
+	                	    var urlClickedJsonArray = JSON.parse(dataa);
+	                	    var finalRow = "";
+	                	    var funnel_path = "";
+	                	    var Campaign_Name="";
+	                	    //alert("urlClickedJsonArray.length : "+urlClickedJsonArray.length);
+	                	    for(var i=0;i<urlClickedJsonArray.length;i++){
+	                	    	var campaignclickstatisticsJsonObj=urlClickedJsonArray[i];
+	                	    	if(i==0){
+	                	    		Campaign_Name=urlClickedJsonArray[i].Campaign_Name;
+	                	    	}
+	                	    	 finalRow=finalRow+"<tr><td><a href='<%=request.getContextPath()%>/servlet/service/CampaignReportApi.ucsUrlClickStatistics?campaign_id=<%=request.getParameter('campaign_id')%>&url="+urlClickedJsonArray[i].URL+"' target='_blank'>"+urlClickedJsonArray[i].URL+"</a></td><td>"+urlClickedJsonArray[i].CLICKS+"</td><td>"+urlClickedJsonArray[i].CLICK_RATE+" %</td></tr>";					
+	        				}
+	        				document.getElementById("campaign_click_details").innerHTML  =finalRow;
+	        				document.getElementById("url_text").innerHTML  ="Click details for a Campaign : "+Campaign_Name;
+	        				
+	        				//document.getElementById("funnel_path").innerHTML  ='1/Explore/Tempalte%20789/marzouqimohammed@emaar.com';
+	        				//<a href='<%=request.getContextPath()%>/servlet/service/CampaignReportApi.ucsUrlClickStatistics?url="+urlClickedJsonArray[i].AVAILABLE_URLS+"' target='_blank'>
+	        				
+	                 }
+	            });	
+	        });
+
+	        </script>       	
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+	<link rel="stylesheet"
+		href="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css">
+	<script src="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js"></script>
+
+</body>
+</html>

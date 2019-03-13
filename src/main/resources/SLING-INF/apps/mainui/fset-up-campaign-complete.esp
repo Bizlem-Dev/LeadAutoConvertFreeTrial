@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta name="description" content="bootstrap admin template">
+  <meta name="author" content="">
+  <title>Set Up Campaign Complete</title>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/css/bootstrap.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/css/bootstrap-extend.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/assets/css/site.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/asscrollable/asScrollable.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/switchery/switchery.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/intro-js/introjs.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/slidepanel/slidePanel.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/flag-icon-css/flag-icon.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/jquery-wizard/jquery-wizard.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/formvalidation/formValidation.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/fonts/web-icons/web-icons.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/fonts/brand-icons/brand-icons.min599c.css?v4.0.2">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  
+  <link href="<%=request.getContextPath()%>/apps/news-letter/_css/Icomoon/style.css" rel="stylesheet" type="text/css" />
+  <link href="<%=request.getContextPath()%>/apps/news-letter/_css/newsletter-builder.css" rel="stylesheet" type="text/css" />
+  <link href="<%=request.getContextPath()%>/apps/news-letter/_css/newsletter.css" rel="stylesheet" type="text/css" />
+  
+  <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/global/css/custom.css">
+  <script type='text/javascript' src='https://code.jquery.com/jquery-2.1.1.min.js'></script>
+  
+<script>
+</script>
+</script>
+  <style type="text/css">
+  .product-listing {
+     background-color:#fff;
+     border-radius:5px;
+     box-shadow:0 2px 10px 0 rgba(138,168,230,.2);
+     padding:20px;
+     position:relative;
+     overflow:hidden;
+     display:block;
+     transition:box-shadow .3s ease,-webkit-transform .3s ease;
+     transition:transform .3s ease,box-shadow .3s ease;
+     transition:transform .3s ease,box-shadow .3s ease,-webkit-transform .3s ease
+  }
+  .content-second-box-btn{
+    margin-top:5px;
+    height:363px;
+  }
+    body{
+    overflow-y: auto;
+  }
+</style>
+</head>
+<body class="animsition">
+  <div class="row-fluid main-header">
+    <div class="container-fluid">
+    <div class="col-md-12 menubar">
+	    <ul class="pt-5 m-0 pull-left"> 
+	    <li><a href="<%=request.getContextPath()%>/servlet/service/ui.index"><img src="<%=request.getContextPath()%>/apps/global/assets/images/lead-auto-convert-logo.png" style="width:205px;margin-left:-60px;"></a></li>
+	    <li><a href="<%=request.getContextPath()%>/servlet/service/ui.funnel" target="_blank"> Funnel</a></li>
+	    <li><a href="<%=request.getContextPath()%>/servlet/service/ui.list" target="_blank"> List</a></li>
+	    <li><a href="<%=request.getContextPath()%>/servlet/service/ui.statistic"> Dashboard</a></li>
+	    </ul>
+	    <ul class="pt-15 pull-right">
+	      <li><a href="<%=request.getContextPath()%>/servlet/service/ui.configuration" target="_blank"><img src="<%=request.getContextPath()%>/apps/global/assets/images/shedule.png"> Configuration</a></li>
+	      <li><a href="#" class="creat-new-campaigns-menu"> Create New Campaigns</a></li>
+	    </ul>
+	  </div>
+    </div>
+  </div>
+  <!-- Page -->
+  <div class="page">
+    <div class="page-content container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel" id="exampleWizardForm">
+            <div class="panel-body">
+              <div class="col-md-10 offset-md-1" style="padding:15px 0px 0px 25px;">
+                <h3 id='campaign-name'>Test Name</h3>
+                <a href="#">Edit Name</a>
+              </div>
+              <br><br><br><br>
+              <form id="exampleFormContainer">
+                <div class="wizard-content">
+                  <div class="wizard-pane active" id="exampleAccountOne" role="tabpanel">
+                    <div class="product-listing " style="width: 81%; margin-left: 130px; margin-top: 20px;"  data-toggle="collapse" href="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
+                      <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                          <div class="row"> 
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                              <span class="text-color" style="font-size: 25px; float: left;">From</span>
+                              <a href="#" class="custom-btn float-right btn btn-dark btn-sm btn-add-form">Add From</a>
+                            </div>
+                          </div>
+                          <div class="row"> 
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                              <span style="font-size: 15px;">Who is sending this campaign?</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-11" style="margin-left:56px;">
+                          <div class="collapse" id="collapseExample1">
+                            <div class="well">
+                              <div class="row">
+                                  <div class="col-md-12">
+                                    <h3 class="text-color">From</h3>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <form>
+                                      <div class="form-group">
+                                        <label for="campaign-name">Name</label>
+                                        <input type="text" class="form-control" id="from-name" placeholder="Name">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="campaign-name">Email Address</label>
+                                        <input type="text" class="form-control" id="email-address" placeholder="Email Address">
+                                      </div>
+                                    </form>
+                                  </div>
+                                  <div class="col-md-12 text-center" style="margin-top:25px;">
+                                    <button type="submit" class="custom-btn btn btn-info funnel-next-btn">Save</button>
+                                    <button type="submit" class="custom-btn btn btn-info funnel-next-btn">Cancel</button>
+                                  </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="product-listing" style="width: 81%; margin-left: 130px; margin-top: 20px;"  data-toggle="collapse" href="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
+                      <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                          <div class="row"> 
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                              <span class="text-color" style="font-size: 25px; float: left;">Subject</span>
+                              <a href="#" class="custom-btn float-right btn btn-dark btn-sm btn-add-form">Add Subject</a>
+                            </div>
+                          </div>
+                          <div class="row"> 
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                              <span style="font-size: 15px;">What's the subject line for this campaign?</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="container">
+                      <div class="row">
+                        <div class="col-md-11" style="margin-left:56px;">
+                            <div class="collapse" id="collapseExample2">
+                              <div class="well">
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <h3 class="text-color">Subject</h3>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <form>
+                                      <div class="form-group">
+                                        <label for="campaign-name">Subject</label>
+                                        <input type="text" class="form-control" id="subject-name" maxlength="150" placeholder="Enter Subject">
+                                      </div>
+                                    </form>
+                                  </div>
+                                  <div class="col-md-12 text-center" style="margin-top:25px;">
+                                    <button type="submit" class="custom-btn btn btn-info funnel-next-btn">Save</button>
+                                    <button type="submit" class="custom-btn btn btn-info funnel-next-btn">Cancel</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+				            </div>
+                    <div class="product-listing" style="width: 81%; margin-left: 130px; margin-top: 20px;"  data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
+                      <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                          <div class="row"> 
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                              <span class="text-color" style="font-size: 25px; float: left;">Content</span>
+                              <a href="#" class="custom-btn float-right btn btn-dark btn-sm btn-add-form">Design Email</a>
+                            </div>
+                          </div>
+                          <div class="row"> 
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                              <span style="font-size: 15px;">Design the content for your email.</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-11" style="margin-left: 56px;">
+                          <div class="collapse show" id="collapseExample3">
+                            <div class="well">
+                              <div class="row text-center">
+                                <div class="col-md-10">
+                                  <h4 class="text-color">Preview And Test</h4>
+                                    <div class="imag-box-content border-set rounded" id="imag-box-content border-set rounded" style="overflow-y: scroll; overflow-x: hidden; height: 400px;">
+                                        <img src="../assets/images/New Project.png" style="width:100%;">
+                                        <!-- pls code here -->
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mt-2 pt-4">
+                                    <div class="imag-box-content border-set content-second-box-btn rounded" style="height: auto; padding: 110px 0px;">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <a href="#" class="btn custom-btn w-75">Send a <br> Test Email</a>
+                                                <br><br>
+                                                <a href="#" class="btn custom-btn w-75" onclick='activateEdit(this.id)' id="template_edit">Edit</a>
+												<br><br>
+                                                <a href="select-tamplate.html" class="btn custom-btn w-75">Redesign <br> From Start</a>
+												<br><br>
+                                                <button type="button" class="btn custom-btn w-75" id='save_campaign'>Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </form>
+              <div class="wizard-buttons"><a class="btn btn-default btn-outline disabled" href="#" data-wizard="back" role="button">Back</a><a class="btn btn-primary btn-outline custom-btn float-right" href="verify.html" data-wizard="next" role="button">Next</a><a class="btn btn-success btn-outline float-right hidden-xs-up" href="#exampleWizardForm" data-wizard="finish" role="button">Finish</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+     document.getElementById("campaign-name").innerHTML =localStorage.getItem('campaignName');;
+	 document.getElementById("from-name").value=localStorage.getItem('fromName');
+	 document.getElementById("email-address").value=localStorage.getItem('fromEmailAddress');
+     //Getting Query Param Value
+     var queryString = decodeURIComponent(window.location.search);
+	     queryString = queryString.substring(1);
+	 var queries = queryString.split('&');
+     //var tmplname=queries[0].split('=')[1];
+     var tmplname=localStorage.getItem('tmplname');
+     //alert();
+     
+     var listvalues = localStorage.getItem('tmpl_txt');
+     alert("listvalues : "+listvalues);
+	 //Setting Selected Template To Prievew & Test
+     document.getElementById('imag-box-content border-set rounded').innerHTML=listvalues;
+     localStorage.setItem('tmplflag', 'edit'); 
+     //document.getElementById('template_edit').setAttribute('href', tmplname+'?cmd=edit');
+     
+     function activateEdit(id){
+    	 document.getElementById('template_edit').setAttribute('href', "<%=request.getContextPath()%>/servlet/service/ui."+tmplname);
+    	 localStorage.setItem('cmd', 'edit');
+     }
+	 $('#save_campaign').on('click', saveCampaign);
+	    function saveCampaign(event){
+		    var funnelName=localStorage.getItem('funnelName');
+			var SubFunnelName=localStorage.getItem('SubFunnelName');
+			var DistanceBtnCampaign=localStorage.getItem('DistanceBtnCampaign');
+			var listid=localStorage.getItem('listid');
+			  
+		    var campaignName = document.getElementById("campaign-name").innerText;
+		    var fromName = document.getElementById("from-name").value;
+		    var fromEmailAddress = document.getElementById("email-address").value;
+		    var subjectName = document.getElementById("subject-name").value;
+			
+			localStorage.setItem('campaignName',campaignName);
+	        localStorage.setItem('fromName',fromName);
+	        localStorage.setItem('fromEmailAddress',fromEmailAddress);
+	        localStorage.setItem('subjectName',subjectName);
+			
+		    var uploded_content=document.getElementById('imag-box-content border-set rounded').innerHTML;
+			
+			alert("uploded_content : "+uploded_content);
+			$.ajax({
+					//url: 'http://35.236.154.164:8082/portal/servlet/service/uidata.createLead',
+					url: 'http://35.236.154.164:8082/portal/servlet/service/createCampaign.CampaignNodeAdd',//createListAndSubscribers
+					//url: 'http://35.236.154.164:8082/portal/servlet/service/createCampaign.addCampaign',
+					type: 'POST',
+					async:false,
+					data: {
+					       ckcontent:uploded_content,
+						   subject : subjectName,
+						   campaignName : campaignName,
+						   fromName : fromName,
+						   fromEmailAddress : fromEmailAddress,
+						   funnelName : funnelName,
+						   SubFunnelName : SubFunnelName,
+						   DistanceBtnCampaign : DistanceBtnCampaign,
+						   listid : listid,
+						  },
+					cache: false,
+					//dataType: 'json',
+					//processData: false, 
+					//contentType: false, 
+					success: function(data)
+					{
+						//console.log('--------------markup---------start');
+	                    console.log('data : '+data);
+						var jsonData = JSON.parse(data);
+						//Cookies.set('campaignid',jsonData.campaignid);
+						localStorage.setItem('campaignid',jsonData.campaignid);
+						console.log('campaignid',jsonData.campaignid);
+						//campaignid
+	                    //console.log('--------------markup---------end');
+	                    //alert('data: '+data);
+					}
+					});
+	    }
+  </script>
+  <script data-cfasync="false" src="../../../cdn-cgi/scripts/d07b1474/cloudflare-static/email-decode.min.js"></script><script src="../../global/vendor/babel-external-helpers/babel-external-helpers599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/news-letter/_js/babel-external-helpers599c.js?v4.0.2"></script>
+  
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery/jquery.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/popper-js/umd/popper.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/bootstrap/bootstrap.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/asscrollbar/jquery-asScrollbar.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/formvalidation/formValidation.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery-wizard/jquery-wizard.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/js/Plugin.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/js/Config.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/js/Plugin/jquery-wizard.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/assets/examples/js/forms/wizard.min599c.js?v4.0.2"></script>
+  
+  
+  <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/global/css/custom.css">
+  <script type='text/javascript' src='https://code.jquery.com/jquery-2.1.1.min.js'></script>
+</body>
+</html>

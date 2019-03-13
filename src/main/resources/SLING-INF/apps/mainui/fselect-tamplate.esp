@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta name="description" content="bootstrap admin template">
+  <meta name="author" content="">
+  <title>Select Tamplate</title>
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/css/bootstrap.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/css/bootstrap-extend.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/assets/css/site.min599c.css?v4.0.2">
+  
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  
+  <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/global/css/custom.css">
+  <!--
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/js/Cookies.js"></script>
+  -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  
+<style type="text/css">
+	.plus-box i{
+		font-size:20px;
+		padding-top:180px;
+	}
+	.plus-box p{
+		padding-bottom:180px;
+	}
+  label {
+  cursor: pointer;
+   /* Style as you please, it will become the visible UI component. */
+  }
+
+  #upload-photo {
+     opacity: 0;
+     position: absolute;
+     z-index: -1;
+  }
+  .border-set{
+    position: relative;
+  }
+  .overlay{
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: rgba(0,0,0,0.3);
+  }
+  .overlay p,
+  .overlay i{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-weight: bold;
+    font-size: 15px;
+  }
+  .overlay i{
+    top: 45%;
+  }
+</style>
+</head>
+<body class="animsition">
+  <div class="row-fluid main-header">
+    <div class="container-fluid">
+      <div class="col-md-12 menubar">
+	      <ul class="pt-5 m-0 pull-left"> 
+	      <li><a href="<%=request.getContextPath()%>/servlet/service/ui.index"><img src="<%=request.getContextPath()%>/apps/global/assets/images/lead-auto-convert-logo.png" style="width:205px;margin-left:-60px;"></a></li>
+	      <li><a href="<%=request.getContextPath()%>/servlet/service/ui.funnel" target="_blank"> Funnel</a></li>
+	      <li><a href="<%=request.getContextPath()%>/servlet/service/ui.list" target="_blank"> List</a></li>
+	      <li><a href="<%=request.getContextPath()%>/servlet/service/ui.statistic"> Dashboard</a></li>
+	      </ul>
+	      <ul class="pt-15 pull-right">
+	        <li><a href="<%=request.getContextPath()%>/servlet/service/ui.configuration" target="_blank"><img src="<%=request.getContextPath()%>/apps/global/assets/images/shedule.png"> Configuration</a></li>
+	        <li><a href="#" class="creat-new-campaigns-menu"> Create New Campaigns</a></li>
+	      </ul
+      </div>
+    </div>
+  </div>
+  <!-- Page -->
+  	<div class="page">
+    	<div class="page-content container-fluid">
+      		<div class="row">
+        		<div class="panel" id="exampleWizardForm" style="width:100%;margin:0px 20px;">
+          			<div class="col-lg-12">
+            			<div class="panel-body">
+	              			<div class="container">
+		                		<div class="row text-center">
+		                    		<div class="plus-box col-md-4 imag-box-content-main">
+		                      			<a href="<%=request.getContextPath()%>/servlet/service/ui.strat-from-scratch">
+		                        			<div class="imag-box-content border-set rounded">
+		                          				<i class="fa fa-plus" aria-hidden="true"></i>	
+		                          				<p>Start From Scratch</p>
+		                        			</div>
+		                      			</a>
+		                    		</div>
+		                    		<div class="col-md-4">
+                                <a href="<%=request.getContextPath()%>/servlet/service/ui.simpleLayout" id="simpleLayout" onclick="simpleLayoutClk(this.id)">
+                                    <div class="imag-box-content border-set rounded">
+                                      	<img src="<%=request.getContextPath()%>/apps/global/assets/images/New_Project.png" style="width:100%;">
+                                        <div class="overlay">
+                                          <i class="fa fa-plus" aria-hidden="true"></i> 
+                                          <p>Simple Layout</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+							<!--
+                            <div class="plus-box col-md-4 imag-box-content-main">
+                                <a href="#">
+                                  <div class="imag-box-content border-set rounded" style="position: relative;">
+                                      <i class="fa fa-plus" aria-hidden="true"></i> 
+                                      <p><label>Ulpoad Template</label></p>
+                                      <label for="upload-photo" style="position: absolute; top: 0px; bottom: 0px; width: 100%; left: 0px;"></label>
+                                      <input type="file" name="photo" id="upload-photo" />
+                                  </div>
+                                </a>
+                            </div>
+							-->
+							<div class="plus-box col-md-4 imag-box-content-main">
+                                <a href="<%=request.getContextPath()%>/servlet/service/ui.select-tamplate-file" target="_blank">
+                                  <div class="imag-box-content border-set rounded">
+                                      <i class="fa fa-plus" aria-hidden="true"></i> 
+                                      <p>Upload Template</p>
+                                  </div>
+                                </a>
+                            </div>
+		                		</div>
+	              			</div>
+            			</div>
+          			</div>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+	<script>
+	function simpleLayoutClk(id)
+	{   
+	    //document.getElementById(id).setAttribute("href", id+".html"+decodeURIComponent(window.location.search));
+		document.getElementById(id).setAttribute("href", "<%=request.getContextPath()%>/servlet/service/ui.simpleLayout");
+		
+	}
+   </script>
+  <script data-cfasync="false" src="../../../cdn-cgi/scripts/d07b1474/cloudflare-static/email-decode.min.js"></script><script src="../../global/vendor/babel-external-helpers/babel-external-helpers599c.js?v4.0.2"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery/jquery.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/popper-js/umd/popper.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/bootstrap/bootstrap.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/asscrollbar/jquery-asScrollbar.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/formvalidation/formValidation.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery-wizard/jquery-wizard.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/js/Plugin.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/js/Config.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/js/Plugin/jquery-wizard.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/assets/examples/js/forms/wizard.min599c.js?v4.0.2"></script>
+  
+  
+  <script type="text/javascript" src="https://cdn.ckeditor.com/4.5.1/standard/ckeditor.js"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/js/custom.js"></script>
+  <!-- 
+  <script src="<%=request.getContextPath()%>/apps/global/js/Cookies.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+</body>
+</html>

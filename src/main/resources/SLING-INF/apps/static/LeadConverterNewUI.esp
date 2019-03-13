@@ -306,7 +306,7 @@ $(function () {
 											</div>
 										</div>
 								</div>
-  <button type="submit" id="savefirstpage" class="btn btn-default new-btn btn-block">Save</button>
+                                <button type="submit" id="savefirstpage" class="btn btn-default new-btn btn-block">Save</button>
 								</form>
 							</div>
 						</div>
@@ -600,7 +600,7 @@ $(document).ready(function() {
              },
 		success: function (dataa) {
 	//alert("Display_Data");
-			//alert(dataa);
+			alert("LEAD_CONVERTER_NodeAdd_Email.displaydata : "+dataa);
 			  document.getElementById(editorId).innerHTML = dataa;
 					}
 	});
@@ -736,6 +736,7 @@ $(document).ready(function(){
 
        if( $("#listname").val().length > 4){
         var value = this.value;
+        alert("checkingavailabledata.data value : "+value);
     	$.ajax({
             type : 'POST',
             url :'<%=request.getContextPath()%>/servlet/service/checkingavailabledata.data',
@@ -743,6 +744,7 @@ $(document).ready(function(){
         	   listnameresult : value
                  },
 			success: function (dataa) {
+				alert("checkingavailabledata.data : "+dataa);
 				if(dataa == "true"){
 					document.getElementById("listname").value = "";
 					document.getElementById("savefirstpage").disabled = true;
@@ -777,7 +779,7 @@ $( document).ready(function() {
     	   remoteuser : remoteuser,
              },
 		success: function (dataa) {
-			alert	(dataa);
+			alert	("LEAD_CONVERTER_NodeAdd_Email.userdata : "+dataa);
 			var jsonData = JSON.parse(dataa);
 			var remoteuser=jsonData.remoteuser;		
 	var typeDynamic = "";
@@ -819,7 +821,7 @@ $( document).ready(function() {
 <script>
 $( document).ready(function() {
     var remoteuser ='<%=request.getRemoteUser()%>';
-    alert(remoteuser);
+    alert("remoteuser : "+remoteuser);
 	$.ajax({
         type : 'POST',
         url :'<%=request.getContextPath()%>/servlet/service/Searchlist.listsearch',
@@ -827,7 +829,7 @@ $( document).ready(function() {
     	   remoteuser : remoteuser,
              },
 		success: function (dataa) {
-			alert	(dataa);
+			alert	("Searchlist.listsearch : "+dataa);
 			var jsonData = JSON.parse(dataa);
 			var optionMap = "";
 			for(var i=0;i<jsonData.JsonArray.length;i++){
@@ -862,7 +864,7 @@ $.ajax({
 	  selectedlistid  : struser,
          },
 	success: function (dataa) {
-		alert	(dataa);
+		alert	("Searchlist.getlist_data : "+dataa);
 		var jsonData = JSON.parse(dataa);
 		var text="";
 		for(var i=0;i<jsonData.Email_Array.length;i++){
@@ -986,7 +988,7 @@ alert("explorefun");
 	var numconfig=parseInt(res[1]);
 	for(var i=1; i<num; i++){
 	var uservalue=document.getElementById("usercampaignvalueexplore"+i).value;
-	//alert(uservalue);
+	    alert("uservalue : Explore :"+uservalue);
 		var currentdate=new Date();
 		var year="";
 		var date=new Date(document.getElementById("datetimepickerexplore").value);
@@ -1006,7 +1008,7 @@ alert("explorefun");
 					var minutes=todayTime.getMinutes();
 					var seconds=todayTime.getSeconds();
 							var year=yyyy+"-"+mm+"-"+dd+" "+time+":"+minutes+":"+seconds;
-							alert(year);
+							alert('year explore : '+year);
 							$.ajax({
 						        type : 'POST',
 						        url :'<%=request.getContextPath()%>/servlet/service/LEAD_CONVERTER_NodeAdd_Email.campaignuseradd',
@@ -1018,7 +1020,7 @@ alert("explorefun");
 						    	   distance:distance
 						             },
 								success: function (dataa) {
-									alert(dataa);
+									alert("LEAD_CONVERTER_NodeAdd_Email.campaignuseradd explore: "+dataa);
 											}
 							});						
 						}
@@ -1038,7 +1040,7 @@ var remoteuser= '<%=request.getRemoteUser()%>';
 	var numconfig=parseInt(res[1]);
 	for(var i=1; i<num; i++){
 	var uservalue=document.getElementById("usercampaignvalueinform"+i).value;
-	alert(uservalue);
+	alert("uservalue Inform : "+uservalue);
 		var currentdate=new Date();
 		var year="";
 		var date=new Date(document.getElementById("datetimepickerinform").value);
@@ -1069,7 +1071,7 @@ var remoteuser= '<%=request.getRemoteUser()%>';
 
 						             },
 								success: function (dataa) {
-									alert(dataa);
+									alert("LEAD_CONVERTER_NodeAdd_Email.campaignuseradd Inform : "+dataa);
 											}
 							});
 						}				
@@ -1089,7 +1091,7 @@ var type="Warm";
 	var numconfig=parseInt(res[1]);
 	for(var i=1; i<num; i++){
 	var uservalue=document.getElementById("usercampaignvaluewarm"+i).value;
-	alert(uservalue);
+	alert("uservalue warm : "+uservalue);
 	var currentdate=new Date();
 	var year="";
 	var date=new Date(document.getElementById("datetimepickerwarm").value);
@@ -1118,7 +1120,7 @@ var type="Warm";
 					    	   distance:distance
 					             },
 							success: function (dataa) {
-								alert(dataa);
+								alert("LEAD_CONVERTER_NodeAdd_Email.campaignuseradd Warm : "+dataa);
 										}
 						});					
 					}
@@ -1140,7 +1142,7 @@ var remoteuser= '<%=request.getRemoteUser()%>';
 	var numconfig=parseInt(res[1]);
 	for(var i=1; i<num; i++){
 	var uservalue=document.getElementById("usercampaignvalueentice"+i).value;
-	alert(uservalue);
+	alert("uservalue : Entice "+uservalue);
 		var currentdate=new Date();
 		var year="";
 		var date=new Date(document.getElementById("datetimepickerentice").value);
@@ -1170,7 +1172,7 @@ var remoteuser= '<%=request.getRemoteUser()%>';
 						    	   distance:distance
 						             },
 								success: function (dataa) {
-									alert(dataa);
+									alert("LEAD_CONVERTER_NodeAdd_Email.campaignuseradd entice : "+dataa);
 											}
 							});
 						}				
@@ -1194,7 +1196,7 @@ var num= parseInt(document.getElementById("numconvert").value);
 	var numconfig=parseInt(res[1]);
 	for(var i=1; i<num; i++){
 	var uservalue=document.getElementById("usercampaignvalueconvert"+i).value;
-	alert(uservalue);
+	alert("uservalue Convert : "+uservalue);
 		var currentdate=new Date();
 		var year="";
 		var date=new Date(document.getElementById("datetimepickerconvert").value);
@@ -1224,7 +1226,7 @@ var num= parseInt(document.getElementById("numconvert").value);
 						    	   distance:distance
 						             },
 								success: function (dataa) {
-									alert(dataa);
+									alert("LEAD_CONVERTER_NodeAdd_Email.campaignuseradd convert :"+dataa);
 											}
 							});
 						}				
