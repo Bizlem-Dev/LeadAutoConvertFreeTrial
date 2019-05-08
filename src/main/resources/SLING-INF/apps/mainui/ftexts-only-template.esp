@@ -1976,7 +1976,8 @@ if(cmd=='edit'){
 }
 function callNxtPage(href){
   var template_file_name = window.location.pathname.split("/").pop();
-  localStorage.setItem('tmplname', template_file_name.split(".")[0]);
+  localStorage.setItem('tmplname', template_file_name.split(".")[1]);
+  //localStorage.setItem('tmplname1', template_file_name.split(".")[1]);
   //alert("page : "+page);
   localStorage.setItem('tmpl_txt',document.getElementById('newsletter-builder-area-center-frame-content').innerHTML); 
   document.getElementById(href).setAttribute('href', "<%=request.getContextPath()%>/servlet/service/ui."+href);

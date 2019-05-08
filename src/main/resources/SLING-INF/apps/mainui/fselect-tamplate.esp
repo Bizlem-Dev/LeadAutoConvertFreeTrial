@@ -121,7 +121,8 @@
                             </div>
 							-->
 							<div class="plus-box col-md-4 imag-box-content-main">
-                                <a href="<%=request.getContextPath()%>/servlet/service/ui.select-tamplate-file" target="_blank">
+							    <!-- _blank -->
+                                <a href="<%=request.getContextPath()%>/servlet/service/ui.select-tamplate-file">
                                   <div class="imag-box-content border-set rounded">
                                       <i class="fa fa-plus" aria-hidden="true"></i> 
                                       <p>Upload Template</p>

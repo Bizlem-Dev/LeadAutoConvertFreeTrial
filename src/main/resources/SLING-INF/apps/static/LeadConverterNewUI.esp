@@ -1200,7 +1200,7 @@ var num= parseInt(document.getElementById("numconvert").value);
 		var currentdate=new Date();
 		var year="";
 		var date=new Date(document.getElementById("datetimepickerconvert").value);
-	  var result =new Date(date);
+	    var result =new Date(date);
 
 					if(i==numconfig){
 					document.getElementById("user").value=uservalue;

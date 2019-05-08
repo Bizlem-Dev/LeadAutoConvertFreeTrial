@@ -3,6 +3,7 @@ package leadconverter.servlet;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.util.*;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -113,7 +114,8 @@ public class SendJsonDataLeadConverter extends SlingAllMethodsServlet {
 								String cvsSplitBy = ",";
 								reader = new BufferedReader(new InputStreamReader(stream));
 
-								String listurl = content.getNode("ip").getProperty("List_Add_Url").getString();
+								//String listurl = content.getNode("ip").getProperty("List_Add_Url").getString();
+								String listurl = ResourceBundle.getBundle("config").getString("List_Add_Url");
 
 								String listparameter = "?name=" + listname + "&description=This Belongs to "
 										+ "&listorder=" + 90 + "&active=" + 1;
@@ -147,8 +149,10 @@ public class SendJsonDataLeadConverter extends SlingAllMethodsServlet {
 
 									// This Data will go to Php List and Save in Sling
 									String urlParameters = "?subscribers=" + mainarray.toString();
-									String slingurl = content.getNode("ip").getProperty("Sling_Url").getString();
-									String phpurl = content.getNode("ip").getProperty("Phplist_Url").getString();
+									//String slingurl = content.getNode("ip").getProperty("Sling_Url").getString();
+									String slingurl = ResourceBundle.getBundle("config").getString("Sling_Url");
+									//String phpurl = content.getNode("ip").getProperty("Phplist_Url").getString();
+									String phpurl = ResourceBundle.getBundle("config").getString("Phplist_Url");
 
 									String postresponse = this
 											.sendpostdata(phpurl, urlParameters.replace(" ", "%20"), response)
@@ -167,8 +171,9 @@ public class SendJsonDataLeadConverter extends SlingAllMethodsServlet {
 
 											out.println("Integration Success");
 
-											String integrationurl = content.getNode("ip").getProperty("Integration_Url")
-													.getString();
+											//String integrationurl = content.getNode("ip").getProperty("Integration_Url")
+													//.getString();
+											String integrationurl = ResourceBundle.getBundle("config").getString("Integration_Url");
 											String integrationparameter = "?list_id=" + listid + "&subscriber_id="
 													+ subscriberid;
 											integrationresponse = this
@@ -259,8 +264,10 @@ public class SendJsonDataLeadConverter extends SlingAllMethodsServlet {
 
 								String urlParameters = "?subscribers=" + mainarray.toString();
 
-								String slingurl = content.getNode("ip").getProperty("Sling_Url").getString();
-								String phpurl = content.getNode("ip").getProperty("Phplist_Url").getString();
+								//String slingurl = content.getNode("ip").getProperty("Sling_Url").getString();
+								String slingurl = ResourceBundle.getBundle("config").getString("Sling_Url");
+								//String phpurl = content.getNode("ip").getProperty("Phplist_Url").getString();
+								String phpurl = ResourceBundle.getBundle("config").getString("Phplist_Url");
 
 								String postresponse = this
 										.sendpostdata(phpurl, urlParameters.replace(" ", "%20"), response)
@@ -277,8 +284,9 @@ public class SendJsonDataLeadConverter extends SlingAllMethodsServlet {
 									if (statusresponse.equals(("success"))) {
 
 										out.println("Integration Success");
-										String integrationurl = content.getNode("ip").getProperty("Integration_Url")
-												.getString();
+										//String integrationurl = content.getNode("ip").getProperty("Integration_Url")
+										//		.getString();
+										String integrationurl = ResourceBundle.getBundle("config").getString("Integration_Url");
 										String integrationparameter = "?list_id=" + list_Id + "&subscriber_id="
 												+ subscriberid;
 										integrationresponse = this.sendpostdata(integrationurl,
@@ -355,7 +363,8 @@ public class SendJsonDataLeadConverter extends SlingAllMethodsServlet {
 								}
 								mainjsonobject.put("SmsDetails", mainarray);
 								String urlParameters = "?smsdetails=" + mainjsonobject;
-								String slingurl = content.getNode("ip").getProperty("Sling_Sms_Url").getString();
+								//String slingurl = content.getNode("ip").getProperty("Sling_Sms_Url").getString();
+								String slingurl = ResourceBundle.getBundle("config").getString("Sling_Sms_Url");
 								String slingresponse = this.sendpostdata(slingurl, urlParameters, response);
 
 								out.println("Sling_Response :: : " + slingresponse);
@@ -374,8 +383,10 @@ public class SendJsonDataLeadConverter extends SlingAllMethodsServlet {
 								mainarray.put(jsonobject);
 								String urlParameters = mainarray.toString();
 
-								String slingurl = content.getNode("ip").getProperty("Sling_Url").getString();
-								String phpurl = content.getNode("ip").getProperty("Phplist_Url").getString();
+								//String slingurl = content.getNode("ip").getProperty("Sling_Url").getString();
+								String slingurl = ResourceBundle.getBundle("config").getString("Sling_Url");
+								//String phpurl = content.getNode("ip").getProperty("Phplist_Url").getString();
+								String phpurl = ResourceBundle.getBundle("config").getString("Phplist_Url");
 								String postresponse = this.sendpostdata(phpurl, urlParameters, response)
 										.replace("<pre>", "");
 								JSONObject bufferjson = new JSONObject(postresponse);

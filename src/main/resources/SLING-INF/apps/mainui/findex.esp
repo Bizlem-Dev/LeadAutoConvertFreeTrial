@@ -274,7 +274,9 @@
                                               <div class="col-md-12 create-drip-funnel text-center">
                                                   <button type="button" onclick='saveFunnelData(this.id)' class="btn btn-default drip-funnel-save new-btn pl-4 pr-4" id='funnel_desc'>Save</button>
                                                   <button type="button" class="btn btn-default new-btn">Cancel</button>
+                                                  <!-- 
                                                   <button type="button" class="btn btn-default new-btn pl-4 pr-4">Next</button>
+                                                  -->
                                               </div>
                                           </div>
                                       </div>
@@ -990,83 +992,27 @@
                                                 <option value="10">10</option>
                                                 <option value="11">11</option>
                                                 <option value="12">12</option>
-                                                <option value="12">13</option>
-												<option value="12">14</option>
-												<option value="12">15</option>
-												<option value="12">16</option>
-												<option value="12">17</option>
-												<option value="12">18</option>
-												<option value="12">19</option>
-												<option value="12">20</option>
-												<option value="12">21</option>
-												<option value="12">22</option>
-												<option value="12">23</option>
+                                                <option value="13">13</option>
+												<option value="14">14</option>
+												<option value="15">15</option>
+												<option value="16">16</option>
+												<option value="17">17</option>
+												<option value="18">18</option>
+												<option value="19">19</option>
+												<option value="20">20</option>
+												<option value="21">21</option>
+												<option value="22">22</option>
+												<option value="23">23</option>
                                               </select>
                                             </div>
                                             <span class="comma-section">:</span>
                                             <div class="col-md-2 pl-0">
                                                 <select class="custom-btn form-control" id="campaign_shedule_minute">
-                                                   <option value="00">0</option>   
-                                                   <option value="01">1</option>
-                                                   <option value="02">2</option>
-                                                   <option value="03">3</option>
-                                                   <option value="04">4</option>
-                                                   <option value="05">5</option>
-                                                   <option value="06">6</option>
-                                                   <option value="07">7</option>
-                                                   <option value="08">8</option>
-                                                   <option value="09">9</option>
-                                                   <option value="10">10</option>
-                                                   <option value="11">11</option>
-                                                   <option value="12">12</option>
-                                                  <option value="13">13</option>
-                                                  <option value="14">14</option>
-                                                  <option value="15">15</option>
-                                                  <option value="16">16</option>
-                                                  <option value="17">17</option>
-                                                  <option value="18">18</option>
-                                                  <option value="19">19</option>
-                                                  <option value="20">20</option>
-                                                  <option value="21">21</option>
-                                                  <option value="22">22</option>
-                                                  <option value="23">23</option>
-                                                  <option value="24">24</option>
-                                                  <option value="25">25</option>
-                                                  <option value="26">26</option>
-                                                  <option value="27">27</option>
-                                                  <option value="28">28</option>
-                                                  <option value="29">29</option>
-                                                  <option value="30">30</option>
-                                                  <option value="31">31</option>
-                                                  <option value="32">32</option>
-                                                  <option value="33">33</option>
-                                                  <option value="34">34</option>
-                                                  <option value="35">35</option>
-                                                  <option value="36">36</option>
-                                                  <option value="37">37</option>
-                                                  <option value="38">38</option>
-                                                  <option value="39">39</option>
-                                                  <option value="40">40</option>
-                                                  <option value="41">41</option>
-                                                  <option value="42">42</option>
-                                                  <option value="43">43</option>
-                                                  <option value="44">44</option>
-                                                  <option value="45">45</option>
-                                                  <option value="46">46</option>
-                                                  <option value="47">47</option>
-                                                  <option value="48">48</option>
-                                                  <option value="49">49</option>
-                                                  <option value="50">50</option>
-                                                  <option value="51">51</option>
-                                                  <option value="52">52</option>
-                                                  <option value="53">53</option>
-                                                  <option value="54">54</option>
-                                                  <option value="55">55</option>
-                                                  <option value="56">56</option>
-                                                  <option value="57">57</option>
-                                                  <option value="58">58</option>
-                                                  <option value="59">59</option>
-                                                 
+                                                   <option value="00">00</option>   
+                                                   <option value="15">15</option>
+                                                   <option value="30">30</option>
+                                                   <option value="45">45</option>
+                                                   
                                                 </select>
                                             </div>
                                             <div class="col-md-2 pl-0">
@@ -1101,7 +1047,7 @@
                     </div>
                 </div>
                 <!-- 
-                <div class="wizard-buttons"><a class="btn btn-default btn-outline disabled" href="#" data-wizard="back" role="button">Back</a><a class="btn btn-primary btn-outline custom-btn float-right" href="#" data-wizard="next" role="button">Next</a><a class="btn btn-success btn-outline float-right hidden-xs-up" href="#" data-wizard="finish" role="button">Finish</a></div>
+                
                 -->
                </form>
             </div>
@@ -1114,7 +1060,7 @@
   <script>
   $( document).ready(function() {
 	    var remoteuser ='<%=request.getRemoteUser()%>';
-	    alert("remoteuser : "+remoteuser);
+	    //alert("remoteuser : "+remoteuser);
   });
   //btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block
   
@@ -1126,18 +1072,18 @@
                 alert('plz entire_list_name');
 				return false;
 			}
-				alert('entire_list_name : '+entire_list_name);
+				//alert('entire_list_name : '+entire_list_name);
 			
 	    var lesdArr=[];
 		var lines = $('textarea').val().split('\n');
 		for(var i = 0;i < lines.length;i++){
 		    var line=lines[i].trim();
-		    alert("Lines : "+line);
+		    //alert("Lines : "+line);
 		     // By tabs
 			 
-            alert(line.length);			 
+            //alert(line.length);			 
 			var tabs = line.split('\t');
-			alert(tabs.length);
+			//alert(tabs.length);
 			if (line.length > 0) {
 			            
 						if(tabs[0].includes("@")){
@@ -1179,7 +1125,7 @@
 									    leadObj['PhoneNumber'] = tabs[j];
 									   }
 									   
-									   alert("tabs[j] : "+tabs[j]);
+									   //alert("tabs[j] : "+tabs[j]);
 									}
 									if(j==4){
 									   //leadObj['Address'] = tabs[j];
@@ -1205,7 +1151,7 @@
 		    var finalleadObj={};
 			finalleadObj['ListName'] = entire_list_name;
 			finalleadObj['ListData'] = lesdArr;
-			alert(JSON.stringify(finalleadObj));
+			//alert(JSON.stringify(finalleadObj));
 			console.log(JSON.stringify(finalleadObj));
 			saveLeadData(lesdArr,entire_list_name);
 	}
@@ -1214,7 +1160,7 @@
 	function processQueue(event){
 	     	//Time is 10:42, Saturday 2 February 2019 16:12 -05:30
 			 $.ajax({
-						url: 'http://35.236.154.164:8082/portal/servlet/service/createCampaign.processQueue',//createListAndSubscribers
+						url: 'http://35.200.169.114:8082/portal/servlet/service/createCampaign.processQueue',//createListAndSubscribers
 						type: 'POST',
 						async:false,
 						data: {
@@ -1256,7 +1202,7 @@
 		 
 		     campaign_shedule_date=campaign_shedule_date+" 00:00:00";
 		 }
-		 alert("schedule_campaign date : "+campaign_shedule_date);
+		 //alert("schedule_campaign date : "+campaign_shedule_date);
 		    var campaignid=localStorage.getItem('campaignid');
 			//var campaignid='593';
 			var markup = "";
@@ -1269,14 +1215,20 @@
 			var listid;
 			var subjectName;
 			//Time is 10:42, Saturday 2 February 2019 16:12 -05:30
+			var funnelName=localStorage.getItem('funnelName');
+			var SubFunnelName=localStorage.getItem('SubFunnelName');
+			var listid=localStorage.getItem('listid');
 			 $.ajax({
-						//url: 'http://35.236.154.164:8082/portal/servlet/service/uidata.createLead',
-						url: 'http://35.236.154.164:8082/portal/servlet/service/createCampaign.updateEmbargo',//createListAndSubscribers
+						//url: 'http://35.200.169.114:8082/portal/servlet/service/uidata.createLead',
+						url: 'http://35.200.169.114:8082/portal/servlet/service/createCampaign.updateEmbargo',//createListAndSubscribers
 						type: 'POST',
 						async:false,
 						data: {
-						       id:campaignid,
+				               campaignid:campaignid,
 						       embargo:campaign_shedule_date,
+						       funnelName:funnelName,
+						       camp_catogery:SubFunnelName,
+						       listid:listid,
 							  },
 						cache: false,
 						//dataType: 'json',
@@ -1297,7 +1249,7 @@
 	$(document).on('click', '.open-content-set-up-compaign', function() {
 	    //alert($(this).text());
 		var sub_funnel_name=$(this).text();
-		alert(sub_funnel_name);// EC-Explore EnC-Entice IC-Inform WC-Warm CC-Connect
+		//alert(sub_funnel_name);// EC-Explore EnC-Entice IC-Inform WC-Warm CC-Connect
 		if(sub_funnel_name.includes("EC")==true){
               localStorage.setItem('SubFunnelName',"Explore");
 			  localStorage.setItem('DistanceBtnCampaign',document.getElementById("explore").value);
@@ -1315,6 +1267,8 @@
               localStorage.setItem('SubFunnelName',"Connect");
 			  localStorage.setItem('DistanceBtnCampaign',document.getElementById("connect").value);
         }
+		//document.getElementById("campaign-name").campaign-name
+		$("#campaign-name").attr("placeholder", "Enter the Campaign Name For "+sub_funnel_name);
   
 	});
 	  
@@ -1326,7 +1280,7 @@
 	  //var fromEmailAddress = document.getElementById("from-email-address").value;
 	  //alert("localStorage.getItem('listid') "+localStorage.getItem('listid'));
 	  var queryString = "?campaignName=" + campaignName + "&fromName=" + localStorage.getItem('fromName') + "&fromEmailAddress=" + localStorage.getItem('fromEmailAddress')+"&funnelName=" + localStorage.getItem('funnelName')+"&SubFunnelName=" + localStorage.getItem('SubFunnelName')+"&DistanceBtnCampaign=" + localStorage.getItem('DistanceBtnCampaign')+"&listid=" + localStorage.getItem('listid');
-	  alert('queryString : '+queryString);
+	  //alert('queryString : '+queryString);
 	  //document.getElementById("campaign-name-nxt").setAttribute("href", "set-up-campaign.html"+queryString);
 	  document.getElementById("campaign-name-nxt").setAttribute("href", "<%=request.getContextPath()%>/servlet/service/ui.set-up-campaign");
 	  //window.location.href = "page2.html" + queryString;
@@ -1343,10 +1297,10 @@
   
     $('input[type=radio][name=radio]').change(function() {
 		if (this.value == 'csv_file_upload') {
-			alert("csv_file_upload is selected");
+			//alert("csv_file_upload is selected");
 		}
 		else if (this.value == 'integrated_ervices') {
-			alert("integrated_ervices is selected");
+			//alert("integrated_ervices is selected");
 			//alert('Hello Akhilesh: 2 '+decodeURIComponent(document.cookie));
 			//var cookieValue = $.cookie("funnelName");
 			//alert('cookieValue: '+cookieValue);
@@ -1366,15 +1320,15 @@
 		
 		
 		}else if (this.value == 'create_new_list') {
-			alert("create_new_list is selected");
+			//alert("create_new_list is selected");
 		}else if (this.value == 'create_from_existing_list') {
-			alert("create_new_list is selected");
+			//alert("create_new_list is selected");
 			getSubscribersList();
 		}else if (this.value == 'merge_existing') {
-			alert("merge_existing is selected");
+			//alert("merge_existing is selected");
 			getMergeSubscribersList();
 		}else{
-		    alert("You have selected something else");
+		    //alert("You have selected something else");
 		}
 	});
 	
@@ -1420,7 +1374,7 @@
 			var e = document.getElementById("listdropbox");
 			var list_type = $("input[name='radio-list1']:checked").val();
 			var list_id = e.options[e.selectedIndex].value; 
-			alert('list_id : '+list_id);
+			//alert('list_id : '+list_id);
 			var list="";
 			if(list_id!='Choose list'){
 				entire_list_tbody="<tr><th>Sr No.</th><th>EmailAddress</th><th>First Name</th><th>Last Name</th><th>Phone Number</th><th>Address</th></tr>";
@@ -1429,7 +1383,7 @@
 					type : 'POST',
 					dataType: 'json',
 					//contentType: false, 
-					url :'http://35.236.154.164:8082/portal/servlet/service/Searchlist.getlist_data_new',
+					url :'http://35.200.169.114:8082/portal/servlet/service/Searchlist.getlist_data_new',
 					data: {
 						   selectedlistid : list_id
 						 },
@@ -1469,12 +1423,12 @@
 		//alert("remoteuser : "+remoteuser);
 		$.ajax({
 			type : 'POST',
-			url :'http://35.236.154.164:8082/portal/servlet/service/Searchlist.listsearch',
+			url :'http://35.200.169.114:8082/portal/servlet/service/Searchlist.listsearch',
 		    data: {
 			      remoteuser : remoteuser,
 				 },
 			success: function (dataa) {
-				alert	("Searchlist.listsearch : "+dataa);
+				//alert	("Searchlist.listsearch : "+dataa);
 				var jsonData = JSON.parse(dataa);
 				var optionMap = "";
 					for(var i=0;i<jsonData.JsonArray.length;i++){
@@ -1492,12 +1446,12 @@
 		//alert("remoteuser : "+remoteuser);
 		$.ajax({
 			type : 'POST',
-			url :'http://35.236.154.164:8082/portal/servlet/service/Searchlist.listsearch',
+			url :'http://35.200.169.114:8082/portal/servlet/service/Searchlist.listsearch',
 		    data: {
 			      remoteuser : remoteuser,
 				 },
 			success: function (dataa) {
-				alert	("Searchlist.listsearch : "+dataa);
+				//alert	("Searchlist.listsearch : "+dataa);
 				var jsonData = JSON.parse(dataa);
 				var optionMap = "";
 					for(var i=0;i<jsonData.JsonArray.length;i++){
@@ -1524,7 +1478,7 @@
 			var e2 = document.getElementById("mergelistdropbox2");
 			var mergelist2 = e2.options[e2.selectedIndex].value; 
 			
-			alert('mergelist1 : '+mergelist1+'  mergelist2 : '+mergelist2);
+			//alert('mergelist1 : '+mergelist1+'  mergelist2 : '+mergelist2);
 			
 			if(mergelist1!='Choose list' && mergelist2!='Choose list'){
 			    if(mergelist1==mergelist2){
@@ -1537,7 +1491,7 @@
 					dataType: 'json',
 					async:false,
 					//contentType: false, 
-					url :'http://35.236.154.164:8082/portal/servlet/service/Searchlist.getlist_data_new',
+					url :'http://35.200.169.114:8082/portal/servlet/service/Searchlist.getlist_data_new',
 					data: {
 						   selectedlistid : mergelist2
 						 },
@@ -1558,7 +1512,7 @@
 								finalleadObj['ListId'] = mergelist1;
 							    finalleadObj['ListName'] = mergelistName;
 							    finalleadObj['ListData'] = lesdArr;
-								alert("data : "+JSON.stringify(finalleadObj));
+								//alert("data : "+JSON.stringify(finalleadObj));
 								saveMergeLeadData(lesdArr,mergelistName,mergelist1);
 								
 							}	
@@ -1595,8 +1549,8 @@
 			    //alert('fromEmailAddress: '+localStorage.getItem('fromEmailAddress'));
 				
 				$.ajax({
-			       	//url: 'http://35.236.154.164:8082/portal/servlet/service/uidata.createLead',
-					url: 'http://35.236.154.164:8082/portal/servlet/service/createListAndSubscribers.mergeList',//createListAndSubscribers
+			       	//url: 'http://35.200.169.114:8082/portal/servlet/service/uidata.createLead',
+					url: 'http://35.200.169.114:8082/portal/servlet/service/createListAndSubscribers.mergeList',//createListAndSubscribers
 					type: 'POST',
 					async: false,
                     cache: false,
@@ -1617,7 +1571,7 @@
 					success: function(data)
 					{
 					    var jsonData = JSON.parse(data);
-						alert("data: listid"+jsonData.listid);
+						//alert("data: listid"+jsonData.listid);
 						localStorage.setItem('listid',jsonData.listid);
 						//console.log("-------------------------subscribers start-----------------------");
 						//console.log("data: "+data);
@@ -1642,7 +1596,7 @@
 					alert('plz entire_list_name');
 					return false;
 				}
-				alert('entire_list_name : '+entire_list_name);
+				//alert('entire_list_name : '+entire_list_name);
 				//alert(entire_list_leadtrs.length);
 				
 				
@@ -1687,7 +1641,7 @@
 				//alert(part_of_list_leadtrs.length);
 				
 				var part_of_list_name=document.getElementById("part_of_list_name").value;
-				alert('part_of_list_name : '+part_of_list_name);
+				//alert('part_of_list_name : '+part_of_list_name);
 				
 				if ($('input[name="part_of_list_sub_chk_boxes"]:checked').length == 0) {
 						 alert('Please Select At Least One Lead.');
@@ -1750,11 +1704,13 @@
 		function postFilesData(data)
 			{
 			alert("data : "+data);
+			console.log("uicsvdata : "+data);
+			console.log("uicsvdata data: "+JSON.stringify(data));
 			var list_type = $("input[name='radio-list']:checked").val();
 			entire_list_tbody="";
             part_of_list_tbody="";
 			 $.ajax({
-				url: 'http://35.236.154.164:8082/portal/servlet/service/uicsvdata',
+				url: 'http://35.200.169.114:8082/portal/servlet/service/uicsvdata',
 				type: 'POST',
 				data: data,
 				cache: false,
@@ -1764,6 +1720,7 @@
 				success: function(data, textStatus, jqXHR)
 				{
 					//alert(JSON.stringify(data));
+				    console.log("uicsvdata : "+JSON.stringify(data));
 					var tbody="";
 					for(var i=0;i<data.length;i++){
 					   var lead_info=data[i];
@@ -1794,13 +1751,14 @@
 				error: function(jqXHR, textStatus, errorThrown)
 				{
 					console.log('ERRORS: ' + textStatus);
-					alert("textStatus : "+textStatus);
+					console.log('errorThrown: ' + errorThrown);
+					//alert("textStatus : "+textStatus);
 					alert("ERRORS : "+data);
 				}
 				});
 			}
 	$('input[type=radio][name=radio-list]').change(function() {
-	    alert("this.value : "+this.value);
+	    //alert("this.value : "+this.value);
 		if (this.value == 'list1') {
 		    if( document.getElementById("fileUploader").files.length == 0 ){
 			      document.getElementById("leads_list").innerHTML  ="";
@@ -1841,7 +1799,7 @@
                 alert('plz entire_list_name');
 				return false;
 			}
-				alert('csv_entire_list_name : '+csv_entire_list_name);
+				//alert('csv_entire_list_name : '+csv_entire_list_name);
 				
 				
 						var lesdArr=[];
@@ -2015,8 +1973,8 @@
 			    //alert('fromEmailAddress: '+localStorage.getItem('fromEmailAddress'));
 				
 				$.ajax({
-			       	//url: 'http://35.236.154.164:8082/portal/servlet/service/uidata.createLead',
-					url: 'http://35.236.154.164:8082/portal/servlet/service/createListAndSubscribers.createlistPlusLead',//createListAndSubscribers
+			       	//url: 'http://35.200.169.114:8082/portal/servlet/service/uidata.createLead',
+					url: 'http://35.200.169.114:8082/portal/servlet/service/createListAndSubscribers.createlistPlusLead',//createListAndSubscribers
 					type: 'POST',
 					async: false,
                     cache: false,
@@ -2036,8 +1994,9 @@
 					success: function(data)
 					{
 					    var jsonData = JSON.parse(data);
-						alert("data: listid"+jsonData.listid);
+						//alert("data: listid"+jsonData.listid);
 						localStorage.setItem('listid',jsonData.listid);
+						alert("Subscribers List with id "+jsonData.listid+" created Sucessfully.");
 						//console.log("-------------------------subscribers start-----------------------");
 						//console.log("data: "+data);
 						//console.log("-------------------------subscribers edn-----------------------");
@@ -2091,7 +2050,7 @@
         
 		/*
 		if(remoteuser=='anonymous'){
-			alert('Please Login 2 http://35.236.154.164/portal/login');
+			alert('Please Login 2 http://35.200.169.114/portal/login');
 			return;
 		}
 		*/
@@ -2103,7 +2062,7 @@
 		
 		$.ajax({
 	        type : 'POST',
-	        url :'http://35.236.154.164:8082/portal/servlet/service/uidata.indexData',
+	        url :'http://35.200.169.114:8082/portal/servlet/service/uidata.indexData',
 	        async: false,
 	        data: {
 	    	      data : text
@@ -2111,10 +2070,10 @@
 			success: function (dataa) {
 					//subFunnelJsonObj = JSON.parse(dataa);
 					localStorage.setItem('funnelCreationStatus',dataa);
-					alert("Response From Server : "+dataa);
+					alert("Funnel is creted sucessfully : "+dataa);
 					/*
 					for(var i=0;i<subFunnelJsonArray.length;i++){
-					   funnel_thead=funnel_thead+"<th><a href='http://35.236.154.164:8082/portal/servlet/service/CampaignReportApi.campaignView?subfunnel_name="+subFunnelJsonArray[i]+"&funnel_name="+funnelId+"' target='_blank'>"+subFunnelJsonArray[i]+"</th>";
+					   funnel_thead=funnel_thead+"<th><a href='http://35.200.169.114:8082/portal/servlet/service/CampaignReportApi.campaignView?subfunnel_name="+subFunnelJsonArray[i]+"&funnel_name="+funnelId+"' target='_blank'>"+subFunnelJsonArray[i]+"</th>";
 					}
 					*/
 					
@@ -2148,11 +2107,11 @@
   <script src="<%=request.getContextPath()%>/apps/global/vendor/bootstrap/bootstrap.min599c.js?v4.0.2"></script>
   <script src="<%=request.getContextPath()%>/apps/global/vendor/asscrollbar/jquery-asScrollbar.min599c.js?v4.0.2"></script>
   <script src="<%=request.getContextPath()%>/apps/global/vendor/formvalidation/formValidation.min599c.js?v4.0.2"></script>
-  <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery-wizard/jquery-wizard.min599c.js?v4.0.2"></script>
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery-wizard/jquery-wizard.min599c.js?v4.0.2"></script> -->
   <script src="<%=request.getContextPath()%>/apps/global/js/Plugin.min599c.js?v4.0.2"></script>
   <script src="<%=request.getContextPath()%>/apps/global/js/Config.min599c.js?v4.0.2"></script>
-  <script src="<%=request.getContextPath()%>/apps/global/js/Plugin/jquery-wizard.min599c.js?v4.0.2"></script>
-  <script src="<%=request.getContextPath()%>/apps/global/assets/examples/js/forms/wizard.min599c.js?v4.0.2"></script>
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/js/Plugin/jquery-wizard.min599c.js?v4.0.2"></script> -->
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/assets/examples/js/forms/wizard.min599c.js?v4.0.2"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
   
   <script src="<%=request.getContextPath()%>/apps/global/js/custom.js"></script>

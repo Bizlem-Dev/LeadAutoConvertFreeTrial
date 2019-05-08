@@ -57,7 +57,7 @@
 	              			<div class="container">
 		                		<div class="row text-center mt-4 pt-4">
                             <div class="col-md-3 imag-box-content-main">
-                                  <a href="<%=request.getContextPath()%>/servlet/service/ui.news-letter-tamplate" target="_blank" id="news-letter-tamplate" onclick="addQueryString(this.id)">
+                                  <a href="<%=request.getContextPath()%>/servlet/service/ui.news-letter-tamplate" target="" id="news-letter-tamplate" onclick="addQueryString(this.id)">
                                     <div class="imag-box-content border-set rounded">
                                       <img src="<%=request.getContextPath()%>/apps/global/assets/images/img/email1.png" class="responsive-image img-fluid img-thumbnail">
                                     </div>
@@ -65,7 +65,7 @@
                                   <p class="pt-3">Newsletter Template</p>
                                 </div>
                                 <div class="col-md-3 imag-box-content-main">
-                                  <a href="<%=request.getContextPath()%>/servlet/service/ui.texts-only-template" target="_blank" id="texts-only-template" onclick="addQueryString(this.id)">
+                                  <a href="<%=request.getContextPath()%>/servlet/service/ui.texts-only-template" target="" id="texts-only-template" onclick="addQueryString(this.id)">
                                     <div class="imag-box-content border-set rounded">
                                       <img src="<%=request.getContextPath()%>/apps/global/assets/images/img/email2.png" class="responsive-image img-fluid img-thumbnail">
                                     </div>
@@ -73,7 +73,7 @@
                                   <p class="pt-3">Texts Only Template</p>
                                 </div>
                                 <div class="col-md-3 imag-box-content-main">
-                                  <a href="<%=request.getContextPath()%>/servlet/service/ui.text-photos-template" target="_blank" id="text-photos-template" onclick="addQueryString(this.id)">
+                                  <a href="<%=request.getContextPath()%>/servlet/service/ui.text-photos-template" target="" id="text-photos-template" onclick="addQueryString(this.id)">
                                     <div class="imag-box-content border-set rounded">
                                       <img src="<%=request.getContextPath()%>/apps/global/assets/images/img/email3.png" class="responsive-image img-fluid img-thumbnail">
                                     </div>
@@ -81,7 +81,7 @@
                                   <p class="pt-3">Text + Photos Template</p>
                                 </div>
                                 <div class="col-md-3 imag-box-content-main">
-                                  <a href="<%=request.getContextPath()%>/servlet/service/ui.gallery-template" target="_blank" id="gallery-template" onclick="addQueryString(this.id)">
+                                  <a href="<%=request.getContextPath()%>/servlet/service/ui.gallery-template" target="" id="gallery-template" onclick="addQueryString(this.id)">
                                     <div class="imag-box-content border-set rounded">
                                       <img src="<%=request.getContextPath()%>/apps/global/assets/images/img/email4.png" class="responsive-image img-fluid img-thumbnail">
                                     </div>
@@ -116,11 +116,11 @@
   <script src="<%=request.getContextPath()%>/apps/global/vendor/bootstrap/bootstrap.min599c.js?v4.0.2"></script>
   <script src="<%=request.getContextPath()%>/apps/global/vendor/asscrollbar/jquery-asScrollbar.min599c.js?v4.0.2"></script>
   <script src="<%=request.getContextPath()%>/apps/global/vendor/formvalidation/formValidation.min599c.js?v4.0.2"></script>
-  <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery-wizard/jquery-wizard.min599c.js?v4.0.2"></script>
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery-wizard/jquery-wizard.min599c.js?v4.0.2"></script> -->
   <script src="<%=request.getContextPath()%>/apps/global/js/Plugin.min599c.js?v4.0.2"></script>
   <script src="<%=request.getContextPath()%>/apps/global/js/Config.min599c.js?v4.0.2"></script>
-  <script src="<%=request.getContextPath()%>/apps/global/js/Plugin/jquery-wizard.min599c.js?v4.0.2"></script>
-  <script src="<%=request.getContextPath()%>/apps/global/assets/examples/js/forms/wizard.min599c.js?v4.0.2"></script>
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/js/Plugin/jquery-wizard.min599c.js?v4.0.2"></script> -->
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/assets/examples/js/forms/wizard.min599c.js?v4.0.2"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 
   <script src="<%=request.getContextPath()%>/apps/global/js/custom.js"></script>

@@ -3,6 +3,7 @@ package leadconverter.servlet;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.util.*;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -116,8 +117,9 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 		            
 					String listname = request.getParameter("listname");
 					//out.println("ListName : : " + listname);
-					String listurl = content.getNode("ip")
-							.getProperty("List_Add_Url").getString();
+					//String listurl = content.getNode("ip")
+					//		.getProperty("List_Add_Url").getString();
+					String listurl = ResourceBundle.getBundle("config").getString("List_Add_Url");
 
 					String listparameter = "?name=" + listname
 							+ "&description=This Belongs to " + "&listorder="
@@ -139,12 +141,14 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 						// This Data will go to Php List and Save in Sling
 						String urlParameters = "?subscribers="
 								+ subscribers_json_arr.toString();
-						String slingurl = content.getNode("ip")
-								.getProperty("Sling_Url").getString();
-						//http://35.236.154.164:8082/portal/servlet/service/LEAD_CONVERTER_NodeAdd_Email.NodeAdd
-						String phpurl = content.getNode("ip")
-								.getProperty("Phplist_Url").getString();
-                        //http://35.221.31.185/restapi/subscriber/subscriberbulkadd.php
+						//String slingurl = content.getNode("ip")
+						//		.getProperty("Sling_Url").getString();
+						String slingurl = ResourceBundle.getBundle("config").getString("Sling_Url");
+						//http://35.200.169.114:8082/portal/servlet/service/LEAD_CONVERTER_NodeAdd_Email.NodeAdd
+						//String phpurl = content.getNode("ip")
+						//		.getProperty("Phplist_Url").getString();
+						String phpurl = ResourceBundle.getBundle("config").getString("Phplist_Url");
+                        //http://35.237.183.3/restapi/subscriber/subscriberbulkadd.php
 						String postresponse = this.sendpostdata(phpurl,
 								urlParameters.replace(" ", "%20"), response)
 								.replace("<pre>", "");
@@ -165,10 +169,11 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 
 								//out.println("Integration Success");
 
-								String integrationurl = content.getNode("ip")
-										.getProperty("Integration_Url")
-										.getString();
-								//http://35.221.31.185/restapi/list-subscriber/listSubscriberAdd.php
+								//String integrationurl = content.getNode("ip")
+								//		.getProperty("Integration_Url")
+								//		.getString();
+								String integrationurl = ResourceBundle.getBundle("config").getString("Integration_Url");
+								//http://35.237.183.3/restapi/list-subscriber/listSubscriberAdd.php
 								String integrationparameter = "?list_id="
 										+ listid + "&subscriber_id="
 										+ subscriberid;
@@ -239,11 +244,11 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 				
 				try {
 					JSONArray myJsonData = new JSONArray(request.getParameter("jsonArr").toString());
-					out.println("myJsonData : "+myJsonData);
+					//out.println("myJsonData : "+myJsonData);
 			    	JSONObject subscriber_json_obj =null;
 			    	JSONObject subscriber_tmp_json_obj =null;
 			    	JSONArray subscribers_json_arr= new JSONArray();
-			    	out.println("createlistPlusLead 1");
+			    	//out.println("createlistPlusLead 1");
 		            for (int i=0; i < myJsonData.length(); i++) {
 		            	    subscriber_tmp_json_obj =(JSONObject) myJsonData.get(i);
 			    			subscriber_json_obj = new JSONObject();
@@ -260,14 +265,15 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 			    			subscriber_json_obj.put("subscribepage", 0);
 							subscribers_json_arr.put(subscriber_json_obj);
 			    	}
-		            out.println("createlistPlusLead 2");
+		            //out.println("createlistPlusLead 2");
 		            //out.println("subscribers_json_arr Size :  "+subscribers_json_arr.length());
 		            //out.println(subscribers_json_arr);
 		            
 					String listname = request.getParameter("listname");
 					//out.println("ListName : : " + listname);
-					String listurl = content.getNode("ip")
-							.getProperty("List_Add_Url").getString();
+					//String listurl = content.getNode("ip")
+					//		.getProperty("List_Add_Url").getString();
+					String listurl = ResourceBundle.getBundle("config").getString("List_Add_Url");
 
 					String listparameter = "?name=" + listname
 							+ "&description=This Belongs to " + "&listorder="
@@ -283,49 +289,52 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 					JSONObject getjsonid = listjson.getJSONObject("data");
 					listid = getjsonid.getString("id");
 					// out.println("List id : " + listid);
-					out.println("createlistPlusLead 3");
+					//out.println("createlistPlusLead 3");
 					if (liststatusresponse.equals(("success"))) {
 						//out.println("list Success");
 						   
 						// This Data will go to Php List and Save in Sling
 						String urlParameters = "?subscribers="
 								+ subscribers_json_arr.toString();
-						String slingurl = content.getNode("ip")
-								.getProperty("Sling_Url").getString();
-						//http://35.236.154.164:8082/portal/servlet/service/LEAD_CONVERTER_NodeAdd_Email.NodeAdd
-						String phpurl = content.getNode("ip")
-								.getProperty("Phplist_Url").getString();
-                        //http://35.221.31.185/restapi/subscriber/subscriberbulkadd.php
-						out.println("createlistPlusLead 3.001");
+						//String slingurl = content.getNode("ip")
+						//		.getProperty("Sling_Url").getString();
+						String slingurl = ResourceBundle.getBundle("config").getString("Sling_Url");
+						//http://35.200.169.114:8082/portal/servlet/service/LEAD_CONVERTER_NodeAdd_Email.NodeAdd
+						//String phpurl = content.getNode("ip")
+						//		.getProperty("Phplist_Url").getString();
+						String phpurl = ResourceBundle.getBundle("config").getString("Phplist_Url");
+                        //http://35.237.183.3/restapi/subscriber/subscriberbulkadd.php
+						//out.println("createlistPlusLead 3.001");
 						String postresponse = this.sendpostdata(phpurl,
 								urlParameters.replace(" ", "%20"), response)
 								.replace("<pre>", "");
-						out.println("createlistPlusLead 3.002");
-						 out.println("Subscriber_Response : : " + postresponse);
+						//out.println("createlistPlusLead 3.002");
+						 //out.println("Subscriber_Response : : " + postresponse);
 						
 						JSONObject bufferjson = new JSONObject(postresponse);
-						out.println("createlistPlusLead 3.0021");
+						//out.println("createlistPlusLead 3.0021");
 						String statusresponse = bufferjson.getString("status");
-						out.println("createlistPlusLead 3.0022");
+						//out.println("createlistPlusLead 3.0022");
 						String integrationresponse = null;
 						JSONArray subscriberdata = bufferjson
 								.getJSONArray("data");
-						out.println("createlistPlusLead 3.003");
+						//out.println("createlistPlusLead 3.003");
 						for (int subscriberidloop = 0; subscriberidloop < subscriberdata
 								.length(); subscriberidloop++) {
 
 							JSONObject data = subscriberdata
 									.getJSONObject(subscriberidloop);
 							String subscriberid = data.getString("id");
-							out.println("createlistPlusLead 3.004");
+							//out.println("createlistPlusLead 3.004");
 							if (statusresponse.equals(("success"))) {
 
 								//out.println("Integration Success");
 
-								String integrationurl = content.getNode("ip")
-										.getProperty("Integration_Url")
-										.getString();
-								//http://35.221.31.185/restapi/list-subscriber/listSubscriberAdd.php
+								//String integrationurl = content.getNode("ip")
+								//		.getProperty("Integration_Url")
+								//		.getString();
+								String integrationurl = ResourceBundle.getBundle("config").getString("Integration_Url");
+								//http://35.237.183.3/restapi/list-subscriber/listSubscriberAdd.php
 								String integrationparameter = "?list_id="
 										+ listid + "&subscriber_id="
 										+ subscriberid;
@@ -348,13 +357,13 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 						JSONObject totaldatajson = new JSONObject();
 
 						totaldatajson.put("Subscribers", postresponse);
-						out.println("createlistPlusLead 4");
+						//out.println("createlistPlusLead 4");
 						totaldatajson.put("SubscribersWithPropert", request.getParameter("jsonArr").toString());
 						totaldatajson.put("List", integrationjson);
 
 						totaldatajson.put("remote_user",
 								request.getRemoteUser());
-						out.println("createlistPlusLead 5");
+						//out.println("createlistPlusLead 5");
 					//  Raw json-->myJsonData subscriber json-->subscribers_json_arr 
 						if (integrationstatus.equals(("success"))) {
 
@@ -369,12 +378,12 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 							 * this.sendpostdata(slingurl,
 							 * totaldata.replace(" ", "%20"), response);
 							 */
-							out.println("createlistPlusLead 6");
+							//out.println("createlistPlusLead 6");
 							String slingresponse = this
 									.sendpostdataToCreateList(slingurl,
 											totaldata.replace(" ", "%20"),
 											response);
-							out.println("createlistPlusLead 7");
+							//out.println("createlistPlusLead 7");
 
 							//out.println("Sling Response : " + slingresponse);
 							JSONObject res_json_obj=new JSONObject();
@@ -406,10 +415,12 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 				mainarray.put(jsonobject);
 				String urlParameters = mainarray.toString();
 
-				String slingurl = content.getNode("ip")
-						.getProperty("Sling_Url").getString();
-				String phpurl = content.getNode("ip")
-						.getProperty("Phplist_Url").getString();
+				//String slingurl = content.getNode("ip")
+				//		.getProperty("Sling_Url").getString();
+				String slingurl = ResourceBundle.getBundle("config").getString("Sling_Url");
+				//String phpurl = content.getNode("ip")
+				//		.getProperty("Phplist_Url").getString();
+				String phpurl = ResourceBundle.getBundle("config").getString("Phplist_Url");
 				String postresponse = this.sendpostdata(phpurl, urlParameters,
 						response).replace("<pre>", "");
 				JSONObject bufferjson = new JSONObject(postresponse);
@@ -455,8 +466,9 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 				listid=request.getParameter("list_id");
 				//out.println("ListName : : " + listname);
 				/*
-				String listurl = content.getNode("ip")
-						.getProperty("List_Add_Url").getString();
+				//String listurl = content.getNode("ip")
+				//		.getProperty("List_Add_Url").getString();
+				String listurl = ResourceBundle.getBundle("config").getString("List_Add_Url");
 
 				String listparameter = "?name=" + listname
 						+ "&description=This Belongs to " + "&listorder="
@@ -478,11 +490,12 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 					// This Data will go to Php List and Save in Sling
 					String urlParameters = "?subscribers="
 							+ subscribers_json_arr.toString();
-					String slingurl = content.getNode("ip")
-							.getProperty("Sling_Url").getString();
-					String phpurl = content.getNode("ip")
-							.getProperty("Phplist_Url").getString();
-
+					//String slingurl = content.getNode("ip")
+					//		.getProperty("Sling_Url").getString();
+					String slingurl = ResourceBundle.getBundle("config").getString("Sling_Url");
+					//String phpurl = content.getNode("ip")
+					//		.getProperty("Phplist_Url").getString();
+					String phpurl = ResourceBundle.getBundle("config").getString("Phplist_Url");
 					String postresponse = this.sendpostdata(phpurl,
 							urlParameters.replace(" ", "%20"), response)
 							.replace("<pre>", "");
@@ -503,9 +516,10 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 
 							//out.println("Integration Success");
 
-							String integrationurl = content.getNode("ip")
-									.getProperty("Integration_Url")
-									.getString();
+							//String integrationurl = content.getNode("ip")
+							//		.getProperty("Integration_Url")
+							//		.getString();
+							String integrationurl = ResourceBundle.getBundle("config").getString("Integration_Url");
 							String integrationparameter = "?list_id="
 									+ listid + "&subscriber_id="
 									+ subscriberid;

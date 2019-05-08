@@ -73,26 +73,28 @@ public class UICsvDataProcessServlet extends SlingAllMethodsServlet {
 			throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		JSONArray mainarray = new JSONArray();
-		JSONObject jsonobject = new JSONObject();
+		JSONObject jsonobject = null;
 		String listid = null;
 
 		String remoteuser = request.getRemoteUser();
-
+		System.out.println("uicsvdata post called");
+		JSONObject testjsonobject = new JSONObject();
 		try {
 			Session session = null;
 
 			session = repo.login(new SimpleCredentials("admin", "admin".toCharArray()));
 			Node content = session.getRootNode().getNode("content");
-			//out.println("uicsvdata called");
+			System.out.println("uicsvdata called");
 			if (request.getParameterMap().get("0") != null) {
 				RequestParameter[] ap = request.getRequestParameterMap().get("0");
-				
+				testjsonobject.put("Step", "Step 1");
 				for (int i = 0; i < ap.length; i++) {
 					if (ap[i].getFileName() != null && ap[i].getFileName().trim() != "") {
 
 						String filename = ap[i].getFileName();
-
+						System.out.println("filename : "+filename);
 						fileType = "";
+						testjsonobject.put("Step", "Step 2");
 						if (ap[i] != null &&  ap[i].getSize() != 0) {
 							for (int j = 0; j < FILEEXTENSION.length; j++) {
 								if (filename.indexOf(FILEEXTENSION[j]) != -1) {
@@ -100,7 +102,7 @@ public class UICsvDataProcessServlet extends SlingAllMethodsServlet {
 								}
 								//out.println("4 " + fileType);
 							}
-
+							testjsonobject.put("Step", "Step 3");
 							InputStream stream = ap[i].getInputStream();
 							
                             try {
@@ -109,22 +111,23 @@ public class UICsvDataProcessServlet extends SlingAllMethodsServlet {
 								String cvsSplitBy = ",";
 								reader = new BufferedReader(new InputStreamReader(stream));
 								
-									//out.println("list Success");
+									System.out.println("list Success");
 									while ((line = reader.readLine()) != null) {
 										String[] data = line.split(cvsSplitBy);
 										jsonobject = new JSONObject();
-										//out.println("Email id : " + data[0]);
-										//out.println("Name : "+data[1]);
-										jsonobject.put("EmailAddress", data[0].toString());
-										jsonobject.put("FirstName", data[1].toString());
-										jsonobject.put("LastName", data[2].toString());
-										jsonobject.put("PhoneNumber", data[3].toString());
-										jsonobject.put("Address", data[4].toString());
-										jsonobject.put("CompanyName", data[5].toString());
-										jsonobject.put("CompanyHeadCount", data[6].toString());
-										jsonobject.put("Industry", data[7].toString());
-										jsonobject.put("Institute", data[8].toString());
-										jsonobject.put("Source", data[9].toString());
+										System.out.println("Email id : " + data[0]);
+										System.out.println("Name : "+data[1]);
+										jsonobject.put("EmailAddress", data[0].toString().replace("\"", ""));
+										jsonobject.put("FirstName", data[1].toString().replace("\"", ""));
+										jsonobject.put("LastName", data[2].toString().replace("\"", ""));
+										jsonobject.put("PhoneNumber", data[3].toString().replace("\"", ""));
+										jsonobject.put("Address", data[4].toString().replace("\"", ""));
+										jsonobject.put("CompanyName", data[5].toString().replace("\"", ""));
+										jsonobject.put("CompanyHeadCount", data[6].toString().replace("\"", ""));
+										jsonobject.put("Industry", data[7].toString().replace("\"", ""));
+										jsonobject.put("Institute", data[8].toString().replace("\"", ""));
+										jsonobject.put("Source", data[9].toString().replace("\"", ""));
+										//out.println("EmailAddress : "+data[0].toString());
 										
 										/*
 										jsonobject.put("EmailAddress", data[0].toString().replace(" ", ""));
@@ -140,12 +143,15 @@ public class UICsvDataProcessServlet extends SlingAllMethodsServlet {
 										jsonobject.put("foreignkey", "");
 										jsonobject.put("subscribepage", 0);
 										*/
+										System.out.println("jsonobject : "+jsonobject);
 										mainarray.put(jsonobject);
 									}
 									
                                 }
 								catch(Exception ex) {
-									out.println("Exception ex : "+ex.getMessage());
+									  out.println("Exception ex : "+ex.getMessage());
+									//testjsonobject.put("Step", "Step 4");
+									//out.println(testjsonobject);
 								}
                             out.println(mainarray);
 						
@@ -157,9 +163,17 @@ public class UICsvDataProcessServlet extends SlingAllMethodsServlet {
 			
 		} catch (Exception e) {
 
-			out.println("Exception ex : : : " + e.getMessage());
+			  out.println("Exception ex : : : " + e.getMessage());
+			//out.println(testjsonobject);
 		}
 
+	}
+	@Override
+	protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
+			throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		System.out.println("servlet/service/uicsvdata Get Mrthod Called");
+		
 	}
 }
 

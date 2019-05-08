@@ -125,8 +125,10 @@
                                     </form>
                                   </div>
                                   <div class="col-md-12 text-center" style="margin-top:25px;">
+                                    <!--
                                     <button type="submit" class="custom-btn btn btn-info funnel-next-btn">Save</button>
                                     <button type="submit" class="custom-btn btn btn-info funnel-next-btn">Cancel</button>
+                                    -->
                                   </div>
                                 </div>
                             </div>
@@ -170,8 +172,10 @@
                                     </form>
                                   </div>
                                   <div class="col-md-12 text-center" style="margin-top:25px;">
+                                    <!--
                                     <button type="submit" class="custom-btn btn btn-info funnel-next-btn">Save</button>
                                     <button type="submit" class="custom-btn btn btn-info funnel-next-btn">Cancel</button>
+                                    -->
                                   </div>
                                 </div>
                               </div>
@@ -217,7 +221,7 @@
                                                 <br><br>
                                                 <a href="#" class="btn custom-btn w-75" onclick='activateEdit(this.id)' id="template_edit">Edit</a>
 												<br><br>
-                                                <a href="select-tamplate.html" class="btn custom-btn w-75">Redesign <br> From Start</a>
+                                                <a href="<%=request.getContextPath()%>/servlet/service/ui.select-tamplate" class="btn custom-btn w-75">Redesign <br> From Start</a>
 												<br><br>
                                                 <button type="button" class="btn custom-btn w-75" id='save_campaign'>Save</button>
                                             </div>
@@ -232,8 +236,14 @@
                     </div>
                 </div>
               </form>
-              <div class="wizard-buttons"><a class="btn btn-default btn-outline disabled" href="#" data-wizard="back" role="button">Back</a><a class="btn btn-primary btn-outline custom-btn float-right" href="verify.html" data-wizard="next" role="button">Next</a><a class="btn btn-success btn-outline float-right hidden-xs-up" href="#exampleWizardForm" data-wizard="finish" role="button">Finish</a></div>
-            </div>
+              
+              <div class="wizard-buttons">
+                  <!-- 
+                 <a class="btn btn-default btn-outline disabled" href="#" data-wizard="back" role="button">Back</a>
+                 <a class="btn btn-primary btn-outline custom-btn float-right" href="verify.html" data-wizard="next" role="button">Next</a>
+                 <a class="btn btn-success btn-outline float-right hidden-xs-up" href="#exampleWizardForm" data-wizard="finish" role="button">Finish</a></div>
+                 -->
+              </div>
           </div>
         </div>
       </div>
@@ -249,10 +259,12 @@
 	 var queries = queryString.split('&');
      //var tmplname=queries[0].split('=')[1];
      var tmplname=localStorage.getItem('tmplname');
+     console.log("tmplname : "+tmplname);
+     //console.log("tmplname1 : "+localStorage.getItem('tmplname1'));
      //alert();
      
      var listvalues = localStorage.getItem('tmpl_txt');
-     alert("listvalues : "+listvalues);
+     //alert("listvalues : "+listvalues);
 	 //Setting Selected Template To Prievew & Test
      document.getElementById('imag-box-content border-set rounded').innerHTML=listvalues;
      localStorage.setItem('tmplflag', 'edit'); 
@@ -262,6 +274,13 @@
     	 document.getElementById('template_edit').setAttribute('href', "<%=request.getContextPath()%>/servlet/service/ui."+tmplname);
     	 localStorage.setItem('cmd', 'edit');
      }
+     /*
+     function activateRedesign(id){
+    	 document.getElementById('template_edit').setAttribute('href', "<%=request.getContextPath()%>/servlet/service/ui."+tmplname);
+    	 //localStorage.setItem('cmd', 'edit');
+     }
+     */
+     
 	 $('#save_campaign').on('click', saveCampaign);
 	    function saveCampaign(event){
 		    var funnelName=localStorage.getItem('funnelName');
@@ -281,11 +300,11 @@
 			
 		    var uploded_content=document.getElementById('imag-box-content border-set rounded').innerHTML;
 			
-			alert("uploded_content : "+uploded_content);
+			//alert("uploded_content : "+uploded_content);
 			$.ajax({
-					//url: 'http://35.236.154.164:8082/portal/servlet/service/uidata.createLead',
-					url: 'http://35.236.154.164:8082/portal/servlet/service/createCampaign.CampaignNodeAdd',//createListAndSubscribers
-					//url: 'http://35.236.154.164:8082/portal/servlet/service/createCampaign.addCampaign',
+					//url: 'http://35.200.169.114:8082/portal/servlet/service/uidata.createLead',
+					url: 'http://35.200.169.114:8082/portal/servlet/service/createCampaign.CampaignNodeAdd',//createListAndSubscribers
+					//url: 'http://35.200.169.114:8082/portal/servlet/service/createCampaign.addCampaign',
 					type: 'POST',
 					async:false,
 					data: {
@@ -314,6 +333,12 @@
 						//campaignid
 	                    //console.log('--------------markup---------end');
 	                    //alert('data: '+data);
+						alert("Your Campaign Is saved and Campaign Id Is "+jsonData.campaignid);
+						//campaignid
+	                    //console.log('--------------markup---------end');
+	                    //alert('data: '+data);
+						//window.location = "http://35.200.169.114:8082/portal/servlet/service/ui.index";
+						window.close();
 					}
 					});
 	    }
@@ -326,11 +351,11 @@
   <script src="<%=request.getContextPath()%>/apps/global/vendor/bootstrap/bootstrap.min599c.js?v4.0.2"></script>
   <script src="<%=request.getContextPath()%>/apps/global/vendor/asscrollbar/jquery-asScrollbar.min599c.js?v4.0.2"></script>
   <script src="<%=request.getContextPath()%>/apps/global/vendor/formvalidation/formValidation.min599c.js?v4.0.2"></script>
-  <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery-wizard/jquery-wizard.min599c.js?v4.0.2"></script>
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery-wizard/jquery-wizard.min599c.js?v4.0.2"></script> -->
   <script src="<%=request.getContextPath()%>/apps/global/js/Plugin.min599c.js?v4.0.2"></script>
   <script src="<%=request.getContextPath()%>/apps/global/js/Config.min599c.js?v4.0.2"></script>
-  <script src="<%=request.getContextPath()%>/apps/global/js/Plugin/jquery-wizard.min599c.js?v4.0.2"></script>
-  <script src="<%=request.getContextPath()%>/apps/global/assets/examples/js/forms/wizard.min599c.js?v4.0.2"></script>
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/js/Plugin/jquery-wizard.min599c.js?v4.0.2"></script> -->
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/assets/examples/js/forms/wizard.min599c.js?v4.0.2"></script> -->
   
   
   <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/global/css/custom.css">

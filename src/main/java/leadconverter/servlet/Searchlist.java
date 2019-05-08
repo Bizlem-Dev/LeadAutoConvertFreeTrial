@@ -46,6 +46,169 @@ public class Searchlist extends SlingAllMethodsServlet {
 	JSONObject jsonObject=new JSONObject();
 	NodeIterator iterator=null;
 	
+	protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
+			   throws ServletException, IOException{
+			  PrintWriter out =response.getWriter();
+
+				JSONArray jsonArray=new JSONArray();
+				JSONObject jsonObject=new JSONObject();
+				NodeIterator iterator=null;
+				if (request.getRequestPathInfo().getExtension()
+						.equals("getListSubscribers1")) {
+					try {
+						Session session = null;
+						session = repo.login(new SimpleCredentials("admin", "admin"
+								.toCharArray()));
+						Node listNode = null;
+						String nodeId=null;
+						String selectedListID = request
+								.getParameter("selectedlistid");
+						//out.println("selectedlistname : "+selectedlistname);
+						NodeIterator list_itr = session.getRootNode().getNode("content")
+								.getNode("LEAD_CONVERTER").getNode("LIST")
+								.getNodes();
+						while (list_itr.hasNext()) {
+							listNode=list_itr.nextNode();
+							if (listNode.getProperty("LIST_ID")
+									.getString().equals(selectedListID)) {
+								//out.println();
+								nodeId=listNode.getProperty("NODE_ID").getString();
+							}
+						}
+						Node subscriberNode = null;
+						NodeIterator subscribers_itr = session.getRootNode().getNode("content")
+								.getNode("LEAD_CONVERTER").getNode("SUBSCRIBER")
+								.getNodes();
+						NodeIterator subscribers_list_itr=null;
+						Node subscribers_list_node=null;
+						String emailnodename=null;
+						
+						JSONObject sub_json_obj = null;
+						//out.println("List Id to be serached : "+nodeId);
+						while (subscribers_itr.hasNext()) {
+							subscriberNode = subscribers_itr.nextNode();
+							//out.println("subscriberNode : "+subscriberNode.getName());
+							subscribers_list_itr =subscriberNode.getNode("List").getNodes();
+							while (subscribers_list_itr.hasNext()) {
+								subscribers_list_node=subscribers_list_itr.nextNode();
+								//out.println("subscribers_list_node : "+subscribers_list_node.getName());
+								//out.println("subscriberNode : "+subscriberNode.getName());
+								//out.println("subscribers_list_node.getName().toString()).equals(nodeId) : "+(subscribers_list_node.getName().toString()).equals(nodeId));
+								if((subscribers_list_node.getName().toString()).equals(nodeId)){
+									//out.println("subscriberNode : "+subscriberNode.getName());
+									sub_json_obj = new JSONObject();
+									emailnodename = subscriberNode.getName();
+									sub_json_obj.put("Email_Name", emailnodename.replace("_", "@"));
+									sub_json_obj.put("Name", emailnodename.substring(0, emailnodename.indexOf("_")));
+									
+									if(subscriberNode.hasProperty("SUBSCRIBER_ID")){
+										
+										sub_json_obj.put("SUBSCRIBER_ID", subscriberNode.getProperty("SUBSCRIBER_ID").getString().toString().replace("%20", " "));
+									}else{
+										sub_json_obj.put("SUBSCRIBER_ID", "NA");
+									}
+									if(subscriberNode.hasProperty("SUBSCRIBER_NAME")){
+										
+										sub_json_obj.put("SUBSCRIBER_NAME", subscriberNode.getProperty("SUBSCRIBER_NAME").getString().toString().replace("%20", " "));
+									}else{
+										sub_json_obj.put("SUBSCRIBER_NAME", "NA");
+									}
+									if(subscriberNode.hasProperty("CURRENT DATE AND TIME")){
+										
+										sub_json_obj.put("CURRENT_DATE_AND_TIME", subscriberNode.getProperty("CURRENT DATE AND TIME").getString().toString().replace("%20", " "));
+									}else{
+										sub_json_obj.put("CURRENT_DATE_AND_TIME","NA");
+									}
+									if(subscriberNode.hasProperty("List_Id")){
+										
+										sub_json_obj.put("List_Id", subscriberNode.getProperty("List_Id").getString().toString().replace("%20", " "));
+									}else{
+										sub_json_obj.put("List_Id", "NA");
+									}
+									
+									if(subscriberNode.hasProperty("EmailAddress")){
+										
+										sub_json_obj.put("EmailAddress", subscriberNode.getProperty("EmailAddress").getString().toString().replace("%20", " "));
+									}else{
+										sub_json_obj.put("EmailAddress", "NA");
+									}
+									if(subscriberNode.hasProperty("FirstName")){
+										
+										sub_json_obj.put("FirstName", subscriberNode.getProperty("FirstName").getString().toString().replace("%20", " "));
+									}else{
+										sub_json_obj.put("FirstName", "NA");
+									}
+									if(subscriberNode.hasProperty("LastName")){
+										
+										sub_json_obj.put("LastName", subscriberNode.getProperty("LastName").getString().toString().replace("%20", " "));
+									}else{
+										sub_json_obj.put("LastName", "NA");
+									}
+									if(subscriberNode.hasProperty("PhoneNumber")){
+										
+										sub_json_obj.put("PhoneNumber", subscriberNode.getProperty("PhoneNumber").getString().toString().replace("%20", " "));
+									}else{
+										sub_json_obj.put("PhoneNumber", "NA");
+									}
+									if(subscriberNode.hasProperty("Address")){
+										
+										sub_json_obj.put("Address", subscriberNode.getProperty("Address").getString().toString().replace("%20", " "));
+									}else{
+										sub_json_obj.put("Address", "NA");
+									}
+									
+									
+									if(subscriberNode.hasProperty("CompanyName")){
+										
+										sub_json_obj.put("CompanyName", subscriberNode.getProperty("CompanyName").getString().toString().replace("%20", " "));
+									}else{
+										sub_json_obj.put("CompanyName", "NA");
+									}
+									if(subscriberNode.hasProperty("CompanyHeadCount")){
+										
+										sub_json_obj.put("CompanyHeadCount", subscriberNode.getProperty("CompanyHeadCount").getString().toString().replace("%20", " "));
+									}else{
+										sub_json_obj.put("CompanyHeadCount", "NA");
+									}
+									if(subscriberNode.hasProperty("Industry")){
+										
+										sub_json_obj.put("Industry", subscriberNode.getProperty("Industry").getString().toString().replace("%20", " "));
+									}else{
+										sub_json_obj.put("Industry", "NA");
+									}
+									if(subscriberNode.hasProperty("Institute")){
+										
+										sub_json_obj.put("Institute", subscriberNode.getProperty("Institute").getString().toString().replace("%20", " "));
+									}else{
+										sub_json_obj.put("Institute", "NA");
+									}
+									if(subscriberNode.hasProperty("Source")){
+										
+										sub_json_obj.put("Source", subscriberNode.getProperty("Source").getString().toString().replace("%20", " "));
+									}else{
+										sub_json_obj.put("Source", "NA");
+									}
+									
+									jsonArray.put(sub_json_obj);
+									break;
+								}
+								
+							}
+						}
+						JSONObject mainJson = new JSONObject();
+						mainJson.put("data", jsonArray);
+						out.println(mainJson);
+
+					} catch (Exception ex) {
+
+						out.println("Exception ex " + ex.getMessage());
+
+					}
+				}
+
+				
+	}
+	
 	protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response)
 			   throws ServletException, IOException{
 			  PrintWriter out =response.getWriter();

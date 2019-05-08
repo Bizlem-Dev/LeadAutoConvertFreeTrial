@@ -11,6 +11,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.ResourceBundle;
 
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
@@ -54,6 +55,7 @@ public class LEAD_CONVERTER_NodeAdd_Email extends SlingAllMethodsServlet {
 	JSONObject mainjsonobject = new JSONObject();
 	String urlParameters = mainjsonobject.toString();
 	Date currentTime = new Date();
+	
 
 	protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
 			throws ServletException, IOException {
@@ -127,8 +129,9 @@ public class LEAD_CONVERTER_NodeAdd_Email extends SlingAllMethodsServlet {
 							if (getcampaignname.equals(campaignname)) {
 								out.println("If");
 
-								String subscriber_campaign_url = ip.getNode("ip").getProperty("Campaign_Subscriber")
-										.getString();
+								//String subscriber_campaign_url = ip.getNode("ip").getProperty("Campaign_Subscriber")
+										//.getString();
+								String subscriber_campaign_url = ResourceBundle.getBundle("config").getString("Campaign_Subscriber");
 								// http://191.101.165.251/webservice/campaigndatabyuid.php?campid=52&userid=1
 								String campaignsubscriberapiurlparameters = "?campid=" + campaignid + "&userid="
 										+ subscriberid;
@@ -500,6 +503,7 @@ public class LEAD_CONVERTER_NodeAdd_Email extends SlingAllMethodsServlet {
 				out.println("inside servlet");
 
 			try {
+				String unsubscriber_link="<p><small><a href='[UNSUBSCRIBEURL]'>unsubscribe me</a></small></p>";
 				String list_id = request.getParameter("list_id");
 
 				long count_Value1 = 0;
@@ -517,21 +521,26 @@ public class LEAD_CONVERTER_NodeAdd_Email extends SlingAllMethodsServlet {
 				String addcampaignnode = null;
 				Node addcampaigninsubscribernode = null;
 				String body = request.getParameter("ckcontent");
+				       body=body+unsubscriber_link;
+				String footer = request.getParameter("footer");
+				       footer=footer+unsubscriber_link;
 				String subject = request.getParameter("subject");
 				String type = request.getParameter("type");
 				String fromfield = request.getRemoteUser();
 				String replyto = request.getRemoteUser();
 				String embargo = request.getParameter("date");
 				String campaignvalue = request.getParameter("campaignvalue");
+				
 //				String noofdays=request.getParameter("user");
 //				String currentdate=request.getParameter("year");
 //				
 			//	out.println("cu0rrent_date : "+currentdate+"noofdays : "+noofdays );
                 String bodyvalue=URLEncoder.encode(body);
-				String campaignaddurl = ip.getNode("ip").getProperty("Campaign_Add_Url").getString();
+				//String campaignaddurl = ip.getNode("ip").getProperty("Campaign_Add_Url").getString();
+				String campaignaddurl = ResourceBundle.getBundle("config").getString("Campaign_Add_Url");
 				String campaignaddapiurlparameters = "?subject=" + subject + "&fromfield=" + fromfield + "&replyto="
 						+ replyto
-						+ "&message="+bodyvalue+"&textmessage=hii&footer=footer&status=draft&sendformat=html&template=&embargo="
+						+ "&message="+bodyvalue+"&textmessage=hii&footer="+footer+"&status=draft&sendformat=html&template=&embargo="
 						+ embargo+"&rsstemplate=&owner=1&htmlformatted=&repeatinterval=&repeatuntil=&requeueinterval=&requeueuntil=";
 			//	out.println(campaignaddapiurlparameters);
 				String campaignresponse = this.sendpostdata(campaignaddurl, campaignaddapiurlparameters.replace(" ", "%20").replace("\r", "").replace("\n", ""), response)
@@ -680,13 +689,15 @@ public class LEAD_CONVERTER_NodeAdd_Email extends SlingAllMethodsServlet {
 
 					// url
 					// http://localhost/restapi/campaign-list/listCampaignAdd.php?listid=2&campid=92
-					String campaignlisturl = ip.getNode("ip").getProperty("Campaign_List_Url").getString();
+					//String campaignlisturl = ip.getNode("ip").getProperty("Campaign_List_Url").getString();
+					String campaignlisturl = ResourceBundle.getBundle("config").getString("Campaign_List_Url");
 					String campaignparameter = "?listid=" + list_id + "&campid=" + campaignid;
 					String campaignlistresponse = this
 							.sendpostdata(campaignlisturl, campaignparameter.replace(" ", "%20"), response)
 							.replace("<pre>", "");
 					// out.println("Campaign_List_Response : " + campaignlistresponse);
-					String subscriberdataurl = ip.getNode("ip").getProperty("Subscriber_Data_Url").getString();
+					//String subscriberdataurl = ip.getNode("ip").getProperty("Subscriber_Data_Url").getString();
+					String subscriberdataurl = ResourceBundle.getBundle("config").getString("Subscriber_Data_Url");
 					String subscriberdataparameters = "?list_id=" + list_id;
 					String subscriberdataresponse = this
 							.sendpostdata(subscriberdataurl, subscriberdataparameters, response).replace("<pre>", "");
@@ -1207,8 +1218,9 @@ public class LEAD_CONVERTER_NodeAdd_Email extends SlingAllMethodsServlet {
 
 						if (campaignnameinsubscriber.equals(campaignname)) {
 
-							String subscriber_campaign_url = ip.getNode("ip").getProperty("Campaign_Subscriber")
-									.getString();
+							//String subscriber_campaign_url = ip.getNode("ip").getProperty("Campaign_Subscriber")
+							//		.getString();
+							String subscriber_campaign_url = ResourceBundle.getBundle("config").getString("Campaign_Subscriber");
 							// http://191.101.165.251/webservice/campaigndatabyuid.php?campid=52&userid=1
 							String campaignsubscriberapiurlparameters = "?campid=" + campaignid + "&userid="
 									+ subscriberid;

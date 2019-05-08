@@ -8,15 +8,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
-
-
-
-
-
-
-
 import java.util.Set;
-
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.commons.json.JSONArray;
 import org.apache.sling.commons.json.JSONObject;
@@ -25,25 +17,6 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 //import org.json.simple.JSONArray;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 import com.mongodb.AggregationOutput;
 import com.mongodb.BasicDBList;
@@ -67,36 +40,52 @@ import com.mongodb.client.model.InsertOneOptions;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import com.mongodb.util.JSON;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import static com.mongodb.client.model.Filters.*;
-
-
 //import static com.mongodb.client.model.Filters.*;
 
 public class MongoDAO {
 	//JSON.parse(subfunnelList.toString())
+	
+
+	public JSONArray findSubscribersBasedOncampaignNameAndDimension2(String coll_name,String Campaign_Id,String Campaign_Name,String User_Id) {
+		MongoClient mongoClient = null;
+		DB db =null;
+		DBCollection collection = null;
+	    Document myDoc=null;
+	    
+	    JSONArray campaignJsonArr=new JSONArray();;
+	    
+	    try {
+	    	mongoClient = ConnectionHelper.getConn();
+	        db = mongoClient.getDB("phplisttest");
+	        collection = db.getCollection("google_analytics_data");
+            //phplist797
+	        DBObject unwind = new BasicDBObject("$unwind", "$addresses");
+	        DBObject match = new BasicDBObject("$match", new BasicDBObject(
+	                "addresses.dimension2", User_Id).append("addresses.campaign", Campaign_Name).append("addresses.source", "phplist"+Campaign_Id));
+	        DBObject project = new BasicDBObject("$project", new BasicDBObject(
+	                "_id", 0).append("addresses", 1));
+	        //List<DBObject> dblist=
+            List<DBObject> pipeline = Arrays.asList(unwind, match, project);
+	        AggregationOutput output = collection.aggregate(pipeline);
+            Iterable<DBObject> results = output.results();
+	        for (DBObject result : results) {
+	        	BSONObject addresses=(BSONObject) ((BSONObject) ((BSONObject) result.get("addresses")));
+	        	System.out.println(addresses);
+	        	//campaignJsonArr=new JSONArray(addresses.toString());
+	        	
+	        	campaignJsonArr.put(addresses);
+	        	//System.out.println(campaignJsonArr);
+	    	}
+	        System.out.println(campaignJsonArr.length());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+		} finally {
+			ConnectionHelper.closeConn(mongoClient);
+		}
+        return campaignJsonArr;
+    }
 	
 	public JSONArray subscribersViewBasedOnFunnelData(String coll_name,String funnel_name,String sub_funnel_name,String start_date,String end_date) {
 		MongoClient mongoClient = null;
@@ -753,7 +742,8 @@ public class MongoDAO {
             database=mongoClient.getDatabase("phplisttest");
             collection=database.getCollection(coll_name);
             //Bson andFilter=and(eq("Sling_Campaign_Id","499" ),gt("linkcount", 0), gt("viewed", 0));
-            Bson andFilter=and(gt("linkcount", 0), gt("viewed", 0));
+            //Bson andFilter=and(gt("linkcount", 0), gt("viewed", 0));
+            Bson andFilter=and(gte("linkcount", 0), gt("viewed", 0));
             FindIterable<Document> fi = collection.find(andFilter);
     		MongoCursor<Document> cursor = fi.iterator();
     		JSONObject campaignJsonObj=null;
@@ -1060,17 +1050,23 @@ public class MongoDAO {
 	    //viewed_subscribers --data--  urlclickstatistics
 	    
 	    JSONArray campaignJsonArr=new JSONArray();
+	    
+	    JSONArray campaignJsonArr_Temp=new JSONArray();
+	    JSONObject campaignJsonObj_Temp=null;
 	    try {
         	mongoClient=ConnectionHelper.getConnection();
             database=mongoClient.getDatabase("phplisttest");
             collection=database.getCollection(coll_name);
             //Bson andFilter=and(eq("Sling_Campaign_Id","499" ),gt("linkcount", 0), gt("viewed", 0));
-            Bson andFilter=and(gt("linkcount", 0), gt("viewed", 0));
+            //Bson andFilter=and(gt("linkcount", 0), gt("viewed", 0));
+            Bson andFilter=and(gte("linkcount", 0), gt("viewed", 0));
             FindIterable<Document> fi = collection.find(andFilter);
     		MongoCursor<Document> cursor = fi.iterator();
     		JSONObject campaignJsonObj=null;
+    		//campaignJsonArr_Temp.p
     		try {
     			while(cursor.hasNext()) {
+    				campaignJsonObj_Temp=new JSONObject();
     				//campaignJsonArr.put(cursor.next().toJson());
     				campaignJsonObj=new JSONObject(cursor.next().toJson());
     				        //old_id
@@ -1079,7 +1075,11 @@ public class MongoDAO {
     					    subject=campaignJsonObj.getString("subject");
     					    sendstart=campaignJsonObj.getString("sendstart");
     					    status=campaignJsonObj.getString("status");
-
+    					    
+    					    campaignJsonObj_Temp.put("id", id);
+    					    campaignJsonObj_Temp.put("subject", subject);
+    					    campaignJsonArr_Temp.put(campaignJsonObj_Temp);
+    					    
     					    viewed=campaignJsonObj.getInt("viewed");
     					    bounce_count=campaignJsonObj.getInt("bounce_count");
     					    fwds=campaignJsonObj.getInt("fwds");
@@ -1209,6 +1209,74 @@ public class MongoDAO {
 		    					    	
 		    					    }else{
 		    					    	System.out.println("No urlclickstatistics Found");
+		    					    	
+		    					    	String strDate="27 Sep 2018 17:06";
+	    					    		SimpleDateFormat dateFormatter=new SimpleDateFormat("dd MMM yyyy HH:mm"); 
+	    					    		//Date date=dateFormatter.parse(strDate); 
+	    					    		//System.out.println("Local Time: " + date);
+	    					    		//date.setHours(date.getHours()-5);
+	    					    		//date.setMinutes(date.getMinutes()-30);
+	    					    		//System.out.println("Local Time: " + date);
+	    					    		
+	    					    		//funnelJsonObj=new JSONObject();
+	    					    		funnelJsonDoc = new Document();
+	    					    		funnelJsonDoc.put("id",id);
+	    					    		funnelJsonDoc.put("uuid",uuid);
+	    					    		funnelJsonDoc.put("subject",subject);
+	    					    		funnelJsonDoc.put("sendstart",sendstart);
+	    					    		funnelJsonDoc.put("sendstart_date",dateFormatter.parse(sendstart));
+	    					    		funnelJsonDoc.put("status",status);
+
+	    					    		funnelJsonDoc.put("viewed",viewed);
+	    					    		funnelJsonDoc.put("bounce_count",bounce_count);
+	    					    		funnelJsonDoc.put("fwds",fwds);
+	    					    		funnelJsonDoc.put("sent",sent);
+	    					    		funnelJsonDoc.put("clicks",clicks);
+
+	    					    		funnelJsonDoc.put("open_rate",open_rate);
+	    					    		funnelJsonDoc.put("click_rate",click_rate);
+	    					    		funnelJsonDoc.put("click_per_view_rate",click_per_view_rate);
+	    					    		funnelJsonDoc.put("unique_click_rate",unique_click_rate);
+
+	    					    		funnelJsonDoc.put("linkcount",linkcount);
+	    					    		funnelJsonDoc.put("subscriber_count",subscriber_count);
+
+	    					    		funnelJsonDoc.put("Body",Body);
+	    					    		funnelJsonDoc.put("Sling_Campaign_Id",Sling_Campaign_Id);
+	    					    		funnelJsonDoc.put("CreatedBy",CreatedBy);
+	    					    		funnelJsonDoc.put("List_Id",List_Id);
+	    					    		funnelJsonDoc.put("Sling_Subject",Sling_Subject);
+	    					    		funnelJsonDoc.put("Type",Type);
+
+	    					    		funnelJsonDoc.put("subFunnelNodeName",subFunnelNodeName);
+	    					    		funnelJsonDoc.put("subFunnelCounter",subFunnelCounter);
+	    					    		funnelJsonDoc.put("Current_Campaign",Current_Campaign);
+	    					    		funnelJsonDoc.put("funnelNodeName",funnelNodeName);
+	    					    		funnelJsonDoc.put("funnelCounter",funnelCounter);
+
+	    					    		funnelJsonDoc.put("subscriber_total",total);
+	    					    		funnelJsonDoc.put("subscriber_campaignid",data_campaignid);
+	    					    		funnelJsonDoc.put("subscriber_userid",data_userid);
+	    					    		funnelJsonDoc.put("subscriber_viewed",data_viewed);
+	    					    		funnelJsonDoc.put("subscriber_viewed_date",dateFormatter.parse(data_viewed));
+	    					    		funnelJsonDoc.put("subscriber_email",data_email);
+	    					    		funnelJsonDoc.put("subscriber_uuid",data_uuid);
+
+	    					    		funnelJsonDoc.put("campaignclickstatistics_firstclick",campaignclickstatistics_firstclick);
+	    					    		funnelJsonDoc.put("campaignclickstatistics_firstclick_date",null);
+	    					    		funnelJsonDoc.put("campaignclickstatistics_latestclick",campaignclickstatistics_latestclick);
+	    					    		funnelJsonDoc.put("campaignclickstatistics_latestclick_date",null);
+	    					    		funnelJsonDoc.put("campaignclickstatistics_clicked",campaignclickstatistics_clicked);
+	    					    		
+	    					    		funnelJsonDoc.put("urlclickstatistics_firstclick",null);
+	    					    		funnelJsonDoc.put("urlclickstatistics_firstclick_date",null);
+	    					    		funnelJsonDoc.put("urlclickstatistics_latestclick",null);
+	    					    		funnelJsonDoc.put("urlclickstatistics_latestclick_date",null);
+	    					    		funnelJsonDoc.put("urlclickstatistics_clicked",null);
+	    					    		funnelJsonDoc.put("urlclickstatistics_messageid",null);
+	    					    		funnelJsonDoc.put("urlclickstatistics_url",null);
+	    					    		MongoDAO mdao=new MongoDAO();
+	    								mdao.createOneUsingDocument("url", funnelJsonDoc);
 		    					    }
 	        					    
     					    }
@@ -1227,7 +1295,8 @@ public class MongoDAO {
 		} finally {
 			ConnectionHelper.closeConnection(mongoClient);
 		}
-        return campaignJsonArr;
+        //return campaignJsonArr;
+	    return campaignJsonArr_Temp;
     }	
 	public JSONArray findUrlClickStatisticsBasedOnCampaignIDAndUserID(String coll_name,String Campaign_Id,String User_Id) {
 		MongoClient mongoClient = null;

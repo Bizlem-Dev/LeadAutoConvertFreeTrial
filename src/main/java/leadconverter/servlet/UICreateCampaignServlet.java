@@ -46,6 +46,7 @@ import org.osgi.service.http.HttpService;
 
 import java.io.*;
 import java.net.*;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 @Component(immediate = true, metatype = false)
@@ -70,7 +71,9 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 	private static final long serialVersionUID = 1L;
 	String fileType = "file";
 	JSONObject mainjsonobject = new JSONObject();
+	String unnsubscriber_link="<p><small><a href='[UNSUBSCRIBEURL]'>unsubscribe me</a></small></p>";
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void doPost(SlingHttpServletRequest request,
 			SlingHttpServletResponse response) throws ServletException,
@@ -102,6 +105,7 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 					Node funnelNode = null;//this variable created by Akhil
 					Node subFunnelNode = null;//this variable created by Akhil
 					Node content = session.getRootNode().getNode("content").getNode("user");
+					Node content_ip = session.getRootNode().getNode("content");
 					Node usernode = null;
 					Node typenode = null;
 					Node remoteusernode = null;
@@ -111,10 +115,12 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 					Node addcampaigninsubscribernode = null;
 					
 					String footer = request.getParameter("footer");
+					       //footer=footer+unnsubscriber_link;
 					String send_a_webpage_url = request.getParameter("send_a_webpage_url");
 				    String compose_message_txt = request.getParameter("compose_message_txt");
 				    String body = request.getParameter("ckcontent");
-					String subject = request.getParameter("subject");
+				           body=body+unnsubscriber_link;
+				    String subject = request.getParameter("subject");
 					String campaignName = request.getParameter("campaignName");
 					String fromName = request.getParameter("fromName");
 					String fromEmailAddress = request.getParameter("fromEmailAddress");
@@ -133,8 +139,9 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 					String bodyvalue=URLEncoder.encode(body);
 					//out.println("bodyvalue : "+bodyvalue);
 					/*
-					String campaignaddurl = ip.getNode("ip").getProperty("Campaign_Add_Url").getString();
-					//String campaignaddurl = "http://35.221.31.185/phplist_api/campaign_api.php?cmd=campaignAdd";
+					//String campaignaddurl = ip.getNode("ip").getProperty("Campaign_Add_Url").getString();
+					String campaignaddurl = ResourceBundle.getBundle("config").getString("Campaign_Add_Url");
+					//String campaignaddurl = "http://35.237.183.3/phplist_api/campaign_api.php?cmd=campaignAdd";
 					String campaignaddapiurlparameters = "?subject=" + subject + "&fromfield=" + fromfield + "&replyto="
 							+ replyto
 							+ "&message="+body+"&textmessage=hii&footer=footer&status=draft&sendformat=html&template=&embargo="
@@ -144,10 +151,10 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 							.replace("<pre>", "");
 					//out.println("campaignresponse : "+campaignresponse);
 					*/
-					String campaignaddurl = "http://35.221.31.185/phplist_api/campaign_api.php?cmd=campaignAdd";
+					String campaignaddurl = "http://35.237.183.3/phplist_api/campaign_api.php?cmd=campaignAdd";
 					String campaignaddapiurlparameters = "subject=" + subject + "&fromfield=" + fromfield + "&replyto="
 							+ replyto
-							+ "&message="+body+"&textmessage=hii&footer=footer&status=draft&sendformat=html&template=&embargo="
+							+ "&message="+body+"&textmessage=hii&footer="+footer+"&status=draft&sendformat=html&template=&embargo="
 							+ embargo+"&rsstemplate=&owner=1&htmlformatted=&repeatinterval=&repeatuntil=&requeueinterval=&requeueuntil=";
 					//out.println("campaignaddapiurlparameters : "+campaignaddapiurlparameters);
 					String campaignresponse = this.sendHttpPostData(campaignaddurl, campaignaddapiurlparameters.replace(" ", "%20").replace("\r", "").replace("\n", ""), response)
@@ -158,11 +165,13 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 					String campaignstatus = campaignjson.getString("status");
 					JSONObject data = campaignjson.getJSONObject("data");
 					String campaignid = data.getString("id");
+					String campaign_status = data.getString("status");
+					//status
 					
 					JSONObject res_json_obj=new JSONObject();
 			                   res_json_obj.put("campaignid", campaignid);
-			                   res_json_obj.put("body", body);
-			                   res_json_obj.put("bodyvalue", bodyvalue);
+			                   //res_json_obj.put("body", body);
+			                   //res_json_obj.put("bodyvalue", bodyvalue);
 			                   
 			        out.println(res_json_obj.toString());
 			        
@@ -192,34 +201,274 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 						
 						Node UserFunnelNode = null;//this variable created by Akhil
 						Node UserSubFunnelNode = null;//this variable created by Akhil
+						Node ListNode = null;//this variable created by Akhil
+						Node ListCampaignNode = null;//this variable created by Akhil
+						Node DraftListNode = null;
+						Node ActiveListNode = null;
+						Node ActiveListChildNode = null;
 						if (!funnelNode.hasNode(funnelName)) {
 							UserFunnelNode = funnelNode.addNode(funnelName);
 						} else {
 							UserFunnelNode = funnelNode.getNode(funnelName);
 					    }
+						int date_distance=0;
 						if (!UserFunnelNode.hasNode(type)) {
-
+							//out.println("if UserFunnelNode");
+							campaignvalue=logged_in_user + "_" + type + "_"+ String.valueOf(count_Value1+1);
 							UserSubFunnelNode = UserFunnelNode.addNode(type);
+							//Setting Subfunnel property
 							UserSubFunnelNode.setProperty("Counter", count_Value1);
-						//	typenode.setProperty("Current_Date", currentdate);
-							UserSubFunnelNode.setProperty("Current_Campaign", campaignvalue);
-						//	typenode.setProperty("No_of_days", noofdays);
-					
+						    UserSubFunnelNode.setProperty("Current_Campaign", campaignvalue);
+							UserSubFunnelNode.setProperty("Distance", DistanceBtnCampaign);
+                           	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//2019-03-15 01:00:00
+							//System.out.println("Today's Date : "+dateFormat.format(new Date()));
+							UserSubFunnelNode.setProperty("Current_Date", dateFormat.format(new Date()));
+						    //UserSubFunnelNode.setProperty("No_of_days", noofdays);
+							if(UserSubFunnelNode.hasNode("List")){
+								//out.println("if List");
+								
+								ListNode=UserSubFunnelNode.getNode("List");
+								if(ListNode.hasNode("DraftList")){
+									DraftListNode=ListNode.getNode("DraftList");
+									
+								}else{
+									DraftListNode=ListNode.addNode("DraftList");
+								}
+								if(ListNode.hasNode("ActiveList")){
+									ActiveListNode=ListNode.getNode("ActiveList");
+									if(type.equals("Explore")){
+										ActiveListChildNode=ActiveListNode.addNode(list_id);
+										if(ActiveListChildNode.hasNode("Campaign")){
+											ListCampaignNode=ActiveListChildNode.getNode("Campaign");
+											
+										}else{
+											ListCampaignNode=ActiveListChildNode.addNode("Campaign");
+										}
+									}else{
+										
+										String listname ="List_"+campaignvalue;
+										//String listurl = content_ip.getNode("ip")
+										//		.getProperty("List_Add_Url").getString();
+										String listurl = ResourceBundle.getBundle("config").getString("List_Add_Url");
+
+										String listparameter = "?name=" + listname
+												+ "&description=This Belongs to " + "&listorder="
+												+ 90 + "&active=" + 1;
+										String listresponse = this.sendpostdata(listurl,
+												listparameter.replace(" ", "%20"), response)
+												.replace("<pre>", "");
+										//out.println("List Response " + listresponse);
+										JSONObject listjson = new JSONObject(listresponse);
+										String liststatusresponse = listjson.getString("status");
+										// out.println("List Status Response : " +
+										// liststatusresponse);
+										JSONObject getjsonid = listjson.getJSONObject("data");
+										listid = getjsonid.getString("id");
+										//out.println("Created Enitce list id : "+listid);
+										ActiveListChildNode=ActiveListNode.addNode(listid);
+										if(ActiveListChildNode.hasNode("Campaign")){
+											ListCampaignNode=ActiveListChildNode.getNode("Campaign");
+											
+										}else{
+											ListCampaignNode=ActiveListChildNode.addNode("Campaign");
+										}
+										
+									}
+								}else{
+									ActiveListNode=ListNode.addNode("ActiveList");
+									if(type.equals("Explore")){
+										ActiveListChildNode=ActiveListNode.addNode(list_id);
+										if(ActiveListChildNode.hasNode("Campaign")){
+											ListCampaignNode=ActiveListChildNode.getNode("Campaign");
+											
+										}else{
+											ListCampaignNode=ActiveListChildNode.addNode("Campaign");
+										}
+                                    }else{
+                                    	String listname ="List_"+campaignvalue;
+										//String listurl = content_ip.getNode("ip")
+										//		.getProperty("List_Add_Url").getString();
+										String listurl = ResourceBundle.getBundle("config").getString("List_Add_Url");
+
+										String listparameter = "?name=" + listname
+												+ "&description=This Belongs to " + "&listorder="
+												+ 90 + "&active=" + 1;
+										String listresponse = this.sendpostdata(listurl,
+												listparameter.replace(" ", "%20"), response)
+												.replace("<pre>", "");
+										//out.println("List Response " + listresponse);
+										JSONObject listjson = new JSONObject(listresponse);
+										String liststatusresponse = listjson.getString("status");
+										// out.println("List Status Response : " +
+										// liststatusresponse);
+										JSONObject getjsonid = listjson.getJSONObject("data");
+										listid = getjsonid.getString("id");
+										
+										ActiveListChildNode=ActiveListNode.addNode(listid);
+										if(ActiveListChildNode.hasNode("Campaign")){
+											ListCampaignNode=ActiveListChildNode.getNode("Campaign");
+											
+										}else{
+											ListCampaignNode=ActiveListChildNode.addNode("Campaign");
+										}
+										
+									}
+									
+								}
+							}else{
+								//out.println("else List");
+								ListNode=UserSubFunnelNode.addNode("List");
+								if(ListNode.hasNode("DraftList")){
+									DraftListNode=ListNode.getNode("DraftList");
+									
+								}else{
+									DraftListNode=ListNode.addNode("DraftList");
+								}
+								if(ListNode.hasNode("ActiveList")){
+									//out.println("if ActiveList");
+									ActiveListNode=ListNode.getNode("ActiveList");
+									if(type.equals("Explore")){
+										//out.println("if Explore");
+										ActiveListChildNode=ActiveListNode.addNode(list_id);
+										if(ActiveListChildNode.hasNode("Campaign")){
+											ListCampaignNode=ActiveListChildNode.getNode("Campaign");
+											
+										}else{
+											ListCampaignNode=ActiveListChildNode.addNode("Campaign");
+										}
+									}else{
+										//out.println("else Explore");
+										String listname ="List_"+campaignvalue;
+										//String listurl = content_ip.getNode("ip")
+												//.getProperty("List_Add_Url").getString();
+										String listurl = ResourceBundle.getBundle("config").getString("List_Add_Url");
+
+										String listparameter = "?name=" + listname
+												+ "&description=This Belongs to " + "&listorder="
+												+ 90 + "&active=" + 1;
+										String listresponse = this.sendpostdata(listurl,
+												listparameter.replace(" ", "%20"), response)
+												.replace("<pre>", "");
+										//out.println("List Response " + listresponse);
+										JSONObject listjson = new JSONObject(listresponse);
+										String liststatusresponse = listjson.getString("status");
+										// out.println("List Status Response : " +
+										// liststatusresponse);
+										JSONObject getjsonid = listjson.getJSONObject("data");
+										listid = getjsonid.getString("id");
+										
+										ActiveListChildNode=ActiveListNode.addNode(listid);
+										if(ActiveListChildNode.hasNode("Campaign")){
+											ListCampaignNode=ActiveListChildNode.getNode("Campaign");
+											
+										}else{
+											ListCampaignNode=ActiveListChildNode.addNode("Campaign");
+										}
+										
+									}
+								}else{
+									//out.println("if ActiveList");
+									ActiveListNode=ListNode.addNode("ActiveList");
+									if(type.equals("Explore")){
+										ActiveListChildNode=ActiveListNode.addNode(list_id);
+										if(ActiveListChildNode.hasNode("Campaign")){
+											ListCampaignNode=ActiveListChildNode.getNode("Campaign");
+											
+										}else{
+											ListCampaignNode=ActiveListChildNode.addNode("Campaign");
+										}
+                                    }else{
+                                    	String listname ="List_"+campaignvalue;
+										//String listurl = content_ip.getNode("ip")
+											//	.getProperty("List_Add_Url").getString();
+										String listurl = ResourceBundle.getBundle("config").getString("List_Add_Url");
+
+										String listparameter = "?name=" + listname
+												+ "&description=This Belongs to " + "&listorder="
+												+ 90 + "&active=" + 1;
+										String listresponse = this.sendpostdata(listurl,
+												listparameter.replace(" ", "%20"), response)
+												.replace("<pre>", "");
+										//out.println("List Response " + listresponse);
+										JSONObject listjson = new JSONObject(listresponse);
+										String liststatusresponse = listjson.getString("status");
+										// out.println("List Status Response : " +
+										// liststatusresponse);
+										JSONObject getjsonid = listjson.getJSONObject("data");
+										listid = getjsonid.getString("id");
+										
+										ActiveListChildNode=ActiveListNode.addNode(listid);
+										if(ActiveListChildNode.hasNode("Campaign")){
+											ListCampaignNode=ActiveListChildNode.getNode("Campaign");
+											
+										}else{
+											ListCampaignNode=ActiveListChildNode.addNode("Campaign");
+										}
+										
+									}
+									
+								}
+							}
+							date_distance=0;
+							//out.println("step 1");
 						} else {
-
+							//out.println("else UserFunnelNode");
 							UserSubFunnelNode = UserFunnelNode.getNode(type);
+							
 							count_Value1 = UserSubFunnelNode.getProperty("Counter").getLong();
-							
-							
-						//	typenode.setProperty("Current_Date", currentdate);
-							UserSubFunnelNode.setProperty("Current_Campaign", campaignvalue);
-						//	typenode.setProperty("No_of_days", noofdays);
-
+						    UserSubFunnelNode.setProperty("Distance", DistanceBtnCampaign);
+						    if(UserSubFunnelNode.hasProperty("Distance")){
+						    	String distance=UserSubFunnelNode.getProperty("Distance").getString().replace(" Week", "");
+						    	date_distance=Integer.parseInt(distance);
+						    }else{
+						    	date_distance=0;
+						    }
+						    
+						    ListNode=UserSubFunnelNode.getNode("List");
+						    
+						    if(ListNode.hasNode("ActiveList")){
+								ActiveListNode=ListNode.getNode("ActiveList");
+								
+								if(ActiveListNode.getNodes().hasNext()){
+									//ActiveListChildNode=ActiveListNode.getNode(list_id);
+									ActiveListChildNode=ActiveListNode.getNodes().nextNode();
+									//out.println("ActiveListChildNode Name : "+ActiveListChildNode.getName());
+								}
+								
+									
+									if(ActiveListChildNode.hasNode("Campaign")){
+										ListCampaignNode=ActiveListChildNode.getNode("Campaign");
+										
+									}else{
+										ListCampaignNode=ActiveListChildNode.addNode("Campaign");
+									}
+								}
+						    //out.println("step 2");
 						}
+						//out.println("step 3");
+						String Campaign_Date=null;
+						DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						Date date = new Date();
+						if(date_distance==0){
+							int date_difference=((int) count_Value1)*date_distance*7;
+					        date.setDate(date.getDate()+date_difference);
+					        Campaign_Date= dateFormat.format(date);
+					    }else{
+					    	int date_difference=((int) count_Value1)*date_distance*7;
+					        date.setDate(date.getDate()+date_difference);
+					        Campaign_Date= dateFormat.format(date);
+					    }
 						count_Value1 = count_Value1 + 1;
 						UserSubFunnelNode.setProperty("Counter", count_Value1);
 						addcampaignnode = logged_in_user + "_" + type + "_"
 								+ String.valueOf(count_Value1);
+						
+						Node ListCampaignChildNode =ListCampaignNode.addNode(addcampaignnode);
+						     ListCampaignChildNode.setProperty("Campaign_Id", campaignid);
+						     ListCampaignChildNode.setProperty("List_Id", list_id);
+						     ListCampaignChildNode.setProperty("campaign_status", campaign_status);
+						     ListCampaignChildNode.setProperty("Campaign_Date", Campaign_Date);
+						     //out.println("step 4");
 						if (!UserSubFunnelNode.hasNode(logged_in_user + "_" + type + "_"
 								+ String.valueOf(count_Value1))) {
 
@@ -232,9 +481,10 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 							remoteusernode.setProperty("Type", type);
 							remoteusernode.setProperty("Campaign_Id", campaignid);
 							remoteusernode.setProperty("List_Id", list_id);
-
+							remoteusernode.setProperty("campaign_status", campaign_status);
+							
+							remoteusernode.setProperty("Campaign_Date", Campaign_Date);
 						} else {
-
 							remoteusernode = UserSubFunnelNode.getNode(logged_in_user + "_" + type + "_"
 									+ String.valueOf(count_Value1));
                             
@@ -244,8 +494,8 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 							remoteusernode.setProperty("Type", type);
 							remoteusernode.setProperty("Campaign_Id", campaignid);
 							remoteusernode.setProperty("List_Id", list_id);
-                            
-
+							remoteusernode.setProperty("campaign_status", campaign_status);
+							remoteusernode.setProperty("Campaign_Date", Campaign_Date);
 						}
 
 						// For Adding Campaign in SubscriberNode
@@ -253,13 +503,15 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 						// url
 						// http://localhost/restapi/campaign-list/listCampaignAdd.php?listid=2&campid=92
 						
-						String campaignlisturl = ip.getNode("ip").getProperty("Campaign_List_Url").getString();
+						//String campaignlisturl = ip.getNode("ip").getProperty("Campaign_List_Url").getString();
+						String campaignlisturl = ResourceBundle.getBundle("config").getString("Campaign_List_Url");
 						String campaignparameter = "?listid=" + list_id + "&campid=" + campaignid;
 						String campaignlistresponse = this
 								.sendpostdata(campaignlisturl, campaignparameter.replace(" ", "%20"), response)
 								.replace("<pre>", "");
 						// out.println("Campaign_List_Response : " + campaignlistresponse);
-						String subscriberdataurl = ip.getNode("ip").getProperty("Subscriber_Data_Url").getString();
+						//String subscriberdataurl = ip.getNode("ip").getProperty("Subscriber_Data_Url").getString();
+						String subscriberdataurl = ResourceBundle.getBundle("config").getString("Subscriber_Data_Url");
 						String subscriberdataparameters = "?list_id=" + list_id;
 						String subscriberdataresponse = this
 								.sendpostdata(subscriberdataurl, subscriberdataparameters, response).replace("<pre>", "");
@@ -326,7 +578,7 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 
 					}
 					
-					
+					//request.getRequestDispatcher("/content/mainui/.findex").forward(request, response);
 				}
 				catch(Exception ex) {
 					out.println("Message : "+ex.getMessage());
@@ -355,8 +607,8 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 				
 				//String bodyvalue=URLEncoder.encode(body);
 				//String campaignaddurl = ip.getNode("ip").getProperty("Campaign_Update_Url").getString();
-				//String campaignaddurl = "http://35.221.31.185/phplist_api/campaign_api.php?cmd=campaignUpdate";
-				String campaignaddurl = "http://35.221.31.185/phplist_api/campaign_api_wurl.php?cmd=campaignUpdate";
+				//String campaignaddurl = "http://35.237.183.3/phplist_api/campaign_api.php?cmd=campaignUpdate";
+				String campaignaddurl = "http://35.237.183.3/phplist_api/campaign_api_wurl.php?cmd=campaignUpdate";
 				String campaignaddapiurlparameters = "id="+id+"&subject=" + subject;
 				/*
 				String campaignaddapiurlparameters = "?id="+id+"&subject=" + subject + "&fromfield=" + fromfield + "&replyto="
@@ -396,69 +648,108 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 		        out.println(res_json_obj.toString());
                 */
 			}else if (request.getRequestPathInfo().getExtension().equals("updateEmbargo")) {
-				//out.println("updateCampaign");
-				//String id="569";
-				String id = request.getParameter("id");
-				String embargo = request.getParameter("embargo");
-				String campaignaddurl = "http://35.221.31.185/phplist_api/campaign_api_wurl.php?cmd=campaignUpdate";
-				//http://35.221.31.185/phplist_api/campaign_api_wurl.php?cmd=campaignUpdate
-				 String campaignaddapiurlparameters = "id="+id+"&embargo=" + embargo;
-				 out.println("campaignaddapiurlparameters : "+campaignaddapiurlparameters);
-				//String campaignaddapiurlparameters = "id="+id+"&embargo=" + embargo;
-				//String campaignaddapiurlparameters = "id="+"679"+"&embargo=" + "2019-02-25 12:30:00 AM";
-				/*
-				String campaignaddapiurlparameters = "?id="+id+"&subject=" + subject + "&fromfield=" + fromfield + "&replyto="
-						+ replyto
-						+ "&message="+body+"&textmessage=hii&footer=footer&status=draft&sendformat=html&template=&embargo="
-						+ embargo+"&rsstemplate=&owner=1&htmlformatted=";
+
+				try {
+					JSONObject mainjson = new JSONObject();
+					String campaignCatogory = request.getParameter("camp_catogery");
+					
+					String campaignid = request.getParameter("campaignid");
+					String embargo = request.getParameter("embargo");
+					
+					String FName = request.getParameter("funnelName");
+					//String SubFunnelName = request.getParameter("SubFunnelName");
+					String subscriber_listid = request.getParameter("listid");
+					
+					//String id="569";
+					String campaignaddurl = "http://35.237.183.3/phplist_api/campaign_api_wurl.php?cmd=campaignUpdate";
+					//http://35.237.183.3/phplist_api/campaign_api_wurl.php?cmd=campaignUpdate
+					 String campaignaddapiurlparameters = "id="+campaignid+"&embargo=" + embargo;
+					 out.println("campaignaddapiurlparameters : "+campaignaddapiurlparameters);
+					String campaignlistresponse = this.sendHttpPostData(campaignaddurl, campaignaddapiurlparameters.replace(" ", "%20"), response)
+							.replace("<pre>", "");
+					/*
+					out.println("campaignresponse : "+campaignlistresponse);
+					String status_response=this.campaignStatusUpdate(campaignid,"submitted",response);
+					out.println("status_response : "+status_response);
+					*/
+					
+					NodeIterator useritr = session.getRootNode().getNode("content").getNode("user").getNodes();
+					while (useritr.hasNext()) {
+						Node usernode = useritr.nextNode();
+						out.println("updateCampaignDate : Step 1 usernode Name "+usernode.getName());
+						if(!usernode.getName().equals("<%=request.getRemoteUser()%>")){
+						if (usernode.hasNode("Lead_Converter")) {
+							    if(usernode.getNode("Lead_Converter").getNode("Email")
+										.getNode("Funnel").hasNode(FName)){
+							    out.println("updateCampaignDate : Step 1");
+							    Node funnelNode = usernode.getNode("Lead_Converter").getNode("Email")
+										.getNode("Funnel").getNode(FName);
+							    out.println("updateCampaignDate : Step 1.1");
+								String funnelName = funnelNode.getName();// currentcampaign
+								out.println("updateCampaignDate : Step 1.1 funnelName : "+funnelName);
+								  if(funnelNode.hasNode(campaignCatogory)){
+									    out.println("updateCampaignDate : Step 2");
+										Node subFunnelNode=funnelNode.getNode(campaignCatogory);
+										out.println("subFunnelNode Name : "+subFunnelNode.getName());
+										if(subFunnelNode.hasNode("List")){
+											Node ListNode=subFunnelNode.getNode("List");
+											if(ListNode.hasNode("ActiveList")){
+												Node ActiveListNode=ListNode.getNode("ActiveList");
+												
+												if(ActiveListNode.hasNodes()){
+													   NodeIterator ActiveListNodeItr = ActiveListNode.getNodes();
+													   while (ActiveListNodeItr.hasNext()) {
+														    Node ActiveListChildNode = ActiveListNodeItr.nextNode();
+														    if(ActiveListChildNode.hasNode("Campaign")){
+														    	Node ActiveListChildCampaignNode = ActiveListChildNode.getNode("Campaign");
+														    	NodeIterator ActiveListChildCampaignNodeItr = ActiveListChildCampaignNode.getNodes();
+																   while (ActiveListChildCampaignNodeItr.hasNext()) {
+																	    Node ActiveListChildCampaignChildNode = ActiveListChildCampaignNodeItr.nextNode();
+																	    out.println("ActiveListChildCampaignChildNode Name : "+ActiveListChildCampaignChildNode.getName());
+																	    if(ActiveListChildCampaignChildNode.hasProperty("Campaign_Date")){
+																	    	ActiveListChildCampaignChildNode.setProperty("Campaign_Date", embargo);
+																	    }
+																   }
+														    }
+													   }
+												}
+											}
+										}
+										NodeIterator subFunnelNodeItr = subFunnelNode.getNodes();
+										while (subFunnelNodeItr.hasNext()) {
+										    Node ActiveListChildNode = subFunnelNodeItr.nextNode();
+										    if(ActiveListChildNode.hasProperty("Campaign_Id")){
+										    	String Temp_Campaign_Id=ActiveListChildNode.getProperty("Campaign_Id").getString();
+										    	if(Temp_Campaign_Id.equals(campaignid)){
+										    	  out.println("ActiveListChildCampaignChildNode Name : "+ActiveListChildNode.getName());
+										    	  ActiveListChildNode.setProperty("Campaign_Date", embargo);
+										    	}
+										    }
+									   }
+									}
+						     }
+						  }
+						}
+					
+					}
+					out.println(mainjson);
+					session.save();
+				} catch (Exception ex) {
+					//out.println("Exception ex :=" + ex.getMessage() + ex.getCause());
+					
+					try {
+						JSONObject errordatajson = new JSONObject();
+						errordatajson.put("Error", "Null");
+						errordatajson.put("Exception", ex.getMessage().toString());
+						errordatajson.put("Cause", ex.getCause().toString());
+						out.println(errordatajson);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						out.println("Exception ex :=" + ex.getMessage() + ex.getCause());
+					}
+					
+				}
 				
-				String campaignaddapiurlparameters1 = "?id="+id+"&subject=" + subject + "&fromfield=" + fromfield + "&replyto="
-						+ replyto
-						+ "&message="+body+"&textmessage=hii&footer=footer&status=draft&sendformat=html&template=&embargo="
-						+ embargo+"&rsstemplate=&owner=1&htmlformatted=";
-				
-				String campaignaddapiurlparameters2 = "?id="+id+"&subject=" + subject + "&fromfield=" + fromfield + "&replyto="
-						+ replyto
-						+ "&message="+body+"&textmessage=hii&footer=footer&status=draft&sendformat=html&template=&embargo="
-						+ embargo+"&rsstemplate=&owner=1&htmlformatted=&repeatinterval=&repeatuntil=&requeueinterval=&requeueuntil=";
-				
-				String campaignresponse = this.sendpostdata(campaignaddurl, campaignaddapiurlparameters.replace(" ", "%20").replace("\r", "").replace("\n", ""), response)
-						.replace("<pre>", "");
-				*/
-				//String campaignresponse = this.sendHttpPostData(campaignaddurl, campaignaddapiurlparameters, response);
-				 
-				 
-				 
-				String campaignlistresponse = this.sendHttpPostData(campaignaddurl, campaignaddapiurlparameters.replace(" ", "%20"), response)
-						.replace("<pre>", "");
-				
-				out.println("campaignresponse : "+campaignlistresponse);
-				
-				/*
-				String campaignaddurl1 = "http://35.221.31.185/restapi/campaign/campaignStatusUpdate.php";
-				String campaignaddapiurlparameters1 = "id="+id+"&status=submitted";
-				//draft sent suspended submitted
-				String campaignlistresponse1 = this.sendHttpPostData(campaignaddurl, campaignaddapiurlparameters.replace(" ", "%20"), response)
-						.replace("<pre>", "");
-				
-				out.println("campaignresponse1 : "+campaignlistresponse1);
-				*/
-				String status_response=this.campaignStatusUpdate(id,"submitted",response);
-				out.println("status_response : "+status_response);
-				
-				/*
-				JSONObject campaignjson = new JSONObject(campaignresponse);
-				String campaignstatus = campaignjson.getString("status");
-				JSONObject data = campaignjson.getJSONObject("data");
-				String campaignid = data.getString("id");
-				
-				JSONObject res_json_obj=new JSONObject();
-		                   res_json_obj.put("campaignid", campaignid);
-		                   //res_json_obj.put("body", body);
-		                   //res_json_obj.put("bodyvalue", bodyvalue);
-		                   
-		        out.println(res_json_obj.toString());
-                */
 			}else if (request.getRequestPathInfo().getExtension().equals("addCampaign")) {
 				String body = request.getParameter("ckcontent");
 				String subject = request.getParameter("subject");
@@ -481,7 +772,8 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 				String bodyvalue=URLEncoder.encode(body);
 				//out.println("bodyvalue : "+bodyvalue);
 				//String campaignaddurl = ip.getNode("ip").getProperty("Campaign_Add_Url").getString();
-				String campaignaddurl = "http://35.221.31.185/phplist_api/campaign_api.php?cmd=campaignAdd";
+				//String campaignaddurl = "http://35.237.183.3/phplist_api/campaign_api.php?cmd=campaignAdd";
+				String campaignaddurl = ResourceBundle.getBundle("config").getString("Campaign_Add_Url_New");
 				String campaignaddapiurlparameters = "subject=" + subject + "&fromfield=" + fromfield + "&replyto="
 						+ replyto
 						+ "&message="+body+"&textmessage=hii&footer=footer&status=draft&sendformat=html&template=&embargo="
@@ -494,7 +786,7 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 				
 				String id = request.getParameter("id");
 				String status = request.getParameter("status");
-				String campaignaddurl = "http://35.221.31.185/restapi/campaign/campaignStatusUpdate.php";
+				String campaignaddurl = "http://35.237.183.3/restapi/campaign/campaignStatusUpdate.php";
 				String campaignaddapiurlparameters = "id=" + id + "&status=" + status;
 				String campaignresponse = this.sendHttpPostData(campaignaddurl, campaignaddapiurlparameters.replace(" ", "%20").replace("\r", "").replace("\n", ""), response)
 						.replace("<pre>", "");
@@ -504,7 +796,7 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 				String id = request.getParameter("id");
 				String status = request.getParameter("status");
 				//out.println("placeCampaignInQueueforSending2 step 1  id : "+id+"  status : "+status);
-				String campaignaddurl = "http://35.221.31.185/restapi/campaign/campaignStatusUpdate.php";
+				String campaignaddurl = "http://35.237.183.3/restapi/campaign/campaignStatusUpdate.php";
 				String campaignaddapiurlparameters = "?id=" + id + "&status=" + status;
 				//out.println("campaignaddapiurlparameters : "+campaignaddapiurlparameters);
 				String campaignresponse = this.sendpostdata(campaignaddurl, campaignaddapiurlparameters.replace(" ", "%20").replace("\r", "").replace("\n", ""), response)
@@ -514,7 +806,7 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 			}else if (request.getRequestPathInfo().getExtension().equals("processQueue")) {
 				
 				String campid =request.getParameter("campid");
-				String campaignlisturl = "http://35.221.31.185/phplistpq/processqueue.php";
+				String campaignlisturl = "http://35.237.183.3/phplistpq/processqueue.php";
 				//String campaignparameter = "?listid=" + "680" + "&campid=" + "650";
 				String campaignparameter = "?campid=" +campid;
 				String campaignlistresponse = this.sendpostdata(campaignlisturl, campaignparameter.replace(" ", "%20"),response)
@@ -528,9 +820,133 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 		}
 
 	}
+	protected void doGet(SlingHttpServletRequest request,
+			SlingHttpServletResponse response) throws ServletException,
+			IOException {
+		PrintWriter out = response.getWriter();
+		JSONArray mainarray = new JSONArray();
+		JSONObject jsonobject = new JSONObject();
+		String listid = null;
+
+		String remoteuser = request.getRemoteUser();
+		
+		if (request.getRequestPathInfo().getExtension().equals("processQueue")) {
+			
+			String campaignlisturl = "http://35.237.183.3/phplistpq/processqueue.php";
+			//String campaignparameter = "?listid=" + "680" + "&campid=" + "650";
+			String campaignparameter = "?campid=680"; //unuse parameter
+			String campaignlistresponse = this.sendpostdata(campaignlisturl, campaignparameter.replace(" ", "%20"),response)
+					.replace("<pre>", "");
+			out.println("Process Queue Response :" + campaignlistresponse);
+		}else if (request.getRequestPathInfo().getExtension().equals("updateCampaignDate")) {
+			try {
+				
+				Session session = null;
+				session = repo.login(new SimpleCredentials("admin", "admin".toCharArray()));
+				out.println("updateCampaignDate : Step 0");
+				JSONObject mainjson = new JSONObject();
+				String campaignCatogory = request.getParameter("camp_catogery");
+				String campaignid = request.getParameter("campaignid");
+				String embargo = request.getParameter("embargo");
+				out.println("updateCampaignDate : Step 0.1");
+				String FName = request.getParameter("funnelName");
+				//String SubFunnelName = request.getParameter("SubFunnelName");
+				String subscriber_listid = request.getParameter("listid");
+				out.println("updateCampaignDate : Step 0.2 FName FName : "+FName);
+				
+				
+				NodeIterator useritr = session.getRootNode().getNode("content").getNode("user").getNodes();
+				while (useritr.hasNext()) {
+					Node usernode = useritr.nextNode();
+					out.println("updateCampaignDate : Step 1 usernode Name "+usernode.getName());
+					if(!usernode.getName().equals("<%=request.getRemoteUser()%>")){
+					if (usernode.hasNode("Lead_Converter")) {
+						    if(usernode.getNode("Lead_Converter").getNode("Email")
+									.getNode("Funnel").hasNode(FName)){
+						    out.println("updateCampaignDate : Step 1");
+						    Node funnelNode = usernode.getNode("Lead_Converter").getNode("Email")
+									.getNode("Funnel").getNode(FName);
+						    out.println("updateCampaignDate : Step 1.1");
+							String funnelName = funnelNode.getName();// currentcampaign
+							out.println("updateCampaignDate : Step 1.1 funnelName : "+funnelName);
+							  if(funnelNode.hasNode(campaignCatogory)){
+								    out.println("updateCampaignDate : Step 2");
+									Node subFunnelNode=funnelNode.getNode(campaignCatogory);
+									out.println("subFunnelNode Name : "+subFunnelNode.getName());
+									if(subFunnelNode.hasNode("List")){
+										Node ListNode=subFunnelNode.getNode("List");
+										if(ListNode.hasNode("ActiveList")){
+											Node ActiveListNode=ListNode.getNode("ActiveList");
+											
+											if(ActiveListNode.hasNodes()){
+												   NodeIterator ActiveListNodeItr = ActiveListNode.getNodes();
+												   while (ActiveListNodeItr.hasNext()) {
+													    Node ActiveListChildNode = ActiveListNodeItr.nextNode();
+													    if(ActiveListChildNode.hasNode("Campaign")){
+													    	Node ActiveListChildCampaignNode = ActiveListChildNode.getNode("Campaign");
+													    	NodeIterator ActiveListChildCampaignNodeItr = ActiveListChildCampaignNode.getNodes();
+															   while (ActiveListChildCampaignNodeItr.hasNext()) {
+																    Node ActiveListChildCampaignChildNode = ActiveListChildCampaignNodeItr.nextNode();
+																    out.println("ActiveListChildCampaignChildNode Name : "+ActiveListChildCampaignChildNode.getName());
+																    if(ActiveListChildCampaignChildNode.hasProperty("Campaign_Date")){
+																    	ActiveListChildCampaignChildNode.setProperty("Campaign_Date", embargo);
+																    }
+															   }
+													    }
+												   }
+											}
+										}
+									}
+									NodeIterator subFunnelNodeItr = subFunnelNode.getNodes();
+									while (subFunnelNodeItr.hasNext()) {
+									    Node ActiveListChildNode = subFunnelNodeItr.nextNode();
+									    if(ActiveListChildNode.hasProperty("Campaign_Id")){
+									    	String Temp_Campaign_Id=ActiveListChildNode.getProperty("Campaign_Id").getString();
+									    	if(Temp_Campaign_Id.equals(campaignid)){
+									    	  out.println("ActiveListChildCampaignChildNode Name : "+ActiveListChildNode.getName());
+									    	  ActiveListChildNode.setProperty("Campaign_Date", embargo);
+									    	}
+									    }
+								   }
+								}
+					     }
+					  }
+					}
+				
+				}
+				out.println(mainjson);
+				session.save();
+			} catch (Exception ex) {
+				//out.println("Exception ex :=" + ex.getMessage() + ex.getCause());
+				
+				try {
+					JSONObject errordatajson = new JSONObject();
+					errordatajson.put("Error", "Null");
+					errordatajson.put("Exception", ex.getMessage().toString());
+					errordatajson.put("Cause", ex.getCause().toString());
+					out.println(errordatajson);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					out.println("Exception ex :=" + ex.getMessage() + ex.getCause());
+				}
+				
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public String campaignStatusUpdate(String id,String status,SlingHttpServletResponse response) throws ServletException,
 	IOException {
-		String campaignaddurl = "http://35.221.31.185/restapi/campaign/campaignStatusUpdate.php";
+		String campaignaddurl = "http://35.237.183.3/restapi/campaign/campaignStatusUpdate.php";
 		String campaignaddapiurlparameters = "?id=" + id + "&status=" + status;
 		//out.println("campaignaddapiurlparameters : "+campaignaddapiurlparameters);
 		String campaignresponse = this.sendpostdata(campaignaddurl, campaignaddapiurlparameters.replace(" ", "%20").replace("\r", "").replace("\n", ""), response)

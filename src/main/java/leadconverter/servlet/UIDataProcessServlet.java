@@ -48,6 +48,7 @@ import java.io.*;
 import java.net.*;
 import java.text.SimpleDateFormat;
 
+import leadconverter.create.rule.CreateRuleEngine;
 import leadconverter.mongo.MongoDAO;
 
 @Component(immediate = true, metatype = false)
@@ -147,6 +148,8 @@ public class UIDataProcessServlet extends SlingAllMethodsServlet {
 						funnelNameNode.setProperty("autoPost2SocialMedia", autoPost2SocialMedia);
 						//out.print("Funnel : "+funnelName +" has Created Now");
 						out.print("Funnel Created");
+						String rule_engine_response=CreateRuleEngine.createRuleEngine(funnelName.replace(" ", "_"));
+						out.print("rule_engine_response : "+rule_engine_response);
 					}else{
 						funnelNameNode = funnelNode.getNode(funnelName);
 						//out.print("Funnel : "+funnelName +" Exists");
@@ -172,9 +175,6 @@ public class UIDataProcessServlet extends SlingAllMethodsServlet {
 					}
 					*/
 					session.save();
-					
-					
-					
 					
 				} catch (Exception ex) {
 

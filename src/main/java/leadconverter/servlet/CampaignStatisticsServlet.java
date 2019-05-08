@@ -144,8 +144,10 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 				    out.println("Logged In User  : "+user);
 				    session = repo.login(new SimpleCredentials("admin", "admin".toCharArray()));
 					Node content = session.getRootNode().getNode("content");
-				    get_campaign_subscribers_url=content.getNode("ip").getProperty("get_campaign_subscribers").getString();
-				    get_campaign_url=content.getNode("ip").getProperty("get_campaign").getString();
+				    //get_campaign_subscribers_url=content.getNode("ip").getProperty("get_campaign_subscribers").getString();
+				    get_campaign_subscribers_url=ResourceBundle.getBundle("config").getString("get_campaign_subscribers");
+				    //get_campaign_url=content.getNode("ip").getProperty("get_campaign").getString();
+				    get_campaign_url=ResourceBundle.getBundle("config").getString("get_campaign");
 				    urlParametersForSubscribers="?page="+page+"&per_page="+per_page+"&campaign_id=";
 				    urlParametersForCampignDetails="?campaign_id=";
 				    
@@ -167,79 +169,92 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 						responseJsonDoc=new Document();
 						campaignNode = iterator.nextNode();
 						campaignNodeName=campaignNode.getName();
-						if(campaignNode.hasProperty("Body")){
-							Body=campaignNode.getProperty("Body").getString();
-							responseJsonDoc.put("Body", Body);
-						}else{
-							responseJsonDoc.put("Body", "null");
-						}
-						if(campaignNode.hasProperty("Campaign_Id")){
-							Campaign_Id=campaignNode.getProperty("Campaign_Id").getString();
-							responseJsonDoc.put("Sling_Campaign_Id", Campaign_Id);
-						}else{
-							responseJsonDoc.put("Sling_Campaign_Id", "null");
-						}
-						if(campaignNode.hasProperty("CreatedBy")){
-							CreatedBy=campaignNode.getProperty("CreatedBy").getString();
-							responseJsonDoc.put("CreatedBy", CreatedBy);
-						}else{
-							responseJsonDoc.put("CreatedBy", "null");
-						}
-						if(campaignNode.hasProperty("List_Id")){
-							List_Id=campaignNode.getProperty("List_Id").getString();
-							responseJsonDoc.put("List_Id", List_Id);
-						}else{
-							responseJsonDoc.put("List_Id", "null");
-						}
-						if(campaignNode.hasProperty("Subject")){
-							Subject=campaignNode.getProperty("Subject").getString();
-							responseJsonDoc.put("Sling_Subject", Subject);
-						}else{
-							responseJsonDoc.put("Sling_Subject", "null");
-						}
-						if(campaignNode.hasProperty("Type")){
-							Type=campaignNode.getProperty("Type").getString();
-							responseJsonDoc.put("Type", Type);
-						}else{
-							responseJsonDoc.put("Type", "null");
-						}
+						
 						
 						subFunnelNode=campaignNode.getParent();
 						subFunnelNodeName=subFunnelNode.getName();
-						responseJsonDoc.put("subFunnelNodeName", subFunnelNodeName);
-						if(subFunnelNode.hasProperty("Counter")){
-							subFunnelCounter=subFunnelNode.getProperty("Counter").getString();
-							responseJsonDoc.put("subFunnelCounter", subFunnelCounter);
-						}else{
-							responseJsonDoc.put("subFunnelCounter", "null");
-						}
-						if(subFunnelNode.hasProperty("Current_Campaign")){
-							Current_Campaign=subFunnelNode.getProperty("Current_Campaign").getString();
-							responseJsonDoc.put("Current_Campaign", Current_Campaign);
-						}else{
-							responseJsonDoc.put("Current_Campaign", "null");
-						}
 						
-						funnelNode=subFunnelNode.getParent();
-						funnelNodeName=funnelNode.getName();
-						responseJsonDoc.put("funnelNodeName", funnelNodeName);
-						if(funnelNode.hasProperty("Counter")){
-							funnelCounter=funnelNode.getProperty("Counter").getString();
-							responseJsonDoc.put("funnelCounter", funnelCounter);
-						}else{
-							responseJsonDoc.put("funnelCounter", "null");
+						if(!subFunnelNodeName.equals("Campaign")){
+							out.println("campaignNodeName  : "+campaignNodeName);
+							out.println("subFunnelNodeName  : "+subFunnelNodeName);
+							if(campaignNode.hasProperty("Body")){
+								Body=campaignNode.getProperty("Body").getString();
+								responseJsonDoc.put("Body", Body);
+							}else{
+								responseJsonDoc.put("Body", "null");
+							}
+							if(campaignNode.hasProperty("Campaign_Id")){
+								Campaign_Id=campaignNode.getProperty("Campaign_Id").getString();
+								responseJsonDoc.put("Sling_Campaign_Id", Campaign_Id);
+							}else{
+								responseJsonDoc.put("Sling_Campaign_Id", "null");
+							}
+							if(campaignNode.hasProperty("CreatedBy")){
+								CreatedBy=campaignNode.getProperty("CreatedBy").getString();
+								responseJsonDoc.put("CreatedBy", CreatedBy);
+							}else{
+								responseJsonDoc.put("CreatedBy", "null");
+							}
+							if(campaignNode.hasProperty("List_Id")){
+								List_Id=campaignNode.getProperty("List_Id").getString();
+								responseJsonDoc.put("List_Id", List_Id);
+							}else{
+								responseJsonDoc.put("List_Id", "null");
+							}
+							if(campaignNode.hasProperty("Subject")){
+								Subject=campaignNode.getProperty("Subject").getString();
+								responseJsonDoc.put("Sling_Subject", Subject);
+							}else{
+								responseJsonDoc.put("Sling_Subject", "null");
+							}
+							if(campaignNode.hasProperty("Type")){
+								Type=campaignNode.getProperty("Type").getString();
+								responseJsonDoc.put("Type", Type);
+							}else{
+								responseJsonDoc.put("Type", "null");
+							}
+							/*
+							subFunnelNode=campaignNode.getParent();
+							subFunnelNodeName=subFunnelNode.getName();
+							out.println("subFunnelNodeName  : "+subFunnelNodeName);
+							*/
+							responseJsonDoc.put("subFunnelNodeName", subFunnelNodeName);
+							
+							if(subFunnelNode.hasProperty("Counter")){
+								subFunnelCounter=subFunnelNode.getProperty("Counter").getString();
+								responseJsonDoc.put("subFunnelCounter", subFunnelCounter);
+							}else{
+								responseJsonDoc.put("subFunnelCounter", "null");
+							}
+							if(subFunnelNode.hasProperty("Current_Campaign")){
+								Current_Campaign=subFunnelNode.getProperty("Current_Campaign").getString();
+								responseJsonDoc.put("Current_Campaign", Current_Campaign);
+							}else{
+								responseJsonDoc.put("Current_Campaign", "null");
+							}
+							
+							funnelNode=subFunnelNode.getParent();
+							funnelNodeName=funnelNode.getName();
+							out.println("funnelNodeName  : "+funnelNodeName);
+							responseJsonDoc.put("funnelNodeName", funnelNodeName);
+							if(funnelNode.hasProperty("Counter")){
+								funnelCounter=funnelNode.getProperty("Counter").getString();
+								responseJsonDoc.put("funnelCounter", funnelCounter);
+							}else{
+								responseJsonDoc.put("funnelCounter", "null");
+							}
+							/*
+							responseJson.put("campaignNodeName", campaignNodeName);
+							responseJson.put("subFunnelNodeName", subFunnelNodeName);
+							responseJson.put("funnelNodeName", funnelNodeName);
+							responseArr.put(responseJson);
+							*/
+							
+							//out.println("responseJsonDoc  : "+responseJsonDoc);//Campaign_Id 448
+							//String mongoResponse=saveCampaignInMongoDBForDoc(funnelNodeName,subFunnelNodeName,"306",responseJsonDoc,response);
+							//out.println("mongoResponse  : "+mongoResponse);
+							//break;
 						}
-						/*
-						responseJson.put("campaignNodeName", campaignNodeName);
-						responseJson.put("subFunnelNodeName", subFunnelNodeName);
-						responseJson.put("funnelNodeName", funnelNodeName);
-						responseArr.put(responseJson);
-						*/
-						
-						//out.println("responseJsonDoc  : "+responseJsonDoc);//Campaign_Id 448
-						String mongoResponse=saveCampaignInMongoDBForDoc(funnelNodeName,subFunnelNodeName,"306",responseJsonDoc,response);
-						//out.println("mongoResponse  : "+mongoResponse);
-						//break;
 					}
 					//out.println("responseArr  : "+responseArr);
 				} catch (Exception e) {
@@ -283,11 +298,15 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 				    String end_date="2018-11-24%2008:59:53";
 					//session = repo.login(new SimpleCredentials("admin", "admin".toCharArray()));
 					String user=request.getRemoteUser().replace("@", "_");
+					user="viki_gmail.com";
 				    out.println("Logged In User  : "+user);
+				    
 				    session = repo.login(new SimpleCredentials("admin", "admin".toCharArray()));
 					Node content = session.getRootNode().getNode("content");
-				    get_campaign_subscribers_url=content.getNode("ip").getProperty("get_campaign_subscribers").getString();
-				    get_campaign_url=content.getNode("ip").getProperty("get_campaign").getString();
+				    //get_campaign_subscribers_url=content.getNode("ip").getProperty("get_campaign_subscribers").getString();
+					get_campaign_subscribers_url=ResourceBundle.getBundle("config").getString("get_campaign_subscribers");
+				    //get_campaign_url=content.getNode("ip").getProperty("get_campaign").getString();
+				    get_campaign_url=ResourceBundle.getBundle("config").getString("get_campaign");
 				    urlParametersForSubscribers="?page="+page+"&per_page="+per_page+"&campaign_id=";
 				    urlParametersForCampignDetails="?campaign_id=";
 				    
@@ -308,83 +327,108 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 						responseJson=new JSONObject();
 						campaignNode = iterator.nextNode();
 						campaignNodeName=campaignNode.getName();
-						if(campaignNode.hasProperty("Body")){
-							Body=campaignNode.getProperty("Body").getString();
-							responseJson.put("Body", Body);
-						}else{
-							responseJson.put("Body", "null");
-						}
-						if(campaignNode.hasProperty("Campaign_Id")){
-							Campaign_Id=campaignNode.getProperty("Campaign_Id").getString();
-							responseJson.put("Sling_Campaign_Id", Campaign_Id);
-						}else{
-							responseJson.put("Sling_Campaign_Id", "null");
-						}
-						if(campaignNode.hasProperty("CreatedBy")){
-							CreatedBy=campaignNode.getProperty("CreatedBy").getString();
-							responseJson.put("CreatedBy", CreatedBy);
-						}else{
-							responseJson.put("CreatedBy", "null");
-						}
-						if(campaignNode.hasProperty("List_Id")){
-							List_Id=campaignNode.getProperty("List_Id").getString();
-							responseJson.put("List_Id", List_Id);
-						}else{
-							responseJson.put("List_Id", "null");
-						}
-						if(campaignNode.hasProperty("Subject")){
-							Subject=campaignNode.getProperty("Subject").getString();
-							responseJson.put("Sling_Subject", Subject);
-						}else{
-							responseJson.put("Sling_Subject", "null");
-						}
-						if(campaignNode.hasProperty("Type")){
-							Type=campaignNode.getProperty("Type").getString();
-							responseJson.put("Type", Type);
-						}else{
-							responseJson.put("Type", "null");
-						}
-						
 						subFunnelNode=campaignNode.getParent();
 						subFunnelNodeName=subFunnelNode.getName();
-						responseJson.put("subFunnelNodeName", subFunnelNodeName);
-						if(subFunnelNode.hasProperty("Counter")){
-							subFunnelCounter=subFunnelNode.getProperty("Counter").getString();
-							responseJson.put("subFunnelCounter", subFunnelCounter);
-						}else{
-							responseJson.put("subFunnelCounter", "null");
-						}
-						if(subFunnelNode.hasProperty("Current_Campaign")){
-							Current_Campaign=subFunnelNode.getProperty("Current_Campaign").getString();
-							responseJson.put("Current_Campaign", Current_Campaign);
-						}else{
-							responseJson.put("Current_Campaign", "null");
-						}
 						
-						funnelNode=subFunnelNode.getParent();
-						funnelNodeName=funnelNode.getName();
-						responseJson.put("funnelNodeName", funnelNodeName);
-						if(funnelNode.hasProperty("Counter")){
-							funnelCounter=funnelNode.getProperty("Counter").getString();
-							responseJson.put("funnelCounter", funnelCounter);
-						}else{
-							responseJson.put("funnelCounter", "null");
+						if(!subFunnelNodeName.equals("Campaign")){
+							//out.println("campaignNodeName  : "+campaignNodeName);
+							//out.println("subFunnelNodeName  : "+subFunnelNodeName);
+							
+							if(campaignNode.hasProperty("Body")){
+								Body=campaignNode.getProperty("Body").getString();
+								responseJson.put("Body", Body);
+							}else{
+								responseJson.put("Body", "null");
+							}
+							if(campaignNode.hasProperty("Campaign_Id")){
+								Campaign_Id=campaignNode.getProperty("Campaign_Id").getString();
+								responseJson.put("Sling_Campaign_Id", Campaign_Id);
+							}else{
+								responseJson.put("Sling_Campaign_Id", "null");
+							}
+							if(campaignNode.hasProperty("CreatedBy")){
+								CreatedBy=campaignNode.getProperty("CreatedBy").getString();
+								responseJson.put("CreatedBy", CreatedBy);
+							}else{
+								responseJson.put("CreatedBy", "null");
+							}
+							if(campaignNode.hasProperty("List_Id")){
+								List_Id=campaignNode.getProperty("List_Id").getString();
+								responseJson.put("List_Id", List_Id);
+							}else{
+								responseJson.put("List_Id", "null");
+							}
+							if(campaignNode.hasProperty("Subject")){
+								Subject=campaignNode.getProperty("Subject").getString();
+								responseJson.put("Sling_Subject", Subject);
+							}else{
+								responseJson.put("Sling_Subject", "null");
+							}
+							if(campaignNode.hasProperty("Type")){
+								Type=campaignNode.getProperty("Type").getString();
+								responseJson.put("Type", Type);
+							}else{
+								responseJson.put("Type", "null");
+							}
+							
+							/*
+							subFunnelNode=campaignNode.getParent();
+							subFunnelNodeName=subFunnelNode.getName();
+							*/
+							responseJson.put("subFunnelNodeName", subFunnelNodeName);
+							if(subFunnelNode.hasProperty("Counter")){
+								subFunnelCounter=subFunnelNode.getProperty("Counter").getString();
+								responseJson.put("subFunnelCounter", subFunnelCounter);
+							}else{
+								responseJson.put("subFunnelCounter", "null");
+							}
+							if(subFunnelNode.hasProperty("Current_Campaign")){
+								Current_Campaign=subFunnelNode.getProperty("Current_Campaign").getString();
+								responseJson.put("Current_Campaign", Current_Campaign);
+							}else{
+								responseJson.put("Current_Campaign", "null");
+							}
+							
+							funnelNode=subFunnelNode.getParent();
+							funnelNodeName=funnelNode.getName();
+							responseJson.put("funnelNodeName", funnelNodeName);
+							if(funnelNode.hasProperty("Counter")){
+								funnelCounter=funnelNode.getProperty("Counter").getString();
+								responseJson.put("funnelCounter", funnelCounter);
+							}else{
+								responseJson.put("funnelCounter", "null");
+							}
+							/*
+							responseJson.put("campaignNodeName", campaignNodeName);
+							responseJson.put("subFunnelNodeName", subFunnelNodeName);
+							responseJson.put("funnelNodeName", funnelNodeName);
+							responseArr.put(responseJson);
+							*/
+							out.println("Campaign_Id : "+ Campaign_Id);
+							out.println("campaignNodeName : "+ campaignNodeName);
+							out.println("subFunnelNodeName : "+ subFunnelNodeName);
+							out.println("funnelNodeName : "+ funnelNodeName);
+							out.println("List_Id : "+ List_Id);
+							
+							//out.println("responseJson  : "+responseJson);//Campaign_Id 448
+							String mongoResponse=saveCampaignInMongoDB(funnelNodeName,subFunnelNodeName,Campaign_Id,responseJson,response);
+							//out.println("mongoResponse  : "+mongoResponse);
+							//break;
 						}
-						/*
-						responseJson.put("campaignNodeName", campaignNodeName);
-						responseJson.put("subFunnelNodeName", subFunnelNodeName);
-						responseJson.put("funnelNodeName", funnelNodeName);
-						responseArr.put(responseJson);
-						*/
-						
-						out.println("responseJson  : "+responseJson);//Campaign_Id 448
-						String mongoResponse=saveCampaignInMongoDB(funnelNodeName,subFunnelNodeName,Campaign_Id,responseJson,response);
-						//out.println("mongoResponse  : "+mongoResponse);
-						//break;
 					}
 					//out.println("responseArr  : "+responseArr);
 				} catch (Exception e) {
 					out.print(e.getMessage());
+				}finally{
+					try {
+						   MongoDAO mdao=new MongoDAO();
+						   mdao.dropCollection("subscribers");
+						   mdao.findAllSubscriberByFilter("funnel");
+						   mdao.dropCollection("url");
+						   mdao.findAllUrlByFilter("funnel");
+			        	} catch (Exception e) {
+			        		out.print(e.getMessage());
+					    }
 				}
 				
 			}else if (request.getRequestPathInfo().getExtension().equals("campaignStatistic")) {
@@ -401,9 +445,12 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 				    
 					session = repo.login(new SimpleCredentials("admin", "admin".toCharArray()));
 					Node content = session.getRootNode().getNode("content");
-					list_campaign_url=content.getNode("ip").getProperty("list_campaign").getString();
+					//list_campaign_url=content.getNode("ip").getProperty("list_campaign").getString();
+					list_campaign_url=ResourceBundle.getBundle("config").getString("list_campaign");
 					//get_campaign_url=content.getNode("ip").getProperty("get_campaign").getString();
-					get_campaign_subscribers_url=content.getNode("ip").getProperty("get_campaign_subscribers").getString();
+					//get_campaign_url=ResourceBundle.getBundle("config").getString("get_campaign");
+					//get_campaign_subscribers_url=content.getNode("ip").getProperty("get_campaign_subscribers").getString();
+					get_campaign_subscribers_url=ResourceBundle.getBundle("config").getString("get_campaign_subscribers");
 					urlParametersForCampign = "?page="+page+"&per_page="+per_page+"&start_date="+start_date+"&end_date="+end_date;
 					urlParametersForSubscribers="?page="+page+"&per_page="+per_page+"&campaign_id=";
 					out.print("urlParameters  : "+urlParametersForCampign);
@@ -451,12 +498,12 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 				try {
 					   MongoDAO mdao=new MongoDAO();
 					   mdao.dropCollection("url");
-					   mdao.findAllUrlByFilter("funnel");
+					   out.print(mdao.findAllUrlByFilter("funnel"));
 		        	} catch (Exception e) {
 		            e.printStackTrace();
 		            throw new RuntimeException(e);
 				}
-		        out.print("collection Name : ");
+		        out.print("Collection Created Successfully !");
 				
 			}else if (request.getRequestPathInfo().getExtension().equals("createCollectionOfSubscribersStatistics")) {
 				try {
@@ -467,7 +514,7 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 		            e.printStackTrace();
 		            throw new RuntimeException(e);
 				}
-		        out.print("collection Name : ");
+				out.print("Collection Created Successfully !");
 				
 			}else{
 				try {
@@ -577,24 +624,31 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 			String finalUrlParametersForSubscriber=urlParametersForSubscribers+Campaign_Id;
 			String finalUrlParametersForCampignDetails=urlParametersForCampignDetails+Campaign_Id;
 			//get_campaign_url
+			out.println("get_campaign_url : "+get_campaign_url);
+			out.println("finalUrlParametersForCampignDetails : "+finalUrlParametersForCampignDetails.replace(" ", "%20"));
 			String campignDetailsResponse = this
 					.sendpostdata(get_campaign_url, finalUrlParametersForCampignDetails.replace(" ", "%20"), response);
-			campignDetailsJsonObj=new JSONObject(campignDetailsResponse);
-			out.println("CampignDetailsJsonObj : "+campignDetailsJsonObj);
-			funnelJsonObj=mergeJSONObjects(campaignObject,campignDetailsJsonObj);
-			out.println("urlParametersForSubscribers : "+finalUrlParametersForSubscriber);
 			fullsubscribersArray=new JSONArray();
-			this.processSubscribers(get_campaign_subscribers_url, finalUrlParametersForSubscriber.replace(" ", "%20"), response);
-			out.println("fullsubscribersArray : "+fullsubscribersArray);
-			subscribersDetailsJsonObj=new JSONObject();
-			subscribersDetailsJsonObj.put("total", fullsubscribersArray.length());
-			subscribersDetailsJsonObj.put("data", fullsubscribersArray);
-			funnelJsonObj.put("viewed_subscribers", subscribersDetailsJsonObj);
-			out.println("----------------start------------");
-			//out.println("funnelJsonObj : "+funnelJsonObj);
-			MongoDAO mdao=new MongoDAO();
-			mdao.createOne("funnel", funnelJsonObj);
-			out.println("----------------end------------");
+			if(!campignDetailsResponse.equals("404")){
+				campignDetailsJsonObj=new JSONObject(campignDetailsResponse);
+				out.println("CampignDetailsJsonObj : "+campignDetailsJsonObj);
+				funnelJsonObj=mergeJSONObjects(campaignObject,campignDetailsJsonObj);
+				out.println("urlParametersForSubscribers : "+finalUrlParametersForSubscriber);
+				//fullsubscribersArray=new JSONArray();
+				this.processSubscribers(get_campaign_subscribers_url, finalUrlParametersForSubscriber.replace(" ", "%20"), response);
+				out.println("fullsubscribersArray : "+fullsubscribersArray);
+				subscribersDetailsJsonObj=new JSONObject();
+				subscribersDetailsJsonObj.put("total", fullsubscribersArray.length());
+				subscribersDetailsJsonObj.put("data", fullsubscribersArray);
+				funnelJsonObj.put("viewed_subscribers", subscribersDetailsJsonObj);
+				out.println("----------------start------------");
+				//out.println("funnelJsonObj : "+funnelJsonObj);
+				MongoDAO mdao=new MongoDAO();
+				mdao.createOne("funnel", funnelJsonObj);
+				out.println("----------------end------------");
+			}else{
+				out.println("campignDetailsResponse Code : "+campignDetailsResponse);
+			}
 	    } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -969,7 +1023,8 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 			//
 			// out.println(buffer.toString());
 		} else {
-			out.println("POST request not worked");
+			out.println("POST request not worked! responseCode is : "+responseCode);
+			buffer.append(responseCode);
 		}
 		writer.flush();
 		writer.close();

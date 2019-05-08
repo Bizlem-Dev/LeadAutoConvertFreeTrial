@@ -1,9 +1,12 @@
 package leadconverter.mongo;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.net.HttpURLConnection;
@@ -15,6 +18,8 @@ import java.util.Map;
 import javax.servlet.ServletException;
 
 import org.apache.sling.api.SlingHttpServletResponse;
+import org.apache.sling.commons.json.JSONObject;
+import org.json.JSONException;
 
 import leadconverter.servlet.LEAD_CONVERTER_NodeAdd_Email;
 
@@ -24,8 +29,8 @@ public class Test1 {
 		// TODO Auto-generated method stub
 		
 		Test1 clob=new Test1();
-		//String campaignaddurl = "http://35.221.31.185/phplist_api/campaign_api.php?cmd=campaignAdd";
-		String campaignaddurl = "http://35.221.31.185/phplist_api/campaign_api.php?cmd=campaignUpdate";
+		//String campaignaddurl = "http://35.237.183.3/phplist_api/campaign_api.php?cmd=campaignAdd";
+		String campaignaddurl = "http://35.237.183.3/phplist_api/campaign_api.php?cmd=campaignUpdate";
 		//campaignUpdate
 		//String 
 		String campaignaddapiurlparameters = "id=580&subject=Subject from http Post";
@@ -43,20 +48,46 @@ public class Test1 {
 				+ embargo+"&rsstemplate=&owner=1&htmlformatted=&repeatinterval=&repeatuntil=&requeueinterval=&requeueuntil=";
 		*/
 		try {
-			//String campaignlisturl = "http://35.221.31.185/restapi/campaign-list/listCampaignAdd.php";
-			//String campaignlisturl = "http://35.221.31.185/phplistpq/processqueue.php";
+			//String campaignlisturl = "http://35.237.183.3/restapi/campaign-list/listCampaignAdd.php";
+			//String campaignlisturl = "http://35.237.183.3/phplistpq/processqueue.php";
 			//String campaignparameter = "?listid=" + "680" + "&campid=" + "650";
 			//String campaignparameter = "?campid=" + "650";
-			
-			String campaignaddurl2 = "http://35.221.31.185/phplist_api/campaign_api_wurl.php?cmd=campaignUpdate";
-			//http://35.221.31.185/phplist_api/campaign_api_wurl.php?cmd=campaignUpdate
+			/*
+			String campaignaddurl2 = "http://35.237.183.3/phplist_api/campaign_api_wurl.php?cmd=campaignUpdate";
+			//http://35.237.183.3/phplist_api/campaign_api_wurl.php?cmd=campaignUpdate
 			String campaignaddapiurlparameters2 = "id="+"679"+"&embargo=" + "2019-02-25 12:30:00 PM";
-			String campaignaddurl3 = "http://35.221.31.185/restapi/campaign/campaignStatusUpdate.php";
+			String campaignaddurl3 = "http://35.237.183.3/restapi/campaign/campaignStatusUpdate.php";
 			String campaignaddapiurlparameters3 = "?id=" + "679" + "&status=" + "submitted";
 			
 			String campaignlistresponse = sendpostdata(campaignaddurl3, campaignaddapiurlparameters3.replace(" ", "%20"))
 					.replace("<pre>", "");
 			System.out.println("campaignlistresponse :" + campaignlistresponse);
+			*/
+			
+			JSONObject jsonObject=new JSONObject();
+			    jsonObject.put("Open","2");
+				jsonObject.put("Click","2");
+				jsonObject.put("Last_Click","2");
+				jsonObject.put("Bounce","No");
+				jsonObject.put("Session_time","715");
+				jsonObject.put("Last_Session_Time","725");
+				jsonObject.put("Pricing_URl","745");
+				jsonObject.put("Last_Pricing_URl","750");
+				jsonObject.put("Own_Visit","0");
+				jsonObject.put("Last_Visit","0");
+				jsonObject.put("Own_Session_time","0");
+				jsonObject.put("Free_Trial","No");
+				jsonObject.put("Name","Akhilesh");
+				jsonObject.put("SurName","");
+				String rulr_engine_response=urlconnect("http://35.186.166.22:8082/drools/callrules/carrotrule@xyz.com_LeadAutoConvert_LACRules/fire",jsonObject);
+				System.out.println(rulr_engine_response);
+				JSONObject ruleEngineResponseJsonObject=new JSONObject(rulr_engine_response);
+				String leadStatus=ruleEngineResponseJsonObject.getString("Output");
+				System.out.println("leadStatus : "+leadStatus);
+				
+			
+			
+			
 			//String campaignresponse = clob.sendpostdata(campaignaddurl, campaignaddapiurlparameters.replace(" ", "%20").replace("\r", "").replace("\n", ""))
 				//	.replace("<pre>", "");
 			//System.out.println("campaignresponse :" + campaignresponse);
@@ -66,6 +97,50 @@ public class Test1 {
 			e.printStackTrace();
 		} 
 		
+
+	}
+	
+	private static String urlconnect(String urlstr, JSONObject json) throws IOException, JSONException {
+		JSONObject jsonObject = null;
+		StringBuffer response = null;
+
+		try {
+
+			int responseCode = 0;
+			String urlParameters = "";
+
+			URL url = new URL(urlstr);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("POST");
+
+			con.setRequestProperty("Content-Type", "application/json");
+
+			con.setDoOutput(true);
+			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+			// wr.writeBytes(json.toString());
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "UTF-8"));
+			writer.write(json.toString());
+			writer.close();
+			wr.flush();
+			wr.close();
+
+			responseCode = con.getResponseCode();
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			String inputLine;
+			response = new StringBuffer();
+
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			in.close();
+
+			System.out.println(response.toString());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return response.toString();
 
 	}
 	public static String sendHttpPostData(String campaignaddurl,String campaignaddapiurlparameters) throws Exception {

@@ -450,7 +450,23 @@ public class Test {
 
 	public static void main(String[] args) throws JSONException {
 		// TODO Auto-generated method stub
+		String campaign = null;
+		String pagePath = null;
+        String sessionCount = null;
+        String dimension2 = null;
+        String medium = null;
+        String sessiondurationBucket = null;
+        String pageTitle = null;
+        String timeOnPage = null;
+        String bounces = null;
+        String source = null;
+        
 		MongoDAO mdao=new MongoDAO();
+		JSONArray campaignJsonArr=mdao.findSubscribersBasedOncampaignNameAndDimension2("","797","hi","harshita.indapurkar@bizlem.com");
+		for(int i=0;i<campaignJsonArr.length();i++){
+			JSONObject json_obj=new JSONObject(campaignJsonArr.get(i).toString());
+			System.out.println("pagePath : "+json_obj.getString("pagePath"));
+		}
 		Document campaign_info = new Document("funnel_id", 3);
 		campaign_info.append("funnel_name", "RealState");
          //findAllUrlByFilter("funnel");
@@ -465,7 +481,9 @@ public class Test {
 		//subscribersViewBasedOnSubFunnelData("subscribers","2","Inform","24 Oct 2018 06:43","24 Oct 2018 09:43");
 		//subscribersViewBasedOnFunnelData("date_funnel","1","Inform","24 Oct 2018 06:43","24 Oct 2018 09:43");
 		//mdao.distinctSortSubFunnelTest("");
-		findUrlClickStatisticsBasedOnCampaignIDAndUserIDTest("funnel","499","2084");//7:43+30 73  6985 2084 2674
+		
+		//findUrlClickStatisticsBasedOnCampaignIDAndUserIDTest("funnel","499","2084");//7:43+30 73  6985 2084 2674
+		
 		//mdao.findUrlClickStatisticsBasedOnCampaignIDAndUserID("funnel","499","2084");//7:43+30 73  6985 2084 2674
 		//mdao.distinctSubFunnel("2");
 		//mdao.dropCollection("funnel");

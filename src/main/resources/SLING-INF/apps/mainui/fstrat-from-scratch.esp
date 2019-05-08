@@ -200,6 +200,7 @@
 			    //alert("this.value : "+msg_type);
 				send_a_webpage_url=document.getElementById('send_a_webpage_url').value;
 				footer=document.getElementById('send_a_webpage_footer').value;
+				//footer=footer+"<p><small><a href='[UNSUBSCRIBEURL]'>unsubscribe me</a></small></p>";
 				alert("msg_type : "+msg_type+"\n"+"send_a_webpage_url : "+send_a_webpage_url+"\n"+"send_a_webpage_footer : "+footer+"\n"+"send_as : "+send_as);
 			}
 			else if (msg_type == 'compose_message') {
@@ -208,7 +209,13 @@
 				//var content = CKEDITOR.instances.editor1.getData();
 				//alert("content : "+content);
 			    compose_message_txt=CKEDITOR.instances.editor1.getData();
-				footer=document.getElementById('compose_message_footer').value;
+			    //compose_message_txt=compose_message_txt+"<p><small><a href='[UNSUBSCRIBEURL]'>unsubscribe me</a></small></p>";
+			    compose_message_txt=compose_message_txt.replace(/(\r\n|\n|\r)/gm, "");
+				//compose_message_txt=compose_message_txt.replace('">','?email=[email]">');
+				compose_message_txt=compose_message_txt.replace(/">/g,'?EMAIL=[EMAIL]">');
+				compose_message_txt=compose_message_txt.replace(/&nbsp;/g,'');
+			    footer=document.getElementById('compose_message_footer').value;
+				//footer=footer+"<p><small><a href='[UNSUBSCRIBEURL]'>unsubscribe me</a></small></p>";
 				//alert("msg_type : "+msg_type+"\n"+"compose_message_txt : "+compose_message_txt+"\n"+"compose_message_footer : "+footer+"\n"+"send_as : "+send_as);
 				alert("compose_message_txt : "+compose_message_txt);
 			}else{
@@ -216,9 +223,9 @@
 			}
 			console.log('compose_message_txt : '+compose_message_txt);
 			$.ajax({
-					//url: 'http://35.236.154.164:8082/portal/servlet/service/uidata.createLead',
-					  url: 'http://35.236.154.164:8082/portal/servlet/service/createCampaign.CampaignNodeAdd',//createListAndSubscribers
-					//url: 'http://35.236.154.164:8082/portal/servlet/service/createCampaign.addCampaign',
+					//url: 'http://35.200.169.114:8082/portal/servlet/service/uidata.createLead',
+					  url: 'http://35.200.169.114:8082/portal/servlet/service/createCampaign.CampaignNodeAdd',//createListAndSubscribers
+					//url: 'http://35.200.169.114:8082/portal/servlet/service/createCampaign.addCampaign',
 					type: 'POST',
 					async:false,
 					data: {
@@ -247,9 +254,12 @@
 						//Cookies.set('campaignid',jsonData.campaignid);
 						localStorage.setItem('campaignid',jsonData.campaignid);
 						console.log('campaignid : '+jsonData.campaignid);
+						alert("Your Campaign Is saved and Campaign Id Is "+jsonData.campaignid);
 						//campaignid
 	                    //console.log('--------------markup---------end');
 	                    //alert('data: '+data);
+						//window.location = "http://35.200.169.114:8082/portal/servlet/service/ui.index";
+						window.close();
 					}
 					});
 	            
@@ -264,11 +274,11 @@
   <script src="<%=request.getContextPath()%>/apps/global/vendor/bootstrap/bootstrap.min599c.js?v4.0.2"></script>
   <script src="<%=request.getContextPath()%>/apps/global/vendor/asscrollbar/jquery-asScrollbar.min599c.js?v4.0.2"></script>
   <script src="<%=request.getContextPath()%>/apps/global/vendor/formvalidation/formValidation.min599c.js?v4.0.2"></script>
-  <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery-wizard/jquery-wizard.min599c.js?v4.0.2"></script>
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery-wizard/jquery-wizard.min599c.js?v4.0.2"></script> -->
   <script src="<%=request.getContextPath()%>/apps/global/js/Plugin.min599c.js?v4.0.2"></script>
   <script src="<%=request.getContextPath()%>/apps/global/js/Config.min599c.js?v4.0.2"></script>
-  <script src="<%=request.getContextPath()%>/apps/global/js/Plugin/jquery-wizard.min599c.js?v4.0.2"></script>
-  <script src="<%=request.getContextPath()%>/apps/global/assets/examples/js/forms/wizard.min599c.js?v4.0.2"></script>
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/js/Plugin/jquery-wizard.min599c.js?v4.0.2"></script> -->
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/assets/examples/js/forms/wizard.min599c.js?v4.0.2"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 
   <script src="<%=request.getContextPath()%>/apps/global/js/custom.js"></script>

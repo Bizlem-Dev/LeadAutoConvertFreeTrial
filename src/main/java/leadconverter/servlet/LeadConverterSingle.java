@@ -146,9 +146,9 @@ public class LeadConverterSingle extends SlingAllMethodsServlet {
 			// out.println("Exception : : :"+e.getMessage());
 			// }
 			//Node content = session.getRootNode().getNode("content");
-				String statussling ="Unknown";
-String statusjbpm="Unknown";
-if(statussling.equals(statusjbpm)) {
+		    String statussling ="Unknown";
+            String statusjbpm="Unknown";
+            if(statussling.equals(statusjbpm)) {
 
 			NodeIterator mainnode=session.getRootNode().getNode("content").getNode("user").getNode("viki_gmail.com").getNode("Lead_Converter").getNode("Email").getNode("Campaign").getNodes();
 			//out.println(mainnode);
