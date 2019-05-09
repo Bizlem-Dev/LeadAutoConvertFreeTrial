@@ -69,13 +69,13 @@
 	<div class="container-fluid">
 	  <div class="col-md-12 menubar">
 	    <ul class="pt-5 m-0 pull-left"> 
-	      <li><a href="http://35.200.169.114:8082/portal/servlet/service/ui.index"><img src="<%=request.getContextPath()%>/apps/global/assets/images/lead-auto-convert-logo.png" style="width:205px;margin-left:-60px;"></a></li>
-	      <li><a href="http://35.200.169.114:8082/portal/servlet/service/ui.funnel" target="_blank"> Funnel</a></li>
-	      <li><a href="http://35.200.169.114:8082/portal/servlet/service/ui.list" target="_blank"> List</a></li>
-	      <li><a href="http://35.200.169.114:8082/portal/servlet/service/ui.statistic"> Dashboard</a></li>
+	      <li><a href="<%=request.getContextPath()%>/servlet/service/ui.index"><img src="<%=request.getContextPath()%>/apps/global/assets/images/lead-auto-convert-logo.png" style="width:205px;margin-left:-60px;"></a></li>
+	      <li><a href="<%=request.getContextPath()%>/servlet/service/ui.funnel" target="_blank"> Funnel</a></li>
+	      <li><a href="<%=request.getContextPath()%>/servlet/service/ui.list" target="_blank"> List</a></li>
+	      <li><a href="<%=request.getContextPath()%>/servlet/service/ui.statistic"> Dashboard</a></li>
 	    </ul>
 	    <ul class="pt-15 pull-right">
-	      <li><a href="http://35.200.169.114:8082/portal/servlet/service/ui.configuration" target="_blank"><img src="<%=request.getContextPath()%>/apps/global/assets/images/shedule.png"> Configuration</a></li>
+	      <li><a href="<%=request.getContextPath()%>/servlet/service/ui.configuration" target="_blank"><img src="<%=request.getContextPath()%>/apps/global/assets/images/shedule.png"> Configuration</a></li>
 	      <li><a href="#" class="creat-new-campaigns-menu"> Create New Campaigns</a></li>
 	    </ul>
 	  </div>

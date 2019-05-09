@@ -223,9 +223,9 @@
 			}
 			console.log('compose_message_txt : '+compose_message_txt);
 			$.ajax({
-					//url: 'http://35.200.169.114:8082/portal/servlet/service/uidata.createLead',
-					  url: 'http://35.200.169.114:8082/portal/servlet/service/createCampaign.CampaignNodeAdd',//createListAndSubscribers
-					//url: 'http://35.200.169.114:8082/portal/servlet/service/createCampaign.addCampaign',
+					//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
+					  url: '<%=request.getContextPath()%>/servlet/service/createCampaign.CampaignNodeAdd',//createListAndSubscribers
+					//url: '<%=request.getContextPath()%>/servlet/service/createCampaign.addCampaign',
 					type: 'POST',
 					async:false,
 					data: {
@@ -258,7 +258,7 @@
 						//campaignid
 	                    //console.log('--------------markup---------end');
 	                    //alert('data: '+data);
-						//window.location = "http://35.200.169.114:8082/portal/servlet/service/ui.index";
+						//window.location = "<%=request.getContextPath()%>/servlet/service/ui.index";
 						window.close();
 					}
 					});

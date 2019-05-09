@@ -1,0 +1,56 @@
+[
+{
+"rulename":"Rule 1",
+"SFdata":[
+{
+"field":"id",
+"type":"Integer",
+"Category":"Equals",
+"symbol_category":"=",
+"value":"10"
+},
+{
+"field":"employeeID",
+"type":"Integer",
+"Category":"Greater Than",
+"symbol_category":">",
+"value":"123"
+},
+{
+"field":"saleVal",
+"type":"Integer",
+"Category":"Equals",
+"symbol_category":"=",
+"value":"1000000"
+},
+{
+"field":"salesPerson",
+"type":"String",
+"Category":"Equals",
+"symbol_category":"=",
+"value":"Siva"
+},
+{
+"field":"priceValue",
+"type":"Integer",
+"Category":"Equals",
+"symbol_category":"=",
+"value":"1234"
+}
+],
+"Outputdata":[
+{
+"field":"output_value1",
+"value":"output f1"
+},
+{
+"field":"output_value1",
+"value":"output f2"
+},
+{
+"field":"output_value1",
+"value":"output f3"
+}
+]
+}
+]

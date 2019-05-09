@@ -14,6 +14,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 
@@ -29,8 +30,8 @@ public class Test1 {
 		// TODO Auto-generated method stub
 		
 		Test1 clob=new Test1();
-		//String campaignaddurl = "http://35.237.183.3/phplist_api/campaign_api.php?cmd=campaignAdd";
-		String campaignaddurl = "http://35.237.183.3/phplist_api/campaign_api.php?cmd=campaignUpdate";
+		//String campaignaddurl = ResourceBundle.getBundle("config").getString("Campaign_Add_Url_New");
+		String campaignaddurl = ResourceBundle.getBundle("config").getString("phplist_api_campaignUpdate");
 		//campaignUpdate
 		//String 
 		String campaignaddapiurlparameters = "id=580&subject=Subject from http Post";
@@ -48,15 +49,14 @@ public class Test1 {
 				+ embargo+"&rsstemplate=&owner=1&htmlformatted=&repeatinterval=&repeatuntil=&requeueinterval=&requeueuntil=";
 		*/
 		try {
-			//String campaignlisturl = "http://35.237.183.3/restapi/campaign-list/listCampaignAdd.php";
-			//String campaignlisturl = "http://35.237.183.3/phplistpq/processqueue.php";
+			//String campaignlisturl = ResourceBundle.getBundle("config").getString("listCampaignAdd");
+			//String campaignlisturl = ResourceBundle.getBundle("config").getString("processqueue");
 			//String campaignparameter = "?listid=" + "680" + "&campid=" + "650";
 			//String campaignparameter = "?campid=" + "650";
 			/*
-			String campaignaddurl2 = "http://35.237.183.3/phplist_api/campaign_api_wurl.php?cmd=campaignUpdate";
-			//http://35.237.183.3/phplist_api/campaign_api_wurl.php?cmd=campaignUpdate
+			String campaignaddurl2 = ResourceBundle.getBundle("config").getString("embargoupdateurl");
 			String campaignaddapiurlparameters2 = "id="+"679"+"&embargo=" + "2019-02-25 12:30:00 PM";
-			String campaignaddurl3 = "http://35.237.183.3/restapi/campaign/campaignStatusUpdate.php";
+			String campaignaddurl3 = ResourceBundle.getBundle("config").getString("campaignStatusUpdate");
 			String campaignaddapiurlparameters3 = "?id=" + "679" + "&status=" + "submitted";
 			
 			String campaignlistresponse = sendpostdata(campaignaddurl3, campaignaddapiurlparameters3.replace(" ", "%20"))

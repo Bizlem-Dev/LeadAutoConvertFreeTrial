@@ -1160,7 +1160,7 @@
 	function processQueue(event){
 	     	//Time is 10:42, Saturday 2 February 2019 16:12 -05:30
 			 $.ajax({
-						url: 'http://35.200.169.114:8082/portal/servlet/service/createCampaign.processQueue',//createListAndSubscribers
+						url: '<%=request.getContextPath()%>/servlet/service/createCampaign.processQueue',//createListAndSubscribers
 						type: 'POST',
 						async:false,
 						data: {
@@ -1219,8 +1219,8 @@
 			var SubFunnelName=localStorage.getItem('SubFunnelName');
 			var listid=localStorage.getItem('listid');
 			 $.ajax({
-						//url: 'http://35.200.169.114:8082/portal/servlet/service/uidata.createLead',
-						url: 'http://35.200.169.114:8082/portal/servlet/service/createCampaign.updateEmbargo',//createListAndSubscribers
+						//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
+						url: '<%=request.getContextPath()%>/servlet/service/createCampaign.updateEmbargo',//createListAndSubscribers
 						type: 'POST',
 						async:false,
 						data: {
@@ -1383,7 +1383,7 @@
 					type : 'POST',
 					dataType: 'json',
 					//contentType: false, 
-					url :'http://35.200.169.114:8082/portal/servlet/service/Searchlist.getlist_data_new',
+					url :'<%=request.getContextPath()%>/servlet/service/Searchlist.getlist_data_new',
 					data: {
 						   selectedlistid : list_id
 						 },
@@ -1423,7 +1423,7 @@
 		//alert("remoteuser : "+remoteuser);
 		$.ajax({
 			type : 'POST',
-			url :'http://35.200.169.114:8082/portal/servlet/service/Searchlist.listsearch',
+			url :'<%=request.getContextPath()%>/servlet/service/Searchlist.listsearch',
 		    data: {
 			      remoteuser : remoteuser,
 				 },
@@ -1446,7 +1446,7 @@
 		//alert("remoteuser : "+remoteuser);
 		$.ajax({
 			type : 'POST',
-			url :'http://35.200.169.114:8082/portal/servlet/service/Searchlist.listsearch',
+			url :'<%=request.getContextPath()%>/servlet/service/Searchlist.listsearch',
 		    data: {
 			      remoteuser : remoteuser,
 				 },
@@ -1491,7 +1491,7 @@
 					dataType: 'json',
 					async:false,
 					//contentType: false, 
-					url :'http://35.200.169.114:8082/portal/servlet/service/Searchlist.getlist_data_new',
+					url :'<%=request.getContextPath()%>/servlet/service/Searchlist.getlist_data_new',
 					data: {
 						   selectedlistid : mergelist2
 						 },
@@ -1549,8 +1549,8 @@
 			    //alert('fromEmailAddress: '+localStorage.getItem('fromEmailAddress'));
 				
 				$.ajax({
-			       	//url: 'http://35.200.169.114:8082/portal/servlet/service/uidata.createLead',
-					url: 'http://35.200.169.114:8082/portal/servlet/service/createListAndSubscribers.mergeList',//createListAndSubscribers
+			       	//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
+					url: '<%=request.getContextPath()%>/servlet/service/createListAndSubscribers.mergeList',//createListAndSubscribers
 					type: 'POST',
 					async: false,
                     cache: false,
@@ -1710,7 +1710,7 @@
 			entire_list_tbody="";
             part_of_list_tbody="";
 			 $.ajax({
-				url: 'http://35.200.169.114:8082/portal/servlet/service/uicsvdata',
+				url: '<%=request.getContextPath()%>/servlet/service/uicsvdata',
 				type: 'POST',
 				data: data,
 				cache: false,
@@ -1973,8 +1973,8 @@
 			    //alert('fromEmailAddress: '+localStorage.getItem('fromEmailAddress'));
 				
 				$.ajax({
-			       	//url: 'http://35.200.169.114:8082/portal/servlet/service/uidata.createLead',
-					url: 'http://35.200.169.114:8082/portal/servlet/service/createListAndSubscribers.createlistPlusLead',//createListAndSubscribers
+			       	//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
+					url: '<%=request.getContextPath()%>/servlet/service/createListAndSubscribers.createlistPlusLead',//createListAndSubscribers
 					type: 'POST',
 					async: false,
                     cache: false,
@@ -2050,7 +2050,7 @@
         
 		/*
 		if(remoteuser=='anonymous'){
-			alert('Please Login 2 http://35.200.169.114/portal/login');
+			alert('Please Login 2 http://Current Sever IP OR Domain Name/portal/login');
 			return;
 		}
 		*/
@@ -2062,7 +2062,7 @@
 		
 		$.ajax({
 	        type : 'POST',
-	        url :'http://35.200.169.114:8082/portal/servlet/service/uidata.indexData',
+	        url :'<%=request.getContextPath()%>/servlet/service/uidata.indexData',
 	        async: false,
 	        data: {
 	    	      data : text
@@ -2073,7 +2073,7 @@
 					alert("Funnel is creted sucessfully : "+dataa);
 					/*
 					for(var i=0;i<subFunnelJsonArray.length;i++){
-					   funnel_thead=funnel_thead+"<th><a href='http://35.200.169.114:8082/portal/servlet/service/CampaignReportApi.campaignView?subfunnel_name="+subFunnelJsonArray[i]+"&funnel_name="+funnelId+"' target='_blank'>"+subFunnelJsonArray[i]+"</th>";
+					   funnel_thead=funnel_thead+"<th><a href='<%=request.getContextPath()%>/servlet/service/CampaignReportApi.campaignView?subfunnel_name="+subFunnelJsonArray[i]+"&funnel_name="+funnelId+"' target='_blank'>"+subFunnelJsonArray[i]+"</th>";
 					}
 					*/
 					

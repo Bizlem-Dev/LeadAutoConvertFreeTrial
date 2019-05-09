@@ -173,7 +173,7 @@
 					//alert	("subFunnelJsonArray : "+subFunnelJsonArray);
 					var subFunnelOptionMap = "<li><a href='#' onclick='showFunnelDataTest(this.id,"+funnelId+")' id='showall'>Show All</a></li>";
 					for(var i=0;i<subFunnelJsonArray.length;i++){
-					   //funnel_thead=funnel_thead+"<th><a href='http://35.200.169.114:8082/portal/servlet/service/CampaignReportApi.campaignView?subfunnel_name="+subFunnelJsonArray[i]+"&funnel_name="+funnelId+"' target='_blank'>"+subFunnelJsonArray[i]+"</th>";
+					   //funnel_thead=funnel_thead+"<th><a href='<%=request.getContextPath()%>/servlet/service/CampaignReportApi.campaignView?subfunnel_name="+subFunnelJsonArray[i]+"&funnel_name="+funnelId+"' target='_blank'>"+subFunnelJsonArray[i]+"</th>";
 					   
 					   //subFunnelOptionMap = subFunnelOptionMap + "<li><a href='#'>"+subFunnelJsonArray[i]+"</a></li>";
 					   subFunnelOptionMap = subFunnelOptionMap + "<li><a href='#' onclick='showFunnelDataTest(this.id,"+funnelId+")' id='"+subFunnelJsonArray[i]+"'>"+subFunnelJsonArray[i]+"</a></li>";
@@ -295,10 +295,10 @@
 										}
 										*/
 										if(k==0){
-											var campaignTr="<tr><td rowspan='"+subfunnel_json_arr.length+"'>"+subscriber_email+"</td><td></td><td></td><td></td>"+campaignInnerBlankTrleft+"<td><a href='http://35.200.169.114:8082/portal/servlet/service/CampaignReportApi.campaignView?campaign_id="+campaign_id+"' target='_blank'>"+campaign_id+"</a></td><td><a href='http://35.200.169.114:8082/portal/servlet/service/CampaignReportApi.ucsSubscriberClickStatistics?campaign_id="+campaign_id+"' target='_blank'>"+clicks+"</a></td><td><a href='http://35.200.169.114:8082/portal/servlet/service/CampaignReportApi.ucsUrlClickStatistics?campaign_id="+campaign_id+"&url="+urlclickstatistics_url+"&userid="+subscriber_userid+"' target='_blank'>"+urlclickstatistics_url+"</a></td>"+campaignInnerBlankTrRight+"</tr>";
+											var campaignTr="<tr><td rowspan='"+subfunnel_json_arr.length+"'>"+subscriber_email+"</td><td></td><td></td><td></td>"+campaignInnerBlankTrleft+"<td><a href='<%=request.getContextPath()%>/servlet/service/CampaignReportApi.campaignView?campaign_id="+campaign_id+"' target='_blank'>"+campaign_id+"</a></td><td><a href='<%=request.getContextPath()%>/servlet/service/CampaignReportApi.ucsSubscriberClickStatistics?campaign_id="+campaign_id+"' target='_blank'>"+clicks+"</a></td><td><a href='<%=request.getContextPath()%>/servlet/service/CampaignReportApi.ucsUrlClickStatistics?campaign_id="+campaign_id+"&url="+urlclickstatistics_url+"&userid="+subscriber_userid+"' target='_blank'>"+urlclickstatistics_url+"</a></td>"+campaignInnerBlankTrRight+"</tr>";
 											campSubFinalRow=campSubFinalRow+campaignTr;
 											}else{
-											var campaignTr="<tr><td></td><td></td><td></td>"+campaignInnerBlankTrleft+"<td><a href='http://35.200.169.114:8082/portal/servlet/service/CampaignReportApi.campaignView?campaign_id="+campaign_id+"' target='_blank'>"+campaign_id+"</a></td><td><a href='http://35.200.169.114:8082/portal/servlet/service/CampaignReportApi.ucsSubscriberClickStatistics?campaign_id="+campaign_id+"' target='_blank'>"+clicks+"</a></td><td><a href='http://35.200.169.114:8082/portal/servlet/service/CampaignReportApi.ucsUrlClickStatistics?campaign_id="+campaign_id+"&url="+urlclickstatistics_url+"&userid="+subscriber_userid+"' target='_blank'>"+urlclickstatistics_url+"</a></td>"+campaignInnerBlankTrRight+"</tr>";
+											var campaignTr="<tr><td></td><td></td><td></td>"+campaignInnerBlankTrleft+"<td><a href='<%=request.getContextPath()%>/servlet/service/CampaignReportApi.campaignView?campaign_id="+campaign_id+"' target='_blank'>"+campaign_id+"</a></td><td><a href='<%=request.getContextPath()%>/servlet/service/CampaignReportApi.ucsSubscriberClickStatistics?campaign_id="+campaign_id+"' target='_blank'>"+clicks+"</a></td><td><a href='<%=request.getContextPath()%>/servlet/service/CampaignReportApi.ucsUrlClickStatistics?campaign_id="+campaign_id+"&url="+urlclickstatistics_url+"&userid="+subscriber_userid+"' target='_blank'>"+urlclickstatistics_url+"</a></td>"+campaignInnerBlankTrRight+"</tr>";
 											campSubFinalRow=campSubFinalRow+campaignTr;
 											}
 										//alert('campaignTr : '+campaignTr);

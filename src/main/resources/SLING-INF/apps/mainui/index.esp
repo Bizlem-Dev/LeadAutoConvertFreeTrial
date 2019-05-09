@@ -1082,7 +1082,7 @@ var part_of_list_tbody="";
 					type : 'POST',
 					dataType: 'json',
 					//contentType: false, 
-					url :'http://35.200.169.114:8082/portal/servlet/service/Searchlist.getlist_data_new',
+					url :'<%=request.getContextPath()%>/servlet/service/Searchlist.getlist_data_new',
 					data: {
 						   selectedlistid : list_id
 						 },
@@ -1122,7 +1122,7 @@ var part_of_list_tbody="";
 		//alert("remoteuser : "+remoteuser);
 		$.ajax({
 			type : 'POST',
-			url :'http://35.200.169.114:8082/portal/servlet/service/Searchlist.listsearch',
+			url :'<%=request.getContextPath()%>/servlet/service/Searchlist.listsearch',
 		    data: {
 			      remoteuser : remoteuser,
 				 },
@@ -1258,7 +1258,7 @@ $('#save_list_lead').on('click', saveListLead);
 			entire_list_tbody="";
           part_of_list_tbody="";
 			 $.ajax({
-				url: 'http://35.200.169.114:8082/portal/servlet/service/uicsvdata',
+				url: '<%=request.getContextPath()%>/servlet/service/uicsvdata',
 				type: 'POST',
 				data: data,
 				cache: false,
@@ -1439,8 +1439,8 @@ $('#save_csv_lead').on('click', saveLead);
 				alert('lesdArr: '+JSON.stringify(lesdArr));
 				
 				$.ajax({
-					//url: 'http://35.200.169.114:8082/portal/servlet/service/uidata.createLead',
-					url: 'http://35.200.169.114:8082/portal/servlet/service/createListAndSubscribers.createlistPlusLead',//createListAndSubscribers
+					//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
+					url: '<%=request.getContextPath()%>/servlet/service/createListAndSubscribers.createlistPlusLead',//createListAndSubscribers
 					type: 'POST',
 					async:false,
 					data: {
@@ -1500,7 +1500,7 @@ $('#save_csv_lead').on('click', saveLead);
       
 		/*
 		if(remoteuser=='anonymous'){
-			alert('Please Login 2 http://35.200.169.114/portal/login');
+			alert('Please Login 2 http://Current ServerIP OR Domain Name/portal/login');
 			return;
 		}
 		*/
@@ -1512,7 +1512,7 @@ $('#save_csv_lead').on('click', saveLead);
 		
 		$.ajax({
 	        type : 'POST',
-	        url :'http://35.200.169.114:8082/portal/servlet/service/uidata.indexData',
+	        url :'<%=request.getContextPath()%>/servlet/service/uidata.indexData',
 	        async: false,
 	        data: {
 	    	      data : text
@@ -1522,7 +1522,7 @@ $('#save_csv_lead').on('click', saveLead);
 					alert("dataa : "+dataa);
 					/*
 					for(var i=0;i<subFunnelJsonArray.length;i++){
-					   funnel_thead=funnel_thead+"<th><a href='http://35.200.169.114:8082/portal/servlet/service/CampaignReportApi.campaignView?subfunnel_name="+subFunnelJsonArray[i]+"&funnel_name="+funnelId+"' target='_blank'>"+subFunnelJsonArray[i]+"</th>";
+					   funnel_thead=funnel_thead+"<th><a href='<%=request.getContextPath()%>/servlet/service/CampaignReportApi.campaignView?subfunnel_name="+subFunnelJsonArray[i]+"&funnel_name="+funnelId+"' target='_blank'>"+subFunnelJsonArray[i]+"</th>";
 					}
 					*/
 					

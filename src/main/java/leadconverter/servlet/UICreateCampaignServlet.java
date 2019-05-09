@@ -141,7 +141,7 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 					/*
 					//String campaignaddurl = ip.getNode("ip").getProperty("Campaign_Add_Url").getString();
 					String campaignaddurl = ResourceBundle.getBundle("config").getString("Campaign_Add_Url");
-					//String campaignaddurl = "http://35.237.183.3/phplist_api/campaign_api.php?cmd=campaignAdd";
+					//String campaignaddurl = ResourceBundle.getBundle("config").getString("Campaign_Add_Url_New");
 					String campaignaddapiurlparameters = "?subject=" + subject + "&fromfield=" + fromfield + "&replyto="
 							+ replyto
 							+ "&message="+body+"&textmessage=hii&footer=footer&status=draft&sendformat=html&template=&embargo="
@@ -151,7 +151,7 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 							.replace("<pre>", "");
 					//out.println("campaignresponse : "+campaignresponse);
 					*/
-					String campaignaddurl = "http://35.237.183.3/phplist_api/campaign_api.php?cmd=campaignAdd";
+					String campaignaddurl = ResourceBundle.getBundle("config").getString("Campaign_Add_Url_New");
 					String campaignaddapiurlparameters = "subject=" + subject + "&fromfield=" + fromfield + "&replyto="
 							+ replyto
 							+ "&message="+body+"&textmessage=hii&footer="+footer+"&status=draft&sendformat=html&template=&embargo="
@@ -607,8 +607,8 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 				
 				//String bodyvalue=URLEncoder.encode(body);
 				//String campaignaddurl = ip.getNode("ip").getProperty("Campaign_Update_Url").getString();
-				//String campaignaddurl = "http://35.237.183.3/phplist_api/campaign_api.php?cmd=campaignUpdate";
-				String campaignaddurl = "http://35.237.183.3/phplist_api/campaign_api_wurl.php?cmd=campaignUpdate";
+				//String campaignaddurl = ResourceBundle.getBundle("config").getString("phplist_api_campaignUpdate");
+				String campaignaddurl = ResourceBundle.getBundle("config").getString("embargoupdateurl");
 				String campaignaddapiurlparameters = "id="+id+"&subject=" + subject;
 				/*
 				String campaignaddapiurlparameters = "?id="+id+"&subject=" + subject + "&fromfield=" + fromfield + "&replyto="
@@ -661,9 +661,8 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 					String subscriber_listid = request.getParameter("listid");
 					
 					//String id="569";
-					String campaignaddurl = "http://35.237.183.3/phplist_api/campaign_api_wurl.php?cmd=campaignUpdate";
-					//http://35.237.183.3/phplist_api/campaign_api_wurl.php?cmd=campaignUpdate
-					 String campaignaddapiurlparameters = "id="+campaignid+"&embargo=" + embargo;
+					String campaignaddurl = ResourceBundle.getBundle("config").getString("embargoupdateurl");
+					String campaignaddapiurlparameters = "id="+campaignid+"&embargo=" + embargo;
 					 out.println("campaignaddapiurlparameters : "+campaignaddapiurlparameters);
 					String campaignlistresponse = this.sendHttpPostData(campaignaddurl, campaignaddapiurlparameters.replace(" ", "%20"), response)
 							.replace("<pre>", "");
@@ -772,7 +771,6 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 				String bodyvalue=URLEncoder.encode(body);
 				//out.println("bodyvalue : "+bodyvalue);
 				//String campaignaddurl = ip.getNode("ip").getProperty("Campaign_Add_Url").getString();
-				//String campaignaddurl = "http://35.237.183.3/phplist_api/campaign_api.php?cmd=campaignAdd";
 				String campaignaddurl = ResourceBundle.getBundle("config").getString("Campaign_Add_Url_New");
 				String campaignaddapiurlparameters = "subject=" + subject + "&fromfield=" + fromfield + "&replyto="
 						+ replyto
@@ -786,7 +784,7 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 				
 				String id = request.getParameter("id");
 				String status = request.getParameter("status");
-				String campaignaddurl = "http://35.237.183.3/restapi/campaign/campaignStatusUpdate.php";
+				String campaignaddurl = ResourceBundle.getBundle("config").getString("campaignStatusUpdate");
 				String campaignaddapiurlparameters = "id=" + id + "&status=" + status;
 				String campaignresponse = this.sendHttpPostData(campaignaddurl, campaignaddapiurlparameters.replace(" ", "%20").replace("\r", "").replace("\n", ""), response)
 						.replace("<pre>", "");
@@ -796,7 +794,7 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 				String id = request.getParameter("id");
 				String status = request.getParameter("status");
 				//out.println("placeCampaignInQueueforSending2 step 1  id : "+id+"  status : "+status);
-				String campaignaddurl = "http://35.237.183.3/restapi/campaign/campaignStatusUpdate.php";
+				String campaignaddurl = ResourceBundle.getBundle("config").getString("campaignStatusUpdate");
 				String campaignaddapiurlparameters = "?id=" + id + "&status=" + status;
 				//out.println("campaignaddapiurlparameters : "+campaignaddapiurlparameters);
 				String campaignresponse = this.sendpostdata(campaignaddurl, campaignaddapiurlparameters.replace(" ", "%20").replace("\r", "").replace("\n", ""), response)
@@ -806,7 +804,7 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 			}else if (request.getRequestPathInfo().getExtension().equals("processQueue")) {
 				
 				String campid =request.getParameter("campid");
-				String campaignlisturl = "http://35.237.183.3/phplistpq/processqueue.php";
+				String campaignlisturl = ResourceBundle.getBundle("config").getString("processqueue");
 				//String campaignparameter = "?listid=" + "680" + "&campid=" + "650";
 				String campaignparameter = "?campid=" +campid;
 				String campaignlistresponse = this.sendpostdata(campaignlisturl, campaignparameter.replace(" ", "%20"),response)
@@ -832,7 +830,7 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 		
 		if (request.getRequestPathInfo().getExtension().equals("processQueue")) {
 			
-			String campaignlisturl = "http://35.237.183.3/phplistpq/processqueue.php";
+			String campaignlisturl = ResourceBundle.getBundle("config").getString("processqueue");
 			//String campaignparameter = "?listid=" + "680" + "&campid=" + "650";
 			String campaignparameter = "?campid=680"; //unuse parameter
 			String campaignlistresponse = this.sendpostdata(campaignlisturl, campaignparameter.replace(" ", "%20"),response)
@@ -946,7 +944,7 @@ public class UICreateCampaignServlet extends SlingAllMethodsServlet {
 	
 	public String campaignStatusUpdate(String id,String status,SlingHttpServletResponse response) throws ServletException,
 	IOException {
-		String campaignaddurl = "http://35.237.183.3/restapi/campaign/campaignStatusUpdate.php";
+		String campaignaddurl = ResourceBundle.getBundle("config").getString("campaignStatusUpdate");
 		String campaignaddapiurlparameters = "?id=" + id + "&status=" + status;
 		//out.println("campaignaddapiurlparameters : "+campaignaddapiurlparameters);
 		String campaignresponse = this.sendpostdata(campaignaddurl, campaignaddapiurlparameters.replace(" ", "%20").replace("\r", "").replace("\n", ""), response)

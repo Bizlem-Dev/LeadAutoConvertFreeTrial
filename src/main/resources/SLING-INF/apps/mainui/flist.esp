@@ -899,7 +899,7 @@
 					type : 'POST',
 					dataType: 'json',
 					//contentType: false, 
-					url :'http://35.200.169.114:8082/portal/servlet/service/Searchlist.getlist_data_new',
+					url :'<%=request.getContextPath()%>/servlet/service/Searchlist.getlist_data_new',
 					data: {
 						   selectedlistid : list_id
 						 },
@@ -939,7 +939,7 @@
 		//alert("remoteuser : "+remoteuser);
 		$.ajax({
 			type : 'POST',
-			url :'http://35.200.169.114:8082/portal/servlet/service/Searchlist.listsearch',
+			url :'<%=request.getContextPath()%>/servlet/service/Searchlist.listsearch',
 		    data: {
 			      remoteuser : remoteuser,
 				 },
@@ -960,7 +960,7 @@
 		//alert("remoteuser : "+remoteuser);
 		$.ajax({
 			type : 'POST',
-			url :'http://35.200.169.114:8082/portal/servlet/service/Searchlist.listsearch',
+			url :'<%=request.getContextPath()%>/servlet/service/Searchlist.listsearch',
 		    data: {
 			      remoteuser : remoteuser,
 				 },
@@ -1005,7 +1005,7 @@
 					dataType: 'json',
 					async:false,
 					//contentType: false, 
-					url :'http://35.200.169.114:8082/portal/servlet/service/Searchlist.getlist_data_new',
+					url :'<%=request.getContextPath()%>/servlet/service/Searchlist.getlist_data_new',
 					data: {
 						   selectedlistid : mergelist2
 						 },
@@ -1064,8 +1064,8 @@
 			    //alert('fromEmailAddress: '+Cookies.get('fromEmailAddress'));
 				
 				$.ajax({
-			       	//url: 'http://35.200.169.114:8082/portal/servlet/service/uidata.createLead',
-					url: 'http://35.200.169.114:8082/portal/servlet/service/createListAndSubscribers.mergeList',//createListAndSubscribers
+			       	//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
+					url: '<%=request.getContextPath()%>/servlet/service/createListAndSubscribers.mergeList',//createListAndSubscribers
 					type: 'POST',
 					async: false,
                     cache: false,
@@ -1224,7 +1224,7 @@
 			entire_list_tbody="";
             part_of_list_tbody="";
 			 $.ajax({
-				url: 'http://35.200.169.114:8082/portal/servlet/service/uicsvdata',
+				url: '<%=request.getContextPath()%>/servlet/service/uicsvdata',
 				type: 'POST',
 				data: data,
 				cache: false,
@@ -1420,8 +1420,8 @@
 			    //alert('fromEmailAddress: '+Cookies.get('fromEmailAddress'));
 				
 				$.ajax({
-			       	//url: 'http://35.200.169.114:8082/portal/servlet/service/uidata.createLead',
-					url: 'http://35.200.169.114:8082/portal/servlet/service/createListAndSubscribers.createlistPlusLead',//createListAndSubscribers
+			       	//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
+					url: '<%=request.getContextPath()%>/servlet/service/createListAndSubscribers.createlistPlusLead',//createListAndSubscribers
 					type: 'POST',
 					async: false,
                     cache: false,
@@ -1468,7 +1468,7 @@
 			alert("remoteuser : "+remoteuser);
 			$.ajax({
 				type : 'POST',
-				url :'http://35.200.169.114:8082/portal/servlet/service/SearchAllList',
+				url :'<%=request.getContextPath()%>/servlet/service/SearchAllList',
 				data: {
 					  remoteuser : remoteuser,
 					 },

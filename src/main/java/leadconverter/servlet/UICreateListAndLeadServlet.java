@@ -144,12 +144,10 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 						//String slingurl = content.getNode("ip")
 						//		.getProperty("Sling_Url").getString();
 						String slingurl = ResourceBundle.getBundle("config").getString("Sling_Url");
-						//http://35.200.169.114:8082/portal/servlet/service/LEAD_CONVERTER_NodeAdd_Email.NodeAdd
 						//String phpurl = content.getNode("ip")
 						//		.getProperty("Phplist_Url").getString();
 						String phpurl = ResourceBundle.getBundle("config").getString("Phplist_Url");
-                        //http://35.237.183.3/restapi/subscriber/subscriberbulkadd.php
-						String postresponse = this.sendpostdata(phpurl,
+                        String postresponse = this.sendpostdata(phpurl,
 								urlParameters.replace(" ", "%20"), response)
 								.replace("<pre>", "");
 						// out.println("Subscriber_Response : : " +
@@ -173,7 +171,6 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 								//		.getProperty("Integration_Url")
 								//		.getString();
 								String integrationurl = ResourceBundle.getBundle("config").getString("Integration_Url");
-								//http://35.237.183.3/restapi/list-subscriber/listSubscriberAdd.php
 								String integrationparameter = "?list_id="
 										+ listid + "&subscriber_id="
 										+ subscriberid;
@@ -299,12 +296,10 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 						//String slingurl = content.getNode("ip")
 						//		.getProperty("Sling_Url").getString();
 						String slingurl = ResourceBundle.getBundle("config").getString("Sling_Url");
-						//http://35.200.169.114:8082/portal/servlet/service/LEAD_CONVERTER_NodeAdd_Email.NodeAdd
 						//String phpurl = content.getNode("ip")
 						//		.getProperty("Phplist_Url").getString();
 						String phpurl = ResourceBundle.getBundle("config").getString("Phplist_Url");
-                        //http://35.237.183.3/restapi/subscriber/subscriberbulkadd.php
-						//out.println("createlistPlusLead 3.001");
+                        //out.println("createlistPlusLead 3.001");
 						String postresponse = this.sendpostdata(phpurl,
 								urlParameters.replace(" ", "%20"), response)
 								.replace("<pre>", "");
@@ -334,7 +329,6 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 								//		.getProperty("Integration_Url")
 								//		.getString();
 								String integrationurl = ResourceBundle.getBundle("config").getString("Integration_Url");
-								//http://35.237.183.3/restapi/list-subscriber/listSubscriberAdd.php
 								String integrationparameter = "?list_id="
 										+ listid + "&subscriber_id="
 										+ subscriberid;
