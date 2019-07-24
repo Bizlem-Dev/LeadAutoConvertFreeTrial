@@ -25,6 +25,7 @@ import javax.jcr.Workspace;
 import javax.jcr.query.InvalidQueryException;
 import javax.jcr.query.Query;
 import javax.jcr.query.QueryResult;
+import javax.jcr.query.RowIterator;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletResponse;
@@ -55,6 +56,7 @@ import java.io.*;
 import java.net.*;
 import java.text.SimpleDateFormat;
 
+import leadconverter.doctiger.LogByFileWriter;
 import leadconverter.mongo.ConnectionHelper;
 import leadconverter.mongo.JSON_Reader;
 import leadconverter.mongo.MongoDAO;
@@ -102,167 +104,9 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 	protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
 			throws ServletException, IOException {
 		    PrintWriter out = response.getWriter();
-		    if (request.getRequestPathInfo().getExtension().equals("runBatchForDoc")) {
-		    	out.print("CampaignStatisticsServlet extension runBatchForDoc !");
-		    	String remoteuser = request.getRemoteUser();
-		    	Query query;
-				Node campaignNode = null;
-				String campaignNodeName = null;
-				Node rootFunnelNode = null;
-				String rootFunnelNodeName = null;
-				Node funnelNode = null;
-				String funnelNodeName = null;
-				Node subFunnelNode = null;
-				String subFunnelNodeName = null;
-				JSONObject responseJson=null;
-				Document responseJsonDoc=null;
-				JSONArray responseArr=null;
-				
-				//Property of campaign node
-				String Body = null;
-				String Campaign_Id = null;
-				String CreatedBy = null;
-				String List_Id = null;
-				String Subject = null;
-				String Type = null;
-				//Property of Sub Funnel node
-				String subFunnelCounter = null;
-				String Current_Campaign = null;
-				
-				//Property of Funnel node
-				String funnelCounter =null;
-				try {
-					//out.println("CampaignStatistic Extension called");
-					Session session = null;
-					String page="1";
-				    String per_page="30";
-				    String start_date="2018-08-01%2008:59:53";
-				    String end_date="2018-11-24%2008:59:53";
-					//session = repo.login(new SimpleCredentials("admin", "admin".toCharArray()));
-					String user=request.getRemoteUser().replace("@", "_");
-					user="viki_gmail.com";
-				    out.println("Logged In User  : "+user);
-				    session = repo.login(new SimpleCredentials("admin", "admin".toCharArray()));
-					Node content = session.getRootNode().getNode("content");
-				    //get_campaign_subscribers_url=content.getNode("ip").getProperty("get_campaign_subscribers").getString();
-				    get_campaign_subscribers_url=ResourceBundle.getBundle("config").getString("get_campaign_subscribers");
-				    //get_campaign_url=content.getNode("ip").getProperty("get_campaign").getString();
-				    get_campaign_url=ResourceBundle.getBundle("config").getString("get_campaign");
-				    urlParametersForSubscribers="?page="+page+"&per_page="+per_page+"&campaign_id=";
-				    urlParametersForCampignDetails="?campaign_id=";
-				    
-				    String slingqery = "select * from [nt:base] where Campaign_Id is not null "
-							+ "and ISDESCENDANTNODE('/content/user/"+user+"/Lead_Converter/Email/Funnel')";
-		            //output of above query : /content/user/viki_gmail.com/Lead_Converter/Email/Funnel/1/Inform/viki_gmail.com_Inform_1
-				    //out.println("slingqery  : "+slingqery);
-				    Workspace workspace = session.getWorkspace();
-					query = workspace.getQueryManager().createQuery(slingqery, Query.JCR_SQL2);
-					QueryResult queryResult = query.execute();
-					//queryResult.getNodes().getSize();
-					NodeIterator iterator = queryResult.getNodes();
-					out.println("iterator  : "+iterator.getSize());
-					responseArr=new JSONArray();
-					MongoDAO mdao=new MongoDAO();
-					mdao.dropCollection("date_funnel");// Before inserting new records to collection we need to drop the collection
-					while (iterator.hasNext()) {
-						responseJson=new JSONObject();
-						responseJsonDoc=new Document();
-						campaignNode = iterator.nextNode();
-						campaignNodeName=campaignNode.getName();
-						
-						
-						subFunnelNode=campaignNode.getParent();
-						subFunnelNodeName=subFunnelNode.getName();
-						
-						if(!subFunnelNodeName.equals("Campaign")){
-							out.println("campaignNodeName  : "+campaignNodeName);
-							out.println("subFunnelNodeName  : "+subFunnelNodeName);
-							if(campaignNode.hasProperty("Body")){
-								Body=campaignNode.getProperty("Body").getString();
-								responseJsonDoc.put("Body", Body);
-							}else{
-								responseJsonDoc.put("Body", "null");
-							}
-							if(campaignNode.hasProperty("Campaign_Id")){
-								Campaign_Id=campaignNode.getProperty("Campaign_Id").getString();
-								responseJsonDoc.put("Sling_Campaign_Id", Campaign_Id);
-							}else{
-								responseJsonDoc.put("Sling_Campaign_Id", "null");
-							}
-							if(campaignNode.hasProperty("CreatedBy")){
-								CreatedBy=campaignNode.getProperty("CreatedBy").getString();
-								responseJsonDoc.put("CreatedBy", CreatedBy);
-							}else{
-								responseJsonDoc.put("CreatedBy", "null");
-							}
-							if(campaignNode.hasProperty("List_Id")){
-								List_Id=campaignNode.getProperty("List_Id").getString();
-								responseJsonDoc.put("List_Id", List_Id);
-							}else{
-								responseJsonDoc.put("List_Id", "null");
-							}
-							if(campaignNode.hasProperty("Subject")){
-								Subject=campaignNode.getProperty("Subject").getString();
-								responseJsonDoc.put("Sling_Subject", Subject);
-							}else{
-								responseJsonDoc.put("Sling_Subject", "null");
-							}
-							if(campaignNode.hasProperty("Type")){
-								Type=campaignNode.getProperty("Type").getString();
-								responseJsonDoc.put("Type", Type);
-							}else{
-								responseJsonDoc.put("Type", "null");
-							}
-							/*
-							subFunnelNode=campaignNode.getParent();
-							subFunnelNodeName=subFunnelNode.getName();
-							out.println("subFunnelNodeName  : "+subFunnelNodeName);
-							*/
-							responseJsonDoc.put("subFunnelNodeName", subFunnelNodeName);
-							
-							if(subFunnelNode.hasProperty("Counter")){
-								subFunnelCounter=subFunnelNode.getProperty("Counter").getString();
-								responseJsonDoc.put("subFunnelCounter", subFunnelCounter);
-							}else{
-								responseJsonDoc.put("subFunnelCounter", "null");
-							}
-							if(subFunnelNode.hasProperty("Current_Campaign")){
-								Current_Campaign=subFunnelNode.getProperty("Current_Campaign").getString();
-								responseJsonDoc.put("Current_Campaign", Current_Campaign);
-							}else{
-								responseJsonDoc.put("Current_Campaign", "null");
-							}
-							
-							funnelNode=subFunnelNode.getParent();
-							funnelNodeName=funnelNode.getName();
-							out.println("funnelNodeName  : "+funnelNodeName);
-							responseJsonDoc.put("funnelNodeName", funnelNodeName);
-							if(funnelNode.hasProperty("Counter")){
-								funnelCounter=funnelNode.getProperty("Counter").getString();
-								responseJsonDoc.put("funnelCounter", funnelCounter);
-							}else{
-								responseJsonDoc.put("funnelCounter", "null");
-							}
-							/*
-							responseJson.put("campaignNodeName", campaignNodeName);
-							responseJson.put("subFunnelNodeName", subFunnelNodeName);
-							responseJson.put("funnelNodeName", funnelNodeName);
-							responseArr.put(responseJson);
-							*/
-							
-							//out.println("responseJsonDoc  : "+responseJsonDoc);//Campaign_Id 448
-							//String mongoResponse=saveCampaignInMongoDBForDoc(funnelNodeName,subFunnelNodeName,"306",responseJsonDoc,response);
-							//out.println("mongoResponse  : "+mongoResponse);
-							//break;
-						}
-					}
-					//out.println("responseArr  : "+responseArr);
-				} catch (Exception e) {
-					out.print(e.getMessage());
-				}
-				
-			}else if (request.getRequestPathInfo().getExtension().equals("runBatch")) {
-		    	out.print("CampaignStatisticsServlet extension runBatch !");
+		    if (request.getRequestPathInfo().getExtension().equals("runBatch")) {
+		    	out.println("--------Get Campaign Statistics Data From PHPLIST Started !---------");
+		    	LogByFileWriter.logger_info("CampaignStatisticsServlet : " + "--------Get Campaign Statistics Data From PHPLIST Started !---------");
 		    	String remoteuser = request.getRemoteUser();
 		    	Query query;
 				Node campaignNode = null;
@@ -290,40 +134,28 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 				//Property of Funnel node
 				String funnelCounter =null;
 				try {
-					//out.println("CampaignStatistic Extension called");
 					Session session = null;
-					String page="1";
-				    String per_page="30";
-				    String start_date="2018-08-01%2008:59:53";
-				    String end_date="2018-11-24%2008:59:53";
-					//session = repo.login(new SimpleCredentials("admin", "admin".toCharArray()));
 					String user=request.getRemoteUser().replace("@", "_");
 					user="viki_gmail.com";
-				    out.println("Logged In User  : "+user);
-				    
+				    out.println("Getting Data For User  : "+user);
+				    LogByFileWriter.logger_info("CampaignStatisticsServlet : " + "Getting Data For User  : "+user);
 				    session = repo.login(new SimpleCredentials("admin", "admin".toCharArray()));
 					Node content = session.getRootNode().getNode("content");
-				    //get_campaign_subscribers_url=content.getNode("ip").getProperty("get_campaign_subscribers").getString();
-					get_campaign_subscribers_url=ResourceBundle.getBundle("config").getString("get_campaign_subscribers");
-				    //get_campaign_url=content.getNode("ip").getProperty("get_campaign").getString();
-				    get_campaign_url=ResourceBundle.getBundle("config").getString("get_campaign");
-				    urlParametersForSubscribers="?page="+page+"&per_page="+per_page+"&campaign_id=";
-				    urlParametersForCampignDetails="?campaign_id=";
 				    
 				    String slingqery = "select * from [nt:base] where Campaign_Id is not null "
 							+ "and ISDESCENDANTNODE('/content/user/"+user+"/Lead_Converter/Email/Funnel')";
-		            //output of above query : /content/user/viki_gmail.com/Lead_Converter/Email/Funnel/1/Inform/viki_gmail.com_Inform_1
-				    //out.println("slingqery  : "+slingqery);
-				    Workspace workspace = session.getWorkspace();
+		            Workspace workspace = session.getWorkspace();
 					query = workspace.getQueryManager().createQuery(slingqery, Query.JCR_SQL2);
 					QueryResult queryResult = query.execute();
-					//queryResult.getNodes().getSize();
 					NodeIterator iterator = queryResult.getNodes();
-					out.println("iterator  : "+iterator.getSize());
+					//RowIterator row_iterator=queryResult.getRows(); //RangeIterator
+					LogByFileWriter.logger_info("CampaignStatisticsServlet : " + "iterator  : "+"Total Campaign Found : "+iterator.getSize());
 					responseArr=new JSONArray();
 					MongoDAO mdao=new MongoDAO();
 					mdao.dropCollection("funnel");// Before inserting new records to collection we need to drop the collection
+					int count=0;
 					while (iterator.hasNext()) {
+						++count;
 						responseJson=new JSONObject();
 						campaignNode = iterator.nextNode();
 						campaignNodeName=campaignNode.getName();
@@ -331,9 +163,6 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 						subFunnelNodeName=subFunnelNode.getName();
 						
 						if(!subFunnelNodeName.equals("Campaign")){
-							//out.println("campaignNodeName  : "+campaignNodeName);
-							//out.println("subFunnelNodeName  : "+subFunnelNodeName);
-							
 							if(campaignNode.hasProperty("Body")){
 								Body=campaignNode.getProperty("Body").getString();
 								responseJson.put("Body", Body);
@@ -370,11 +199,6 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 							}else{
 								responseJson.put("Type", "null");
 							}
-							
-							/*
-							subFunnelNode=campaignNode.getParent();
-							subFunnelNodeName=subFunnelNode.getName();
-							*/
 							responseJson.put("subFunnelNodeName", subFunnelNodeName);
 							if(subFunnelNode.hasProperty("Counter")){
 								subFunnelCounter=subFunnelNode.getProperty("Counter").getString();
@@ -398,25 +222,20 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 							}else{
 								responseJson.put("funnelCounter", "null");
 							}
-							/*
-							responseJson.put("campaignNodeName", campaignNodeName);
-							responseJson.put("subFunnelNodeName", subFunnelNodeName);
-							responseJson.put("funnelNodeName", funnelNodeName);
-							responseArr.put(responseJson);
-							*/
-							out.println("Campaign_Id : "+ Campaign_Id);
-							out.println("campaignNodeName : "+ campaignNodeName);
-							out.println("subFunnelNodeName : "+ subFunnelNodeName);
-							out.println("funnelNodeName : "+ funnelNodeName);
-							out.println("List_Id : "+ List_Id);
-							
-							//out.println("responseJson  : "+responseJson);//Campaign_Id 448
+							out.println("Funnel Node Name : "+ funnelNodeName+"\nSub Funnel Node Name : "+ subFunnelNodeName+"\nCampaign Node Name : "+ campaignNodeName+"\nCampaign Id : "+ Campaign_Id+"\nList Id : "+ List_Id);
+							LogByFileWriter.logger_info("CampaignStatisticsServlet : " + "Funnel Node Name : "+ funnelNodeName+"\nSub Funnel Node Name : "+ subFunnelNodeName+"\nCampaign Node Name : "+ campaignNodeName+"\nCampaign Id : "+ Campaign_Id+"\nList Id : "+ List_Id);
 							String mongoResponse=saveCampaignInMongoDB(funnelNodeName,subFunnelNodeName,Campaign_Id,responseJson,response);
-							//out.println("mongoResponse  : "+mongoResponse);
-							//break;
+							break;
+							/*
+							if(count==1){
+								break;
+							}
+							*/
 						}
 					}
-					//out.println("responseArr  : "+responseArr);
+					out.println("--------Get Campaign Statistics Data From PHPLIST Ended !---------");
+			    	LogByFileWriter.logger_info("CampaignStatisticsServlet : " + "--------Get Campaign Statistics Data From PHPLIST Ended !---------");
+			    	
 				} catch (Exception e) {
 					out.print(e.getMessage());
 				}finally{
@@ -426,38 +245,14 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 						   mdao.findAllSubscriberByFilter("funnel");
 						   mdao.dropCollection("url");
 						   mdao.findAllUrlByFilter("funnel");
+						   mdao.dropCollection("temp_subscribers");
+						   mdao.findAllTempSubscriberByFilter("funnel");
+						   
 			        	} catch (Exception e) {
 			        		out.print(e.getMessage());
 					    }
 				}
 				
-			}else if (request.getRequestPathInfo().getExtension().equals("campaignStatistic")) {
-	            
-				String remoteuser = request.getRemoteUser();
-				String user=request.getRemoteUser().replace("@", "_");
-				try {
-					//out.println("CampaignStatistic Extension called");
-					Session session = null;
-				    String page="1";
-				    String per_page="30";
-				    String start_date="2018-08-01%2008:59:53";
-				    String end_date="2018-11-24%2008:59:53";
-				    
-					session = repo.login(new SimpleCredentials("admin", "admin".toCharArray()));
-					Node content = session.getRootNode().getNode("content");
-					//list_campaign_url=content.getNode("ip").getProperty("list_campaign").getString();
-					list_campaign_url=ResourceBundle.getBundle("config").getString("list_campaign");
-					//get_campaign_url=content.getNode("ip").getProperty("get_campaign").getString();
-					//get_campaign_url=ResourceBundle.getBundle("config").getString("get_campaign");
-					//get_campaign_subscribers_url=content.getNode("ip").getProperty("get_campaign_subscribers").getString();
-					get_campaign_subscribers_url=ResourceBundle.getBundle("config").getString("get_campaign_subscribers");
-					urlParametersForCampign = "?page="+page+"&per_page="+per_page+"&start_date="+start_date+"&end_date="+end_date;
-					urlParametersForSubscribers="?page="+page+"&per_page="+per_page+"&campaign_id=";
-					out.print("urlParameters  : "+urlParametersForCampign);
-					this.processCampaign(list_campaign_url, urlParametersForCampign.replace(" ", "%20"), response,user);
-				} catch (Exception e) {
-					out.print(e.getMessage());
-				}
 			}else if (request.getRequestPathInfo().getExtension().equals("chkCampaignInFunnel")) {
 				
 				String remoteuser = request.getRemoteUser();
@@ -475,7 +270,7 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 					out.print(e.getMessage());
 				}
 				
-			}else if (request.getRequestPathInfo().getExtension().equals("chkMongoConn")) {
+			}else if (request.getRequestPathInfo().getExtension().equals("test_mongo_conn")) {
 				MongoClient mongoClient = null;
 			    MongoDatabase database  = null;
 			    MongoCollection<org.bson.Document> collection = null;
@@ -483,7 +278,7 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 		        try {
 		        	mongoClient=ConnectionHelper.getConnection();
 		            database=mongoClient.getDatabase("phplisttest");
-		            collection=database.getCollection("funnel");
+		            collection=database.getCollection("test_coll");
 		            org.bson.Document doc = new org.bson.Document("campaign_info", "campaign_info");
 		            collection.insertOne(doc);
 		           } catch (Exception e) {
@@ -524,79 +319,7 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 				}
 			}
 		}
-        public String saveCampaignInMongoDBForDoc(String funnelName,String subFunnelName,String Campaign_Id,Document campaignObjectDoc,SlingHttpServletResponse response){
-		
-		try {
-			PrintWriter out = response.getWriter();
-			JSONObject campignDetailsJsonObj=null;
-			JSONObject subscribersDetailsJsonObj=null;
-			Document subscribersDetailsJsonObjDoc=null;
-			Document rateJsonObjDoc=null;
-			JSONObject funnelJsonObj=null;
-			Document funnelJsonObjDoc=null;
-			String finalUrlParametersForSubscriber=urlParametersForSubscribers+Campaign_Id;
-			String finalUrlParametersForCampignDetails=urlParametersForCampignDetails+Campaign_Id;
-			//get_campaign_url
-			String campignDetailsResponse = this
-					.sendpostdata(get_campaign_url, finalUrlParametersForCampignDetails.replace(" ", "%20"), response);
-			campignDetailsJsonObj=new JSONObject(campignDetailsResponse);
-			campaignObjectDoc.put("id", campignDetailsJsonObj.getString("id"));
-			campaignObjectDoc.put("uuid", campignDetailsJsonObj.getString("uuid"));
-			campaignObjectDoc.put("subject", campignDetailsJsonObj.getString("subject"));
-			
-			campaignObjectDoc.put("sendstart", campignDetailsJsonObj.getString("sendstart"));
-			
-			campaignObjectDoc.put("status", campignDetailsJsonObj.getString("status"));
-			
-			campaignObjectDoc.put("viewed", campignDetailsJsonObj.getInt("viewed"));
-			campaignObjectDoc.put("bounce_count", campignDetailsJsonObj.getInt("bounce_count"));
-			campaignObjectDoc.put("fwds", campignDetailsJsonObj.getInt("fwds"));
-			campaignObjectDoc.put("sent", campignDetailsJsonObj.getInt("sent"));
-			campaignObjectDoc.put("clicks", campignDetailsJsonObj.getInt("clicks"));
-			rateJsonObjDoc=new Document();
-			JSONObject rate=(JSONObject)campignDetailsJsonObj.get("rate");
-			rateJsonObjDoc.put("open_rate", rate.getString("open_rate"));
-			rateJsonObjDoc.put("click_rate", rate.getString("click_rate"));
-			rateJsonObjDoc.put("click_per_view_rate", rate.getString("click_per_view_rate"));
-			rateJsonObjDoc.put("unique_click_rate", rate.getString("unique_click_rate"));
-			campaignObjectDoc.put("rate", rateJsonObjDoc);
-			campaignObjectDoc.put("linkcount", campignDetailsJsonObj.getInt("linkcount"));
-			campaignObjectDoc.put("subscriber_count", campignDetailsJsonObj.getInt("subscriber_count"));
-			//out.println("campaignObjectDoc : "+campaignObjectDoc);
-			//out.println("CampignDetailsJsonObj : "+campignDetailsJsonObj);
-			//funnelJsonObj=mergeDocObjects(campaignObject,campignDetailsJsonObj);
-			funnelJsonObjDoc=campaignObjectDoc;
-			out.println("urlParametersForSubscribers : "+finalUrlParametersForSubscriber);
-			//fullsubscribersArray=new JSONArray();
-			fullsubscribersArrayDoc = new ArrayList<Document>();
-			this.processSubscribersForDoc(get_campaign_subscribers_url, finalUrlParametersForSubscriber.replace(" ", "%20"), response);
-			//out.println("fullsubscribersArray : "+fullsubscribersArray);
-			//out.println("fullsubscribersArrayDoc : "+fullsubscribersArrayDoc);
-			//subscribersDetailsJsonObj=new JSONObject();
-			//subscribersDetailsJsonObj.put("total", fullsubscribersArray.length());
-			//subscribersDetailsJsonObj.put("data", fullsubscribersArray);
-			
-			subscribersDetailsJsonObjDoc=new Document();
-			subscribersDetailsJsonObjDoc.put("total", fullsubscribersArrayDoc.size());
-			subscribersDetailsJsonObjDoc.put("data", fullsubscribersArrayDoc);
-			
-			
-			//funnelJsonObj.put("viewed_subscribers", subscribersDetailsJsonObj);
-			funnelJsonObjDoc.put("viewed_subscribers", subscribersDetailsJsonObjDoc);
-			out.println("----------------start------------");
-			  //out.println("funnelJsonObjDoc : "+funnelJsonObjDoc);
-			MongoDAO mdao=new MongoDAO();
-			//mdao.createOne("date_funnel", funnelJsonObj);
-			Document doc=new Document();
-			doc.put("name", "Akhilesh");
-			mdao.createOneUsingDocumentForDoc("date_funnel",funnelJsonObjDoc,response );
-			out.println("----------------end------------");
-	    } catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "sucess";
-     }
+        
 	public static JSONObject mergeDocObjects(JSONObject json1, JSONObject json2) {
 		JSONObject mergedJSON =null;
 		System.out.println("mergedJSON : 1");
@@ -621,33 +344,41 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 			JSONObject campignDetailsJsonObj=null;
 			JSONObject subscribersDetailsJsonObj=null;
 			JSONObject funnelJsonObj=null;
-			String finalUrlParametersForSubscriber=urlParametersForSubscribers+Campaign_Id;
+			String page="1";
+		    String per_page="30";
+		    String start_date="2018-08-01%2008:59:53";
+		    String end_date="2018-11-24%2008:59:53";
+		    
+			urlParametersForCampignDetails="?campaign_id=";
 			String finalUrlParametersForCampignDetails=urlParametersForCampignDetails+Campaign_Id;
-			//get_campaign_url
-			out.println("get_campaign_url : "+get_campaign_url);
-			out.println("finalUrlParametersForCampignDetails : "+finalUrlParametersForCampignDetails.replace(" ", "%20"));
+			get_campaign_url=ResourceBundle.getBundle("config").getString("get_campaign");
+			
+			urlParametersForSubscribers="?page="+page+"&per_page="+per_page+"&campaign_id=";
+			String finalUrlParametersForSubscriber=urlParametersForSubscribers+Campaign_Id;
+			get_campaign_subscribers_url=ResourceBundle.getBundle("config").getString("get_campaign_subscribers");
+			
+			
+			
 			String campignDetailsResponse = this
 					.sendpostdata(get_campaign_url, finalUrlParametersForCampignDetails.replace(" ", "%20"), response);
 			fullsubscribersArray=new JSONArray();
 			if(!campignDetailsResponse.equals("404")){
 				campignDetailsJsonObj=new JSONObject(campignDetailsResponse);
-				out.println("CampignDetailsJsonObj : "+campignDetailsJsonObj);
+				out.println("Campaign Details Found For Campaign Subject : "+campignDetailsJsonObj.getString("subject"));
 				funnelJsonObj=mergeJSONObjects(campaignObject,campignDetailsJsonObj);
-				out.println("urlParametersForSubscribers : "+finalUrlParametersForSubscriber);
+				//out.println("urlParametersForSubscribers : "+finalUrlParametersForSubscriber);
 				//fullsubscribersArray=new JSONArray();
 				this.processSubscribers(get_campaign_subscribers_url, finalUrlParametersForSubscriber.replace(" ", "%20"), response);
-				out.println("fullsubscribersArray : "+fullsubscribersArray);
+				out.println("Total Number Of Subscriber Found For Above Campaign = "+fullsubscribersArray.length());
 				subscribersDetailsJsonObj=new JSONObject();
 				subscribersDetailsJsonObj.put("total", fullsubscribersArray.length());
 				subscribersDetailsJsonObj.put("data", fullsubscribersArray);
 				funnelJsonObj.put("viewed_subscribers", subscribersDetailsJsonObj);
-				out.println("----------------start------------");
-				//out.println("funnelJsonObj : "+funnelJsonObj);
 				MongoDAO mdao=new MongoDAO();
-				mdao.createOne("funnel", funnelJsonObj);
-				out.println("----------------end------------");
+				String funnel_coll_record_id=mdao.createOne("funnel", funnelJsonObj);
+				out.println("Mongo DB Id of Inserted Record In funnel Collection : "+funnel_coll_record_id);
 			}else{
-				out.println("campignDetailsResponse Code : "+campignDetailsResponse);
+				out.println("Total Number Of Subscriber Found For Above Campaign = "+fullsubscribersArray.length());
 			}
 	    } catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -727,189 +458,10 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 			return responseJson.toString();
 	}
 	
-	public String processCampaign(String callurl, String urlParameters, SlingHttpServletResponse response,String user)
-			throws ServletException, IOException {
-			PrintWriter out = response.getWriter();
-			
-			String next=null;
-			int total;
-			String data=null;
-			
-		    JSONObject campaignObject=null;
-		    String campaignid=null;
-		    String uuid=null;
-		    String subject=null;
-		    String status=null;
-		    String sendstart=null;
-		    String sent=null;
-		    String bouncecount=null;
-		    String fwds=null;
-		    String viewed=null;
-		    String clicks=null;
-		    String rate=null;
-		    String linkcount=null;
-		    String subscribercount=null;
-		    
-		    JSONArray subscribersArray = null;
-		    JSONObject subscriberObject=null;
-		    String subscriberCampaignid=null;
-		    String userid=null;
-		    String email=null;
-		    String subscriberUuid=null;
-		    String subscriberViewed=null;
-		    
-		    JSONArray campaignclickstatisticsArray = null;
-		    
-		    JSONObject campaignclickstatisticsObject=null;
-		    String campaignClickStatisticsFirstClick=null;
-		    String campaignClickStatisticsLatestClick=null;
-		    String campaignClickStatisticsClicks=null;
-		    
-		    JSONArray urlclickstatisticsArray = null;
-		    
-		    JSONObject urlclickstatisticsObject=null;
-		    String urlclickstatisticsFirstClick=null;
-		    String urlclickstatisticsLatestClick=null;
-		    String urlclickstatisticsClicks=null;
-		    String urlclickstatisticsUrl=null;
-		    String urlclickstatisticsMessageid=null;
-		    
-		    JSONArray dataJsonArray=null;
-			JSONObject paginationJson=null;
-			JSONObject allCampaignJsonObject =null;
-			
-			String postresponse = this
-					.sendpostdata(list_campaign_url, urlParameters.replace(" ", "%20"), response);
-			try {
-				allCampaignJsonObject = new JSONObject(postresponse);
-				paginationJson=allCampaignJsonObject.getJSONObject("paging");
-				next=paginationJson.getString("next");
-				dataJsonArray=allCampaignJsonObject.getJSONArray("data");
-				total=allCampaignJsonObject.getInt("total");
-				if(total>0){
-					for(int i=0;i<dataJsonArray.length();i++){
-						campaignObject=dataJsonArray.getJSONObject(i);
-						campaignid=campaignObject.getString("id");
-						
-						String funnelDetails=this.chkCampaignInFunnel("542",user,response);
-						out.print("chkCampaignInFunnel res : "+funnelDetails);
-						String finalUrlParametersForSubscriber=urlParametersForSubscribers+campaignid;
-						out.print("urlParametersForSubscribers : "+finalUrlParametersForSubscriber);
-						fullsubscribersArray=new JSONArray();
-						this.processSubscribers(get_campaign_subscribers_url, finalUrlParametersForSubscriber.replace(" ", "%20"), response);
-						out.print("fullsubscribersArray : "+fullsubscribersArray);
-						String insert2FunnelResponse=JSON_Reader.insert2Funnel(campaignid,funnelDetails,campaignObject,fullsubscribersArray);
-						out.print("insert2FunnelResponse : "+insert2FunnelResponse);
-						if(i==dataJsonArray.length()-1){
-							if(!next.equals("null")){
-							    this.processCampaign(list_campaign_url, next.replace(" ", "%20"), response,user);
-							}else{
-								out.print("next equal 2 null that why execution stop for Campaign");
-								break;
-							}
-						}
-						break;
-					}	
-				}else{
-					out.print("There is no records for Campaigns");
-				}
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			return urlParameters;
-	}
-	
-	public String processSubscribersForDoc(String callurl, String urlParameters, SlingHttpServletResponse response)
-			throws ServletException, IOException {
-			PrintWriter out = response.getWriter();
-			out.println("inside processSubscribers : ");
-			
-			String next=null;
-			int total;
-			String data=null;
-			
-		    JSONArray subscribersArray = null;
-		    JSONObject subscribersObject=null;
-		    JSONObject subscriberObject=null;
-		    String subscriberCampaignid=null;
-		    String userid=null;
-		    String email=null;
-		    String subscriberUuid=null;
-		    String subscriberViewed=null;
-		    
-		    JSONArray campaignclickstatisticsArray = null;
-		    
-		    JSONObject campaignclickstatisticsObject=null;
-		    String campaignClickStatisticsFirstClick=null;
-		    String campaignClickStatisticsLatestClick=null;
-		    String campaignClickStatisticsClicks=null;
-		    
-		    JSONArray urlclickstatisticsArray = null;
-		    
-		    JSONObject urlclickstatisticsObject=null;
-		    String urlclickstatisticsFirstClick=null;
-		    String urlclickstatisticsLatestClick=null;
-		    String urlclickstatisticsClicks=null;
-		    String urlclickstatisticsUrl=null;
-		    String urlclickstatisticsMessageid=null;
-		    
-		    JSONArray dataJsonArray=null;
-			JSONObject paginationJson=null;
-			JSONObject allCampaignJsonObject =null;
-			
-			String postresponse = this
-					.sendpostdata(get_campaign_subscribers_url, urlParameters.replace(" ", "%20"), response);
-			//out.println("postresponse : "+postresponse);
-			try {
-				subscribersObject = new JSONObject(postresponse);
-				paginationJson=subscribersObject.getJSONObject("paging");
-				next=paginationJson.getString("next");
-				subscribersArray=subscribersObject.getJSONArray("data");
-				total=subscribersObject.getInt("total");
-				//out.println("subscribersArray : "+subscribersArray);
-				if(total>0){
-					for(int i=0;i<subscribersArray.length();i++){
-						subscriberObject=subscribersArray.getJSONObject(i);
-						//out.println("subscriberObject : "+subscriberObject);
-						userid=subscriberObject.getString("userid");
-						subscriberCampaignid=subscriberObject.getString("campaignid");
-						out.println("userid : "+userid);
-						//fullsubscribersArray.put(subscriberObject);
-						fullsubscribersArrayDoc.add(convertSubscribersJson2Doc(subscriberObject));
-						/*
-						Document d1 = new Document("_id", 1);
-				        d1.append("name", "Audi");
-				        d1.append("price", 52642);
-				        fullsubscribersArrayDoc.add(d1);
-				        */
-				        
-						if(i==subscribersArray.length()-1){
-							if(!next.equals("null")){
-							    this.processSubscribersForDoc(get_campaign_subscribers_url, next.replace(" ", "%20"), response);
-							}else{
-								out.print("next equal 2 null that why execution stop for subscribers");
-								break;
-							}
-						}
-					}
-				}else{
-					out.print("There is no records for subscribers");
-				}
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			return urlParameters;
-	}
 	
 	public String processSubscribers(String callurl, String urlParameters, SlingHttpServletResponse response)
 			throws ServletException, IOException {
 			PrintWriter out = response.getWriter();
-			out.println("inside processSubscribers : ");
-			
 			String next=null;
 			int total;
 			String data=null;
@@ -965,13 +517,13 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 							if(!next.equals("null")){
 							    this.processSubscribers(get_campaign_subscribers_url, next.replace(" ", "%20"), response);
 							}else{
-								out.print("next equal 2 null that why execution stop for subscribers");
+								//out.print("next equal 2 null that why execution stop for subscribers");
 								break;
 							}
 						}
 					}
 				}else{
-					out.print("There is no records for subscribers");
+					out.println("There is no records for subscribers");
 				}
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -1023,7 +575,7 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 			//
 			// out.println(buffer.toString());
 		} else {
-			out.println("POST request not worked! responseCode is : "+responseCode);
+			//out.println("POST request not worked! responseCode is : "+responseCode);
 			buffer.append(responseCode);
 		}
 		writer.flush();

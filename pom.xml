@@ -49,8 +49,181 @@
 						<Import-Package>
                          !org.json.simple.*,
                          !com.googlecode.json-simple.*,
-                         
-                         *
+                         !com.sun.jdmk.comm.*,
+							!javax.jms.*,
+							!com.ibm.uvm.tools.*,
+							!javax.jmdns.*,
+							!org.joda.convert.*,
+							!javax.portlet.*,
+							!io.netty.bootstrap.*,
+							!io.netty.buffer.*,
+							
+							!io.netty.channel.socket.*,
+							!io.netty.channel.socket.nio.*,
+							!io.netty.handler.ssl.*,
+							!io.netty.handler.timeout.*,
+						
+							
+							!com.ibm.icu.text.*,
+							!com.ibm.wsspi.uow.*,
+							!com.sun.xml.fastinfoset.sax.*,
+							!com.sun.xml.fastinfoset.stax.*,
+							!com.thoughtworks.qdox.*,
+							!com.thoughtworks.qdox.model.*,
+							!com.thoughtworks.xstream.*,
+							!com.thoughtworks.xstream.converters.*,
+							!com.thoughtworks.xstream.converters.basic.*,
+							!com.thoughtworks.xstream.io.*,
+							!com.thoughtworks.xstream.io.json.*,
+							!com.thoughtworks.xstream.io.xml.*,
+							!com.thoughtworks.xstream.io.xml.xppdom.*,
+							!com.thoughtworks.xstream.security.*,
+							!groovy.lang.*,
+							!groovy.xml.*,
+							!io.netty.channel.*,
+							!io.netty.channel.nio.*,
+							!io.netty.util.concurrent.*,
+							!bsh.*,
+							!javax.enterprise.concurrent.*,
+							!javax.money.*,
+							!javax.money.format.*,
+							!javax.resource.*,
+							!javax.resource.cci.*,
+							!javax.resource.spi.*,
+							!javax.resource.spi.endpoint.*,
+							!javax.resource.spi.work.*,
+							!javax.validation.*,
+							!javax.validation.bootstrap.*,
+							!javax.validation.metadata.*,
+							!joptsimple.*,
+							!org.aopalliance.aop.*,
+							!org.aopalliance.intercept.*,
+							!org.apache.activeio.journal.*,
+							!org.apache.activeio.journal.active.*,
+							!org.apache.activeio.packet.*,
+							!org.apache.activemq.jaas.*,
+							!org.apache.commons.daemon.*,
+							!org.apache.commons.net.ftp.*,
+							!org.apache.commons.pool2.*,
+							!org.apache.commons.pool2.impl.*,
+							!org.apache.derby.jdbc.*,
+							!org.apache.geronimo.transaction.manager.*,
+							!org.apache.maven.plugin.*,
+							!org.apache.maven.plugin.logging.*,
+							!org.apache.maven.project.*,
+							!org.apache.qpid.proton.*,
+							!org.apache.qpid.proton.amqp.*,
+							!org.apache.qpid.proton.amqp.messaging.*,
+							!org.apache.qpid.proton.amqp.transaction.*,
+							!org.apache.qpid.proton.amqp.transport.*,
+							!org.apache.qpid.proton.codec.*,
+							!org.apache.qpid.proton.engine.*,
+							!org.apache.qpid.proton.engine.impl.*,
+							!org.apache.qpid.proton.framing.*,
+							!org.apache.qpid.proton.message.*,
+							!org.apache.zookeeper.*,
+							!org.apache.zookeeper.data.*,
+							!org.aspectj.bridge.*,
+							!org.aspectj.weaver.*,
+							!org.aspectj.weaver.bcel.*,
+							!org.aspectj.weaver.loadtime.*,
+							!org.aspectj.weaver.patterns.*,
+							!org.codehaus.groovy.control.*,
+							!org.codehaus.groovy.control.customizers.*,
+							!org.codehaus.groovy.reflection.*,
+							!org.codehaus.groovy.runtime.*,
+							!org.codehaus.groovy.runtime.callsite.*,
+							!org.codehaus.groovy.runtime.typehandling.*,
+							!org.eclipse.jetty.security.*,
+							!org.eclipse.jetty.server.*,
+							!org.eclipse.jetty.server.handler.*,
+							!org.eclipse.jetty.servlet.*,
+							!org.eclipse.jetty.util.security.*,
+							!org.eclipse.jetty.util.ssl.*,
+							!org.eclipse.jetty.websocket.api.*,
+							!org.eclipse.jetty.websocket.servlet.*,
+							!org.eclipse.jetty.xml.*,
+							!org.fusesource.hawtbuf.proto.*,
+							!org.fusesource.hawtdispatch.*,
+							!org.fusesource.hawtdispatch.transport.*,
+							!org.fusesource.leveldbjni.internal.*,
+							!org.fusesource.mqtt.client.*,
+							!org.fusesource.mqtt.codec.*,
+							!org.hibernate.validator.*,
+							!org.hibernate.validator.messageinterpolation.*,
+							!org.hibernate.validator.method.*,
+							!org.hibernate.validator.spi.resourceloading.*,
+							!org.iq80.leveldb.*,
+							!org.iq80.snappy.*,
+							!org.joda.time.*,
+							!org.joda.time.format.*,
+							!org.jruby.*,
+							!org.jruby.ast.*,
+							!org.jruby.exceptions.*,
+							!org.jruby.javasupport.*,
+							!org.jruby.runtime.*,
+							!org.jruby.runtime.builtin.*,
+							!org.jvnet.fastinfoset.*,
+							!org.jvnet.staxex.*,
+							!org.linkedin.util.clock.*,
+							!org.linkedin.util.concurrent.*,
+							!org.linkedin.util.io.*,
+							!org.linkedin.zookeeper.client.*,
+							!org.linkedin.zookeeper.tracker.*,
+							!org.reactivestreams.*,
+							!org.springframework.aop.*,
+							!org.springframework.aop.config.*,
+							!org.springframework.aop.framework.*,
+							!org.springframework.aop.framework.adapter.*,
+							!org.springframework.aop.framework.autoproxy.*,
+							!org.springframework.aop.interceptor.*,
+							!org.springframework.aop.scope.*,
+							!org.springframework.aop.support.*,
+							!org.springframework.aop.support.annotation.*,
+							!org.springframework.aop.target.*,
+							!org.springframework.aop.target.dynamic.*,
+							!org.springframework.instrument.*,
+							!org.springframework.oxm.*,
+							!org.springframework.web.context.support.*,
+							!org.xerial.snappy.*,
+							!org.yaml.snakeyaml.*,
+							!org.yaml.snakeyaml.constructor.*,
+							!org.yaml.snakeyaml.error.*,
+							!org.yaml.snakeyaml.nodes.*,
+							!org.yaml.snakeyaml.parser.*,
+							!org.yaml.snakeyaml.reader.*,
+							!reactor.*,
+							!reactor.bus.spec.*,
+							!reactor.core.*,
+							!reactor.core.config.*,
+							!reactor.core.support.*,
+							!reactor.fn.*,
+							!reactor.fn.tuple.*,
+							!reactor.io.buffer.*,
+							!reactor.io.codec.*,
+							!reactor.io.net.*,
+							!reactor.io.net.config.*,
+							!reactor.io.net.impl.netty.*,
+							!reactor.io.net.impl.netty.tcp.*,
+							!reactor.io.net.tcp.*,
+							!reactor.rx.*,
+							!reactor.rx.action.*,
+							!scala.*,
+							!scala.collection.*,
+							!scala.collection.concurrent.*,
+							!scala.collection.generic.*,
+							!scala.collection.immutable.*,
+							!scala.collection.mutable.*,
+							!scala.math.*,
+							!scala.reflect.*,
+							!scala.runtime.*,
+							!scala.sys.*,
+							!sun.misc.*,
+							!sun.nio.ch.*,
+							!javax.interceptor.*,
+							!org.xmlpull.v1.*,
+							
+							*
                         </Import-Package>
 						
 					</instructions>
@@ -59,6 +232,12 @@
 		</plugins>
 	</build>
 	<dependencies>
+	    <!-- https://mvnrepository.com/artifact/org.apache.activemq/activemq-all
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-all</artifactId>
+			<version>5.15.9</version>
+		</dependency> -->
 	    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
 		<dependency>
 		    <groupId>org.slf4j</groupId>
@@ -215,20 +394,65 @@
     <version>3.4.2</version>
 </dependency>
 	
-		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload 
 <dependency>
     <groupId>commons-fileupload</groupId>
     <artifactId>commons-fileupload</artifactId>
     <version>1.2.2</version>
-</dependency>
-		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+</dependency>-->
+<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+
+
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io 
 <dependency>
     <groupId>commons-io</groupId>
     <artifactId>commons-io</artifactId>
     <version>2.1</version>
-</dependency>
+</dependency>-->
 		<!-- https://mvnrepository.com/artifact/charset/charset -->
-	
+		<!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-server -->
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>1.8</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-client -->
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>1.18.1</version>
+		</dependency>
+		
+		<!-- 
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>3.15</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-scratchpad</artifactId>
+		    <version>3.2-FINAL</version>
+		</dependency>
+			
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml</artifactId>
+		    <version>3.15</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml-schemas</artifactId>
+		    <version>3.15</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-scratchpad</artifactId>
+		    <version>3.15</version>
+		</dependency>
+	     -->
 	</dependencies>
 
 

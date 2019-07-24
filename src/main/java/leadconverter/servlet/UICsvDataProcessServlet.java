@@ -3,6 +3,7 @@ package leadconverter.servlet;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.util.*;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -11,6 +12,7 @@ import jxl.*;
 import jxl.write.*;
 import jxl.write.biff.RowsExceededException;
 import leadconverter.impl.Searching_list_DaoImpl;
+import leadconverter.mailcheker.spamassertion.MailChecker;
 
 import javax.jcr.LoginException;
 import javax.jcr.Node;
@@ -109,12 +111,15 @@ public class UICsvDataProcessServlet extends SlingAllMethodsServlet {
 								BufferedReader reader = null;
 								String line = "";
 								String cvsSplitBy = ",";
+								String email_id = null;
+								String email_id_status = null;
 								reader = new BufferedReader(new InputStreamReader(stream));
 								
 									System.out.println("list Success");
 									while ((line = reader.readLine()) != null) {
 										String[] data = line.split(cvsSplitBy);
 										jsonobject = new JSONObject();
+										//email_id=data[0].toString().replace("\"", "");
 										System.out.println("Email id : " + data[0]);
 										System.out.println("Name : "+data[1]);
 										jsonobject.put("EmailAddress", data[0].toString().replace("\"", ""));
@@ -127,6 +132,8 @@ public class UICsvDataProcessServlet extends SlingAllMethodsServlet {
 										jsonobject.put("Industry", data[7].toString().replace("\"", ""));
 										jsonobject.put("Institute", data[8].toString().replace("\"", ""));
 										jsonobject.put("Source", data[9].toString().replace("\"", ""));
+										//jsonobject.put("Email_Status", MailChecker.emailValidation(email_id));
+										
 										//out.println("EmailAddress : "+data[0].toString());
 										
 										/*

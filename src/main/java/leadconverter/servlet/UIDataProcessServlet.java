@@ -148,7 +148,9 @@ public class UIDataProcessServlet extends SlingAllMethodsServlet {
 						funnelNameNode.setProperty("autoPost2SocialMedia", autoPost2SocialMedia);
 						//out.print("Funnel : "+funnelName +" has Created Now");
 						out.print("Funnel Created");
-						String rule_engine_response=CreateRuleEngine.createRuleEngine(funnelName.replace(" ", "_"));
+						//String rule_engine_response=CreateRuleEngine.createRuleEngine(funnelName.replace(" ", "_"));
+						String rule_engine_response=CreateRuleEngine.createRuleEngine(remoteuser,funnelName.replace(" ", "_"));
+						
 						out.print("rule_engine_response : "+rule_engine_response);
 					}else{
 						funnelNameNode = funnelNode.getNode(funnelName);

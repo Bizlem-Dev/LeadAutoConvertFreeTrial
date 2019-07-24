@@ -14,9 +14,20 @@ public class ConnectionHelper {
 	private static MongoClient mongoClient;
     public  static  MongoDatabase database;
 	
-	public  static  Mongo mongo = null;
+	
 	//public  static  MongoClient mongoClient = null;
-	public  static  DB db = null;
+	DB db = null;
+	
+	public static Mongo getMongoConn(){
+		Mongo mongo = null;
+		try {
+			   mongo      = new Mongo();
+			}
+		    catch (Exception e) {
+		        e.printStackTrace();
+		    }
+		    return mongo;
+       }
 	
 	public static MongoClient getConnection(){
 		try {

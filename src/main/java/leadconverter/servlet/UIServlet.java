@@ -3,6 +3,7 @@ package leadconverter.servlet;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.util.*;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -46,6 +47,9 @@ import java.io.*;
 import java.net.*;
 import java.text.SimpleDateFormat;
 
+import leadconverter.freetrail.FreeTrialandCart;
+import leadconverter.mongo.MongoDAO;
+
 @Component(immediate = true, metatype = false)
 @Service(value = javax.servlet.Servlet.class)
 @Properties({ @Property(name = "service.description", value = "Save product Servlet"),
@@ -70,6 +74,7 @@ public class UIServlet extends SlingAllMethodsServlet {
 	protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
 			throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
+		out.println("GET UI");
 		/*
 		if(request.getRequestPathInfo().getExtension().equals("fconfiguration")) {
 		     try {
@@ -237,9 +242,76 @@ public class UIServlet extends SlingAllMethodsServlet {
 				  request.getRequestDispatcher("/content/mainui/.fconfiguration").forward(request, response);
 			     } catch (Exception ex) {
 				     out.print(ex.getMessage());
+			     } 
+		 }
+		 else if(request.getRequestPathInfo().getExtension().equals("googleanalytics")) {
+		     try {
+				  request.getRequestDispatcher("/content/mainui/.googleAnalytics").forward(request, response);
+			     } catch (Exception ex) {
+				     out.print(ex.getMessage());
+			     } 
+		 }
+		
+		else if(request.getRequestPathInfo().getExtension().equals("loginuser")) {
+		     try {
+				  request.getRequestDispatcher("/content/mainui/.loginuser").forward(request, response);
+			     } catch (Exception ex) {
+				     out.print(ex.getMessage());
 			     }
-		 }else{
+		 }else if(request.getRequestPathInfo().getExtension().equals("getloginuser")) {
+		     try {
+				  request.getRequestDispatcher("/content/mainui/.getloginuser").forward(request, response);
+			     } catch (Exception ex) {
+				     out.print(ex.getMessage());
+			     }
+		 }else if(request.getRequestPathInfo().getExtension().equals("set-up-rule")) {
+		     try {
+				  request.getRequestDispatcher("/content/mainui/.fset-up-rule").forward(request, response);
+			     } catch (Exception ex) {
+				     out.print(ex.getMessage());
+			     }
+		 }else if(request.getRequestPathInfo().getExtension().equals("test-rule-engine")) {
+		     try {
+				  request.getRequestDispatcher("/content/mainui/.ftest-rule-engine").forward(request, response);
+			     } catch (Exception ex) {
+				     out.print(ex.getMessage());
+			     }
+		 }else if(request.getRequestPathInfo().getExtension().equals("free-trail-expire")) {
+		     try {
+				  request.getRequestDispatcher("/content/mainui/.ffree-trail-expire").forward(request, response);
+			     } catch (Exception ex) {
+				     out.print(ex.getMessage());
+			     }
+		 }else if (request.getRequestPathInfo().getExtension().equals("get_subscriber_status")) {
+				//out.println("in callservice");
+				String logged_in_user_email = request.getParameter("rm_email");
+				//FreeTrialandCart cart = new FreeTrialandCart();
+				//String freetrialstatus = cart.checkfreetrial(logged_in_user_email);
+				//mailtangynode = cart.getMailtangyNode(freetrialstatus, logged_in_user_email, "", session, response);
+				
+				MongoDAO mdao=new MongoDAO();
+				long subscribers_count=mdao.getSubscriberCountForLoggedInUserForFreeTrail("subscribers_details",logged_in_user_email);
+				String free_trail_status=new FreeTrialandCart().checkfreetrial(logged_in_user_email);
+				//long subscribers_count=2000;
+				//String free_trail_status="0";
+				//out.println("logged_in_user_email : "+logged_in_user_email);
+				//out.println("subscribers_count : "+subscribers_count);
+				//out.println("free_trail_status : "+free_trail_status);
+				if(subscribers_count<=2000&&free_trail_status.equals("0")){
+					System.out.println("Free Train is Active");
+					out.println("Free Train is Active");
+				}else if(free_trail_status.equals("1")){
+					System.out.println("Free Train Date Expired");
+					out.println("Free Train Date Expired");
+				}else if(subscribers_count>2000){
+					System.out.println("Subscriber Count is More");
+					out.println("Subscriber Count is More");
+				}
+
+			}else{
 			 out.print("Rrquested extension is not an ESP resource");
+			 String remoteuser = request.getRemoteUser();
+			 out.print("Logged In User Is (remoteuser): "+remoteuser);
 		 }
 		
 		

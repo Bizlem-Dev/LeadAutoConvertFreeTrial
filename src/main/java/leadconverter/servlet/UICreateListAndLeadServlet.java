@@ -12,6 +12,7 @@ import jxl.*;
 import jxl.write.*;
 import jxl.write.biff.RowsExceededException;
 import leadconverter.impl.Searching_list_DaoImpl;
+import leadconverter.mongo.SubscriberMongoDAO;
 
 import javax.jcr.LoginException;
 import javax.jcr.Node;
@@ -170,7 +171,7 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 								//String integrationurl = content.getNode("ip")
 								//		.getProperty("Integration_Url")
 								//		.getString();
-								String integrationurl = ResourceBundle.getBundle("config").getString("Integration_Url");
+								String integrationurl = ResourceBundle.getBundle("config").getString("Add_Subscriber_In_List");
 								String integrationparameter = "?list_id="
 										+ listid + "&subscriber_id="
 										+ subscriberid;
@@ -245,6 +246,7 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 			    	JSONObject subscriber_json_obj =null;
 			    	JSONObject subscriber_tmp_json_obj =null;
 			    	JSONArray subscribers_json_arr= new JSONArray();
+			    	JSONObject subscriber_details =null;
 			    	//out.println("createlistPlusLead 1");
 		            for (int i=0; i < myJsonData.length(); i++) {
 		            	    subscriber_tmp_json_obj =(JSONObject) myJsonData.get(i);
@@ -266,7 +268,13 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 		            //out.println("subscribers_json_arr Size :  "+subscribers_json_arr.length());
 		            //out.println(subscribers_json_arr);
 		            
+		            String created_by = request.getParameter("remoteuser");
+			    	String funnelName = request.getParameter("funnelName");
+			    	String fromName = request.getParameter("fromName");
+			    	String fromEmailAddress = request.getParameter("fromEmailAddress");
+		            
 					String listname = request.getParameter("listname");
+					
 					//out.println("ListName : : " + listname);
 					//String listurl = content.getNode("ip")
 					//		.getProperty("List_Add_Url").getString();
@@ -328,7 +336,7 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 								//String integrationurl = content.getNode("ip")
 								//		.getProperty("Integration_Url")
 								//		.getString();
-								String integrationurl = ResourceBundle.getBundle("config").getString("Integration_Url");
+								String integrationurl = ResourceBundle.getBundle("config").getString("Add_Subscriber_In_List");
 								String integrationparameter = "?list_id="
 										+ listid + "&subscriber_id="
 										+ subscriberid;
@@ -357,6 +365,18 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 
 						totaldatajson.put("remote_user",
 								request.getRemoteUser());
+						//Saving Subscribers Details in MongoDB Collections
+						subscriber_details=new JSONObject();
+						subscriber_details.put("subscribers_details_json_arr", myJsonData);
+						subscriber_details.put("subscribers_id_json_arr", subscriberdata);
+						subscriber_details.put("created_by", created_by);
+						subscriber_details.put("funnelName", funnelName);
+						subscriber_details.put("fromName", fromName);
+						subscriber_details.put("fromEmailAddress", fromEmailAddress);
+						subscriber_details.put("listname", listname);
+						subscriber_details.put("listid", listid);
+						subscriber_details.put("remote_user", request.getRemoteUser());
+						SubscriberMongoDAO.addSubscribersDetails(subscriber_details);
 						//out.println("createlistPlusLead 5");
 					//  Raw json-->myJsonData subscriber json-->subscribers_json_arr 
 						if (integrationstatus.equals(("success"))) {
@@ -513,7 +533,7 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 							//String integrationurl = content.getNode("ip")
 							//		.getProperty("Integration_Url")
 							//		.getString();
-							String integrationurl = ResourceBundle.getBundle("config").getString("Integration_Url");
+							String integrationurl = ResourceBundle.getBundle("config").getString("Add_Subscriber_In_List");
 							String integrationparameter = "?list_id="
 									+ listid + "&subscriber_id="
 									+ subscriberid;

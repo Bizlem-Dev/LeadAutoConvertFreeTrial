@@ -503,9 +503,7 @@ public class LEAD_CONVERTER_NodeAdd_Email extends SlingAllMethodsServlet {
 				out.println("inside servlet");
 
 			try {
-				String unsubscriber_link="<p><small><a href='[UNSUBSCRIBEURL]'>unsubscribe me</a></small></p>";
-				String list_id = request.getParameter("list_id");
-
+				
 				long count_Value1 = 0;
 				long funnel_count = 1;//this variable created by Akhil
 				long sub_funnel_count = 1;//this variable created by Akhil
@@ -520,6 +518,7 @@ public class LEAD_CONVERTER_NodeAdd_Email extends SlingAllMethodsServlet {
 				Node emailnode = null;
 				String addcampaignnode = null;
 				Node addcampaigninsubscribernode = null;
+				String unsubscriber_link="<p><small><a href='[UNSUBSCRIBEURL]'>unsubscribe me</a></small></p>";
 				String body = request.getParameter("ckcontent");
 				       body=body+unsubscriber_link;
 				String footer = request.getParameter("footer");
@@ -530,6 +529,7 @@ public class LEAD_CONVERTER_NodeAdd_Email extends SlingAllMethodsServlet {
 				String replyto = request.getRemoteUser();
 				String embargo = request.getParameter("date");
 				String campaignvalue = request.getParameter("campaignvalue");
+				String list_id = request.getParameter("list_id");
 				
 //				String noofdays=request.getParameter("user");
 //				String currentdate=request.getParameter("year");

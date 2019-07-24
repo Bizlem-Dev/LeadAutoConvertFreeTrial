@@ -117,7 +117,7 @@
           <div class="panel" id="exampleWizardForm">
             <div class="panel-body">
               <div class="col-md-10 offset-md-1" style="padding:15px 0px 0px 25px;">
-                <h3 id='campaign-name'>Test Name BY Akhilesh</h3>
+                <h3 id='campaign-name'></h3>
                 <a href="#">Edit Name</a>
               </div>
               <br><br><br><br>
@@ -266,6 +266,7 @@
   document.getElementById("campaign-name").innerHTML =campaignName;
   document.getElementById("from-name").value=fromName;
   document.getElementById("email-address").value=fromEmailAddress;
+  document.getElementById("subject-name").value=campaignName;
 
     
 	function addQueryString(){

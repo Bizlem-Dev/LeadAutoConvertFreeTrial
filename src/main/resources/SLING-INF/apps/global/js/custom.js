@@ -1,3 +1,51 @@
+$('.add-btn-save').click(function(){
+    $('.show-save-btn').css('display','block');
+});
+
+// $(document).ready(function(){
+// $('body').on('change', '.select-oprater', function () {
+//         var data = $(this).val();
+//         if(data == 'greter-than-equals' || data == 'less-than-equals' || data == 'is-null' || data == 'is-not-null'){
+//             $(this).parents('tr').find('td').find('.remove-slect').css('display','none');
+//             $(this).parents('tr').find('td').find('.remove-input').css('display','none');
+//         }else{
+//             $(this).parents('tr').find('td').find('.remove-slect').css('display','block');
+//             $(this).parents('tr').find('td').find('.remove-input').css('display','block');
+//         }
+//     });
+// });
+
+$(document).ready(function(){
+$('body').on('change','.click-select', function () {
+        var data = $(this).val();
+        if(data == 'category'){
+            $(this).parents('tr').find('td').find('.open-select').css('display','block');
+            $(this).parents('tr').find('td').find('.open-input').css('display','none');
+        }else if(data == 'url'){
+            $(this).parents('tr').find('td').find('.open-select').css('display','none');
+            $(this).parents('tr').find('td').find('.open-input').css('display','block');
+        }else{
+            $(this).parents('tr').find('td').find('.open-select').css('display','none');
+            $(this).parents('tr').find('td').find('.open-input').css('display','none');
+
+        }
+    });
+});
+
+$(document).ready(function(){
+$('body').on('change', '.select-oprater', function () {
+        var data = $(this).val();
+        if(data == 'eqals' || data == 'not-equals' || data == 'is-null' || data == 'is-not-null'){
+            $(this).parents('tr').find('td').find('.remove-slect').css('display','none');
+            $(this).parents('tr').find('td').find('.remove-input').css('display','none');
+        }else{
+            $(this).parents('tr').find('td').find('.remove-slect').css('display','block');
+            $(this).parents('tr').find('td').find('.remove-input').css('display','block');
+        }
+    });
+});
+
+/* old code start */
 $('input[name=radio]').click(function () {
     if (this.id == "radio1-section") {
         $(".show-import-from-csv-file").slideDown();
@@ -213,3 +261,75 @@ $('input[name=table-check-3]').click(function () {
 $('input[name=table-check-4]').click(function () {
     $('.show-table-check-4').slideToggle();
 });
+
+$('.plsu-append-row').click(function(){
+    var copy = $('.get-row-append').html();
+    $('.append-row-part').append(copy);
+});
+
+function toggleIcon(e) {
+    $(e.target)
+        .prev('.panel-heading')
+        .find(".more-less")
+        .toggleClass('glyphicon-plus glyphicon-minus');
+}
+$('.panel-group').on('hidden.bs.collapse', toggleIcon);
+$('.panel-group').on('shown.bs.collapse', toggleIcon);
+
+/* old code end */
+
+$('body').on('click', '.add-row-btn', function(){
+    var addRow = $('.table-set-up-funnel tbody tr:last-child').html();
+    var noRow = $(this).parents('.main-tbl').find('tbody tr:last-child th:first-child').html();
+    var noRow1 = Number(noRow)+1;
+
+    var id1 = $('.table-set-up-funnel tbody tr:last-child').find(".field-ID-select").attr('id');
+    var id2 = $('.table-set-up-funnel tbody tr:last-child').find(".type-ID-select").attr('id');
+    var id3 = $('.table-set-up-funnel tbody tr:last-child').find(".oprater-ID-select").attr('id');
+    var id4 = $('.table-set-up-funnel tbody tr:last-child').find(".opraters-ID-select").attr('id');
+	
+	var id5 = $('.table-set-up-funnel tbody tr:last-child').find(".field-name-input").attr('id');
+	var id6 = $('.table-set-up-funnel tbody tr:last-child').find(".opt1-input").attr('id');
+	var id7 = $('.table-set-up-funnel tbody tr:last-child').find(".opt2-input").attr('id');
+
+    var res = addRow.replace(id1, "fieldID"+noRow1);
+    res = res.replace(id2, "typeID"+noRow1);
+    res = res.replace(id3, "operatorID"+noRow1);
+    res = res.replace(id4, "operatorIDs"+noRow1);
+	
+	res = res.replace(id5, "fieldName"+noRow1);
+	res = res.replace(id6, "opt1Val"+noRow1);
+	res = res.replace(id7, "opt2Val"+noRow1);
+
+    $(this).parents('.main-tbl').find('.table-set-up-funnel tbody').append('<tr class="new">'+res+'</tr>');
+    $(this).parents('.main-tbl').find('.table-set-up-funnel tbody tr:last-child th').html(noRow1);
+});
+
+$('.add-new-form').click(function(){
+    var getBox = $('.append-div-box').html();
+    $('.main-box-section').append(getBox);
+});
+
+$('.remove-new-form').click(function(){
+    $('.main-box-section').find('li:last-child').remove();
+});
+
+$('body').on('click', '.remove-row-btn', function(){
+    var firstTr = $(this).parents('.main-tbl').find('tbody tr:last-child').attr('class');
+    if(firstTr == 'new'){
+        $(this).parents('.main-tbl').find('tbody tr:last-child').remove();
+    }
+});
+
+$('body').on('click', '.add-row-btn-second-tbl', function(){
+    var addRowNew = $('.second-tbl tbody tr:last-child').html();
+    $(this).parents('.second-tbl').find('.second-tbl-sub tbody').append('<tr class="new">'+addRowNew+'</tr>');
+});
+
+$('body').on('click', '.remove-row-second-tbl', function(){
+    var firstTr = $(this).parents('.second-tbl').find('.second-tbl-sub tbody tr:last-child').attr('class');
+    if(firstTr == 'new'){
+        $(this).parents('.second-tbl').find('tbody tr:last-child').remove();
+    }
+});
+

@@ -48,6 +48,9 @@ import java.io.*;
 import java.net.*;
 import java.text.SimpleDateFormat;
 
+import leadconverter.doctiger.LogByFileWriter;
+import leadconverter.mongo.CampaignSheduleMongoDAO;
+
 @Component(immediate = true, metatype = false)
 @Service(value = javax.servlet.Servlet.class)
 @Properties({ @Property(name = "service.description", value = "Save product Servlet"),
@@ -72,7 +75,620 @@ public class CampaignActivator extends SlingAllMethodsServlet {
 	protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
 			throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		if (request.getRequestPathInfo().getExtension().equals("activate")) {
+		 if (request.getRequestPathInfo().getExtension().equals("activate_draft_list")) {
+
+				try {
+					Session session = null;
+					session = repos.login(new SimpleCredentials("admin", "admin".toCharArray()));
+					JSONObject mainjson = new JSONObject();
+					String days = request.getParameter("days");
+					
+					NodeIterator useritr = session.getRootNode().getNode("content").getNode("user").getNodes();
+					while (useritr.hasNext()) {
+						Node usernode = useritr.nextNode();
+						if(!usernode.getName().equals("<%=request.getRemoteUser()%>")){
+						if (usernode.hasNode("Lead_Converter")) {
+							NodeIterator funnelitr = usernode.getNode("Lead_Converter").getNode("Email")
+									.getNode("Funnel").getNodes();
+							while (funnelitr.hasNext()) {
+								Node funnelNode = funnelitr.nextNode();
+								String funnelName = funnelNode.getName();// currentcampaign
+								out.println("FunnelNodeName : "+funnelName);
+								 if(funnelNode.hasNodes()){
+									   NodeIterator campaignNodesitr = funnelNode.getNodes();
+									   while (campaignNodesitr.hasNext()) {
+										   Node subFunnelNode = campaignNodesitr.nextNode();
+										   String subFunnelNodeName = subFunnelNode.getName();
+										   out.println("subFunnelNodeName : "+subFunnelNodeName);
+										   if(subFunnelNode.hasNode("List")){
+												Node ListNode=subFunnelNode.getNode("List");
+												if(ListNode.hasNode("DraftList")){
+													Node DraftListNode=ListNode.getNode("DraftList");
+													NodeIterator draftListItr=DraftListNode.getNodes();
+													while (draftListItr.hasNext()) {
+														Node DraftListChildNode=draftListItr.nextNode();
+														out.println("DraftListChildNode : "+DraftListChildNode.getName());
+														String DraftListId=DraftListChildNode.getName();
+														out.println("DraftListId : "+DraftListId);
+														String ActiveListStartDate=DraftListChildNode.getProperty("StartDate").getString();
+														out.println("Going... to call method checkStatusOfDraftList()");
+														//checkStatusOfDraftList(Add_Subscriber_In_List_Url,CreatedBy,funnelName,Move_Category,DraftListId,listname,SubscriberId,response,subFunnelNode,ActiveListNode,draftNode,ActiveListStartDate);
+														out.println("Method checkStatusOfDraftList() have Called");
+													}
+												}
+												
+											}
+									   }
+								}
+							     
+							}
+						  }
+						}
+					
+					}
+					session.save();
+				} catch (Exception ex) {
+					out.println("Exception ex :=" + ex.getMessage() + ex.getCause());
+				}
+			
+			
+		 }else if (request.getRequestPathInfo().getExtension().equals("add_campaign_to_active_list")) {
+			try {
+				Session session = null;
+				session = repos.login(new SimpleCredentials("admin", "admin".toCharArray()));
+				JSONObject mainjson = new JSONObject();
+				String days = request.getParameter("days");
+				
+				NodeIterator useritr = session.getRootNode().getNode("content").getNode("user").getNodes();
+				while (useritr.hasNext()) {
+					Node usernode = useritr.nextNode();
+					if(!usernode.getName().equals("<%=request.getRemoteUser()%>")){
+					if (usernode.hasNode("Lead_Converter")) {
+						NodeIterator funnelitr = usernode.getNode("Lead_Converter").getNode("Email")
+								.getNode("Funnel").getNodes();
+						while (funnelitr.hasNext()) {
+							Node funnelNode = funnelitr.nextNode();
+							String funnelName = funnelNode.getName();// currentcampaign
+							
+								 if(funnelNode.hasNodes()){
+									   NodeIterator campaignNodesitr = funnelNode.getNodes();
+									   while (campaignNodesitr.hasNext()) {
+										   Node subFunnelNode = campaignNodesitr.nextNode();
+										   String subFunnelNodeName = subFunnelNode.getName();
+										   out.println("subFunnelNodeName : "+subFunnelNodeName);
+										   LogByFileWriter.logger_info("CampaignActivator : " + "subFunnelNodeName : "+subFunnelNodeName);
+										   if(subFunnelNode.hasNode("List")){
+												Node ListNode=subFunnelNode.getNode("List");
+												if(ListNode.hasNode("ActiveList")){
+													Node ActiveListNode=ListNode.getNode("ActiveList");
+													
+													if(ActiveListNode.hasNodes()){
+														   NodeIterator ActiveListNodeItr = ActiveListNode.getNodes();
+														   while (ActiveListNodeItr.hasNext()) {
+															    Node ActiveListChildNode = ActiveListNodeItr.nextNode();
+															    if(ActiveListChildNode.hasNode("Campaign")){
+															    	Node ActiveListChildCampaignNode = ActiveListChildNode.getNode("Campaign");
+															    	NodeIterator ActiveListChildCampaignNodeItr = ActiveListChildCampaignNode.getNodes();
+																	   while (ActiveListChildCampaignNodeItr.hasNext()) {
+																		    Node ActiveListChildCampaignChildNode = ActiveListChildCampaignNodeItr.nextNode();
+																		    String Current_Date="";
+																			String Current_Campaign="";
+																			String current_campaign_status=null;
+																			
+																			String Campaign_Date=null;
+																		    String campaign_status=null;
+																		    String Campaign_Id = null;
+																			String List_Id = null;
+																			String Active_List_Id = null;
+																			//addCampaignsToActiveList(subFunnelNode,ActiveListChildNode,response,ActiveListStartDate);
+																			if(ActiveListChildCampaignChildNode.hasProperty("Campaign_Date")){
+																			    Campaign_Date=ActiveListChildCampaignChildNode.getProperty("Campaign_Date").getString();
+																			}
+																			if(ActiveListChildCampaignChildNode.hasProperty("campaign_status")){
+																				campaign_status=ActiveListChildCampaignChildNode.getProperty("campaign_status").getString();
+																			}
+																			if(ActiveListChildCampaignChildNode.hasProperty("Campaign_Id")){
+																				Campaign_Id=ActiveListChildCampaignChildNode.getProperty("Campaign_Id").getString();
+																			}
+																			if(ActiveListChildCampaignChildNode.hasProperty("List_Id")){
+																				List_Id=ActiveListChildCampaignChildNode.getProperty("List_Id").getString();
+																			}
+																			Active_List_Id=ActiveListChildNode.getName();
+																			out.println("ActiveListChildCampaignChildNode Name : "+ActiveListChildCampaignChildNode.getName());
+																			out.println("Active_List_Id Name : "+Active_List_Id);
+																			
+																			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+																			Date today=new Date();
+																			today.setDate(today.getDate()+Integer.parseInt(days));
+																		    Date date1 = sdf1.parse(sdf1.format(today));
+																		    Date date2 = sdf1.parse(Campaign_Date);
+																		    out.println("Current_Date : " + sdf1.format(date1)+"   Campaign_Date : " + sdf1.format(date2));
+																		    LogByFileWriter.logger_info("CampaignActivator : " + "Current_Date : " + sdf1.format(date1)+"   Campaign_Date : " + sdf1.format(date2));
+																		    if (date1.compareTo(date2) > 0) {
+																		        out.println("Date1 is after Date2");
+																		        LogByFileWriter.logger_info("CampaignActivator : " + "Date1 is after Date2");
+																		    } else if (date1.compareTo(date2) < 0) {
+																		        out.println("Date1 is before Date2");
+																		        LogByFileWriter.logger_info("CampaignActivator : " + "Date1 is before Date2");
+																		    } else if (date1.compareTo(date2) == 0) {
+																		    	
+																		    }
+																		    
+																	   }
+															    }
+														   }
+													}
+												}
+											}
+									   }
+									}
+						     
+						}
+					  }
+					}
+				
+				}
+				out.println(mainjson);
+				session.save();
+			} catch (Exception ex) {
+				//out.println("Exception ex :=" + ex.getMessage() + ex.getCause());
+				
+				try {
+					JSONObject errordatajson = new JSONObject();
+					errordatajson.put("Error", "Null");
+					errordatajson.put("Exception", ex.getMessage().toString());
+					errordatajson.put("Cause", ex.getCause().toString());
+					out.println("Error "+errordatajson);
+					LogByFileWriter.logger_info("CampaignActivator : Error : " + errordatajson);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					out.println("Exception ex :=" + ex.getMessage() + ex.getCause());
+				}
+				
+			}
+		}
+		else if (request.getRequestPathInfo().getExtension().equals("activate_campaign")) {
+			LogByFileWriter.logger_info("CampaignActivator Called!");
+			CampaignSheduleMongoDAO.findCampaignToScheduleFromCampaignDetails();
+			CampaignSheduleMongoDAO.findCampaignToScheduleFromCampaignListDetails();
+		}else if (request.getRequestPathInfo().getExtension().equals("activate_new_2")) {
+			try {
+				Session session = null;
+				session = repos.login(new SimpleCredentials("admin", "admin".toCharArray()));
+				JSONObject mainjson = new JSONObject();
+				JSONArray mainjsonArray = new JSONArray();
+				JSONObject datajson = null;
+				String campaignCatogory = request.getParameter("camp_catogery");
+				String catogoryFilter = request.getParameter("catogery_filter");
+				String days = request.getParameter("days");
+				
+				NodeIterator useritr = session.getRootNode().getNode("content").getNode("user").getNodes();
+				while (useritr.hasNext()) {
+					datajson = new JSONObject();
+					Node usernode = useritr.nextNode();
+					if(!usernode.getName().equals("<%=request.getRemoteUser()%>")){
+					if (usernode.hasNode("Lead_Converter")) {
+						NodeIterator funnelitr = usernode.getNode("Lead_Converter").getNode("Email")
+								.getNode("Funnel").getNodes();
+						while (funnelitr.hasNext()) {
+							Node funnelNode = funnelitr.nextNode();
+							String funnelName = funnelNode.getName();// currentcampaign
+							      if(funnelNode.hasNodes()){
+									   NodeIterator campaignNodesitr = funnelNode.getNodes();
+									   while (campaignNodesitr.hasNext()) {
+										   Node subFunnelNode = campaignNodesitr.nextNode();
+										   String subFunnelNodeName = subFunnelNode.getName();
+										   out.println("subFunnelNodeName : "+subFunnelNodeName);
+										   LogByFileWriter.logger_info("CampaignActivator : " + "subFunnelNodeName : "+subFunnelNodeName);
+										   if(subFunnelNode.hasNode("List")){
+												Node ListNode=subFunnelNode.getNode("List");
+												if(ListNode.hasNode("ActiveList")){
+													Node ActiveListNode=ListNode.getNode("ActiveList");
+													
+													if(ActiveListNode.hasNodes()){
+														   NodeIterator ActiveListNodeItr = ActiveListNode.getNodes();
+														   while (ActiveListNodeItr.hasNext()) {
+															    Node ActiveListChildNode = ActiveListNodeItr.nextNode();
+															    if(ActiveListChildNode.hasNode("Campaign")){
+															    	Node ActiveListChildCampaignNode = ActiveListChildNode.getNode("Campaign");
+															    	NodeIterator ActiveListChildCampaignNodeItr = ActiveListChildCampaignNode.getNodes();
+																	   while (ActiveListChildCampaignNodeItr.hasNext()) {
+																		    Node ActiveListChildCampaignChildNode = ActiveListChildCampaignNodeItr.nextNode();
+																		    String Current_Date="";
+																			String Current_Campaign="";
+																			String current_campaign_status=null;
+																			
+																			String Campaign_Date=null;
+																		    String campaign_status=null;
+																		    String Campaign_Id = null;
+																			String List_Id = null;
+																			String Active_List_Id = null;
+																			if(ActiveListChildCampaignChildNode.hasProperty("Campaign_Date")){
+																			    Campaign_Date=ActiveListChildCampaignChildNode.getProperty("Campaign_Date").getString();
+																			}
+																			if(ActiveListChildCampaignChildNode.hasProperty("campaign_status")){
+																				campaign_status=ActiveListChildCampaignChildNode.getProperty("campaign_status").getString();
+																			}
+																			if(ActiveListChildCampaignChildNode.hasProperty("Campaign_Id")){
+																				Campaign_Id=ActiveListChildCampaignChildNode.getProperty("Campaign_Id").getString();
+																			}
+																			if(ActiveListChildCampaignChildNode.hasProperty("List_Id")){
+																				List_Id=ActiveListChildCampaignChildNode.getProperty("List_Id").getString();
+																			}
+																			Active_List_Id=ActiveListChildNode.getName();
+																			out.println("ActiveListChildCampaignChildNode Name : "+ActiveListChildCampaignChildNode.getName());
+																			LogByFileWriter.logger_info("CampaignActivator : " + "ActiveListChildCampaignChildNode Name : "+ActiveListChildCampaignChildNode.getName());
+																			out.println("Active_List_Id Name : "+Active_List_Id);
+																			LogByFileWriter.logger_info("CampaignActivator : " + "Active_List_Id Name : "+Active_List_Id);
+																			
+																			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+																			Date today=new Date();
+																			today.setDate(today.getDate()+Integer.parseInt(days));
+																		    Date date1 = sdf1.parse(sdf1.format(today));
+																		    Date date2 = sdf1.parse(Campaign_Date);
+																		    //out.println("Current_Date : " + Current_Date+"   Current_Campaign : " + Current_Campaign);
+																		    //out.println("Current_Date : " + Current_Date);
+																		    //out.println("Campaign_Date : " + Campaign_Date);
+																		    out.println("Current_Date : " + sdf1.format(date1)+"   Campaign_Date : " + sdf1.format(date2));
+																		    LogByFileWriter.logger_info("CampaignActivator : " + "Current_Date : " + sdf1.format(date1)+"   Campaign_Date : " + sdf1.format(date2));
+																		    if (date1.compareTo(date2) > 0) {
+																		        out.println("Date1 is after Date2");
+																		        LogByFileWriter.logger_info("CampaignActivator : " + "Date1 is after Date2");
+																		    } else if (date1.compareTo(date2) < 0) {
+																		        out.println("Date1 is before Date2");
+																		        LogByFileWriter.logger_info("CampaignActivator : " + "Date1 is before Date2");
+																		    } else if (date1.compareTo(date2) == 0) {
+																		    	out.println("Date1 is equal to Date2");
+																		    	LogByFileWriter.logger_info("CampaignActivator : " + "Date1 is equal to Date2");
+																		    	
+																		    	ActiveListChildNode.setProperty("currentCampign", ActiveListChildCampaignChildNode.getName());
+																		    	ActiveListChildNode.setProperty("Campaign_Date", Campaign_Date);
+																		    	
+																		    	ActiveListNode.setProperty("currentCampign", ActiveListChildCampaignChildNode.getName());
+																		    	ActiveListNode.setProperty("Campaign_Date", Campaign_Date);
+																		    	
+																		        out.println("campaignName : "+ActiveListChildCampaignChildNode.getName());
+																		        LogByFileWriter.logger_info("CampaignActivator : " + "campaignName : "+ActiveListChildCampaignChildNode.getName());
+																		        out.println("current_campaign_status : "+campaign_status);
+																		        LogByFileWriter.logger_info("CampaignActivator : " + "current_campaign_status : "+campaign_status);
+																		    	if(!campaign_status.equals("sent")){
+																		    		out.println("===========================Active==============================");
+																		    		out.println("Active Campaign : "+ActiveListChildCampaignChildNode.getName());
+																		    		out.println("Active Campaign_Id : "+Campaign_Id);
+																		    		out.println("Active Active_List_Id : "+Active_List_Id);
+																		    		out.println("===========================Active==============================");
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "===========================Active==============================");
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "Active Campaign : "+ActiveListChildCampaignChildNode.getName());
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "Active Campaign_Id : "+Campaign_Id);
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "Active Active_List_Id : "+Active_List_Id);
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "===========================Active==============================");
+																		    		
+																		    		// This method call will delete List From Campaign
+																		    		String campaign_list_delete_response=this.campaignListDelete(List_Id,Campaign_Id,response);
+																		    		out.println("campaign_list_delete_response : "+campaign_list_delete_response);
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "campaign_list_delete_response : "+campaign_list_delete_response);
+																		    		
+																		    		// This method call will Add List to Campaign
+																		    		String campaign_list_add_response=this.campaignListAdd(Active_List_Id,Campaign_Id,response);
+																		    		out.println("campaign_list_add_response : "+campaign_list_add_response);
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "campaign_list_add_response : "+campaign_list_add_response);
+																		    		
+																		    		// This method call will Update Embargo(Campaign send date & time) of Campaign
+																		    		String id = Campaign_Id;
+																					String embargo = Campaign_Date;
+																					
+																					
+																					//Checking Campaign status for setting campaign status
+																					String campaigngetbyid_url=ResourceBundle.getBundle("config").getString("campaigngetbyid");
+																					String campaigngetbyid_url_parameter="?id="+id;
+																					String campaigngetbyid_url_response=sendpostdata(campaigngetbyid_url,campaigngetbyid_url_parameter,response);
+																					JSONObject response_data_json_obj=(JSONObject) new JSONObject(campaigngetbyid_url_response.replace("<pre>", "")).get("data");
+																					  String status=response_data_json_obj.getString("status");
+																					  
+																					  if(status.equals("sent") || status.equals("submitted")){
+																						  System.out.println("No need to Anything : "+status);
+																						  LogByFileWriter.logger_info("CampaignActivator : " + "No need to Anything : "+status);
+																						  if(status.equals("sent")){
+																							  String status_response=this.campaignStatusUpdate(id,"submitted",response);
+																							  out.println("status_response reque: "+status_response);
+																							  LogByFileWriter.logger_info("CampaignActivator : " + "status_response reque: "+status_response);
+																						  }
+																					  }else{
+																						  
+																						  System.out.println("Do your stuff here "+status);
+																						  LogByFileWriter.logger_info("CampaignActivator : " + "Do your stuff here "+status);
+																						    String embargoupdateurl = ResourceBundle.getBundle("config").getString("embargoupdateurl");
+																							String embargoupdateurlparameters = "id="+id+"&embargo=" + embargo;
+																							//out.println("campaignaddapiurlparameters : "+campaignaddapiurlparameters);
+																							String campaignlistresponse = this.sendHttpPostData(embargoupdateurl, embargoupdateurlparameters.replace(" ", "%20"), response)
+																									.replace("<pre>", "");
+																							out.println("campaignresponse : "+campaignlistresponse);
+																							LogByFileWriter.logger_info("CampaignActivator : " + "campaignresponse : "+campaignlistresponse);
+																							// This method call will Activate The Campaign for sending
+																							if(listSubscribersCount(Active_List_Id,id,response)>0){
+																							   String status_response=this.campaignStatusUpdate(id,"submitted",response);
+																							   out.println("status_response : "+status_response);
+																							   LogByFileWriter.logger_info("CampaignActivator : " + "status_response : "+status_response);
+																							}else{
+																								out.println("No Subscribers Found For List Id : "+Active_List_Id);
+																								LogByFileWriter.logger_info("CampaignActivator : " + "status_response : "+"No Subscribers Found For List Id : "+Active_List_Id);
+																							}
+																							
+																							
+																				      }
+																		    		
+																					// This method call will Process the Queue(May be need Thread)
+																					/*
+																					String campaignlisturl = ResourceBundle.getBundle("config").getString("processqueue");
+																					String campaignparameter = "?campid=100";
+																					String campaignlistresponse1 = this.sendpostdata(campaignlisturl, campaignparameter.replace(" ", "%20"),response)
+																							.replace("<pre>", "");
+																					out.println("Process Queue Response :" + campaignlistresponse);
+																					*/
+																					
+																		    	}else{
+																		    		out.println("Current Campaign Status is Not equal to Sent");
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "Current Campaign Status is Not equal to Sent");
+																		    	}
+																		    	
+																		        
+																		    } else {
+																		        out.println("How to get here?");
+																		        LogByFileWriter.logger_info("CampaignActivator : " + "How to get here?");
+																		    }
+																		    
+																	   }
+															    }
+														   }
+													}
+												}
+											}
+									   }
+									}
+						     
+						}
+					  }
+					}
+				
+				}
+				out.println(mainjson);
+				session.save();
+			} catch (Exception ex) {
+				//out.println("Exception ex :=" + ex.getMessage() + ex.getCause());
+				
+				try {
+					JSONObject errordatajson = new JSONObject();
+					errordatajson.put("Error", "Null");
+					errordatajson.put("Exception", ex.getMessage().toString());
+					errordatajson.put("Cause", ex.getCause().toString());
+					out.println("Error "+errordatajson);
+					LogByFileWriter.logger_info("CampaignActivator : Error : " + errordatajson);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					out.println("Exception ex :=" + ex.getMessage() + ex.getCause());
+				}
+				
+			}
+		}
+		else if (request.getRequestPathInfo().getExtension().equals("activate_new_1")) {
+			try {
+				Session session = null;
+				session = repos.login(new SimpleCredentials("admin", "admin".toCharArray()));
+				JSONObject mainjson = new JSONObject();
+				JSONArray mainjsonArray = new JSONArray();
+				JSONObject datajson = null;
+				String campaignCatogory = request.getParameter("camp_catogery");
+				String catogoryFilter = request.getParameter("catogery_filter");
+				String days = request.getParameter("days");
+				
+				NodeIterator useritr = session.getRootNode().getNode("content").getNode("user").getNodes();
+				while (useritr.hasNext()) {
+					datajson = new JSONObject();
+					Node usernode = useritr.nextNode();
+					if(!usernode.getName().equals("<%=request.getRemoteUser()%>")){
+					if (usernode.hasNode("Lead_Converter")) {
+						NodeIterator funnelitr = usernode.getNode("Lead_Converter").getNode("Email")
+								.getNode("Funnel").getNodes();
+						while (funnelitr.hasNext()) {
+							Node funnelNode = funnelitr.nextNode();
+							String funnelName = funnelNode.getName();// currentcampaign
+							      if(funnelNode.hasNodes()){
+									   NodeIterator campaignNodesitr = funnelNode.getNodes();
+									   while (campaignNodesitr.hasNext()) {
+										   Node subFunnelNode = campaignNodesitr.nextNode();
+										   String subFunnelNodeName = subFunnelNode.getName();
+										   out.println("subFunnelNodeName : "+subFunnelNodeName);
+										   LogByFileWriter.logger_info("CampaignActivator : " + "subFunnelNodeName : "+subFunnelNodeName);
+										   if(subFunnelNode.hasNode("List")){
+												Node ListNode=subFunnelNode.getNode("List");
+												if(ListNode.hasNode("ActiveList")){
+													Node ActiveListNode=ListNode.getNode("ActiveList");
+													
+													if(ActiveListNode.hasNodes()){
+														   NodeIterator ActiveListNodeItr = ActiveListNode.getNodes();
+														   while (ActiveListNodeItr.hasNext()) {
+															    Node ActiveListChildNode = ActiveListNodeItr.nextNode();
+															    if(ActiveListChildNode.hasNode("Campaign")){
+															    	Node ActiveListChildCampaignNode = ActiveListChildNode.getNode("Campaign");
+															    	NodeIterator ActiveListChildCampaignNodeItr = ActiveListChildCampaignNode.getNodes();
+																	   while (ActiveListChildCampaignNodeItr.hasNext()) {
+																		    Node ActiveListChildCampaignChildNode = ActiveListChildCampaignNodeItr.nextNode();
+																		    String Current_Date="";
+																			String Current_Campaign="";
+																			String current_campaign_status=null;
+																			
+																			String Campaign_Date=null;
+																		    String campaign_status=null;
+																		    String Campaign_Id = null;
+																			String List_Id = null;
+																			String Active_List_Id = null;
+																			if(ActiveListChildCampaignChildNode.hasProperty("Campaign_Date")){
+																			    Campaign_Date=ActiveListChildCampaignChildNode.getProperty("Campaign_Date").getString();
+																			}
+																			if(ActiveListChildCampaignChildNode.hasProperty("campaign_status")){
+																				campaign_status=ActiveListChildCampaignChildNode.getProperty("campaign_status").getString();
+																			}
+																			if(ActiveListChildCampaignChildNode.hasProperty("Campaign_Id")){
+																				Campaign_Id=ActiveListChildCampaignChildNode.getProperty("Campaign_Id").getString();
+																			}
+																			if(ActiveListChildCampaignChildNode.hasProperty("List_Id")){
+																				List_Id=ActiveListChildCampaignChildNode.getProperty("List_Id").getString();
+																			}
+																			Active_List_Id=ActiveListChildNode.getName();
+																			out.println("ActiveListChildCampaignChildNode Name : "+ActiveListChildCampaignChildNode.getName());
+																			LogByFileWriter.logger_info("CampaignActivator : " + "ActiveListChildCampaignChildNode Name : "+ActiveListChildCampaignChildNode.getName());
+																			out.println("Active_List_Id Name : "+Active_List_Id);
+																			LogByFileWriter.logger_info("CampaignActivator : " + "Active_List_Id Name : "+Active_List_Id);
+																			
+																			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+																			Date today=new Date();
+																			today.setDate(today.getDate()+Integer.parseInt(days));
+																		    Date date1 = sdf1.parse(sdf1.format(today));
+																		    Date date2 = sdf1.parse(Campaign_Date);
+																		    //out.println("Current_Date : " + Current_Date+"   Current_Campaign : " + Current_Campaign);
+																		    //out.println("Current_Date : " + Current_Date);
+																		    //out.println("Campaign_Date : " + Campaign_Date);
+																		    out.println("Current_Date : " + sdf1.format(date1)+"   Campaign_Date : " + sdf1.format(date2));
+																		    LogByFileWriter.logger_info("CampaignActivator : " + "Current_Date : " + sdf1.format(date1)+"   Campaign_Date : " + sdf1.format(date2));
+																		    if (date1.compareTo(date2) > 0) {
+																		        out.println("Date1 is after Date2");
+																		        LogByFileWriter.logger_info("CampaignActivator : " + "Date1 is after Date2");
+																		    } else if (date1.compareTo(date2) < 0) {
+																		        out.println("Date1 is before Date2");
+																		        LogByFileWriter.logger_info("CampaignActivator : " + "Date1 is before Date2");
+																		    } else if (date1.compareTo(date2) == 0) {
+																		    	out.println("Date1 is equal to Date2");
+																		    	LogByFileWriter.logger_info("CampaignActivator : " + "Date1 is equal to Date2");
+																		    	
+																		    	ActiveListChildNode.setProperty("currentCampign", ActiveListChildCampaignChildNode.getName());
+																		    	ActiveListChildNode.setProperty("Campaign_Date", Campaign_Date);
+																		    	
+																		    	ActiveListNode.setProperty("currentCampign", ActiveListChildCampaignChildNode.getName());
+																		    	ActiveListNode.setProperty("Campaign_Date", Campaign_Date);
+																		    	
+																		        out.println("campaignName : "+ActiveListChildCampaignChildNode.getName());
+																		        LogByFileWriter.logger_info("CampaignActivator : " + "campaignName : "+ActiveListChildCampaignChildNode.getName());
+																		        out.println("current_campaign_status : "+campaign_status);
+																		        LogByFileWriter.logger_info("CampaignActivator : " + "current_campaign_status : "+campaign_status);
+																		    	if(!campaign_status.equals("sent")){
+																		    		out.println("===========================Active==============================");
+																		    		out.println("Active Campaign : "+ActiveListChildCampaignChildNode.getName());
+																		    		out.println("Active Campaign_Id : "+Campaign_Id);
+																		    		out.println("Active Active_List_Id : "+Active_List_Id);
+																		    		out.println("===========================Active==============================");
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "===========================Active==============================");
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "Active Campaign : "+ActiveListChildCampaignChildNode.getName());
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "Active Campaign_Id : "+Campaign_Id);
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "Active Active_List_Id : "+Active_List_Id);
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "===========================Active==============================");
+																		    		
+																		    		// This method call will delete List From Campaign
+																		    		String campaign_list_delete_response=this.campaignListDelete(List_Id,Campaign_Id,response);
+																		    		out.println("campaign_list_delete_response : "+campaign_list_delete_response);
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "campaign_list_delete_response : "+campaign_list_delete_response);
+																		    		
+																		    		// This method call will Add List to Campaign
+																		    		String campaign_list_add_response=this.campaignListAdd(Active_List_Id,Campaign_Id,response);
+																		    		out.println("campaign_list_add_response : "+campaign_list_add_response);
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "campaign_list_add_response : "+campaign_list_add_response);
+																		    		
+																		    		// This method call will Update Embargo(Campaign send date & time) of Campaign
+																		    		String id = Campaign_Id;
+																					String embargo = Campaign_Date;
+																					
+																					
+																					//Checking Campaign status for setting campaign status
+																					String campaigngetbyid_url=ResourceBundle.getBundle("config").getString("campaigngetbyid");
+																					String campaigngetbyid_url_parameter="?id="+id;
+																					String campaigngetbyid_url_response=sendpostdata(campaigngetbyid_url,campaigngetbyid_url_parameter,response);
+																					JSONObject response_data_json_obj=(JSONObject) new JSONObject(campaigngetbyid_url_response.replace("<pre>", "")).get("data");
+																					  String status=response_data_json_obj.getString("status");
+																					  
+																					  if(status.equals("sent") || status.equals("submitted")){
+																						  System.out.println("No need to Anything : "+status);
+																						  LogByFileWriter.logger_info("CampaignActivator : " + "No need to Anything : "+status);
+																						  if(status.equals("sent")){
+																							  String status_response=this.campaignStatusUpdate(id,"submitted",response);
+																							  out.println("status_response reque: "+status_response);
+																							  LogByFileWriter.logger_info("CampaignActivator : " + "status_response reque: "+status_response);
+																						  }
+																					  }else{
+																						  
+																						  System.out.println("Do your stuff here "+status);
+																						  LogByFileWriter.logger_info("CampaignActivator : " + "Do your stuff here "+status);
+																						    String embargoupdateurl = ResourceBundle.getBundle("config").getString("embargoupdateurl");
+																							String embargoupdateurlparameters = "id="+id+"&embargo=" + embargo;
+																							//out.println("campaignaddapiurlparameters : "+campaignaddapiurlparameters);
+																							String campaignlistresponse = this.sendHttpPostData(embargoupdateurl, embargoupdateurlparameters.replace(" ", "%20"), response)
+																									.replace("<pre>", "");
+																							out.println("campaignresponse : "+campaignlistresponse);
+																							LogByFileWriter.logger_info("CampaignActivator : " + "campaignresponse : "+campaignlistresponse);
+																							// This method call will Activate The Campaign for sending
+																							if(listSubscribersCount(Active_List_Id,id,response)>0){
+																							   String status_response=this.campaignStatusUpdate(id,"submitted",response);
+																							   out.println("status_response : "+status_response);
+																							   LogByFileWriter.logger_info("CampaignActivator : " + "status_response : "+status_response);
+																							}else{
+																								out.println("No Subscribers Found For List Id : "+Active_List_Id);
+																								LogByFileWriter.logger_info("CampaignActivator : " + "status_response : "+"No Subscribers Found For List Id : "+Active_List_Id);
+																							}
+																							
+																							
+																				      }
+																		    		
+																					// This method call will Process the Queue(May be need Thread)
+																					/*
+																					String campaignlisturl = ResourceBundle.getBundle("config").getString("processqueue");
+																					String campaignparameter = "?campid=100";
+																					String campaignlistresponse1 = this.sendpostdata(campaignlisturl, campaignparameter.replace(" ", "%20"),response)
+																							.replace("<pre>", "");
+																					out.println("Process Queue Response :" + campaignlistresponse);
+																					*/
+																					
+																		    	}else{
+																		    		out.println("Current Campaign Status is Not equal to Sent");
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "Current Campaign Status is Not equal to Sent");
+																		    	}
+																		    	
+																		        
+																		    } else {
+																		        out.println("How to get here?");
+																		        LogByFileWriter.logger_info("CampaignActivator : " + "How to get here?");
+																		    }
+																		    
+																	   }
+															    }
+														   }
+													}
+												}
+											}
+									   }
+									}
+						     
+						}
+					  }
+					}
+				
+				}
+				out.println(mainjson);
+				session.save();
+			} catch (Exception ex) {
+				//out.println("Exception ex :=" + ex.getMessage() + ex.getCause());
+				
+				try {
+					JSONObject errordatajson = new JSONObject();
+					errordatajson.put("Error", "Null");
+					errordatajson.put("Exception", ex.getMessage().toString());
+					errordatajson.put("Cause", ex.getCause().toString());
+					out.println("Error "+errordatajson);
+					LogByFileWriter.logger_info("CampaignActivator : Error : " + errordatajson);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					out.println("Exception ex :=" + ex.getMessage() + ex.getCause());
+				}
+				
+			}
+		}else if (request.getRequestPathInfo().getExtension().equals("activate")) {
 			try {
 				Session session = null;
 				session = repos.login(new SimpleCredentials("admin", "admin".toCharArray()));
@@ -218,6 +834,7 @@ public class CampaignActivator extends SlingAllMethodsServlet {
 								if(funnelNode.hasNode(campaignCatogory)){
 									Node subFunnelNode=funnelNode.getNode(campaignCatogory);
 									out.println("subFunnelNode Name : "+subFunnelNode.getName());
+									LogByFileWriter.logger_info("CampaignActivator : " + "subFunnelNode Name : "+subFunnelNode.getName());
 									if(subFunnelNode.hasNode("List")){
 										Node ListNode=subFunnelNode.getNode("List");
 										if(ListNode.hasNode("ActiveList")){
@@ -233,6 +850,7 @@ public class CampaignActivator extends SlingAllMethodsServlet {
 															   while (ActiveListChildCampaignNodeItr.hasNext()) {
 																    Node ActiveListChildCampaignChildNode = ActiveListChildCampaignNodeItr.nextNode();
 																    out.println("ActiveListChildCampaignChildNode Name : "+ActiveListChildCampaignChildNode.getName());
+																    LogByFileWriter.logger_info("CampaignActivator : " + "ActiveListChildCampaignChildNode Name : "+ActiveListChildCampaignChildNode.getName());
 															   }
 													    }
 												   }
@@ -247,6 +865,7 @@ public class CampaignActivator extends SlingAllMethodsServlet {
 										   Node subFunnelNode = campaignNodesitr.nextNode();
 										   String subFunnelNodeName = subFunnelNode.getName();
 										   out.println("subFunnelNodeName : "+subFunnelNodeName);
+										   LogByFileWriter.logger_info("CampaignActivator : " + "subFunnelNodeName : "+subFunnelNodeName);
 										   if(subFunnelNode.hasNode("List")){
 												Node ListNode=subFunnelNode.getNode("List");
 												if(ListNode.hasNode("ActiveList")){
@@ -284,7 +903,9 @@ public class CampaignActivator extends SlingAllMethodsServlet {
 																			}
 																			Active_List_Id=ActiveListChildNode.getName();
 																			out.println("ActiveListChildCampaignChildNode Name : "+ActiveListChildCampaignChildNode.getName());
+																			LogByFileWriter.logger_info("CampaignActivator : " + "ActiveListChildCampaignChildNode Name : "+ActiveListChildCampaignChildNode.getName());
 																			out.println("Active_List_Id Name : "+Active_List_Id);
+																			LogByFileWriter.logger_info("CampaignActivator : " + "Active_List_Id Name : "+Active_List_Id);
 																			
 																			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 																			Date today=new Date();
@@ -295,12 +916,16 @@ public class CampaignActivator extends SlingAllMethodsServlet {
 																		    //out.println("Current_Date : " + Current_Date);
 																		    //out.println("Campaign_Date : " + Campaign_Date);
 																		    out.println("Current_Date : " + sdf1.format(date1)+"   Campaign_Date : " + sdf1.format(date2));
+																		    LogByFileWriter.logger_info("CampaignActivator : " + "Current_Date : " + sdf1.format(date1)+"   Campaign_Date : " + sdf1.format(date2));
 																		    if (date1.compareTo(date2) > 0) {
 																		        out.println("Date1 is after Date2");
+																		        LogByFileWriter.logger_info("CampaignActivator : " + "Date1 is after Date2");
 																		    } else if (date1.compareTo(date2) < 0) {
 																		        out.println("Date1 is before Date2");
+																		        LogByFileWriter.logger_info("CampaignActivator : " + "Date1 is before Date2");
 																		    } else if (date1.compareTo(date2) == 0) {
 																		    	out.println("Date1 is equal to Date2");
+																		    	LogByFileWriter.logger_info("CampaignActivator : " + "Date1 is equal to Date2");
 																		    	
 																		    	ActiveListChildNode.setProperty("currentCampign", ActiveListChildCampaignChildNode.getName());
 																		    	ActiveListChildNode.setProperty("Campaign_Date", Campaign_Date);
@@ -309,21 +934,30 @@ public class CampaignActivator extends SlingAllMethodsServlet {
 																		    	ActiveListNode.setProperty("Campaign_Date", Campaign_Date);
 																		    	
 																		        out.println("campaignName : "+ActiveListChildCampaignChildNode.getName());
+																		        LogByFileWriter.logger_info("CampaignActivator : " + "campaignName : "+ActiveListChildCampaignChildNode.getName());
 																		        out.println("current_campaign_status : "+campaign_status);
+																		        LogByFileWriter.logger_info("CampaignActivator : " + "current_campaign_status : "+campaign_status);
 																		    	if(!campaign_status.equals("sent")){
 																		    		out.println("===========================Active==============================");
 																		    		out.println("Active Campaign : "+ActiveListChildCampaignChildNode.getName());
 																		    		out.println("Active Campaign_Id : "+Campaign_Id);
 																		    		out.println("Active Active_List_Id : "+Active_List_Id);
 																		    		out.println("===========================Active==============================");
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "===========================Active==============================");
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "Active Campaign : "+ActiveListChildCampaignChildNode.getName());
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "Active Campaign_Id : "+Campaign_Id);
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "Active Active_List_Id : "+Active_List_Id);
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "===========================Active==============================");
 																		    		
 																		    		// This method call will delete List From Campaign
 																		    		String campaign_list_delete_response=this.campaignListDelete(List_Id,Campaign_Id,response);
 																		    		out.println("campaign_list_delete_response : "+campaign_list_delete_response);
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "campaign_list_delete_response : "+campaign_list_delete_response);
 																		    		
 																		    		// This method call will Add List to Campaign
 																		    		String campaign_list_add_response=this.campaignListAdd(Active_List_Id,Campaign_Id,response);
 																		    		out.println("campaign_list_add_response : "+campaign_list_add_response);
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "campaign_list_add_response : "+campaign_list_add_response);
 																		    		
 																		    		// This method call will Update Embargo(Campaign send date & time) of Campaign
 																		    		String id = Campaign_Id;
@@ -339,21 +973,34 @@ public class CampaignActivator extends SlingAllMethodsServlet {
 																					  
 																					  if(status.equals("sent") || status.equals("submitted")){
 																						  System.out.println("No need to Anything : "+status);
+																						  LogByFileWriter.logger_info("CampaignActivator : " + "No need to Anything : "+status);
 																						  if(status.equals("sent")){
 																							  String status_response=this.campaignStatusUpdate(id,"submitted",response);
 																							  out.println("status_response reque: "+status_response);
+																							  LogByFileWriter.logger_info("CampaignActivator : " + "status_response reque: "+status_response);
 																						  }
 																					  }else{
+																						  
 																						  System.out.println("Do your stuff here "+status);
+																						  LogByFileWriter.logger_info("CampaignActivator : " + "Do your stuff here "+status);
 																						    String embargoupdateurl = ResourceBundle.getBundle("config").getString("embargoupdateurl");
 																							String embargoupdateurlparameters = "id="+id+"&embargo=" + embargo;
 																							//out.println("campaignaddapiurlparameters : "+campaignaddapiurlparameters);
 																							String campaignlistresponse = this.sendHttpPostData(embargoupdateurl, embargoupdateurlparameters.replace(" ", "%20"), response)
 																									.replace("<pre>", "");
 																							out.println("campaignresponse : "+campaignlistresponse);
+																							LogByFileWriter.logger_info("CampaignActivator : " + "campaignresponse : "+campaignlistresponse);
 																							// This method call will Activate The Campaign for sending
-																							String status_response=this.campaignStatusUpdate(id,"submitted",response);
-																							out.println("status_response : "+status_response);
+																							if(listSubscribersCount(Active_List_Id,id,response)>0){
+																							   String status_response=this.campaignStatusUpdate(id,"submitted",response);
+																							   out.println("status_response : "+status_response);
+																							   LogByFileWriter.logger_info("CampaignActivator : " + "status_response : "+status_response);
+																							}else{
+																								out.println("No Subscribers Found For List Id : "+Active_List_Id);
+																								LogByFileWriter.logger_info("CampaignActivator : " + "status_response : "+"No Subscribers Found For List Id : "+Active_List_Id);
+																							}
+																							
+																							
 																				      }
 																		    		
 																					// This method call will Process the Queue(May be need Thread)
@@ -367,11 +1014,13 @@ public class CampaignActivator extends SlingAllMethodsServlet {
 																					
 																		    	}else{
 																		    		out.println("Current Campaign Status is Not equal to Sent");
+																		    		LogByFileWriter.logger_info("CampaignActivator : " + "Current Campaign Status is Not equal to Sent");
 																		    	}
 																		    	
 																		        
 																		    } else {
 																		        out.println("How to get here?");
+																		        LogByFileWriter.logger_info("CampaignActivator : " + "How to get here?");
 																		    }
 																		    
 																	   }
@@ -402,7 +1051,8 @@ public class CampaignActivator extends SlingAllMethodsServlet {
 					errordatajson.put("Error", "Null");
 					errordatajson.put("Exception", ex.getMessage().toString());
 					errordatajson.put("Cause", ex.getCause().toString());
-					out.println(errordatajson);
+					out.println("Error "+errordatajson);
+					LogByFileWriter.logger_info("CampaignActivator : Error : " + errordatajson);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					out.println("Exception ex :=" + ex.getMessage() + ex.getCause());
@@ -445,6 +1095,27 @@ public class CampaignActivator extends SlingAllMethodsServlet {
 			String campaignresponse = this.sendpostdata(campaignaddurl, campaignaddapiurlparameters.replace(" ", "%20").replace("\r", "").replace("\n", ""), response)
 					.replace("<pre>", "");
 			return campaignresponse;
+		}
+	//listSubscribersCount
+		public int listSubscribersCount(String listid,String campid,SlingHttpServletResponse response) throws ServletException,
+		IOException {
+			    int sub_count=0;
+			    try {
+				    String listSubscribersCountUrl = ResourceBundle.getBundle("config").getString("listSubscribersCount");
+					String listSubscribersCountUrlparameters =listid;
+					//out.println("campaignaddapiurlparameters : "+campaignaddapiurlparameters);
+					String SubscribersCountResponse = this.sendpostdata(listSubscribersCountUrl, listSubscribersCountUrlparameters.replace(" ", "%20").replace("\r", "").replace("\n", ""), response)
+								.replace("<pre>", "");
+				    JSONObject sub_count_json=new JSONObject(SubscribersCountResponse);
+					if(sub_count_json.getString("status").equals("success")){
+				        sub_count=((JSONObject) sub_count_json.get("data")).getInt("count");
+					    System.out.println("sub_count :" + sub_count);
+				    }
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return sub_count;
 		}
 	
 	public String sendHttpPostData(String campaignaddurl,String campaignaddapiurlparameters,SlingHttpServletResponse response) throws ServletException,

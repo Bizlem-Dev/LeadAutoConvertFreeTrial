@@ -1,6 +1,7 @@
 package leadconverter.create.rule;
 
 import static com.mongodb.client.model.Filters.*;
+import leadconverter.doctiger.LogByFileWriter;
 import leadconverter.mongo.ConnectionHelper;
 
 import org.bson.Document;
@@ -144,7 +145,8 @@ public class MongoApplicationDataDAO {
              collection=database.getCollection(coll_name);
              Bson filter1 =and(eq("username", username),eq("productType", productType));
              cursor = collection.find(filter1).iterator();
-             System.out.println(cursor.hasNext());
+             //System.out.println(cursor.hasNext());
+             LogByFileWriter.logger_info("MongoApplicationDataDAO : " + cursor.hasNext());
              status=cursor.hasNext();
              
          } catch (Exception e) {

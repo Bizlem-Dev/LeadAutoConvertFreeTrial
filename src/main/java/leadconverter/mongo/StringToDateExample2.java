@@ -1,5 +1,9 @@
 package leadconverter.mongo;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;  
@@ -8,20 +12,40 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import leadconverter.doctiger.LogByFileWriter;
+import leadconverter.rulengine.RulEngineMongoDAO;
+import leadconverter.rulengine.RuleEngineCall;
+
 import org.apache.sling.commons.json.JSONObject;
 import org.bson.Document;
+import org.json.JSONArray;
 public class StringToDateExample2 {  
 public static void main(String[] args)throws Exception {  
 	
+	//String filepathfromourside="/home/ubuntu/TestedMailJSon/"+attachmentNode.getName().toString()+"_"+timestampDateAndTime+".txt";
+	//SimpleDateFormat sdf156 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	//SimpleDateFormat sdf156 = new SimpleDateFormat("yyyy-MM-dd");
+	//Date date_campare156 = new Date();
+	//String date156_str = sdf156.format(date_campare156);
+	//log4j.appender.file.File=E:\\bizlem\\LeadAutoConverter\\log4j\\logs\\GALeadConverter.log
+	
+	
+	//logger_info_by_filewrite(filepathfromourside,filepathfromourside);
 	
 	String currentCampign="viki_gmail.com_Explore_1";
 	System.out.println(" index length  : "+currentCampign.length());
+	//logger_info(" index length  : "+currentCampign.length(),filepathfromourside);
 	System.out.println(" index : "+currentCampign.substring(currentCampign.length()-1, currentCampign.length()));
+	//logger_info(" index : "+currentCampign.substring(currentCampign.length()-1, currentCampign.length())+currentCampign.length(),filepathfromourside);
 	
 	SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	
     //Date date1 = sdf.parse("2009-12-31");
     //Date date2 = sdf.parse("2010-01-31");
+	
+	//Apr 21, 2019, 9:36:00 PM
     
+	/*
     Date date_campare1 = new Date();
     Date date_campare2 = new Date();
     
@@ -40,7 +64,7 @@ public static void main(String[] args)throws Exception {
     } else {
         System.out.println("How to get here?");
     }
-	
+	*/
 	
 	
     System.out.println("===========================================================================");
@@ -129,17 +153,19 @@ public static void main(String[] args)throws Exception {
     SimpleDateFormat formatter4=new SimpleDateFormat("E, MMM dd yyyy");  
     SimpleDateFormat formatter5=new SimpleDateFormat("E, MMM dd yyyy HH:mm:ss");  
     SimpleDateFormat formatter6=new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+    
+    
     //Date date0=formatter0.parse(sDate0); 
-    /*
+    
     Date date1=formatter1.parse(sDate1);  
     Date date2=formatter2.parse(sDate2);  
     Date date3=formatter3.parse(sDate3);  
     Date date4=formatter4.parse(sDate4);  
     Date date5=formatter5.parse(sDate5);  
     Date date6=formatter6.parse(sDate6); 
-    */
+    
     //System.out.println(sDate0+"\t"+date0);
-    /*
+    
     System.out.println(sDate0+"\t"+date0);
     System.out.println(sDate1+"\t"+date1); 
     System.out.println(sDate1+"\t"+date1);  
@@ -148,7 +174,107 @@ public static void main(String[] args)throws Exception {
     System.out.println(sDate4+"\t"+date4);  
     System.out.println(sDate5+"\t"+date5);  
     System.out.println(sDate6+"\t"+date6); 
-    */ 
+    
+    
+  //Apr 21, 2019
+  	//20190513
+  	String date_str_txt="20191213";
+  	String final_date_str=date_str_txt.substring(0, 4)+"-"+date_str_txt.substring(4, 6)+"-"+date_str_txt.substring(6, 8);
+  	System.out.println(" final_date_str  : "+final_date_str);
+  	
+  	SimpleDateFormat sdf10 = new SimpleDateFormat("yyyy-MM-dd");
+  	Date date105 = sdf10.parse(final_date_str);
+  	System.out.println(" final_date_str date1  : "+date105);
+  	
+  	
+    //SimpleDateFormat sdf101 = new SimpleDateFormat("MMM dd, yyyy");
+  	SimpleDateFormat sdf101 = new SimpleDateFormat("yyyy-MM-dd");
+    //Date date1012 = sdf101.parse("Apr 21, 2019");
+    
+    Date date_campare1 = new Date();
+    Date date_campare2 = new Date();
+    
+    Date tmp_date1 = sdf101.parse(sdf101.format(date_campare1));
+    Date tmp_date2 = sdf101.parse(final_date_str);
+    
+    System.out.println("date1 : " + sdf101.format(tmp_date1));
+    System.out.println("date2 : " + sdf101.format(tmp_date2));
+
+    if (tmp_date1.compareTo(tmp_date2) > 0) {
+        System.out.println("Date1 is after Date2");
+    } else if (tmp_date1.compareTo(tmp_date2) < 0) {
+        System.out.println("Date1 is before Date2");
+    } else if (tmp_date1.compareTo(tmp_date2) == 0) {
+        System.out.println("Date1 is equal to Date2");
+    } else {
+        System.out.println("How to get here?");
+    }
+    
+    String date_str_txt_temp="201905140031";
+    String final_date_str_temp=date_str_txt.substring(0, 4)+"-"+date_str_txt.substring(4, 6)+"-"+date_str_txt.substring(6, 8);
+    String final_date_str_minute=date_str_txt_temp.substring(8, 10);
+    String final_date_str_secount=date_str_txt_temp.substring(10, 12);
+    
+    String final_date_str_temp1=date_str_txt.substring(0, 4)+"-"+date_str_txt.substring(4, 6)+"-"+date_str_txt.substring(6, 8)+" "+
+    		date_str_txt_temp.substring(8, 10)+":"+date_str_txt_temp.substring(10, 12)+":00";
+    System.out.println(" final_date_str_temp  : "+final_date_str_temp);
+    System.out.println(" final_date_str_minute  : "+final_date_str_minute);
+    System.out.println(" final_date_str_secount  : "+final_date_str_secount);
+    
+    
+    
+    System.out.println(" final_date_str_temp1  : "+final_date_str_temp1);
+    
+    DateFormat dateFormat108 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    
+    //dateFormat108.parse(final_date_str_temp1);
+    System.out.println(" final_date_str_temp1 date : "+dateFormat108.parse(final_date_str_temp1));
+    //String dateInString = "7-Jun-2013";
+    
+    //System.out.println("GetSubscriberEmailID : "+RuleEngineCall.GetSubscriberEmailID("2100"));
+    
+    //String date1012_str=sdf101.format(date1012);
+	//System.out.println("Today's Date date1012_str: "+date1012_str); //2016/11/16 12:08:43
+    String hostname="bizlem.com";
+    
+    String path1="/useCases.html?EMAIL=purva.sawant@bizlem.com";  //bizlem.com/useCases.html
+    //String path1="/products.html";   //bizlem.com/products.html
+    //String path1="/";
+    //String path1="/?EMAIL=akhilesh@bizlem.com";
+    
+    if(path1.length()==1){
+    	path1=hostname;
+    	System.out.println(path1);
+    }else{
+       if(path1.contains("/?")){
+    	   path1=hostname+path1.substring(0, path1.indexOf("/?"));
+    	   //System.out.println(path1);
+       }else if(path1.contains("?")){
+    	   path1=hostname+path1.substring(0, path1.indexOf("?"));
+       }else if(path1.contains("/")){
+    	   path1=hostname+path1;
+       }
+    }
+    System.out.println(path1);
+    /*
+    for(int ak=0;ak<500;ak++){
+    	System.out.println("i = "+ak);
+    	LogByFileWriter.logger_info("-------");
+    	LogByFileWriter.logger_info("Before we go ahead, One key point I would like to add that unlike other data types in Java, Strings are immutable. By immutable, we mean that Strings are constant, their values cannot be changed after they are created. Because String objects are immutable, they can be shared. For example");
+    	LogByFileWriter.logger_info(path1);
+    }
+    */
+    /*
+      RulEngineMongoDAO rdao=new RulEngineMongoDAO();
+	  //JSONArray mainJsonArray=new JSONArray(rdao.subscribersViewBasedOnFunnelData("url",campaignId,subscriberId).toString());
+	  //JSONArray mainJsonArray=new JSONArray(rdao.subscribersViewBasedOnFunnelData("subscribers",campaignId,subscriberId).toString());
+	  JSONArray mainJsonArray=new JSONArray(rdao.tempSubscribersViewBasedOnFunnelData("subscribers").toString());
+	  System.out.println(" temp_subscribers "+mainJsonArray);
+	  */
+    DateFormat dateFormat1087 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    SimpleDateFormat date_formatter=new SimpleDateFormat("yyyy-MM-dd"); 
+	  
+     
     /*
      *  31/12/1998	                  Thu Dec 31 00:00:00 IST 1998
 		31-Dec-1998	                  Thu Dec 31 00:00:00 IST 1998
@@ -193,4 +319,5 @@ public static void main(String[] args)throws Exception {
      
      */
 }  
+
 }  

@@ -193,7 +193,7 @@
 			  var DistanceBtnCampaign=localStorage.getItem('DistanceBtnCampaign');
 			  var listid=localStorage.getItem('listid');
 			  var subjectName=localStorage.getItem('subjectName');
-		      var footer="";
+			  var footer="";
 			  var compose_message_txt="";
 			  var send_a_webpage_url="";
 		    if (msg_type == 'send_a_webpage') {
@@ -241,6 +241,7 @@
 						   SubFunnelName : SubFunnelName,
 						   DistanceBtnCampaign : DistanceBtnCampaign,
 						   listid : listid,
+						   logged_in_user:localStorage.getItem('remoteuser'),
 						  },
 					cache: false,
 					//dataType: 'json',

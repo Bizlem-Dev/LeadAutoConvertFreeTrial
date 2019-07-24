@@ -1045,6 +1045,22 @@
                         </div>
                       </div>
                     </div>
+                    <div class="product-listing " style="width: 91.5%; margin-left:50px; margin-top: 20px;">
+						  <a href="/portal/servlet/service/ui.set-up-rule" target="_blank">
+						  <div class="row">
+							<div class="col-lg-3 col-md-3 col-sm-3" style="margin-left: -55px;">
+							  <img src="<%=request.getContextPath()%>/apps/global/assets/images/imgpsh_fullsize_anim.png" class="img-responsive" style="height: 80px; float: right;">
+							</div>
+							<div class="col-lg-9 col-md-9 col-sm-9">
+							  <div class="row"> 
+								<div class="col-lg-12 col-md-12 col-sm-12">
+								  <span style="font-size: 25px; float: left;color:#3C3692;padding-top:20px;">SetUp Rule</span>
+								</div>
+							  </div>
+							</div>
+						  </div>
+						  </a>
+					  </div>
                 </div>
                 <!-- 
                 
@@ -1060,8 +1076,36 @@
   <script>
   $( document).ready(function() {
 	    var remoteuser ='<%=request.getRemoteUser()%>';
-	    //alert("remoteuser : "+remoteuser);
+	    console.log("remoteuser : "+remoteuser);
   });
+  
+  $( document).ready(function() {
+	  var remoteuser ='<%=request.getRemoteUser()%>';
+	  alert("remoteuser : "+remoteuser);
+		$.ajax({
+			type : 'GET',
+			//url :'<%=request.getContextPath()%>/servlet/service/CampaignReportApi.urlViewData',
+			url :'http://prod.bizlem.io:8082/portal/servlet/service/ui.get_subscriber_status?rm_email='+remoteuser,
+			
+			data: {
+		    },
+			success: function (response) {
+						//alert("response : "+response);
+						if(response.localeCompare('Free Trial is Active')==1){
+							 console.log(response);
+						}else if(response.localeCompare('Free Trial Date Expired')==1){
+							 console.log(response);
+							 window.location = "<%=request.getContextPath()%>/servlet/service/ui.free-trail-expire";
+						}else if(response.localeCompare('Subscriber Count is More')==1){
+							 console.log(response);
+							 window.location = "<%=request.getContextPath()%>/servlet/service/ui.free-trail-expire";
+						} else{
+							 console.log("Something Went Wrong");
+						}
+						
+				 }
+			});
+	     });		
   //btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block
   
     $('#save_txt_lead').on('click', getSubscribersListFromTextArea);
@@ -1218,6 +1262,7 @@
 			var funnelName=localStorage.getItem('funnelName');
 			var SubFunnelName=localStorage.getItem('SubFunnelName');
 			var listid=localStorage.getItem('listid');
+			var remoteuser ='<%=request.getRemoteUser()%>';
 			 $.ajax({
 						//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
 						url: '<%=request.getContextPath()%>/servlet/service/createCampaign.updateEmbargo',//createListAndSubscribers
@@ -1229,6 +1274,7 @@
 						       funnelName:funnelName,
 						       camp_catogery:SubFunnelName,
 						       listid:listid,
+						       remoteuser:remoteuser,
 							  },
 						cache: false,
 						//dataType: 'json',
@@ -2013,7 +2059,8 @@
 		//var remoteuser ='<%=request.getRemoteUser()%>';
 		//localStorage.setItem('tst_lcl',"Testing Local Storage on server");
 		//alert('localStorage : '+localStorage.getItem('tst_lcl'));
-		remoteuser='viki@gmail.com';
+		var remoteuser ='<%=request.getRemoteUser()%>';
+		//remoteuser='viki@gmail.com';
 		funnelName = document.getElementById("funnel-name").value;
 		fromName = document.getElementById("from-name").value;
 		fromEmailAddress = document.getElementById("from-email-address").value;

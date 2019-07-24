@@ -18,11 +18,24 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.commons.json.JSONArray;
+import org.apache.sling.commons.json.JSONException;
 import org.apache.sling.commons.json.JSONObject;
 import org.apache.sling.jcr.api.SlingRepository;
+import org.bson.Document;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.UpdateResult;
 
 import java.net.*;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
+import leadconverter.doctiger.LogByFileWriter;
+import leadconverter.freetrail.FreeTrialandCart;
+import leadconverter.mongo.ConnectionHelper;
+import leadconverter.mongo.ListMongoDAO;
 
 @Component(immediate = true, metatype = false)
 @Service(value = javax.servlet.Servlet.class)
@@ -48,32 +61,93 @@ public class SubscriberMangerBasedOnRuleEngineResponse extends SlingAllMethodsSe
 	protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
 			throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		JSONArray mainarray = new JSONArray();
-		JSONObject jsonobject = new JSONObject();
-		String listid = null;
-
-		String remoteuser = request.getRemoteUser();
-
 		try {
 			Session session = null;
-
-			session = repo.login(new SimpleCredentials("admin", "admin"
-					.toCharArray()));
-			Node content = session.getRootNode().getNode("content");
-		if (request.getRequestPathInfo().getExtension().equals("subscriber_handler")) {
-			//String slingurl = content.getNode("ip")
-			//		.getProperty("Sling_Url").getString();
-			String slingurl = ResourceBundle.getBundle("config").getString("Sling_Url");
-			JSONObject totaldatajson = new JSONObject();
-			String totaldata = totaldatajson.toString();
-			String slingresponse = this
-					.sendpostdataToCreateList(slingurl,
-							totaldata.replace(" ", "%20"),
-							response);
-		}else if (request.getRequestPathInfo().getExtension().equals("call_Rule_Engine_Main")) {
-			//String slingurl = content.getNode("ip").getProperty("Sling_Url").getString();
-			String slingurl = ResourceBundle.getBundle("config").getString("Sling_Url");
-			ProcessMain.callRuleEngine();
+			if (request.getRequestPathInfo().getExtension().equals("activate_draft_list")) {
+			try {
+				session = repo.login(new SimpleCredentials("admin", "admin".toCharArray()));
+				String activeListName=null;
+				String free_trail_status=null;
+				
+				NodeIterator userItr = session.getRootNode().getNode("content").getNode("user").getNodes();
+				while (userItr.hasNext()) {
+					Node userNode = userItr.nextNode();
+					String CreatedBy=userNode.getName();
+					
+						if(!userNode.getName().equals("<%=request.getRemoteUser()%>")){
+							if (userNode.hasNode("Lead_Converter")) {
+								NodeIterator funnelItr = userNode.getNode("Lead_Converter").getNode("Email")
+										.getNode("Funnel").getNodes();
+								while (funnelItr.hasNext()) {
+									Node funnelNode = funnelItr.nextNode();
+									String funnelName = funnelNode.getName();// currentcampaign
+									 if(funnelNode.hasNodes()){
+										   NodeIterator campaignNodeItr = funnelNode.getNodes();
+										   while (campaignNodeItr.hasNext()) {
+											   Node subFunnelNode = campaignNodeItr.nextNode();
+											   String subFunnelName = subFunnelNode.getName();
+											   if(subFunnelNode.hasNode("List")){
+												   free_trail_status=new FreeTrialandCart().checkFreeTrialExpirationStatus(CreatedBy.replace("_", "@"));
+													if(free_trail_status.equals("0")){
+														Node listNode=subFunnelNode.getNode("List");
+														Node activeListNode=listNode.getNode("ActiveList");
+														if(listNode.hasNode("DraftList")){
+															Node draftListNode=listNode.getNode("DraftList");
+															NodeIterator draftListItr=draftListNode.getNodes();
+															while (draftListItr.hasNext()) {
+																Node draftListChildNode=draftListItr.nextNode();
+																String draftListId=draftListChildNode.getName();
+																String activeListStartDate=draftListChildNode.getProperty("StartDate").getString();
+																/*CreatedBy funnelNode funnelName subFunnelNode subFunnelName
+																DraftListNode DraftListChildNode DraftListId ActiveListStartDate
+																*/
+																if(!subFunnelName.equals("Explore")){
+																	activeListName=CreatedBy+"_"+funnelName+"_"+subFunnelName;
+																	//out.println("funnelName : "+funnelName);
+																	//out.println("-----subFunnelName : "+subFunnelName);
+																	//out.println("-----DraftListName : "+draftListId);
+																	//out.println("-----ActiveListStartDate : "+activeListStartDate);
+																	//out.println("Going... to call method checkStatusOfDraftListAndActivateIT()");
+																	checkStatusOfDraftListAndActivateIT(CreatedBy,funnelName,subFunnelName,draftListId,response,subFunnelNode,activeListNode,draftListNode,draftListChildNode,activeListStartDate,activeListName);
+																	//out.println("Method checkStatusOfDraftList() have Called");
+																	//out.println("-----------------------------------------------");
+															    }
+															}
+														}else{
+															out.println("Does Not Found Any List In Draft!");
+															LogByFileWriter.logger_info("SubscriberMangerBasedOnRuleEngineResponse: "+"Does Not Found Any List In Draft!");
+														}
+													
+													}else{
+														System.out.println("Freetrail Expired for User : "+CreatedBy);
+														LogByFileWriter.logger_info("SubscriberMangerBasedOnRuleEngineResponse: "+"Freetrail Expired for User : "+CreatedBy);
+													}
+													
+												}
+										   }
+									}
+								     
+								}
+							  }
+							}
+					
+				}
+				session.save();
+			} catch (Exception ex) {
+				out.println("Exception ex :=" + ex.getMessage() + ex.getCause());
+			}
+		
+		
+	    }else if (request.getRequestPathInfo().getExtension().equals("updateCampaignListAtivateDate")) {
+			out.println("Inside updateCampaignListAtivateDate");
+			String listid_tm=request.getParameter("listid");
+			String date_str=request.getParameter("date_str");
+			ListMongoDAO.updateCampaignListAtivateDate(listid_tm, date_str);//"2019-06-10 16:48:57"
+		}else if (request.getRequestPathInfo().getExtension().equals("removeSubFromList")) {
+			out.println("Inside removeSubFromList");
+			String listid_tm=request.getParameter("listid");
+			String subid=request.getParameter("subid");
+			ListMongoDAO.removeSubscribersFromCampaignList(listid_tm, subid);//"2019-06-10 16:48:57"
 		}
 		
 		} catch (Exception e) {
@@ -81,6 +155,170 @@ public class SubscriberMangerBasedOnRuleEngineResponse extends SlingAllMethodsSe
 			out.println("Exception ex : : : " + e.getStackTrace());
 		}
 	}
+	
+	// This method is used to check the status of draft list and move it to Active List Or re-schedule it
+		public static void checkStatusOfDraftListAndActivateIT(String CreatedBy,String funnelName,String subFunnelName
+				     ,String draftListId,SlingHttpServletResponse response,Node subFunnelNode,Node activeListNode,Node draftListNode,Node draftListChildNode,String activeListStartDate,String activeListName){
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			DateFormat date_formatter_with_timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String listActivateDays=ResourceBundle.getBundle("config").getString("list_activate_days");
+			String campaignSctivateDays=ResourceBundle.getBundle("config").getString("campaign_activate_days");
+			Date date1 = new Date();
+			Date date2 = null;
+			Date updateListActivateDate=null;
+			Node activeListChildNode=null;
+			String counter =null;
+			int counterNumer=0;
+			try {
+				PrintWriter out = response.getWriter();
+				//out.println("Inside method checkStatusOfDraftList() ");
+		        JSONObject campaign_list_json_obj=ListMongoDAO.getCampaignList(CreatedBy,funnelName,subFunnelName,draftListId);
+		        out.println("campaign_list_json_obj : "+campaign_list_json_obj);
+		        if(campaign_list_json_obj.length()>0){
+				 	int ListSubscriberCount=campaign_list_json_obj.getInt("ListSubscriberCount");
+				 	//activeListStartDate=campaign_list_json_obj.getString("ListActivateDateStr");
+		        	date1=sdf.parse(sdf.format(date1)); //Current Date
+		        	date2=sdf.parse(activeListStartDate); //Draft List Activate Date
+		        	out.println("Current Date : " + sdf.format(date1));
+	        	    out.println("Draft List Activate Date : " + sdf.format(date2));
+	        	    LogByFileWriter.logger_info("SubscriberMangerBasedOnRuleEngineResponse: "+"Current Date : " + sdf.format(date1));
+	        	    LogByFileWriter.logger_info("SubscriberMangerBasedOnRuleEngineResponse: "+"Draft List Activate Date : " + sdf.format(date2));
+	        	    
+		        	// Checking for atleast one subscriber in The Draft Campaign list
+		        	if(ListSubscriberCount>0){
+		        		if (date1.compareTo(date2) == 0) {
+		        			out.println("Subscriber Found! --> Date1 is equal to Date2! --> Make This Draft List To Active");
+		        			LogByFileWriter.logger_info("SubscriberMangerBasedOnRuleEngineResponse: "+"Subscriber Found! --> Date1 is equal to Date2! --> Make This Draft List To Active");
+		        			activeListChildNode=activeListNode.addNode(draftListId);
+		        	    	activeListChildNode.setProperty("StartDate", activeListStartDate);
+		        	    	activeListChildNode.setProperty("DistanceBetweenCampaign",campaignSctivateDays);
+		        	    	if(activeListNode.hasProperty("ActiveListCounter")){
+		        	    		counter =activeListNode.getProperty("ActiveListCounter").getString();
+		        	    		counterNumer=Integer.parseInt(counter)+1;
+		        	    	}
+		        	    	ListMongoDAO.updateCampaignListStatusAndName(draftListId,"active",(activeListName+"_ActiveList_"+String.valueOf(counterNumer)));
+		        	    	activeListNode.setProperty("ActiveListCounter", String.valueOf(counterNumer));
+		        	    	draftListNode.setProperty("StartDate", "0000-00-00 00:00:00");
+		        	    	draftListChildNode.remove();
+		        	    	//Setting Campaigns For ActiveList
+		        	    	addCampaignsToActiveList(subFunnelNode,activeListChildNode,response,activeListStartDate);
+		        	    }else{
+		        	    	out.println("Subscriber Found! --> Date1 is Not equal to Date2");
+		        	    	LogByFileWriter.logger_info("SubscriberMangerBasedOnRuleEngineResponse: "+"Subscriber Found! --> Date1 is Not equal to Date2");
+		        	    }
+		        	}else{
+		        		if (date1.compareTo(date2) == 0) {
+		        	    	out.println("Subscriber Not Found! --> Date1 is equal to Date2! --> Reshedule Activation Date OF Draft List");
+		        	    	LogByFileWriter.logger_info("SubscriberMangerBasedOnRuleEngineResponse: "+"Subscriber Not Found! --> Date1 is equal to Date2! --> Reshedule Activation Date OF Draft List");
+		        	    	updateListActivateDate=new Date();
+		        	    	updateListActivateDate.setDate(updateListActivateDate.getDate()+Integer.parseInt(listActivateDays));
+		        	    	draftListNode.setProperty("StartDate",date_formatter_with_timestamp.format(updateListActivateDate));
+		        	    	draftListChildNode.setProperty("StartDate",date_formatter_with_timestamp.format(updateListActivateDate)); 
+		        	    	//ListMongoDAO.updateCampaignListAtivateDate(ListId,date_formatter_with_timestamp.format(update_list_activate_date));
+		        	    }else{
+		        	    	out.println("Subscriber Not Found! --> Date1 is Not equal to Date2");
+		        	    	LogByFileWriter.logger_info("SubscriberMangerBasedOnRuleEngineResponse: "+"Subscriber Not Found! --> Date1 is Not equal to Date2");
+		        	    }
+		        	}
+		        }
+				
+	        }
+			catch (Exception ex) {
+				// TODO Auto-generated catch block
+				System.out.println("Date Exception : " + ex.getMessage());
+			}
+		}
+	//  This method is used to get All Campaigns in Given category and assign this Campaigns to ActiveList
+			public static void addCampaignsToActiveList(Node subFunnelNode,Node activeListChildNode,SlingHttpServletResponse response
+					,String activeListStartDate){
+				DateFormat simpleDateFormatTimeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String campaignActivateDays=ResourceBundle.getBundle("config").getString("campaign_activate_days");
+				String campaignActivateHr=ResourceBundle.getBundle("config").getString("campaign_activate_hrs");
+				try {
+					PrintWriter out = response.getWriter();	
+					Node activeListCampaignNode=activeListChildNode.addNode("Campaign");
+					     activeListCampaignNode.setProperty("StartDate", activeListStartDate);
+					     activeListCampaignNode.setProperty("DistanceBetweenCampaign",campaignActivateDays);
+					Node campaignNode=null;
+					Node activeLitCampaignChildNode=null;
+					
+					String Campaign_Name=null;
+					String Campaign_Id=null;
+					String campaign_status=null;
+					String activeListId=null;
+					int dateCounter = 0;
+				    int noOfDaysAdded = 0;
+				    Date campaign_send_date=null;
+				    String campaignSendDate=null;
+				    Document list_campaign_doc=null;
+									
+					if(subFunnelNode.hasNodes()){
+						   NodeIterator campaignsitr = subFunnelNode.getNodes();
+						   //campaign_send_date=simpleDateFormatTimeStamp.parse(activeListStartDate);
+						   while (campaignsitr.hasNext()) {
+							   campaign_send_date=simpleDateFormatTimeStamp.parse(activeListStartDate);
+							   campaignNode=campaignsitr.nextNode();
+							   Campaign_Name=campaignNode.getName();
+							   
+							   if(!Campaign_Name.equals("List")){
+								     noOfDaysAdded=dateCounter*Integer.parseInt(campaignActivateDays);
+								     campaign_send_date.setDate(campaign_send_date.getDate()+noOfDaysAdded);
+								     //campaign_send_date.setHours(campaign_send_date.getHours()-Integer.parseInt(campaignActivateHr));
+								     campaignSendDate=simpleDateFormatTimeStamp.format(campaign_send_date);
+								     
+								     Campaign_Id=campaignNode.getProperty("Campaign_Id").getString();
+								     campaign_status=campaignNode.getProperty("campaign_status").getString();
+								     activeListId=activeListChildNode.getName();
+						             
+								     out.println("campaign Send Date:" + campaignSendDate+" ActiveList Id :" + activeListId); 
+						             
+						             activeLitCampaignChildNode =activeListCampaignNode.addNode(Campaign_Name);
+						             activeLitCampaignChildNode.setProperty("Campaign_Id", Campaign_Id);
+						             activeLitCampaignChildNode.setProperty("List_Id", activeListId);
+						             activeLitCampaignChildNode.setProperty("campaign_status", campaign_status);
+						             activeLitCampaignChildNode.setProperty("Campaign_Date", campaignSendDate);
+								     
+								     list_campaign_doc=new Document();
+								     list_campaign_doc.put("Campaign_Id", Campaign_Id);
+								     list_campaign_doc.put("List_Id", activeListId);
+								     list_campaign_doc.put("campaign_status", campaign_status);
+								     list_campaign_doc.put("Campaign_Date", campaignSendDate);
+								     ListMongoDAO.addListCampaign(list_campaign_doc,activeListId);
+					                     
+								     dateCounter++;
+								}
+						   }
+					 }
+				}
+				catch (Exception ex) {
+					// TODO Auto-generated catch block
+					System.out.println("Date Exception : " + ex.getMessage());
+				}
+			}
+	/*
+	 * 
+	 * 
+	 * DDDDDDDDDDDDDDDDD
+	 * OOOOOOOOOOOOOOOO
+	 *       PPPPPP
+	 *             OOOOOOOOOOO
+	 *                        SSSSSSSSSSSS
+	 *                                    TTTTTTTTTTTTTTTTT
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+			
 
 	protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response)
 			throws ServletException, IOException {
@@ -94,233 +332,158 @@ public class SubscriberMangerBasedOnRuleEngineResponse extends SlingAllMethodsSe
 			Node content = session.getRootNode().getNode("content");
 			Node content_ip = session.getRootNode().getNode("content");
 			//Node content_ip = session.getRootNode().getNode("content");
-		
-		if (request.getRequestPathInfo().getExtension().equals("list_subscriber_move_rulengine")) {
-			StringBuilder builder = new StringBuilder();
-		    BufferedReader bufferedReaderCampaign = request.getReader();
+			DateFormat date_formatter_with_timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		    String list_activate_days=ResourceBundle.getBundle("config").getString("list_activate_days");
 		    
-		    String brokerageline;
-		    while ((brokerageline = bufferedReaderCampaign.readLine()) != null) {
-		     builder.append(brokerageline + "\n");
-		    }
-		    out.println("Inside list_subscriber_move_rulengine");
-			JSONObject json_object = new JSONObject(builder.toString());
-			
-			String funnelName=json_object.getString("funnelName");
-			String subFunnelName=json_object.getString("subFunnelName");
-			String subscriber_email=json_object.getString("subscriber_email");
-			String SubscriberId=json_object.getString("SubscriberId");
-			String ListId=json_object.getString("ListId");
-			String CampaignId=json_object.getString("CampaignId");
-			String Category=json_object.getString("Category");
-			String CreatedBy=json_object.getString("CreatedBy");
-			String OutPutTemp_1=json_object.getString("OPTemp");
-			String OutPutTemp=json_object.getString("Output");
-			
-			
-			out.println("funnelName : "+funnelName);
-			out.println("subscriber_email : "+subscriber_email);
-			out.println("SubscriberId : "+SubscriberId);
-			out.println("ListId : "+ListId);
-			
-			Node ListNode=null;
-			Node ActiveListNode=null;
-			Node DraftListNode=null;
-			String ActiveListId=null;
-			String DraftListId=null;
-			String Counter=null;
-			int campaign_counter_int=0;
-			
-			
-			//String subscriberaddurl = content.getNode("ip").getProperty("Integration_Url").getString();
-			String subscriberaddurl = ResourceBundle.getBundle("config").getString("Integration_Url");
-			//String url = content.getNode("ip").getProperty("Delete_SubscriberIn_List").getString();
-			String url = ResourceBundle.getBundle("config").getString("Delete_SubscriberIn_List");
-			
-			Node userNode = session.getRootNode().getNode("content").getNode("user").getNode(CreatedBy);
-			Node subFunneNode = userNode.getNode("Lead_Converter").getNode("Email")
-					.getNode("Funnel").getNode(funnelName).getNode(OutPutTemp);
-			
-			if(subFunneNode.hasProperty("Counter")){
-				Counter=subFunneNode.getProperty("Counter").getString();
-				out.println("Counter : "+Counter);
-				campaign_counter_int = Integer.parseInt(Counter);
-				out.println("campaign_counter_int : "+campaign_counter_int);
-				if(campaign_counter_int==4){
-					out.println(" Four equal to Four");
-				}
-			}
-			
-			out.println("subFunneNode : "+subFunneNode.getName());
-			ListNode=subFunneNode.getNode("List");
-			out.println("ListNode : "+ListNode.getName());
-			ActiveListNode=ListNode.getNode("ActiveList");
-			DraftListNode=ListNode.getNode("DraftList");
-			String listid=null;
-			if(!DraftListNode.hasNodes()){
-				String listname ="Draft_List_"+OutPutTemp;
-				//String listurl = content_ip.getNode("ip")
-				//		.getProperty("List_Add_Url").getString();
-				String listurl = ResourceBundle.getBundle("config").getString("List_Add_Url");
-
-				String listparameter = "?name=" + listname
-						+ "&description=This Belongs to " + "&listorder="
-						+ 90 + "&active=" + 1;
-				String listresponse = this.sendpostdata(listurl,
-						listparameter.replace(" ", "%20"), response)
-						.replace("<pre>", "");
-				//out.println("List Response " + listresponse);
-				JSONObject listjson = new JSONObject(listresponse);
-				String liststatusresponse = listjson.getString("status");
-				// out.println("List Status Response : " +
-				// liststatusresponse);
-				JSONObject getjsonid = listjson.getJSONObject("data");
-				listid = getjsonid.getString("id");
-				DraftListNode.addNode(listid);
-				DraftListId=listid;
-			}else{
-				NodeIterator DraftListNodeTtr=DraftListNode.getNodes();
-				while(DraftListNodeTtr.hasNext()) {
-					Node draftNode = DraftListNodeTtr.nextNode();
-					DraftListId=draftNode.getName();
-					out.println("DraftListId : "+DraftListId);
-				}
-			}
-			
-			String currentCampign="";
-			String Campaign_Date="";
-			
-			if(ActiveListNode.hasProperty("currentCampign")){
-				currentCampign=ActiveListNode.getProperty("currentCampign").getString();
-			}
-			if(ActiveListNode.hasProperty("Campaign_Date")){
-				Campaign_Date=ActiveListNode.getProperty("Campaign_Date").getString();
-			}
-			
-			out.println("ActiveListNode : "+ActiveListNode.getName());
-			NodeIterator ActiveListNodeTtr=ActiveListNode.getNodes();
-			while(ActiveListNodeTtr.hasNext()) {
-				Node activeNode = ActiveListNodeTtr.nextNode();
-				ActiveListId=activeNode.getName();
-				out.println("ActiveListId : "+ActiveListId);
-			}
-			out.println("ActiveListId : "+ActiveListId);
-			
-			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		    //Date date1 = sdf.parse("2009-12-31");
-		    //Date date2 = sdf.parse("2010-01-31");
-			//campaign_counter_int
-			if(!currentCampign.equals("")){
-				String campaign_index_str=currentCampign.substring(currentCampign.length()-1, currentCampign.length());
-				int campaign_index_int = Integer.parseInt(campaign_index_str);			
+		    
+		    Date set_date=null;
+		    
+			if (request.getRequestPathInfo().getExtension().equals("list_subscriber_move_rulengine")) {
+				StringBuilder builder = new StringBuilder();
+			    BufferedReader bufferedReaderCampaign = request.getReader();
+			    
+			    String brokerageline;
+			    while ((brokerageline = bufferedReaderCampaign.readLine()) != null) {
+			     builder.append(brokerageline + "\n");
+			    }
+			    out.println("Inside list_subscriber_move_rulengine");
+				JSONObject json_object = new JSONObject(builder.toString());
+				String funnelName=json_object.getString("FunnelName");
+				String subFunnelName=json_object.getString("SubFunnelName");
+				String subscriber_email=json_object.getString("SubscriberEmail");
+				String SubscriberId=json_object.getString("SubscriberId");
+				String ListId=json_object.getString("ListId");
+				String CampaignId=json_object.getString("CampaignId");
+				String Category=json_object.getString("SubFunnelName");
+				String CreatedBy=json_object.getString("CreatedBy");
+				//String OutPutTemp_1=json_object.getString("OPTemp");
+				String Move_Category=json_object.getString("Output");
+								
+				out.println("funnelName : "+funnelName);
+				out.println("subscriber_email : "+subscriber_email);
+				out.println("SubscriberId : "+SubscriberId);
+				out.println("ListId : "+ListId);
 				
-				if(campaign_index_int==1){
-					if(!Campaign_Date.equals("")){
-						
-					    Date date_campare1 = new Date();
-					    Date date1 = sdf1.parse(sdf1.format(date_campare1));
-					    Date date2 = sdf1.parse(Campaign_Date);
-					    
-					    out.println("date1 : " + sdf1.format(date1));
-					    out.println("date2 : " + sdf1.format(date2));
-			
-					    if (date1.compareTo(date2) > 0) {
-					        out.println("Date1 is after Date2");
-					        out.println("Put the subscriber in draft list");
-					     // Put the subscriber in draft list
-					        String addsubscriberinlistparameters = "?list_id=" + ActiveListId +"&subscriber_id="+ SubscriberId;
-					        
-							//String addsubscriberinlistparameters = "?list_id=" + DraftListId +"&subscriber_id="+ SubscriberId;
-							String responsedata =this.sendpostdata(subscriberaddurl,addsubscriberinlistparameters.replace(" ","%20"),response).replace("<pre>", "");
-					    } else if (date1.compareTo(date2) < 0) {
-					        out.println("Date1 is before Date2");
-					        //write logic here
-					        // Put the subscriber in current List
-					        out.println("Put the subscriber in current List");
-					        String addsubscriberinlistparameters = "?list_id=" + ActiveListId +"&subscriber_id="+ SubscriberId;
-							String responsedata =this.sendpostdata(subscriberaddurl,addsubscriberinlistparameters.replace(" ","%20"),response).replace("<pre>", "");
-					    } else if (date1.compareTo(date2) == 0) {
-					        out.println("Date1 is equal to Date2");
-					     // Put the subscriber in draft list
-					        out.println("Put the subscriber in draft list");
-					        String addsubscriberinlistparameters = "?list_id=" + ActiveListId +"&subscriber_id="+ SubscriberId;
-					        
-							//String addsubscriberinlistparameters = "?list_id=" + DraftListId +"&subscriber_id="+ SubscriberId;
-							String responsedata =this.sendpostdata(subscriberaddurl,addsubscriberinlistparameters.replace(" ","%20"),response).replace("<pre>", "");
-					    } else {
-					        out.println("How to get here?");
-					    }
-					}else{
-						out.println("Add to Draft");
-						//DraftListId
-						
-						String addsubscriberinlistparameters = "?list_id=" + DraftListId +"&subscriber_id="+ SubscriberId;
-						String responsedata =this.sendpostdata(subscriberaddurl,addsubscriberinlistparameters.replace(" ","%20"),response).replace("<pre>", "");
+				Node ListNode=null;
+				Node ActiveListNode=null;
+				Node DraftListNode=null;
+				Node DraftListChildNode=null;
+				String ActiveListId=null;
+				String DraftListId=null;
+				String Counter=null;
+				int campaign_counter_int=0;
+				
+				String Add_Subscriber_In_List_Url = ResourceBundle.getBundle("config").getString("Add_Subscriber_In_List");
+				String Delete_Subscriber_From_List_Url = ResourceBundle.getBundle("config").getString("Delete_Subscriber_From_List");
+				
+				Node userNode = session.getRootNode().getNode("content").getNode("user").getNode(CreatedBy);
+				Node subFunnelNode = userNode.getNode("Lead_Converter").getNode("Email")
+						.getNode("Funnel").getNode(funnelName).getNode(Move_Category);
+				
+				out.println("subFunneNode : "+subFunnelNode.getName());
+				ListNode=subFunnelNode.getNode("List");
+				out.println("ListNode : "+ListNode.getName());
+				ActiveListNode=ListNode.getNode("ActiveList");
+				DraftListNode=ListNode.getNode("DraftList");
+				String listid=null;
+				String listname=CreatedBy+"_"+funnelName+"_"+Move_Category;
+				if(!DraftListNode.hasNodes()){
+					String counter=null;
+					if(DraftListNode.hasProperty("DraftListCounter")){
+        	    		counter =DraftListNode.getProperty("DraftListCounter").getString();
+        	    	}
+        	    	int counter_num=Integer.parseInt(counter)+1;
+        	    	DraftListNode.setProperty("DraftListCounter", String.valueOf(counter_num));
+					set_date=new Date();
+					set_date.setDate(set_date.getDate()+Integer.parseInt(list_activate_days));
+					listname=listname+"_DraftList_"+String.valueOf(counter_num);
+					//String listname ="Draft_List_"+OutPutTemp;
+					String listurl = ResourceBundle.getBundle("config").getString("List_Add_Url");
+
+					String listparameter = "?name=" + listname
+							+ "&description=This Belongs to " + "&listorder="
+							+ 90 + "&active=" + 1;
+					String listresponse = this.sendpostdata(listurl,
+							listparameter.replace(" ", "%20"), response)
+							.replace("<pre>", "");
+					JSONObject listjson = new JSONObject(listresponse);
+					String liststatusresponse = listjson.getString("status");
+					JSONObject getjsonid = listjson.getJSONObject("data");
+					listid = getjsonid.getString("id");
+					DraftListChildNode=DraftListNode.addNode(listid);
+					DraftListNode.setProperty("StartDate", date_formatter_with_timestamp.format(set_date));
+					DraftListChildNode.setProperty("StartDate", date_formatter_with_timestamp.format(set_date));
+					DraftListId=listid;
+					
+					Document campaign_list_doc = new Document();
+							 campaign_list_doc.put("CreatedBy", CreatedBy);
+							 campaign_list_doc.put("FunnelName", funnelName);
+							 campaign_list_doc.put("SubFunnelName", Move_Category);
+							 campaign_list_doc.put("ListId", listid);
+							 campaign_list_doc.put("ListName", listname);
+							 campaign_list_doc.put("ListSubscriberCount",0);
+							 campaign_list_doc.put("ListStatus", "draft");
+							 campaign_list_doc.put("ListActivateDate", set_date);
+						 	 campaign_list_doc.put("ListActivateDateStr",date_formatter_with_timestamp.format(set_date));
+                    List<String> subscribers_doc_list = new ArrayList<String>();
+                    List<Document> campaigns_doc_list = new ArrayList<Document>();
+                    
+                    campaign_list_doc.put("ListSubscribersArr", subscribers_doc_list);
+                    campaign_list_doc.put("ListCampaignArr", campaigns_doc_list);
+					ListMongoDAO.addCampaignList(campaign_list_doc);
+					addSubscriberInPhpListAndMongo(Add_Subscriber_In_List_Url,DraftListId,SubscriberId,response);
+					//We also need to delete list from mongodb campaign_details collection and phplist
+				}else{
+					NodeIterator DraftListNodeTtr=DraftListNode.getNodes();
+					while(DraftListNodeTtr.hasNext()) {
+						Node draftNode = DraftListNodeTtr.nextNode();
+						DraftListId=draftNode.getName();
+						out.println("DraftListId : "+DraftListId);
+						String ActiveListStartDate=draftNode.getProperty("StartDate").getString();
+						//addSubscriberInPhpListAndMongo(Add_Subscriber_In_List_Url,DraftListId,SubscriberId,response);
+						out.println("Going... to call method checkStatusOfDraftList()");
+						moveSubscriberToDraftList(Add_Subscriber_In_List_Url,CreatedBy,funnelName,Move_Category,DraftListId,listname,SubscriberId,response);
+						out.println("Method checkStatusOfDraftList() have Called");
 					}
-				}else if (campaign_index_int==campaign_counter_int){
-					out.println("Add to Draft");
-					//DraftListId
-					String addsubscriberinlistparameters = "?list_id=" + DraftListId +"&subscriber_id="+ SubscriberId;
-					String responsedata =this.sendpostdata(subscriberaddurl,addsubscriberinlistparameters.replace(" ","%20"),response).replace("<pre>", "");
-				
-					
-					
-				}else if(campaign_index_int>1 && campaign_index_int<campaign_counter_int){
-					out.println("Add to Draft");
-					//DraftListId
-					String addsubscriberinlistparameters = "?list_id=" + DraftListId +"&subscriber_id="+ SubscriberId;
-					String responsedata =this.sendpostdata(subscriberaddurl,addsubscriberinlistparameters.replace(" ","%20"),response).replace("<pre>", "");
-				
-					
 				}
-		    }
-			
-			//String url = content.getNode("ip").getProperty("Delete_SubscriberIn_List").getString();
-            String deletesubscriberinlistparameters = "?list_id=" + ListId +"&subscriber_id="+SubscriberId;
-			String apiresponse =this.sendpostdata(url,deletesubscriberinlistparameters.replace(" ", "%20"),response).replace("<pre>", "");
-			
-			//String subscriberaddurl = content.getNode("ip").getProperty("Integration_Url").getString();
-			//String addsubscriberinlistparameters = "?list_id=" + ActiveListId +"&subscriber_id="+ SubscriberId;
-			//String responsedata =this.sendpostdata(subscriberaddurl,addsubscriberinlistparameters.replace(" ","%20"),response).replace("<pre>", "");
-
-			/*
-			NodeIterator funnelitr = userNode.getNode("Lead_Converter").getNode("Email")
-							.getNode("Funnel").getNode(funnelName).getNodes();
-		    while(funnelitr.hasNext()) {
-				 Node funnelNode = funnelitr.nextNode();
-				 out.println("funnelNode.getName() : "+funnelNode.getName());
-						     if(funnelNode.hasNodes()){
-								   NodeIterator campaignNodesitr = funnelNode.getNodes();
-							 }
+				//String deletesubscriberinlistparameters = "?list_id=" + ListId +"&subscriber_id="+SubscriberId;
+				//String apiresponse =sendpostdata(Delete_Subscriber_From_List_Url,deletesubscriberinlistparameters.replace(" ", "%20"),response).replace("<pre>", "");
+				
+				session.save();
+				ListMongoDAO.findCampaignDetailsBasedOnCampaignID(CampaignId,subscriber_email);
+								
 			}
-		   */
-			session.save();
-			/*
-			String slingqery = "select [LIST_NAME,LIST_ID,NODE_ID] from [nt:base] where (contains('LIST_NAME','"
-					+ list_name + "'))  and ISDESCENDANTNODE('/content/LEAD_CONVERTER/LIST/')";
-
-			Workspace workspace = session.getWorkspace();
-
-			Query query = workspace.getQueryManager().createQuery(slingqery, Query.JCR_SQL2);
-
-			QueryResult queryResult = query.execute();
-			NodeIterator iterator = queryResult.getNodes();
-
-			long count_Value1 = 0;
-
-			session.save();
-			*/
-
-			
-		}
 		
 		} catch (Exception e) {
 			out.println("Exception : : :" + e.getMessage());
 		}
 
 	}
-	
-	public String sendpostdata(String callurl, String urlParameters, SlingHttpServletResponse response)
+	// This method is used to check the status of draft list and move it to Active List Or re-schedule it
+	public static void moveSubscriberToDraftList(String Add_Subscriber_In_List_Url,String created_by,String funnel_name,String sub_funnel_name
+			     ,String DraftListId,String listname,String UserId,SlingHttpServletResponse response){
+		try {
+			PrintWriter out = response.getWriter();
+			addSubscriberInPhpListAndMongo(Add_Subscriber_In_List_Url,DraftListId,UserId,response);
+	    }
+		catch (Exception ex) {
+			// TODO Auto-generated catch block
+			System.out.println("Date Exception : " + ex.getMessage());
+		}
+	}
+	public static void addSubscriberInPhpListAndMongo(String Add_Subscriber_In_List_Url, String ListId,String UserId, SlingHttpServletResponse response){
+		
+    	String addsubscriberinlistparameters = "?list_id=" + ListId +"&subscriber_id="+ UserId;
+		try {
+			ListMongoDAO.addSubscriberInCampaignList(ListId,UserId);
+			String responsedata =sendpostdata(Add_Subscriber_In_List_Url,addsubscriberinlistparameters.replace(" ","%20"),response).replace("<pre>", "");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+	}
+	public static String sendpostdata(String callurl, String urlParameters, SlingHttpServletResponse response)
 			throws ServletException, IOException {
 
 		PrintWriter out = response.getWriter();
@@ -395,7 +558,5 @@ public class SubscriberMangerBasedOnRuleEngineResponse extends SlingAllMethodsSe
 		return buffer.toString();
 
 	}
-
+	
 }
-
-

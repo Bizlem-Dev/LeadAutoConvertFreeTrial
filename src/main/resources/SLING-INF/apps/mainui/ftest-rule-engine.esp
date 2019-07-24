@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta name="description" content="bootstrap admin template">
+  <meta name="author" content="">
+  <title>Home</title>
+  
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/css/bootstrap.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/css/bootstrap-extend.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/assets/css/site.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/asscrollable/asScrollable.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/switchery/switchery.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/intro-js/introjs.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/slidepanel/slidePanel.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/flag-icon-css/flag-icon.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/jquery-wizard/jquery-wizard.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/formvalidation/formValidation.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/fonts/web-icons/web-icons.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/fonts/brand-icons/brand-icons.min599c.css?v4.0.2">
+  
+  <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/global/css/custom.css">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/global/css/custom.css">
+  <!--
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/js/Cookies.js"></script>
+  
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  -->
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+  </script>
+  </script>
+  <style type="text/css">
+  li{
+    list-style:none;
+  }  select option{
+    color:#000;
+  }
+  select.form-control{
+    background: #fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAFCAYAAABB9hwOAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA4RpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpiNWZkMzNlMC0zNTcxLTI4NDgtYjA3NC01ZTRhN2RjMWVmNjEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RTUxRUI3MDdEQjk4MTFFNUI1NDA5QTcyNTlFQzRERTYiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RTUxRUI3MDZEQjk4MTFFNUI1NDA5QTcyNTlFQzRERTYiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6ZWNiNjQzMjYtNDc1Yi01OTQxLWIxYjItNDVkZjU5YjZlODA2IiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6N2RlYzI2YWMtZGI5OC0xMWU1LWIwMjgtY2ZhNDhhOGNjNWY1Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+AXTIGgAAAFRJREFUeNpidI1KSWFgYDBlwASngXjOrqWzGcgBTEC8DIjfo4m/h4qTDUAGfwPi+UD8Hyr2H8r/RqnBIHATiPdC2XuhfIoACxJ7PRDzQmmKAUCAAQDxOxHyb4DjOAAAAABJRU5ErkJggg==) no-repeat center right !important;
+  }
+  select.form-control:not([size]):not([multiple]){
+    color:#000 !important;
+  }
+  .hover-bg-div p{
+      color:#3C3692;
+      font-weight: bold;
+      font-size:20px;
+      position: absolute;
+      top:50%;
+      left:20%;
+  }
+  .select-compaign-box-part{
+    position: relative;
+  }
+  .hover-bg-div{
+    top:0px;
+    position: absolute;
+    height:100%;
+    width:91%;
+    background:rgba(25, 24, 24,0.3);
+  }
+  .input-upload{
+     margin-left:16px;
+  }
+  .fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+  }
+  .fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+  }
+  .product-listing {
+     background-color:#fff;
+     border-radius:5px;
+     box-shadow:0 2px 10px 0 rgba(138,168,230,.2);
+     padding:20px;
+     position:relative;
+     overflow:hidden;
+     display:block;
+     transition:box-shadow .3s ease,-webkit-transform .3s ease;
+     transition:transform .3s ease,box-shadow .3s ease;
+     transition:transform .3s ease,box-shadow .3s ease,-webkit-transform .3s ease
+  }
+  .new-btn{
+    background-color: #4dbae3;
+    border-radius: 20px;
+    color: #fff;
+  }
+</style>
+  </head>
+  <body class="animsition">
+  <div class="row-fluid main-header">
+	  <div class="container-fluid">
+	    <div class="col-md-12 menubar">
+	      <ul class="pt-5 m-0 pull-left"> 
+	      <li><a href="<%=request.getContextPath()%>/servlet/service/ui.index"><img src="<%=request.getContextPath()%>/apps/global/assets/images/lead-auto-convert-logo.png" style="width:205px;margin-left:-60px;"></a></li>
+	      <li><a href="<%=request.getContextPath()%>/servlet/service/ui.funnel" target="_blank"> Funnel</a></li>
+	      <li><a href="<%=request.getContextPath()%>/servlet/service/ui.list" target="_blank"> List</a></li>
+	      <li><a href="<%=request.getContextPath()%>/servlet/service/ui.statistic"> Dashboard</a></li>
+	      </ul>
+	      <ul class="pt-15 pull-right">
+	        <li><a href="<%=request.getContextPath()%>/servlet/service/ui.configuration" target="_blank"><img src="<%=request.getContextPath()%>/apps/global/assets/images/shedule.png"> Configuration</a></li>
+	        <li><a href="#" class="creat-new-campaigns-menu"> Create New Campaigns</a></li>
+	      </ul>
+	    </div>
+	  </div>
+	</div>
+    <!-- Page -->
+    <div class="page">
+    <div class="page-content container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel" id="exampleWizardForm">
+            <div class="panel-body">
+              <div class="row" style="padding:10px 25px;">
+                
+				<div class="col-md-6">
+                  <h3>Test Rule : </h3>
+                </div>
+                <br><br><br>
+                <div class="main-box-section" style="width:100%;">
+                  <ul style="margin:0px;padding:0px;">
+                    <div class="box-section">
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-2">
+                            <p><strong>User Name.</strong></p>
+                          </div>
+                          <div class="col-md-3 form-group">
+                            <input type="text" name="" class="form-control" id="username">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-2">
+                            <p><strong>Project Name.</strong></p>
+                          </div>
+                          <div class="col-md-3 form-group">
+                            <input type="text" name="" class="form-control" id="projectname">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-2">
+                            <strong>Rule Engine Name</strong>
+                          </div>
+                          <div class="col-md-3">
+                            <input type="text" name="" class="form-control" id="ruleenginename">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 main-tbl">
+                        <br>
+                        <div class="row">
+                          <div id="main-tb" class="find-tbl" style="width:100%;">
+                            <div class="col-md-11 table-set-up-funnel">
+                            <table class="table table-bordered">
+                              <thead>
+                                <tr>
+                                  <th scope="col" rowspan="2" width="10%" style="vertical-align:middle;text-align: center; width: 50px;">Fields Sr No.</th>
+                                  <th colspan="3" class="text-center bg-defualt"><strong>Trigger</strong></th>
+                                </tr>
+                                <tr>
+                                  <th scope="col" style="width:30%;">Field</th>
+                                  <th scope="col" style="width:30%;"></th>
+                                  <th scope="col" style="width:30%;">Value</th>
+                                </tr>
+                              </thead>
+                              <tbody id="fields_row">
+							  
+                              </tbody>
+                            </table>
+                            </div>
+                            <div class="col-md-1 text-left btn-tr-section">
+                              <a class="btn btn-success text-white add-row-btn btn-sm"><i class="fa fa-plus"></i></a>
+                              <a class="btn btn-danger text-white btn-sm remove-row-btn"><i class="fa fa-minus"></i></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 second-tbl">
+                        <div class="row">
+                          <div class="col-md-11 second-tbl-sub">
+                              <table class="table table-bordered">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col" rowspan="2" width="10%" style="vertical-align:middle;text-align: center; width: 50px;">Output</th>
+                                      <th colspan="5" class="text-center"><strong>ACTIONS</strong></th>
+                                    </tr>
+                                    <tr id="rule_response">
+                                      
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                  </tbody>
+                              </table>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </ul>
+                </div>
+                
+                <div class="col-md-12 text-center">
+                  <a href="set-up-funnel-table.html" class="btn btn-primary btn-outline custom-btn">Show</a>
+				  <button type="button" class="btn btn-primary btn-outline custom-btn" id="save_rule" onclick="createRule()">Save</button>
+				  <button type="button" class="btn btn-primary btn-outline custom-btn">Display Table</button>
+                  <button type="button" class="btn btn-primary btn-outline custom-btn">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    var rule_data_array=[];//global variable 
+	var username="carrotrule@xyz.com";
+	//var projectname="June28F01";//June28F01
+	//var ruleenginename="June28F01_RE";
+	
+	var projectname=localStorage.getItem('funnelName');//"June28F01";//June28F01
+	var ruleenginename=localStorage.getItem('funnelName')+"_RE";//"June28F01_RE";
+	
+	console.log("projectname : "+projectname+" ruleenginename : "+ruleenginename);
+	
+	$( document).ready(function() {
+		document.getElementById("username").value=username;
+	    document.getElementById("projectname").value=projectname;
+	    document.getElementById("ruleenginename").value=ruleenginename;
+	var remoteuser ='<%=request.getRemoteUser()%>';
+	//alert("username : "+username);
+	$.ajax({
+		type : 'GET',
+		//url :'<%=request.getContextPath()%>/servlet/service/CampaignReportApi.urlViewData',
+		url :'http://prod.bizlem.io:8082/portal/servlet/service/rule_engine_and_rles_creation_servlet.get_fields',
+		data: {
+	    },
+		success: function (dataa) {
+					//alert("dataa : "+dataa);
+					var urlClickedJsonArray = JSON.parse(dataa);
+					var field_option = "";
+					var funnel_path = "";
+					
+					for(var i=0;i<urlClickedJsonArray.length;i++){
+						field_option=field_option+"<option value='"+urlClickedJsonArray[i].toLowerCase()+"'>"+urlClickedJsonArray[i]+"</option>";						
+					}
+					
+					var type_option="<option value='String'>String</option><option value='Integer'>Numeric</option><option value='Percentage'>Percentage(%)</option><option value='Boolean'>Boolean</option>";
+					
+					//style="display:none;"
+					var first_tr='<tr class="firstTr" ><th scope="row">1</th><td><select class="form-control click-select field-ID-select" id="fieldID1">'+field_option+'</select></td>';
+					first_tr=first_tr+'<td><input type="text" name="" class="form-control open-input field-name-input" id="fieldName1" style="display:none;"></td>'
+					
+					first_tr=first_tr+'<td><input type="text" name="" class="form-control opt1-input" id="opt1Val1"></td>';
+					
+					document.getElementById("fields_row").innerHTML  =first_tr;
+					
+			 }
+		});	
+	});
+	
+	
+	function createRule() {
+	    var user_name=null;
+	    var project_name=null;
+	    var ruleengine_name=null;
+	
+	    var final_json_obj={};
+	    var data_json_arr=[];
+		var data_json_obj={};
+		var rulename=null;
+	    var sfdata_json_arr=[];
+		var Outputdata_json_arr= [];
+		//var Outputdata_json_obj={};
+		var row_json_object={};
+		
+		username=document.getElementById("username").value;
+	    projectname=document.getElementById("projectname").value;
+	    ruleenginename=document.getElementById("ruleenginename").value;
+		var rule_engine_url='http://34.74.125.253:8082/drools/callrules/'+username+'_'+projectname+'_'+ruleenginename+'/fire';
+		
+	    var table = document.getElementById("fields_row");
+        //innerText
+        for (var i = 0 ; i < table.rows.length; i++) {
+ 
+            var row = "";
+			var column = "";
+			var index=(1+i);
+			
+			var field_indx="";
+			var field_name="";
+			var field_value="";
+			var field_value_display_property="";
+			var field_type="";
+			var field_optr1="";
+			var field_optr1_value="";
+			var field_optr2="";
+			var field_optr2_display_property="";
+			var field_optr2_value="";
+			
+			
+			var Outputdata_json_obj=null;
+            
+            for (var j = 0; j < table.rows[i].cells.length; j++) {
+			     
+				 
+				 if(j==0){
+				 
+				    field_indx=table.rows[i].cells[j].innerHTML;
+					//alert(field_indx);
+				 
+				 }else if(j==1){
+				 
+				    var field_slct=document.getElementById("fieldID"+index.toString());
+					field_name=field_slct.options[field_slct.selectedIndex].innerHTML;
+					//alert(field_name);
+				 
+				 }else if(j==2){
+				    
+				    var field_name_input=document.getElementById("fieldName"+index.toString());
+					field_value_display_property=field_name_input.style.display;
+				    if(field_value_display_property=='block'){
+					     //alert(field_name_input.value);
+						 field_value=document.getElementById("fieldName"+index.toString()).value;
+					}else{
+					
+					}
+					//alert(field_value);
+					
+				 }else if(j==3){
+				 
+				    var opt1_val_input=document.getElementById("opt1Val"+index.toString());
+				    field_optr1_value=document.getElementById("opt1Val"+index.toString()).value;
+					//alert(field_optr1_value);
+				 }
+				 
+                }
+				if(field_value==""){
+				    row_json_object[field_name]=  field_optr1_value;
+				 }else{
+				    row_json_object[field_value]=  field_optr1_value;
+				 } 
+				
+				//alert(column);
+		
+            //alert(row);
+        }
+		//alert(JSON.stringify(row_json_object));
+		callRuleEngine(rule_engine_url,row_json_object);
+		
+	}
+	function getOperatorSymbol(Operator) {
+	    var cat="";
+		var symb="";
+		if(Operator =="= Equals"){
+			cat="Equals";
+			symb="=";
+		}else if(Operator =="!= Not Equals"){
+			cat="Not Equals";
+			symb="!=";
+		}else if(Operator =="&gt; Greater Than"){
+			cat="Greater Than";
+			symb=">";
+		}else if(Operator =="&lt; Less Than"){
+			cat="Less Than";
+			symb="<";
+		}else if(Operator =="&gt;= Greater Than Equals"){
+			cat="Greater Than Equals";
+			symb=">=";
+		}else if(Operator =="&lt;= Less Than Equals"){
+			cat="Less Than Equals";
+			symb="<=";
+		}else{
+			
+		}
+		return symb;
+	}
+	
+	function callRuleEngine(rule_engine_url,final_json_obj) {
+	//var remoteuser ='<%=request.getRemoteUser()%>';
+	//alert("final_json_obj : "+JSON.stringify(final_json_obj));
+	console.log(JSON.stringify(final_json_obj));
+	//var rule_engine_url='http://34.74.125.253:8082/drools/callrules/carrotrule@xyz.com_June28F01_June28F01_RE/fire';
+	    $.ajax({
+			       	//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
+					//url: 'http://34.74.125.253:8082/drools/callrules/carrotrule@xyz.com_LeadAutoConverter5May_LeadAutoConvertRule/fire',
+					url: 'http://prod.bizlem.io:8082/portal/servlet/service/rule_engine_and_rles_creation_servlet.fire_rule_engine',//createListAndSubscribers
+					type: 'POST',
+					async: false,
+                    cache: false,
+                    //timeout: 30000,
+					
+					data: {
+					       rule_final_json_obj:JSON.stringify(final_json_obj),
+						   rule_engine_url:rule_engine_url,
+					       },
+					
+					success: function(data)
+					{
+					     alert("data: listid"+data);
+						 console.log("data: listid"+data);
+						 if(!data.includes("Exception ex")){
+							 console.log(data);
+							 var rule_response_json_obj = JSON.parse(data);
+							 var rule_output="NONE OF THE RULE FIRE!";
+							 var rule_output_html="";
+							 if(rule_response_json_obj.hasOwnProperty('Output')){
+								 rule_output=rule_response_json_obj['Output'];
+								 rule_output_html='<th colspan="5" class="text-center" style="background-color:MediumSeaGreen;"><strong style="color:red;">'+rule_output+'</strong></th>';
+							 }else{
+								 rule_output_html='<th colspan="5" class="text-center" style="background-color:Tomato;"><strong style="color:blue;">'+rule_output+'</strong></th>';
+							 }
+							 document.getElementById("rule_response").innerHTML=rule_output_html;
+						  }else{
+						     document.getElementById("rule_response").innerHTML='<th colspan="5" class="text-center" style="background-color:Tomato;"><strong style="color:blue;">Project Name OR Rule Engine Name Is In Correct</strong></th>';
+						  }
+						 //alert(rule_output);
+						//alert("data: listid"+jsonData.Status);
+						//location.reload();
+						
+					},
+					//timeout: 30000 // sets timeout to 30 seconds
+					
+		});
+	
+	}
+	
+  </script>
+	
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+	<link rel="stylesheet"
+		href="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css">
+	<script src="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js"></script>
+
+  <!-- processing code end here-->
+  <!-- <script data-cfasync="false" src="../../../cdn-cgi/scripts/d07b1474/cloudflare-static/email-decode.min.js"></script>-->
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/babel-external-helpers/babel-external-helpers599c.js?v4.0.2"></script> 
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery/jquery.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/popper-js/umd/popper.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/bootstrap/bootstrap.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/asscrollbar/jquery-asScrollbar.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/formvalidation/formValidation.min599c.js?v4.0.2"></script>
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery-wizard/jquery-wizard.min599c.js?v4.0.2"></script> -->
+  <script src="<%=request.getContextPath()%>/apps/global/js/Plugin.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/js/Config.min599c.js?v4.0.2"></script>
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/js/Plugin/jquery-wizard.min599c.js?v4.0.2"></script> -->
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/assets/examples/js/forms/wizard.min599c.js?v4.0.2"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+  
+  <script src="<%=request.getContextPath()%>/apps/global/js/custom.js"></script>
+  <!-- 
+  <script src="<%=request.getContextPath()%>/apps/global/js/Cookies.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  -->
+  
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  
+  <script type="text/javascript">
+    $.noConflict();
+    $(document).ready(function(){
+      var array = document.URL.split('/');
+	  //alert('array : '+array);
+      var lastsegment = array[array.length-1];
+	  //alert('lastsegment : '+lastsegment);
+      if(lastsegment == 'index.html#funnel'){
+        $('#op').trigger( "click" );
+        $('html, body').animate({
+            scrollTop: $("#op").offset().top
+        }, 2000);
+      }
+    });
+  </script>
+</body>
+</html>

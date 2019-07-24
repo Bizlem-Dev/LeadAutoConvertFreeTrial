@@ -324,7 +324,7 @@ public class LeadConverterJbpm extends SlingAllMethodsServlet {
 							out.println(list_id_JBPM + slinglist);
 							usernode = campaignnodeitr.nextNode();
 							//String url = content.getNode("ip").getProperty("Delete_SubscriberIn_List").getString();
-							String url = ResourceBundle.getBundle("config").getString("Delete_SubscriberIn_List");
+							String url = ResourceBundle.getBundle("config").getString("Delete_Subscriber_From_List");
 
 							// String deletesubscriberinlistparameters = "?list_id=" + list_id_JBPM +
 							// "&subscriber_id="
@@ -345,7 +345,7 @@ public class LeadConverterJbpm extends SlingAllMethodsServlet {
 							usernode.setProperty("Subscriber_Id", subscriberidsling);
 
 							//String subscriberaddurl = content.getNode("ip").getProperty("Integration_Url").getString();
-							String subscriberaddurl = ResourceBundle.getBundle("config").getString("Integration_Url");
+							String subscriberaddurl = ResourceBundle.getBundle("config").getString("Add_Subscriber_In_List");
 							// String addsubscriberinlistparameters = "?list_id=" + slinglist +
 							// "&subscriber_id="
 							// + subscriberidsling;
@@ -582,7 +582,7 @@ public class LeadConverterJbpm extends SlingAllMethodsServlet {
 						out.println(list_id_JBPM + slinglist);
 						usernode = campaignnodeitr.nextNode();
 						//String url = content.getNode("ip").getProperty("Delete_SubscriberIn_List").getString();
-						String url = ResourceBundle.getBundle("config").getString("Delete_SubscriberIn_List");
+						String url = ResourceBundle.getBundle("config").getString("Delete_Subscriber_From_List");
 
 						String deletesubscriberinlistparameters = "?list_id=" + list_id_JBPM +
 						              "&subscriber_id="+ subscriberidsling;
@@ -599,7 +599,7 @@ public class LeadConverterJbpm extends SlingAllMethodsServlet {
 						usernode.setProperty("Subscriber_Id", subscriberidsling);
 
 						 //String subscriberaddurl = content.getNode("ip").getProperty("Integration_Url").getString();
-						 String subscriberaddurl = ResourceBundle.getBundle("config").getString("Integration_Url");
+						 String subscriberaddurl = ResourceBundle.getBundle("config").getString("Add_Subscriber_In_List");
 						 String addsubscriberinlistparameters = "?list_id=" + slinglist +"&subscriber_id="+ subscriberidsling;
 						 String responsedata =this.sendpostdata(subscriberaddurl,addsubscriberinlistparameters.replace(" ","%20"),response).replace("<pre>", "");
 
@@ -765,7 +765,7 @@ public class LeadConverterJbpm extends SlingAllMethodsServlet {
 							usernode.setProperty("Subscriber_Id", subscriberidsling);
 
 							//String subscriberaddurl = content.getNode("ip").getProperty("Integration_Url").getString();
-							String subscriberaddurl = ResourceBundle.getBundle("config").getString("Integration_Url");
+							String subscriberaddurl = ResourceBundle.getBundle("config").getString("Add_Subscriber_In_List");
 							// String addsubscriberinlistparameters = "?list_id=" + slinglist +
 							// "&subscriber_id="
 							// + subscriberidsling;

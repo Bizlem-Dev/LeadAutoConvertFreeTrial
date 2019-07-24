@@ -173,7 +173,7 @@ public class SendJsonDataLeadConverter extends SlingAllMethodsServlet {
 
 											//String integrationurl = content.getNode("ip").getProperty("Integration_Url")
 													//.getString();
-											String integrationurl = ResourceBundle.getBundle("config").getString("Integration_Url");
+											String integrationurl = ResourceBundle.getBundle("config").getString("Add_Subscriber_In_List");
 											String integrationparameter = "?list_id=" + listid + "&subscriber_id="
 													+ subscriberid;
 											integrationresponse = this
@@ -286,7 +286,7 @@ public class SendJsonDataLeadConverter extends SlingAllMethodsServlet {
 										out.println("Integration Success");
 										//String integrationurl = content.getNode("ip").getProperty("Integration_Url")
 										//		.getString();
-										String integrationurl = ResourceBundle.getBundle("config").getString("Integration_Url");
+										String integrationurl = ResourceBundle.getBundle("config").getString("Add_Subscriber_In_List");
 										String integrationparameter = "?list_id=" + list_Id + "&subscriber_id="
 												+ subscriberid;
 										integrationresponse = this.sendpostdata(integrationurl,

@@ -7,8 +7,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-
 import java.util.Set;
+
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.commons.json.JSONArray;
 import org.apache.sling.commons.json.JSONObject;
@@ -17,6 +17,7 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 //import org.json.simple.JSONArray;
+
 
 import com.mongodb.AggregationOutput;
 import com.mongodb.BasicDBList;
@@ -40,6 +41,7 @@ import com.mongodb.client.model.InsertOneOptions;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import com.mongodb.util.JSON;
+
 import static com.mongodb.client.model.Filters.*;
 //import static com.mongodb.client.model.Filters.*;
 
@@ -450,6 +452,28 @@ public class MongoDAO {
 		}
         return funnelListJsonArr;
     }
+	public long getSubscriberCountForLoggedInUserForFreeTrail(String coll_name,String logged_in_user_email) {
+		MongoClient mongoClient = null;
+	    MongoDatabase database  = null;
+	    MongoCollection<Document> collection = null;
+	    MongoCollection<Document> campaign_collection = null;
+	    long subscriber_count=0;
+	    try {
+	        mongoClient=ConnectionHelper.getConnection();
+	        database=mongoClient.getDatabase("phplisttest");
+	        collection=database.getCollection(coll_name);
+	        Bson filter =eq("CreatedBy", logged_in_user_email);
+	        subscriber_count=collection.count(filter);
+	        System.out.println("subscriber_count : "+subscriber_count);
+						
+	    } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+		} finally {
+			ConnectionHelper.closeConnection(mongoClient);
+		}
+        return subscriber_count;
+    }
 	
 	public JSONArray ucsUrlClickStatistics(String coll_name,String urlclickstatistics_url) {
 		MongoClient mongoClient = null;
@@ -662,6 +686,318 @@ public class MongoDAO {
 		}
         return campaignJsonArr;
 
+    }
+	public  JSONArray findAllTempSubscriberByFilter(String coll_name) {
+		MongoClient mongoClient = null;
+	    MongoDatabase database  = null;
+	    MongoCollection<Document> collection = null;
+	    Document myDoc=null;
+	    JSONObject funnelJsonObj=null;
+	    Document  funnelJsonDoc=null;
+	    
+	    String old_id=null;
+	    String id=null;
+	    String uuid=null;
+	    String subject=null;
+	    String sendstart=null;
+	    String status=null;
+
+	    int viewed=0;
+	    int bounce_count=0;
+	    int fwds=0;
+	    int sent=0;
+	    int clicks=0;
+	    
+	    //rate
+	    JSONObject rate=null;
+	    String open_rate=null;
+	    String click_rate=null;
+	    String click_per_view_rate=null;
+	    String unique_click_rate=null;
+	    
+	    int linkcount=0;
+	    int subscriber_count=0;
+	    String Body=null;
+	    String Sling_Campaign_Id=null;
+	    String CreatedBy=null;
+	    String List_Id=null;
+	    String Sling_Subject=null;
+	    String Type=null;
+	    String subFunnelNodeName=null;
+	    String subFunnelCounter=null;
+	    String Current_Campaign=null;
+	    String funnelNodeName=null;
+	    String funnelCounter=null;
+	    
+	    //viewed_subscribers
+	    JSONObject viewed_subscribers=null;
+	    int total=0;
+	    //Data
+	    JSONArray data=null;
+	    JSONObject dataJsonObj=null;
+	    String data_campaignid=null;
+	    String data_userid=null;
+	    String data_viewed=null;
+	    String data_email=null;
+	    String data_uuid=null;
+	    
+	    //campaignclickstatistics
+	    JSONArray campaignclickstatistics=null;
+	    JSONObject campaignclickstatisticsJsonObj=null;
+	    String campaignclickstatistics_firstclick=null;
+		String campaignclickstatistics_latestclick=null;
+		String campaignclickstatistics_clicked=null;
+		
+		//urlclickstatistics
+		JSONArray urlclickstatistics=null;
+		JSONObject urlclickstatisticsJsonObj=null;
+		String urlclickstatistics_firstclick=null;
+		String urlclickstatistics_latestclick=null;
+		String urlclickstatistics_clicked=null;
+		String urlclickstatistics_messageid=null;
+		String urlclickstatistics_url=null;
+	    
+	    //linkcount viewed
+	    //viewed_subscribers --data--  urlclickstatistics
+	    
+	    JSONArray campaignJsonArr=new JSONArray();
+	    try {
+        	mongoClient=ConnectionHelper.getConnection();
+            database=mongoClient.getDatabase("phplisttest");
+            collection=database.getCollection(coll_name);
+            //Bson andFilter=and(eq("Sling_Campaign_Id","499" ),gt("linkcount", 0), gt("viewed", 0));
+            //Bson andFilter=and(gt("linkcount", 0), gt("viewed", 0));
+            Bson andFilter=and(gte("linkcount", 0), gt("viewed", 0));
+            FindIterable<Document> fi = collection.find(andFilter);
+    		MongoCursor<Document> cursor = fi.iterator();
+    		JSONObject campaignJsonObj=null;
+    		try {
+    			while(cursor.hasNext()) {
+    				//campaignJsonArr.put(cursor.next().toJson());
+    				campaignJsonObj=new JSONObject(cursor.next().toJson());
+    				        //old_id
+    					    id=campaignJsonObj.getString("id");
+    					    uuid=campaignJsonObj.getString("uuid");
+    					    subject=campaignJsonObj.getString("subject");
+    					    sendstart=campaignJsonObj.getString("sendstart");
+    					    status=campaignJsonObj.getString("status");
+
+    					    viewed=campaignJsonObj.getInt("viewed");
+    					    bounce_count=campaignJsonObj.getInt("bounce_count");
+    					    fwds=campaignJsonObj.getInt("fwds");
+    					    sent=campaignJsonObj.getInt("sent");
+    					    clicks=campaignJsonObj.getInt("clicks");
+    					    
+    					    rate=campaignJsonObj.getJSONObject("rate");
+	    					    open_rate=rate.getString("open_rate");
+	    					    click_rate=rate.getString("open_rate");
+	    					    click_per_view_rate=rate.getString("open_rate");
+	    					    unique_click_rate=rate.getString("open_rate");
+    					    
+    					    linkcount=campaignJsonObj.getInt("linkcount");
+    					    subscriber_count=campaignJsonObj.getInt("subscriber_count");
+    					    
+    					    Body=campaignJsonObj.getString("Body");
+    					    Sling_Campaign_Id=campaignJsonObj.getString("Sling_Campaign_Id");
+    					    CreatedBy=campaignJsonObj.getString("CreatedBy");
+    					    List_Id=campaignJsonObj.getString("List_Id");
+    					    Sling_Subject=campaignJsonObj.getString("Sling_Subject");
+    					    Type=campaignJsonObj.getString("Type");
+    					    subFunnelNodeName=campaignJsonObj.getString("subFunnelNodeName");
+    					    subFunnelCounter=campaignJsonObj.getString("subFunnelCounter");
+    					    Current_Campaign=campaignJsonObj.getString("Current_Campaign");
+    					    funnelNodeName=campaignJsonObj.getString("funnelNodeName");
+    					    funnelCounter=campaignJsonObj.getString("funnelCounter");  
+    					    
+    					    viewed_subscribers=campaignJsonObj.getJSONObject("viewed_subscribers");
+    					    total=viewed_subscribers.getInt("total");
+    					    
+    					    data=viewed_subscribers.getJSONArray("data");
+    					    
+    					    for(int i=0;i<data.length();i++){
+    					    	dataJsonObj=data.getJSONObject(i);
+	    					    	data_campaignid=dataJsonObj.getString("campaignid"); 
+	    					    	data_userid=dataJsonObj.getString("userid"); 
+	    					    	data_viewed=dataJsonObj.getString("viewed"); 
+	    					    	data_email=dataJsonObj.getString("email"); 
+	    					    	data_uuid=dataJsonObj.getString("uuid"); 
+	    					    	
+	    					    	campaignclickstatistics=dataJsonObj.getJSONArray("campaignclickstatistics");
+	    					    	      campaignclickstatisticsJsonObj=campaignclickstatistics.getJSONObject(0);
+		    					    	      campaignclickstatistics_firstclick=campaignclickstatisticsJsonObj.getString("firstclick"); 
+		    					    	      campaignclickstatistics_latestclick=campaignclickstatisticsJsonObj.getString("latestclick"); 
+		    					    	      campaignclickstatistics_clicked=campaignclickstatisticsJsonObj.getString("clicked"); 
+		    					    if(!campaignclickstatistics_firstclick.equals("null")){
+		    					    	
+		    					    	urlclickstatistics=dataJsonObj.getJSONArray("urlclickstatistics");
+		    					    	for(int j=0;j<urlclickstatistics.length();j++){
+		    					    		urlclickstatisticsJsonObj=urlclickstatistics.getJSONObject(j);
+			    					    		urlclickstatistics_firstclick=urlclickstatisticsJsonObj.getString("firstclick"); 
+			    					    		urlclickstatistics_latestclick=urlclickstatisticsJsonObj.getString("latestclick"); 
+			    					    		urlclickstatistics_clicked=urlclickstatisticsJsonObj.getString("clicked");
+			    					    		urlclickstatistics_messageid=urlclickstatisticsJsonObj.getString("messageid");
+			    					    		urlclickstatistics_url=urlclickstatisticsJsonObj.getString("url");
+			    					    		System.out.println("-----urlclickstatistics Found");
+			    					    		System.out.println("UrL : "+urlclickstatistics_url);
+			    					    		
+			    					    		String strDate="27 Sep 2018 17:06";
+			    					    		SimpleDateFormat dateFormatter=new SimpleDateFormat("dd MMM yyyy HH:mm"); 
+			    					    		//Date date=dateFormatter.parse(strDate); 
+			    					    		//System.out.println("Local Time: " + date);
+			    					    		//date.setHours(date.getHours()-5);
+			    					    		//date.setMinutes(date.getMinutes()-30);
+			    					    		//System.out.println("Local Time: " + date);
+			    					    		
+			    					    		//funnelJsonObj=new JSONObject();
+			    					    		funnelJsonDoc = new Document();
+			    					    		funnelJsonDoc.put("id",id);
+			    					    		funnelJsonDoc.put("uuid",uuid);
+			    					    		funnelJsonDoc.put("subject",subject);
+			    					    		funnelJsonDoc.put("sendstart",sendstart);
+			    					    		funnelJsonDoc.put("sendstart_date",dateFormatter.parse(sendstart));
+			    					    		funnelJsonDoc.put("status",status);
+
+			    					    		funnelJsonDoc.put("viewed",viewed);
+			    					    		funnelJsonDoc.put("bounce_count",bounce_count);
+			    					    		funnelJsonDoc.put("fwds",fwds);
+			    					    		funnelJsonDoc.put("sent",sent);
+			    					    		funnelJsonDoc.put("clicks",clicks);
+
+			    					    		funnelJsonDoc.put("open_rate",open_rate);
+			    					    		funnelJsonDoc.put("click_rate",click_rate);
+			    					    		funnelJsonDoc.put("click_per_view_rate",click_per_view_rate);
+			    					    		funnelJsonDoc.put("unique_click_rate",unique_click_rate);
+
+			    					    		funnelJsonDoc.put("linkcount",linkcount);
+			    					    		funnelJsonDoc.put("subscriber_count",subscriber_count);
+
+			    					    		funnelJsonDoc.put("Body",Body);
+			    					    		funnelJsonDoc.put("Sling_Campaign_Id",Sling_Campaign_Id);
+			    					    		funnelJsonDoc.put("CreatedBy",CreatedBy);
+			    					    		funnelJsonDoc.put("List_Id",List_Id);
+			    					    		funnelJsonDoc.put("Sling_Subject",Sling_Subject);
+			    					    		funnelJsonDoc.put("Type",Type);
+
+			    					    		funnelJsonDoc.put("subFunnelNodeName",subFunnelNodeName);
+			    					    		funnelJsonDoc.put("subFunnelCounter",subFunnelCounter);
+			    					    		funnelJsonDoc.put("Current_Campaign",Current_Campaign);
+			    					    		funnelJsonDoc.put("funnelNodeName",funnelNodeName);
+			    					    		funnelJsonDoc.put("funnelCounter",funnelCounter);
+
+			    					    		funnelJsonDoc.put("subscriber_total",total);
+			    					    		funnelJsonDoc.put("subscriber_campaignid",data_campaignid);
+			    					    		funnelJsonDoc.put("subscriber_userid",data_userid);
+			    					    		funnelJsonDoc.put("subscriber_viewed",data_viewed);
+			    					    		funnelJsonDoc.put("subscriber_viewed_date",dateFormatter.parse(data_viewed));
+			    					    		funnelJsonDoc.put("subscriber_email",data_email);
+			    					    		funnelJsonDoc.put("subscriber_uuid",data_uuid);
+
+			    					    		funnelJsonDoc.put("campaignclickstatistics_firstclick",campaignclickstatistics_firstclick);
+			    					    		funnelJsonDoc.put("campaignclickstatistics_firstclick_date",dateFormatter.parse(campaignclickstatistics_firstclick));
+			    					    		funnelJsonDoc.put("campaignclickstatistics_latestclick",campaignclickstatistics_latestclick);
+			    					    		funnelJsonDoc.put("campaignclickstatistics_latestclick_date",dateFormatter.parse(campaignclickstatistics_latestclick));
+			    					    		funnelJsonDoc.put("campaignclickstatistics_clicked",campaignclickstatistics_clicked);
+			    					    		
+			    					    		funnelJsonDoc.put("urlclickstatistics_firstclick",urlclickstatistics_firstclick);
+			    					    		funnelJsonDoc.put("urlclickstatistics_firstclick_date",dateFormatter.parse(urlclickstatistics_firstclick));
+			    					    		funnelJsonDoc.put("urlclickstatistics_latestclick",urlclickstatistics_latestclick);
+			    					    		funnelJsonDoc.put("urlclickstatistics_latestclick_date",dateFormatter.parse(urlclickstatistics_latestclick));
+			    					    		funnelJsonDoc.put("urlclickstatistics_clicked",urlclickstatistics_clicked);
+			    					    		funnelJsonDoc.put("urlclickstatistics_messageid",urlclickstatistics_messageid);
+			    					    		funnelJsonDoc.put("urlclickstatistics_url",urlclickstatistics_url);
+			    					    		MongoDAO mdao=new MongoDAO();
+			    								mdao.createOneUsingDocument("temp_subscribers", funnelJsonDoc);
+		    					    	}
+		    					    	
+		    					    }else{
+	    					    		System.out.println("-----urlclickstatistics Not Found");
+	    					    		
+	    					    		String strDate="27 Sep 2018 17:06";
+	    					    		SimpleDateFormat dateFormatter=new SimpleDateFormat("dd MMM yyyy HH:mm"); 
+	    					    		//Date date=dateFormatter.parse(strDate); 
+	    					    		//System.out.println("Local Time: " + date);
+	    					    		//date.setHours(date.getHours()-5);
+	    					    		//date.setMinutes(date.getMinutes()-30);
+	    					    		//System.out.println("Local Time: " + date);
+	    					    		
+	    					    		//funnelJsonObj=new JSONObject();
+	    					    		funnelJsonDoc = new Document();
+	    					    		funnelJsonDoc.put("id",id);
+	    					    		funnelJsonDoc.put("uuid",uuid);
+	    					    		funnelJsonDoc.put("subject",subject);
+	    					    		funnelJsonDoc.put("sendstart",sendstart);
+	    					    		funnelJsonDoc.put("sendstart_date",dateFormatter.parse(sendstart));
+	    					    		funnelJsonDoc.put("status",status);
+
+	    					    		funnelJsonDoc.put("viewed",viewed);
+	    					    		funnelJsonDoc.put("bounce_count",bounce_count);
+	    					    		funnelJsonDoc.put("fwds",fwds);
+	    					    		funnelJsonDoc.put("sent",sent);
+	    					    		funnelJsonDoc.put("clicks",clicks);
+
+	    					    		funnelJsonDoc.put("open_rate",open_rate);
+	    					    		funnelJsonDoc.put("click_rate",click_rate);
+	    					    		funnelJsonDoc.put("click_per_view_rate",click_per_view_rate);
+	    					    		funnelJsonDoc.put("unique_click_rate",unique_click_rate);
+
+	    					    		funnelJsonDoc.put("linkcount",linkcount);
+	    					    		funnelJsonDoc.put("subscriber_count",subscriber_count);
+
+	    					    		funnelJsonDoc.put("Body",Body);
+	    					    		funnelJsonDoc.put("Sling_Campaign_Id",Sling_Campaign_Id);
+	    					    		funnelJsonDoc.put("CreatedBy",CreatedBy);
+	    					    		funnelJsonDoc.put("List_Id",List_Id);
+	    					    		funnelJsonDoc.put("Sling_Subject",Sling_Subject);
+	    					    		funnelJsonDoc.put("Type",Type);
+
+	    					    		funnelJsonDoc.put("subFunnelNodeName",subFunnelNodeName);
+	    					    		funnelJsonDoc.put("subFunnelCounter",subFunnelCounter);
+	    					    		funnelJsonDoc.put("Current_Campaign",Current_Campaign);
+	    					    		funnelJsonDoc.put("funnelNodeName",funnelNodeName);
+	    					    		funnelJsonDoc.put("funnelCounter",funnelCounter);
+
+	    					    		funnelJsonDoc.put("subscriber_total",total);
+	    					    		funnelJsonDoc.put("subscriber_campaignid",data_campaignid);
+	    					    		funnelJsonDoc.put("subscriber_userid",data_userid);
+	    					    		funnelJsonDoc.put("subscriber_viewed",data_viewed);
+	    					    		funnelJsonDoc.put("subscriber_viewed_date",dateFormatter.parse(data_viewed));
+	    					    		funnelJsonDoc.put("subscriber_email",data_email);
+	    					    		funnelJsonDoc.put("subscriber_uuid",data_uuid);
+
+	    					    		funnelJsonDoc.put("campaignclickstatistics_firstclick",campaignclickstatistics_firstclick);
+	    					    		funnelJsonDoc.put("campaignclickstatistics_firstclick_date",null);
+	    					    		funnelJsonDoc.put("campaignclickstatistics_latestclick",campaignclickstatistics_latestclick);
+	    					    		funnelJsonDoc.put("campaignclickstatistics_latestclick_date",null);
+	    					    		funnelJsonDoc.put("campaignclickstatistics_clicked",campaignclickstatistics_clicked);
+	    					    		
+	    					    		funnelJsonDoc.put("urlclickstatistics_firstclick",null);
+	    					    		funnelJsonDoc.put("urlclickstatistics_firstclick_date",null);
+	    					    		funnelJsonDoc.put("urlclickstatistics_latestclick",null);
+	    					    		funnelJsonDoc.put("urlclickstatistics_latestclick_date",null);
+	    					    		funnelJsonDoc.put("urlclickstatistics_clicked",null);
+	    					    		funnelJsonDoc.put("urlclickstatistics_messageid",null);
+	    					    		funnelJsonDoc.put("urlclickstatistics_url",null);
+	    					    		MongoDAO mdao=new MongoDAO();
+	    								mdao.createOneUsingDocument("temp_subscribers", funnelJsonDoc);
+		    					    }
+	        					    
+    					    }
+    					    
+    					    
+    				System.out.println(campaignJsonObj);
+    			}
+    		} finally {
+    			cursor.close();
+    		}
+            System.out.println(campaignJsonArr.length());
+                        
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+		} finally {
+			ConnectionHelper.closeConnection(mongoClient);
+		}
+        return campaignJsonArr;
     }
 	public  JSONArray findAllSubscriberByFilter(String coll_name) {
 		MongoClient mongoClient = null;

@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
@@ -35,6 +37,7 @@ public class Test {
 		  System.out.println("subscriber_campaign_jsonArray : "+subscriber_campaign_jsonArray);
 		  System.out.println("subscriber_campaign_jsonArray length : "+subscriber_campaign_jsonArray.length());
 		  */
+		  /*
 		  String id="945";
 		  String campaigngetbyid_url=ResourceBundle.getBundle("config").getString("campaigngetbyid");
 		  String campaigngetbyid_url_parameter="?id="+id;
@@ -47,15 +50,46 @@ public class Test {
 		  }else{
 			  System.out.println("Do your stuff here "+status);
 	      }
+	      */
 		  //ResourceBundle.
-
+		String url = ResourceBundle.getBundle("config").getString("Delete_Subscriber_From_List");
+		String subscriberaddurl = ResourceBundle.getBundle("config").getString("Add_Subscriber_In_List");
+		String listSubscribersCountUrl = ResourceBundle.getBundle("config").getString("listSubscribersCount");
+		String ListId="919";
+		String DraftListId="901";
+		String SubscriberId="2074";
+		
+		String deletesubscriberinlistparameters = "?list_id=" + ListId +"&subscriber_id="+SubscriberId;
+		
+		
+		
+		String addsubscriberinlistparameters = "?list_id=" + DraftListId +"&subscriber_id="+ SubscriberId;
+		
+		String listSubscribersCounparameters = ListId;          
+		SimpleDateFormat sdf156 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	  	      System.out.println("Start  :" + sdf156.format(new Date()));
+	  	      
+	  	    int sub_count=0;
+			  for(int i=0;i<1;i++){  
+				  System.out.println("-----------------------------------"+i+"--------------------------");
+			      //sendpostdata("http://35.237.183.3/restapi/list-subscriber/listSubscribers.php","?list_id=901");
+				  //String apiresponse =sendpostdata(url,deletesubscriberinlistparameters.replace(" ", "%20")).replace("<pre>", "");
+				  //String responsedata =sendpostdata(subscriberaddurl,addsubscriberinlistparameters.replace(" ","%20")).replace("<pre>", "");
+				  String responsedata =sendpostdata(listSubscribersCountUrl,listSubscribersCounparameters.replace(" ","%20")).replace("<pre>", "");
+				  JSONObject sub_count_json=new JSONObject(responsedata);
+				  if(sub_count_json.getString("status").equals("success")){
+					  sub_count=((JSONObject) sub_count_json.get("data")).getInt("count");
+					  System.out.println("sub_count :" + sub_count);
+				  }
+			  }
+			  System.out.println("End :" + sdf156.format(new Date()));
 	}
 	
 	public static String sendpostdata(String callurl, String urlParameters)
 			throws ServletException, IOException {
 
 				URL url = new URL(callurl + urlParameters);
-		System.out.println("Url :" + url);
+		//System.out.println("Url :" + url);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setDoOutput(true);
 		conn.setUseCaches(false);
@@ -77,11 +111,14 @@ public class Test {
 				buffer.append(inputLine);
 			}
 			in.close();
+			System.out.println("POST request Working");
+			
 		} else {
 			System.out.println("POST request not worked");
 		}
 		writer.flush();
 		writer.close();
+		System.out.println("Response Body : "+buffer.toString());
 		return buffer.toString();
 	}
 

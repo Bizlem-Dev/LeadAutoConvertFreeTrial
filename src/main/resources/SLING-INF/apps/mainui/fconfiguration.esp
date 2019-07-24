@@ -104,7 +104,8 @@
                 <div class="row">
                   <div class="col-md-3" align="center">
                     <div class="box-f1">
-                        <h4>Google Analytics</h4>
+                    <a href="<%=request.getContextPath()%>/servlet/service/ui.googleanalytics" target="_blank">
+                        <h4>Google Analytics</h4></a>
                      </div> 
                   </div>
                   <div class="col-md-3">
