@@ -11,6 +11,7 @@ import org.jsoup.select.Elements;
 import jxl.*;
 import jxl.write.*;
 import jxl.write.biff.RowsExceededException;
+import leadconverter.doctiger.LogByFileWriter;
 import leadconverter.impl.Searching_list_DaoImpl;
 import leadconverter.mailcheker.spamassertion.MailChecker;
 
@@ -122,7 +123,8 @@ public class UICsvDataProcessServlet extends SlingAllMethodsServlet {
 										//email_id=data[0].toString().replace("\"", "");
 										System.out.println("Email id : " + data[0]);
 										System.out.println("Name : "+data[1]);
-										jsonobject.put("EmailAddress", data[0].toString().replace("\"", ""));
+										email_id=data[0].toString().replace("\"", "");
+										jsonobject.put("EmailAddress", email_id);
 										jsonobject.put("FirstName", data[1].toString().replace("\"", ""));
 										jsonobject.put("LastName", data[2].toString().replace("\"", ""));
 										jsonobject.put("PhoneNumber", data[3].toString().replace("\"", ""));
@@ -132,10 +134,28 @@ public class UICsvDataProcessServlet extends SlingAllMethodsServlet {
 										jsonobject.put("Industry", data[7].toString().replace("\"", ""));
 										jsonobject.put("Institute", data[8].toString().replace("\"", ""));
 										jsonobject.put("Source", data[9].toString().replace("\"", ""));
-										//jsonobject.put("Email_Status", MailChecker.emailValidation(email_id));
+										//LogByFileWriter.logger_info("UICsvDataProcessServlet : " + email_id);
+			// comm by tj			
+										jsonobject.put("Email_Status", MailChecker.emailValidation(email_id.replace(" ", "")));
+							
 										
+										//	jsonobject.put("Email_Status", "true");
 										//out.println("EmailAddress : "+data[0].toString());
-										
+								/* [
+{
+"EmailAddress":"mohit.raj@bizlem.com ",
+"FirstName":"mohit",
+"LastName":"mohit",
+"PhoneNumber":"+971 (4) 3914900",
+"Address":"UAE ",
+"CompanyName":"3i infotech",
+"CompanyHeadCount":"100",
+"Industry":"Software",
+"Institute":"N/A",
+"Source":"Friend",
+"Email_Status":"{\"score\":0.96,\"format_valid\":true,\"role\":false,\"domain\":\"bizlem.com\",\"mx_found\":true,\"did_you_mean\":\"\",\"smtp_check\":true,\"catch_all\":null,\"free\":false,\"user\":\"mohit.raj\",\"email\":\"mohit.raj@bizlem.com\",\"disposable\":false}"
+},
+ */		
 										/*
 										jsonobject.put("EmailAddress", data[0].toString().replace(" ", ""));
 										jsonobject.put("FirstName", data[1].toString().replace(" ", ""));
@@ -151,7 +171,10 @@ public class UICsvDataProcessServlet extends SlingAllMethodsServlet {
 										jsonobject.put("subscribepage", 0);
 										*/
 										System.out.println("jsonobject : "+jsonobject);
+										LogByFileWriter.logger_info("UICsvDataProcessServlet : jsonobject " + jsonobject);
+										
 										mainarray.put(jsonobject);
+										LogByFileWriter.logger_info("UICsvDataProcessServlet : mainarray length  " + mainarray.length());
 									}
 									
                                 }

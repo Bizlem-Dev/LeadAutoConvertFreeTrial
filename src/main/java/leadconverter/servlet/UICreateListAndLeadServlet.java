@@ -11,6 +11,7 @@ import org.jsoup.select.Elements;
 import jxl.*;
 import jxl.write.*;
 import jxl.write.biff.RowsExceededException;
+import leadconverter.freetrail.FreetrialShoppingCartUpdate;
 import leadconverter.impl.Searching_list_DaoImpl;
 import leadconverter.mongo.SubscriberMongoDAO;
 
@@ -269,6 +270,29 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 		            //out.println(subscribers_json_arr);
 		            
 		            String created_by = request.getParameter("remoteuser");
+		            
+		        	String group="";
+					group=request.getParameter("group");
+//					String subscount=request.getParameter("SubscriberCount");
+					int subscount=Integer.parseInt(request.getParameter("SubscriberCount"));
+					Node shoppingnode=null;
+					//shopping cart method call
+					String expstatus= new FreetrialShoppingCartUpdate().checkFreeTrialExpirationStatus(remoteuser);
+				 	
+			 		shoppingnode=new FreetrialShoppingCartUpdate().getLeadAutoConverterNode(expstatus, remoteuser, group, session, response);
+			 		if(shoppingnode!=null) {
+			 		Node groupnode=	shoppingnode.getParent();
+			 		Node servicenode=	groupnode.getParent();
+			 		if(servicenode.hasProperty("quantity")) {
+			 			int quantity=Integer.parseInt(servicenode.getProperty("quantity").getString());
+			 			if(quantity>=subscount) {
+			 				
+//			 			}
+//			 		}
+			 		String respupdate=	new FreetrialShoppingCartUpdate().updateSubscriberCounter(remoteuser, expstatus, shoppingnode, session, response, subscount);
+			 			
+			 		
+		            
 			    	String funnelName = request.getParameter("funnelName");
 			    	String fromName = request.getParameter("fromName");
 			    	String fromEmailAddress = request.getParameter("fromEmailAddress");
@@ -415,6 +439,16 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 
 						out.println("Does Not Add in Phplist");
 					}
+					
+			 		}else{
+			 			JSONObject res_json_obj=new JSONObject();
+				           res_json_obj.put("quantity", quantity);
+				           out.println(res_json_obj.toString());
+//			 			out.println("You can not upload leads more than "+quantity);
+			 		}}
+			 		}else{
+			 			out.println("User is not Valid");
+			 		}
 				} catch (Exception ex) {
 					out.println("Exception ex : " + ex.getMessage());
 				}

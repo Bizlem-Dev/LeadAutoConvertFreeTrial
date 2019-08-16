@@ -1,6 +1,24 @@
 body{
   padding-top:0px !important;
 }
+.arrow-drop-down i{
+  font-size:30px;
+  font-weight: bold;
+  color:#3C3692;
+}
+.arrow-drop-down{
+    position:absolute;
+    right:-40px !important;
+    top:28px;
+}
+.box-content{
+  background:#fff;
+  box-shadow:2px 2px 5px #d2d2d2;
+  padding:15px 20px;
+}
+.sw-btn-group-extra{
+  display: none;
+}
 .border-set{
   border:1px solid #3C3692;
 }
@@ -170,7 +188,7 @@ a{
 .table-section-copy-paste-file tr td input{
   width:100%;
 }
-.import-from-csv-file,.table-section-copy-paste-file{
+.import-from-csv-file,.table-section-copy-paste-file, .show-merge-existing-list, .show-merge-existing-list2{
   padding:25px !important;
   background:#fff;
   box-shadow:0px 0px 15px #d2d2d2;
@@ -954,4 +972,75 @@ select.form-control:not([size]):not([multiple]){
 }
 select.form-control{
   background: #fff url('../img/select.png') no-repeat center right;
+}
+.panel-group .panel {
+  border-radius: 0;
+  box-shadow: none;
+  border-color: #EEEEEE;
+}
+.panel-default > .panel-heading {
+    padding: 0;
+    border-radius: 0;
+    color: #212121;
+    background-color: #FAFAFA;
+    border-color: #EEEEEE;
+}
+.panel-title:after{
+  content:none !important;
+}
+.panel-title:before{
+  content:none !important;
+}
+.panel-title {
+    font-size: 14px;
+}
+.panel-title > a {
+    display: block;
+    font-size:15px;
+    text-decoration: none;
+}
+.more-less {
+    float: right;
+    color: #212121;
+}
+.panel-default > .panel-heading + .panel-collapse > .panel-body {
+    border-top-color: #EEEEEE;
+}
+.panel-group .panel-title{
+  padding:7px 8px !important;
+}
+.panel-default > .panel-heading + .panel-collapse > .panel-body{
+  padding:10px !important;
+}
+.fstMultipleMode .fstControls{
+  width: 273px !important;
+}
+.fstMultipleMode .fstQueryInputExpanded{
+  padding: 0px !important;
+}
+.fstChoiceItem{
+  font-size:13px !important;
+}
+.fstMultipleMode .fstQueryInput{
+  font-size: 15px !important;
+}
+.fstResultItem{
+  font-size:13px !important;
+}
+.fstChoiceItem{
+  border:1px solid #3C3692 !important;
+  background-color:#3C3692 !important;
+}
+.fstResultItem.fstSelected{
+  border:1px solid #3C3692 !important;
+  background-color:#3C3692 !important;
+}
+.fstResultItem:hover{
+  background-color:#3C3692 !important;
+}
+.glyphicon-plus:before{
+  color:#3C3692;
+}
+.glyphicon-plus:after{
+  color:#3C3692;
 }

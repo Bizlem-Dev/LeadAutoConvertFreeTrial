@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/css/bootstrap-extend.min599c.css?v4.0.2">
   <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/assets/css/site.min599c.css?v4.0.2">
   <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/asscrollable/asScrollable.min599c.css?v4.0.2">
-  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/switchery/switchery.min599c.css?v4.0.2">
   <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/intro-js/introjs.min599c.css?v4.0.2">
   <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/slidepanel/slidePanel.min599c.css?v4.0.2">
   <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/flag-icon-css/flag-icon.min599c.css?v4.0.2">
@@ -113,6 +112,12 @@
     border-radius: 20px;
     color: #fff;
   }
+  
+  .true-mail {
+background-color: #3DEB1E;
+}
+.false-mail {
+background-color: #EB341E;
 </style>
 </head>
 <body class="animsition">
@@ -124,12 +129,14 @@
         <li><a href="<%=request.getContextPath()%>/servlet/service/ui.funnel" target="_blank"> Funnel</a></li>
         <li><a href="<%=request.getContextPath()%>/servlet/service/ui.list" target="_blank"> List</a></li>
         <li><a href="<%=request.getContextPath()%>/servlet/service/ui.statistic"> Dashboard</a></li>
+         <li id="grouplist"> </li>
         </ul>
         <ul class="pt-15 pull-right">
           <li><a href="<%=request.getContextPath()%>/servlet/service/ui.configuration" target="_blank"><img src="<%=request.getContextPath()%>/apps/global/assets/images/shedule.png"> Configuration</a></li>
           <li><a href="#" class="creat-new-campaigns-menu"> Create New Campaigns</a></li>
         </ul>
       </div>
+     
     </div>
   </div>
   <!-- Page -->
@@ -289,6 +296,7 @@
                           </div>
                         </div>
                       </div>
+                      //manage leads
                       <div class="product-listing manage-leades-section" style="width: 81%; margin-left: 125px; margin-top: 20px;"  data-toggle="collapse" href="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
                       <div class="row">
                         <div class="col-lg-3 col-md-3 col-sm-3" style="margin-left: -55px;">
@@ -658,6 +666,7 @@
                         </div>
                       </div>
                     </div>
+                    // setup funnel
                     <div class="product-listing set-up-funnel-section" id="op" style="width: 81%; margin-left: 125px; margin-top: 20px;"  data-toggle="collapse" href="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
                       <div class="row">
                         <div class="col-lg-3 col-md-3 col-sm-3" style="margin-left: -55px;">
@@ -1077,11 +1086,40 @@
   $( document).ready(function() {
 	    var remoteuser ='<%=request.getRemoteUser()%>';
 	    console.log("remoteuser : "+remoteuser);
+	    
+	    $.ajax({
+			type : 'GET',
+		
+			url :'<%=request.getContextPath()%>/servlet/service/ui.grouplist',
+			
+			  data: {
+                    email: remoteuser
+                },
+			success: function (response) {
+		
+			var json = JSON.parse(response);
+			console.log("response json : "+json);
+						console.log("groups : "+json.Groups);
+					 var newDiv = document.getElementById("grouplist");
+				   var selectHTML = "";
+	//<div class="row" ><div class="col-sm-9">
+				    selectHTML='<select class="custom-btn form-control"  id="grlist">';
+				    for(i = 0; i < json.Groups.length; i = i + 1) {
+				        selectHTML += "<option value='" + json.Groups[i] + "'>" + json.Groups[i] + "</option>";
+				    }
+
+				 //   selectHTML += '</select></div><div class="col-sm-3 p-0"><a class="btn btn-danger copy-remove-btn sm-btn-custom sm-btn-custom2"><i class="fa fa-trash"></i></a></div>';
+
+				    newDiv.innerHTML = selectHTML;	
+						
+				 }
+			});
+	    
   });
   
   $( document).ready(function() {
 	  var remoteuser ='<%=request.getRemoteUser()%>';
-	  alert("remoteuser : "+remoteuser);
+	  console.log("remoteuser : "+remoteuser);
 		$.ajax({
 			type : 'GET',
 			//url :'<%=request.getContextPath()%>/servlet/service/CampaignReportApi.urlViewData',
@@ -1113,7 +1151,7 @@
 	function getSubscribersListFromTextArea(){
 	    var entire_list_name=document.getElementById("enter-the-txt-list-name").value;
 			if(entire_list_name=="" || entire_list_name==null){
-                alert('plz entire_list_name');
+                alert('plz enter list_name');
 				return false;
 			}
 				//alert('entire_list_name : '+entire_list_name);
@@ -1217,80 +1255,16 @@
 						success: function(data)
 						{
 							//console.log('--------------markup---------start');
-		                    console.log('data : '+data);
+		                    console.log('data : '+data+ ' : Campaign Sent Sucessfully!');
 		                    //console.log('--------------markup---------end');
-		                    alert(data + ' : Campaign Sent Sucessfully!');
+		                    alert(' Campaign Sent Sucessfully!');
 						}
 				    });
 			//alert("schedule_campaign date : 3");
 	
 	}
   
-    $('#schedule_campaign').on('click', scheduleCampaign);
-	function scheduleCampaign(event){
-	     var campaign_shedule_date = document.getElementById("campaign_shedule_date").value;
-	 
-		 if(document.getElementById('radio-time').checked) {
-			  //Male radio button is checked
-			  var campaign_shedule_hr = document.getElementById("campaign_shedule_hr").value;
-			  var campaign_shedule_minute = document.getElementById("campaign_shedule_minute").value;
-			  var campaign_shedule_AP = document.getElementById("campaign_shedule_AP").value;
-			  //alert("campaign_shedule_hr : "+campaign_shedule_hr+"\n"+"campaign_shedule_minute : "+campaign_shedule_minute+"\n"+"campaign_shedule_AP : "+campaign_shedule_AP);
-			  //campaign_shedule_date=campaign_shedule_date+" "+campaign_shedule_hr+":"+campaign_shedule_minute+":00 "+campaign_shedule_AP;
-			  campaign_shedule_date=campaign_shedule_date+" "+campaign_shedule_hr+":"+campaign_shedule_minute+":00";
-			  
-			  //2019-01-07 06:43:02 PM
-			  //2019-01-11 02:11:00 PM
-			  //01-11-2019 01:01:00 am
-		 }else{
-		 
-		     campaign_shedule_date=campaign_shedule_date+" 00:00:00";
-		 }
-		 //alert("schedule_campaign date : "+campaign_shedule_date);
-		    var campaignid=localStorage.getItem('campaignid');
-			//var campaignid='593';
-			var markup = "";
-		    var campaignName;
-			var fromName;
-			var fromEmailAddress;
-			var funnelName;
-			var SubFunnelName;
-			var DistanceBtnCampaign;
-			var listid;
-			var subjectName;
-			//Time is 10:42, Saturday 2 February 2019 16:12 -05:30
-			var funnelName=localStorage.getItem('funnelName');
-			var SubFunnelName=localStorage.getItem('SubFunnelName');
-			var listid=localStorage.getItem('listid');
-			var remoteuser ='<%=request.getRemoteUser()%>';
-			 $.ajax({
-						//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
-						url: '<%=request.getContextPath()%>/servlet/service/createCampaign.updateEmbargo',//createListAndSubscribers
-						type: 'POST',
-						async:false,
-						data: {
-				               campaignid:campaignid,
-						       embargo:campaign_shedule_date,
-						       funnelName:funnelName,
-						       camp_catogery:SubFunnelName,
-						       listid:listid,
-						       remoteuser:remoteuser,
-							  },
-						cache: false,
-						//dataType: 'json',
-						//processData: false, 
-						//contentType: false, 
-						success: function(data)
-						{
-							//console.log('--------------markup---------start');
-		                    console.log('data : '+data);
-		                    //console.log('--------------markup---------end');
-		                    alert('Embargo Updated Sucessfully!');
-						}
-				    });
-			//alert("schedule_campaign date : 3");
-	
-	}
+
       
 	$(document).on('click', '.open-content-set-up-compaign', function() {
 	    //alert($(this).text());
@@ -1465,8 +1439,9 @@
 		});
 	
 	function getSubscribersList(){
-	    var remoteuser ='viki@gmail.com';
-		//alert("remoteuser : "+remoteuser);
+	 //   var remoteuser ='viki@gmail.com';
+	 	var remoteuser ='<%=request.getRemoteUser()%>';
+		console.log("remoteuser : "+remoteuser);
 		$.ajax({
 			type : 'POST',
 			url :'<%=request.getContextPath()%>/servlet/service/Searchlist.listsearch',
@@ -1488,8 +1463,9 @@
 	    });
 	}
 	function getMergeSubscribersList(){
-	    var remoteuser ='viki@gmail.com';
-		//alert("remoteuser : "+remoteuser);
+	 //   var remoteuser ='viki@gmail.com';
+		var remoteuser ='<%=request.getRemoteUser()%>';
+		console.log("remoteuser : "+remoteuser);
 		$.ajax({
 			type : 'POST',
 			url :'<%=request.getContextPath()%>/servlet/service/Searchlist.listsearch',
@@ -1732,7 +1708,7 @@
 		    
 			
 		 }
-		 			
+		var uploadedSubscriberCount; 			
 	  $('#fileUploader').on('change', uploadFile);
 	    function uploadFile(event)
 			{
@@ -1767,8 +1743,10 @@
 				{
 					//alert(JSON.stringify(data));
 				    console.log("uicsvdata : "+JSON.stringify(data));
+				    uploadedSubscriberCount=data.length;
+				     console.log("uploadedSubscriberCount : "+uploadedSubscriberCount);
 					var tbody="";
-					for(var i=0;i<data.length;i++){
+				/*	for(var i=0;i<data.length;i++){
 					   var lead_info=data[i];
                        part_of_list_tbody=part_of_list_tbody+"<tr id='csv_part_of_list_leadtr"+(i+1)+"' name='csv_part_of_list_leadtr'><td>"+(i+1)+"</td><td><input id='csv_part_of_list_leadchk"+(i+1)+"' name='csv_part_of_list_sub_chk_boxes' type='checkbox'/></td><td>"+lead_info.EmailAddress+"</td><td>"+lead_info.FirstName+"</td><td>"+lead_info.LastName+"</td><td>"+lead_info.PhoneNumber+"</td><td>"+lead_info.Address+"</td><td>"+lead_info.CompanyName+"</td><td>"+lead_info.CompanyHeadCount+"</td><td>"+lead_info.Industry+"</td><td>"+lead_info.Institute+"</td><td>"+lead_info.Source+"</td></tr>";
 					   
@@ -1776,7 +1754,30 @@
 					   //part_of_list_tbody=part_of_list_tbody+"<tr id='csv_part_of_list_leadtr"+(i+1)+"' name='csv_part_of_list_leadtr'><td>"+(i+1)+"</td><td><input id='csv_part_of_list_leadchk"+(i+1)+"' name='csv_part_of_list_sub_chk_boxes' type='checkbox'/></td><td>"+lead_info.EmailAddress+"</td><td>"+lead_info.FirstName+"</td><td>"+lead_info.LastName+"</td><td>"+lead_info.PhoneNumber+"</td><td>"+lead_info.Address+"</td></tr>";
 					   
 					   //entire_list_tbody=entire_list_tbody+"<tr id='csv_entire_list_leadtr"+(i+1)+"' name='csv_entire_list_leadtr'><td>"+(i+1)+"</td><td>"+lead_info.EmailAddress+"</td><td>"+lead_info.FirstName+"</td><td>"+lead_info.LastName+"</td><td>"+lead_info.PhoneNumber+"</td><td>"+lead_info.Address+"</td></tr>";
-					}
+					}*/
+					
+					for(var i=0;i<data.length;i++){
+						var lead_info=data[i];
+						console.log("uicsvdata : i "+i);
+						console.log("uicsvdata : i "+JSON.stringify(lead_info));
+						var email_info=JSON.parse(lead_info.Email_Status);
+						console.log("uicsvdata : email_info "+email_info);
+						//alert('email_info : '+JSON.stringify(email_info))
+						//alert('email_info.smtp_check==true : '+email_info.smtp_check==true);
+						//alert('email_info.smtp_check==true : '+email_info.smtp_check=="true");
+						if(email_info.smtp_check==true){
+						part_of_list_tbody=part_of_list_tbody+"<tr class='true-mail' id='csv_part_of_list_leadtr"+(i+1)+"' name='csv_part_of_list_leadtr'><td>"+(i+1)+"</td><td><input id='csv_part_of_list_leadchk"+(i+1)+"' name='csv_part_of_list_sub_chk_boxes' type='checkbox'/></td><td>"+lead_info.EmailAddress+"</td><td>"+lead_info.FirstName+"</td><td>"+lead_info.LastName+"</td><td>"+lead_info.PhoneNumber+"</td><td>"+lead_info.Address+"</td><td>"+lead_info.CompanyName+"</td><td>"+lead_info.CompanyHeadCount+"</td><td>"+lead_info.Industry+"</td><td>"+lead_info.Institute+"</td><td>"+lead_info.Source+"</td><td>"+email_info.smtp_check+"</td></tr>";
+
+						entire_list_tbody=entire_list_tbody+"<tr class='true-mail' id='csv_entire_list_leadtr"+(i+1)+"' name='csv_entire_list_leadtr'><td>"+(i+1)+"</td><td>"+lead_info.EmailAddress+"</td><td>"+lead_info.FirstName+"</td><td>"+lead_info.LastName+"</td><td>"+lead_info.PhoneNumber+"</td><td>"+lead_info.Address+"</td><td>"+lead_info.CompanyName+"</td><td>"+lead_info.CompanyHeadCount+"</td><td>"+lead_info.Industry+"</td><td>"+lead_info.Institute+"</td><td>"+lead_info.Source+"</td><td>"+email_info.smtp_check+"</td></tr>";
+						//part_of_list_tbody=part_of_list_tbody+"<tr id='csv_part_of_list_leadtr"+(i+1)+"' name='csv_part_of_list_leadtr'><td>"+(i+1)+"</td><td><input id='csv_part_of_list_leadchk"+(i+1)+"' name='csv_part_of_list_sub_chk_boxes' type='checkbox'/></td><td>"+lead_info.EmailAddress+"</td><td>"+lead_info.FirstName+"</td><td>"+lead_info.LastName+"</td><td>"+lead_info.PhoneNumber+"</td><td>"+lead_info.Address+"</td></tr>";
+						}else{
+						part_of_list_tbody=part_of_list_tbody+"<tr class='false-mail' id='csv_part_of_list_leadtr"+(i+1)+"' name='csv_part_of_list_leadtr'><td>"+(i+1)+"</td><td><input id='csv_part_of_list_leadchk"+(i+1)+"' name='csv_part_of_list_sub_chk_boxes' type='checkbox'/></td><td>"+lead_info.EmailAddress+"</td><td>"+lead_info.FirstName+"</td><td>"+lead_info.LastName+"</td><td>"+lead_info.PhoneNumber+"</td><td>"+lead_info.Address+"</td><td>"+lead_info.CompanyName+"</td><td>"+lead_info.CompanyHeadCount+"</td><td>"+lead_info.Industry+"</td><td>"+lead_info.Institute+"</td><td>"+lead_info.Source+"</td><td>"+email_info.smtp_check+"</td></tr>";
+
+						entire_list_tbody=entire_list_tbody+"<tr class='false-mail' id='csv_entire_list_leadtr"+(i+1)+"' name='csv_entire_list_leadtr'><td>"+(i+1)+"</td><td>"+lead_info.EmailAddress+"</td><td>"+lead_info.FirstName+"</td><td>"+lead_info.LastName+"</td><td>"+lead_info.PhoneNumber+"</td><td>"+lead_info.Address+"</td><td>"+lead_info.CompanyName+"</td><td>"+lead_info.CompanyHeadCount+"</td><td>"+lead_info.Industry+"</td><td>"+lead_info.Institute+"</td><td>"+lead_info.Source+"</td><td>"+email_info.smtp_check+"</td></tr>";
+
+						}
+						//entire_list_tbody=entire_list_tbody+"<tr id='csv_entire_list_leadtr"+(i+1)+"' name='csv_entire_list_leadtr'><td>"+(i+1)+"</td><td>"+lead_info.EmailAddress+"</td><td>"+lead_info.FirstName+"</td><td>"+lead_info.LastName+"</td><td>"+lead_info.PhoneNumber+"</td><td>"+lead_info.Address+"</td></tr>";
+						}
 					
 		            if (list_type == 'list1') {
 						document.getElementById("csv_leads_list").innerHTML  =entire_list_tbody;
@@ -1920,7 +1921,8 @@
 				var part_of_list_leadtrs=document.getElementsByName("csv_part_of_list_leadtr");
 				//alert(part_of_list_leadtrs.length);
 				var csv_part_of_list_name=document.getElementById("csv_part_of_list_name").value;
-				alert('csv_part_of_list_name : '+csv_part_of_list_name);
+				console.log('csv_part_of_list_name : '+csv_part_of_list_name);
+			//	alert('csv_part_of_list_name : '+csv_part_of_list_name);
 				
 				if ($('input[name="csv_part_of_list_sub_chk_boxes"]:checked').length == 0) {
 						 alert('Please Select At Least One Lead.');
@@ -2017,7 +2019,7 @@
 			    //alert('funnelName: '+localStorage.getItem('funnelName'));
 			    //alert('fromName: '+localStorage.getItem('fromName'));
 			    //alert('fromEmailAddress: '+localStorage.getItem('fromEmailAddress'));
-				
+				console.log("uploadedSubscriberCount :: "+uploadedSubscriberCount);
 				$.ajax({
 			       	//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
 					url: '<%=request.getContextPath()%>/servlet/service/createListAndSubscribers.createlistPlusLead',//createListAndSubscribers
@@ -2032,6 +2034,8 @@
 						   funnelName:localStorage.getItem('funnelName'),
 						   fromName:localStorage.getItem('fromName'),
 						   fromEmailAddress:localStorage.getItem('fromEmailAddress'),
+						   SubscriberCount:uploadedSubscriberCount,
+						   group:localStorage.getItem('groupname'),
 					      },
 					//cache: false,
 					//dataType: 'json',
@@ -2041,17 +2045,22 @@
 					{
 					    var jsonData = JSON.parse(data);
 						//alert("data: listid"+jsonData.listid);
+						if(jsonData.quantity){
+						console.log("jsonData.quantity = "+jsonData.quantity);
+						alert("You can not upload leads more than "+jsonData.quantity);
+						}else{
 						localStorage.setItem('listid',jsonData.listid);
+						console.log("jsonData: "+jsonData);
 						alert("Subscribers List with id "+jsonData.listid+" created Sucessfully.");
+						}
 						//console.log("-------------------------subscribers start-----------------------");
-						//console.log("data: "+data);
+						
 						//console.log("-------------------------subscribers edn-----------------------");
 					},
 					//timeout: 30000 // sets timeout to 30 seconds
 					
 					});
 			    		
-					//alert('Hello Akhilesh: ');
 					
 			}
 	
@@ -2078,7 +2087,9 @@
 		localStorage.setItem('funnelName',funnelName);
 		localStorage.setItem('fromName',fromName);
 		localStorage.setItem('fromEmailAddress',fromEmailAddress);
-		
+		var groupname= document.getElementById("grlist").value;
+		localStorage.setItem('groupname',groupname);
+		console.log("groupname local = "+groupname);
         //alert("remoteuser : "+remoteuser+"\n"+" funnelName : "+funnelName+"\n"+" fromName : "+fromName+"\n"+" fromEmailAddress : "+fromEmailAddress);
 		var trackOpens = document.getElementById("styled-checkbox-1").checked;
 		var trackClicks = document.getElementById("track-clicks").checked;
@@ -2093,7 +2104,7 @@
 				'{ "firstName":"Anna" , "lastName":"Smith" },' +
 				'{ "firstName":"Peter" , "lastName":"Jones" } ]}';
 		*/
-		var text = '{"remoteuser":"'+remoteuser+'", "funnelName":"'+funnelName+'", "fromName":"'+fromName+'", "fromEmailAddress":"'+fromEmailAddress+'", "trackOpens":"'+trackOpens+'", "trackClicks":"'+trackClicks+'", "trackPlainTextClicks":"'+trackPlainTextClicks+'", "googleAnalyticssLinkTracking":"'+googleAnalyticssLinkTracking+'", "autoTweetAfterSending":"'+autoTweetAfterSending+'", "autoPost2SocialMedia":"'+autoPost2SocialMedia+'"}';
+		var text = '{"remoteuser":"'+remoteuser+'", "funnelName":"'+funnelName+'", "fromName":"'+fromName+'", "fromEmailAddress":"'+fromEmailAddress+'", "trackOpens":"'+trackOpens+'", "trackClicks":"'+trackClicks+'", "trackPlainTextClicks":"'+trackPlainTextClicks+'", "googleAnalyticssLinkTracking":"'+googleAnalyticssLinkTracking+'", "autoTweetAfterSending":"'+autoTweetAfterSending+'", "autoPost2SocialMedia":"'+autoPost2SocialMedia+'", "group":"'+groupname+'"}';
         
 		/*
 		if(remoteuser=='anonymous'){
@@ -2116,8 +2127,15 @@
 	             },
 			success: function (dataa) {
 					//subFunnelJsonObj = JSON.parse(dataa);
+						var jsonresp = JSON.parse(dataa);
+					console.log("jsonresp= "+jsonresp);
+					if(jsonresp == "false"){
+					alert("Funnel not creted. User does not exist ");
+					}else{
 					localStorage.setItem('funnelCreationStatus',dataa);
-					alert("Funnel is creted sucessfully : "+dataa);
+					alert("Funnel is creted sucessfully ");
+					console.log("Funnel is creted sucessfully : "+dataa)
+					}
 					/*
 					for(var i=0;i<subFunnelJsonArray.length;i++){
 					   funnel_thead=funnel_thead+"<th><a href='<%=request.getContextPath()%>/servlet/service/CampaignReportApi.campaignView?subfunnel_name="+subFunnelJsonArray[i]+"&funnel_name="+funnelId+"' target='_blank'>"+subFunnelJsonArray[i]+"</th>";

@@ -1,0 +1,190 @@
+
+<div class="tab-pane" id="transformation">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="row">
+				<!--		<div class="col-sm-3 col-sm-offset-1 text-left">
+													<h6 class="pro-rule-name">Project Name</h6>
+												</div> -->
+				<div class="col-sm-3 col-sm-offset-1 text-left">
+					<label class="pro-rule-name"><font size="4"></font>Project Name :</label>
+				
+					<label class="pro-rule-name" id="myprj1"><font size="4"></font></label>
+				</div>
+				<div class="col-sm-4">
+					<h4 class="info-text mb-15">Transform</h4>
+				</div>
+
+				<div class="col-sm-7 col-sm-offset-3 mb-15">
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-8">
+
+
+								<!--	id="downldlink"	<a href="http://35.236.154.164:8082/portal/content/services/freetrial/users/carrotrule444_gmail.com/CarrotruleMainNode/pj/EXTERNAL_DATA/Download_Excel/Download.xls class="btn btn-warning sm-btn-custom download-excel">-->
+								<!--	<button class="btn btn-warning sm-btn-custom download-excel" id="downldlink"> -->
+								<a class="btn btn-warning sm-btn-custom downloadexcel"
+									id="downldlink"> Download <br> <small
+									class="color-dark">Excel Name</small>
+									
+								</a> &nbsp; &nbsp; <input type="file" name="" id="file-upload"
+									style="display: none;"> <label
+									class="btn btn-warning sm-btn-custom" for="file-upload">
+									Upload Excel <br> <small id="file-upload-filename"
+									class="color-dark">File Name</small>
+								</label>
+							</div>
+							<div class="col-sm-4 text-right">
+								<div class="btn-group float-right">
+									<a class="btn btn-default dropdown-toggle dropbox-transform"
+										data-toggle="dropdown" href="#" style="margin: 0px;"> <i
+										class="fa fa-info"></i> <span class="caret"></span>
+									</a>
+									<ul class="dropdown-menu" role="menu"
+										aria-labelledby="dropdownMenu">
+										<li><a tabindex="-1" value="="> = Equals</a></li>
+										<li><a tabindex="-1" value="!="> != Not Equals </a></li>
+										<li><a tabindex="-1" value=">"> > Greater Than </a></li>
+										<li><a tabindex="-1" value="<"> < Less Than </a></li>
+										<li><a tabindex="-1" value=">="> >= Greater Than
+												Equals </a></li>
+										<li><a tabindex="-1" value="<="> <= Less Than Equals
+										</a></li>
+										<li><a tabindex="-1" value="Is Null">Is Null</a></li>
+										<li><a tabindex="-1" value="Is Not Null">Is Not Null</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-12">
+					<div class="row" id="draggable">
+						<div class="col-sm-8 col-sm-offset-2 draggable-table p-0"  id="dvTable">
+							<table
+								class="table table-bordered table-hover bg-light table-transform" id="rawtable">
+								<thead>
+									<tr>
+										<th class="text-center bg-success" colspan="10">Raw Data</th>
+										<th class="text-center bg-danger transformed-data-th"
+											colspan="7">Transformed Data</th>
+									</tr>
+										<tbody id= "rawtr">
+									<tr >
+									<!-- 	<th class="bg-info simple-th">SR No</th>
+										<th class="bg-info simple-th">SF 1</th>
+										<th class="bg-info simple-th">SF 2</th>
+										<th class="bg-info simple-th">SF 3</th>
+										<th class="bg-info simple-th">Ext1</th>
+										<th class="bg-info simple-th">Ext2</th>
+										<th class="bg-info simple-th">Ext3</th>
+										<th class="bg-info simple-th">Excel 1</th>
+										<th class="bg-info simple-th">Excel 2</th>
+										<th class="bg-info simple-th">Excel 3</th>
+										<th class="bg-warning">Price <i
+											class="fa fa-times text-danger remove-added-new-trans-data"></i></th>
+										<th class="bg-warning">Diff Price <i
+											class="fa fa-times text-danger remove-added-new-trans-data"></i></th>
+										<th class="bg-warning">SF 1 <i
+											class="fa fa-times text-danger remove-added-new-trans-data"></i></th>
+										<th class="bg-warning" data-class="lastTD">SF 2 <i
+											class="fa fa-times text-danger remove-added-new-trans-data"></i></th> -->
+									</tr>
+										</tbody> 
+								<!--	<tr>
+										<th class="bg-info simple-th"></th>
+										<th class="bg-info simple-th"></th>
+										<th class="bg-info simple-th"></th>
+										<th class="bg-info simple-th"></th>
+										<th class="bg-info simple-th"></th>
+										<th class="bg-info simple-th"></th>
+										<th class="bg-info simple-th"></th>
+										<th class="bg-info simple-th"></th>
+										<th class="bg-info simple-th"></th>
+										<th class="bg-info simple-th"></th>
+										<th class="bg-warning">SF1 + SF2</th>
+										<th class="bg-info simple-th"></th>
+										<th class="bg-info simple-th"></th>
+										<th class="bg-info simple-th"></th>
+									</tr>  -->
+								</thead>
+							<!-- <tbody>
+									<tr class="firstTr">
+										<td>1</td>
+										<td class="simple-td"></td>
+										<td class="simple-td"></td>
+										<td class="simple-td"></td>
+										<td class="simple-td"></td>
+										<td class="simple-td"></td>
+										<td class="simple-td"></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>2</td>
+										<td class="simple-td"></td>
+										<td class="simple-td"></td>
+										<td class="simple-td"></td>
+										<td class="simple-td"></td>
+										<td class="simple-td"></td>
+										<td class="simple-td"></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>3</td>
+										<td class="simple-td"></td>
+										<td class="simple-td"></td>
+										<td class="simple-td"></td>
+										<td class="simple-td"></td>
+										<td class="simple-td"></td>
+										<td class="simple-td"></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>  -->	
+							</table>
+						</div>
+						<div class="col-sm-2 more-tdT">
+							<a class="btn btn-success sm0-btn-custom add"><i
+								class="fa fa-plus"></i></a> <a
+								class="btn btn-success sm0-btn-custom remove"><i
+								class="fa fa-minus"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br> <br>
+	<div class="row">
+		<div class="col-sm-3 text-left">
+			<a class='btn btn-fill btn-default btn-wd transform-pre'>previous</a>
+		</div>
+		<div class="col-sm-3 text-center">
+			<button class='btn btn-fill btn-success btn-wd'>Save</button>
+		</div>
+		<div class="col-sm-3 text-center">
+			<button class='btn btn-fill btn-warning btn-wd'>edit</button>
+		</div>
+		<div class="col-sm-3 text-right">
+			<a class='btn btn-fill btn-danger btn-wd transform-next'>Save &
+				next</a>
+		</div>
+	</div>
+</div>

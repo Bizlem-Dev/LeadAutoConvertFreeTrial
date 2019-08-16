@@ -1,0 +1,28 @@
+            <div class="tab-pane" id="run">
+	                            	<div class="row">
+	                            		<div class="col-sm-10 col-sm-offset-1">
+	                            			<div class="row">
+	                            				<div class="col-md-12">
+	                            					<h4 class="info-text">
+														Run
+	                                				</h4>
+	                            				</div>
+	                            				<div class="col-md-12">
+	                                				<div class="row">
+	                                					<div class="col-md-4">
+	                                						<input type="file" name="" id="uexcel1" style="display: none;">
+										                    <label class="btn btn-warning sm-btn-custom" for="uexcel1"><i class="fa fa-file-excel-o" aria-hidden="true"></i> &nbsp; Upload excel </label>
+										                    <small id="uexcel1-filename" class="color-dark">File Name</small>
+	                                					</div>
+	                                					<div class="col-md-4 text-center">
+				                                			<button class="btn btn-warning sm-btn-custom">Run</button>
+	                                					</div>
+	                                					<div class="col-md-offset-1 col-md-3">
+										                    <a href="#" class="btn btn-warning sm-btn-custom"><i class="fa fa-file-excel-o" aria-hidden="true"></i> &nbsp; Download excel </a>
+	                                					</div>
+	                                				</div>
+	                            				</div>
+	                            			</div>
+	                            		</div>
+	                            	</div>
+	                            </div>

@@ -292,7 +292,9 @@
 		    var fromName = document.getElementById("from-name").value;
 		    var fromEmailAddress = document.getElementById("email-address").value;
 		    var subjectName = document.getElementById("subject-name").value;
-			
+			var remoteuser=localStorage.getItem('remoteuser');
+			var groupname=localStorage.getItem('groupname');
+			console.log("remoteuser :: "+remoteuser+" :: groupname"+groupname);
 			localStorage.setItem('campaignName',campaignName);
 	        localStorage.setItem('fromName',fromName);
 	        localStorage.setItem('fromEmailAddress',fromEmailAddress);
@@ -317,6 +319,8 @@
 						   SubFunnelName : SubFunnelName,
 						   DistanceBtnCampaign : DistanceBtnCampaign,
 						   listid : listid,
+						   logged_in_user : remoteuser,
+						   group : groupname,
 						  },
 					cache: false,
 					//dataType: 'json',
@@ -333,6 +337,7 @@
 						//campaignid
 	                    //console.log('--------------markup---------end');
 	                    //alert('data: '+data);
+	                    console.log("Your Campaign Is saved and Campaign Id Is "+jsonData.campaignid);
 						alert("Your Campaign Is saved and Campaign Id Is "+jsonData.campaignid);
 						//campaignid
 	                    //console.log('--------------markup---------end');

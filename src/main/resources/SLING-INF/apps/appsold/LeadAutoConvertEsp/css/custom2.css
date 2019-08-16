@@ -1,0 +1,106 @@
+.datetimepicker{
+	margin-top:40px !important;
+	border:1px solid #d2d2d2 !important;
+	padding:22px !important;
+}
+ul li{
+	list-style: none;
+}
+a{
+	text-decoration: none !important;
+}
+.open{
+	display:block !important;
+}
+/*#menu_area{
+	background:#631a21; 
+}*/
+.menu-area{
+	background-color:#2b2767 !important;
+	border-bottom:0px !important;
+}
+.dropdown-menu{
+	padding:0;
+	margin:0;
+	border:0 solid transition !important;
+	border:0 solid rgba(0,0,0,.15);
+	border-radius:0;
+	-webkit-box-shadow:none!important;
+	box-shadow:none!important
+}
+.mainmenu a, .navbar-default .navbar-nav > li > a, .mainmenu ul li a , .navbar-expand-lg .navbar-nav .nav-link{color:#fff;font-size:16px;text-transform:capitalize;padding:16px 15px;font-family:'Roboto',sans-serif;display: block !important;}
+.mainmenu .active a,.mainmenu .active a:focus,.mainmenu .active a:hover,.mainmenu li a:hover,.mainmenu li a:focus ,.navbar-default .navbar-nav>.show>a, .navbar-default .navbar-nav>.show>a:focus, .navbar-default .navbar-nav>.show>a:hover{
+	color: #fff;
+	/*background: #53a527;*/
+	outline: 0;
+}
+.mainmenu .collapse ul > li:hover > a{
+	background: #2b2767;
+	text-decoration: none;
+}
+.mainmenu .collapse ul ul > li:hover > a, .navbar-default .navbar-nav .show .dropdown-menu > li > a:focus, .navbar-default .navbar-nav .show .dropdown-menu > li > a:hover{
+	background: #3C3692;
+}
+.mainmenu .collapse ul ul ul > li:hover > a{
+	background: #b26e74;
+}
+.mainmenu .collapse ul ul, .mainmenu .collapse ul ul.dropdown-menu{
+	background:#2B2767;
+}
+.mainmenu .collapse ul ul ul, .mainmenu .collapse ul ul ul.dropdown-menu{
+	background:#6e000b;
+}
+.mainmenu .collapse ul ul ul ul, .mainmenu .collapse ul ul ul ul.dropdown-menu{
+	background:#64B5F6;
+}
+.mainmenu{background: none;
+	border: 0 solid;
+	margin: 0;
+	padding: 0;
+	min-height:20px;
+	width: 100%;
+}
+.table thead th{
+	color:#a99f9f;
+	font-weight:500;
+}
+
+@media only screen and (min-width: 767px) {
+.mainmenu .collapse ul li:hover> ul{display:block}
+.mainmenu .collapse ul ul{position:absolute;top:100%;left:0;min-width:250px;display:none}
+.mainmenu .collapse ul ul li{position:relative}
+.mainmenu .collapse ul ul li:hover> ul{display:block}
+.mainmenu .collapse ul ul ul{position:absolute;top:0;left:100%;min-width:250px;display:none}
+.mainmenu .collapse ul ul ul li{position:relative}
+.mainmenu .collapse ul ul ul li:hover ul{display:block}
+.mainmenu .collapse ul ul ul ul{position:absolute;top:0;left:-100%;min-width:250px;display:none;z-index:1}
+}
+@media only screen and (max-width: 767px) {
+.navbar-nav .show .dropdown-menu .dropdown-menu > li > a{padding:16px 15px 16px 35px}
+.navbar-nav .show .dropdown-menu .dropdown-menu .dropdown-menu > li > a{padding:16px 15px 16px 45px}
+}
+
+#menu_area .navbar{
+	height: auto;
+}
+.navbar{
+	box-shadow: unset;
+}
+.menu-area{
+	background: #C90000;
+	border-bottom: 2px solid #6E000B;
+}
+.menu-area a{
+	color: #fff !important;
+}
+
+
+
+
+
+
+@font-face{font-family:'Glyphicons Halflings';src:url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.eot');src:url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.woff') format('woff'),url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.ttf') format('truetype'),url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:normal;line-height:1;-webkit-font-smoothing:antialiased;}
+.icon-arrow-left:before{content:"\e091";}
+.icon-arrow-right:before{content:"\e092";}
+.icon-arrow-up:before{content:"\e093";}
+.icon-arrow-down:before{content:"\e094";}

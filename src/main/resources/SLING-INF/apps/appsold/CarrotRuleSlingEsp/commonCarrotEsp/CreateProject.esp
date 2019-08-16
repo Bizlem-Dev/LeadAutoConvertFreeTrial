@@ -1,0 +1,72 @@
+	<div class="tab-pane" id="createNew">
+							<div class="row">
+										<div class="col-sm-10 col-sm-offset-1">
+											<div class="row">
+												<div class="col-sm-12">
+													<h4 class="info-text">Create New</h4>
+												</div>
+												
+												
+ 
+												
+												<div class="col-sm-6">
+													<div class="row">
+														<div class="col-sm-4">
+															<label>Project Name</label>
+														</div>
+														<div class="col-sm-8">
+															<input type="text" name="project_name" class="form-control"
+																placeholder="Project Name" id="project_name">
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-4">
+															<label>Project Description</label>
+														</div>
+														<div class="col-sm-8">
+															<textarea class="form-control"
+																placeholder="Project Description" id="Project_Description"></textarea>
+														</div>
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="row">
+														<div class="col-sm-4">
+															<label>Rule Engine</label>
+														</div>
+														<div class="col-sm-8">
+															<input type="text" name="" class="form-control"
+																placeholder="Rule Engine" id="Rule_Engine">
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-4">
+															<label>Rule Engine Description</label>
+														</div>
+														<div class="col-sm-8">
+															<textarea class="form-control"
+																placeholder="Rule Engine Description" id="Rule_Engine_Description"></textarea>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<br>
+									<br>
+									<div class="row">
+										<div class="col-sm-3 text-left">
+											<a class='btn btn-fill btn-default btn-wd createNew-pre'>previous</a>
+										</div>
+										<div class="col-sm-3 text-center">
+											<button class='btn btn-fill btn-success btn-wd'>Save</button>
+										</div>
+										<div class="col-sm-3 text-center">
+											<button class='btn btn-fill btn-warning btn-wd'>edit</button>
+										</div>
+										<div class="col-sm-3 text-right">
+											<a class='btn btn-fill btn-danger btn-wd createNew-next' id='savefirst' >Save
+												& next</a>
+										</div>
+									</div>
+								</div>

@@ -1,0 +1,187 @@
+
+<div class="tab-pane" id="calculationBuilder">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="row">
+				<!-- 	<div class="col-sm-3 col-sm-offset-1 text-left">  -->
+
+				<!--	<h6 class="pro-rule-name">Project Name</h6> -->
+				<div class="col-sm-3 col-sm-offset-1 text-left">
+					<label class="pro-rule-name"><font size="4"></font>Project
+						Name :</label> <label class="pro-rule-name" id="myprj3"><font
+						size="4"></font></label>
+				</div>
+
+
+				<div class="col-sm-4">
+					<h4 class="info-text">Calculation Builder</h4>
+				</div>
+				<!--  		<div class="col-sm-3 text-right">
+													<h6 class="pro-rule-name">Rule Engine</h6>REName
+												</div> -->
+				<div class="col-sm-3 text-right">
+					<label class="pro-rule-name"><font size="4"></font>Rule
+						Engine :</label> <label class="pro-rule-name" id="REName3"><font
+						size="4"></font></label>
+				</div>
+
+				<div class="col-sm-9 col-sm-offset-3 mb-15">
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-12">
+								<button class="btn btn-warning sm-btn-custom">Download
+									Parameters</button>
+								&nbsp; &nbsp;
+								<!-- 	<button class="btn btn-warning sm-btn-custom downloadcalexcel">
+																	Download <br> <small class="color-dark">Excel
+																		Name</small>
+																</button> -->
+								<a class="btn btn-warning sm-btn-custom downloadcalexcel"
+									id="downldcalclink"> Download <br> <small
+									class="color-dark">Excel Name</small>
+
+								</a> &nbsp; &nbsp; <input type="file" name="" id="file-upload-cal"
+									style="display: none;"> <label
+									class="btn btn-warning sm-btn-custom" for="file-upload-cal">
+									Upload Excel <br> <small id="file-upload-filename-cal"
+									class="color-dark">File Name</small>
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-8 col-sm-offset-2" style="overflow-x: scroll;">
+					<table
+						class="table table-bordered table-hover bg-light table-calc-builder"
+						id="calBuildtab">
+						<thead>
+															<tr>
+																<th colspan="8" class="bg-success text-center simple-th" id="raw1">Raw
+																	Data</th>
+															<!-- 	<th colspan="3" class="bg-info text-center simple-th" id="op2">Output
+																	Data</th>  -->
+																<th colspan="3"
+																	class="bg-danger text-center transformed-data-th simple-th" id="calbuil">Calculation
+																	Builder</th>
+															</tr>
+															<tr id="rulerow">
+																<th class=" simple-th">SR No</th>
+																<th class=" simple-th">Rule Name</th>
+														<!--  	<th class="bg-success simple-th">SF Field1</th>
+																<th class="bg-success simple-th">SF Field2</th>
+																<th class="bg-success simple-th">SF Field3</th>
+																<th class="bg-success simple-th">SF Field4</th>
+																<th class="bg-success simple-th">SF Field5</th>
+																<th class="bg-success simple-th">SF Field6</th>
+																<th class="bg-info simple-th">Output F1</th>
+																<th class="bg-info simple-th">Output F2</th>
+																<th class="bg-info simple-th">Output F3</th>
+																<th class="bg-danger">Calcul_1 <i
+																	class="fa fa-times text-danger remove-added-new-calc-builder"></i></th>
+																<th class="bg-danger">Calcul_2 <i
+																	class="fa fa-times text-danger remove-added-new-calc-builder"></i></th>
+																<th class="bg-danger">Calcul_3 <i
+																	class="fa fa-times text-danger remove-added-new-calc-builder"></i></th>
+															-->	
+															</tr>
+														</thead>	
+														<!-- 	
+														<tbody>
+															<tr>
+																<td>1</td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+															</tr> 
+															<tr>
+																<td>2</td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+															</tr>
+															<tr>
+																<td>3</td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+															</tr> -->
+														</tbody> 
+
+					<!-- 	<thead>
+							<tr id="rulerow1">
+						
+							</tr> 
+						</thead> -->
+						<tbody>
+							<tr class="firstTr">
+								<td>1</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-sm-2 more-tdT">
+					<a class="btn btn-success sm0-btn-custom add" id="add_calBuild"><i
+						class="fa fa-plus"></i></a> <a
+						class="btn btn-success sm0-btn-custom remove"><i
+						class="fa fa-minus"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br> <br>
+	<div class="row">
+		<div class="col-sm-3 text-left">
+			<a class='btn btn-fill btn-default btn-wd calculationBuilder-pre'>previous</a>
+		</div>
+		<div class="col-sm-3 text-center">
+			<button class='btn btn-fill btn-success btn-wd'>Save</button>
+		</div>
+		<div class="col-sm-3 text-center">
+			<button class='btn btn-fill btn-warning btn-wd'>edit</button>
+		</div>
+		<div class="col-sm-3 text-right">
+			<a class='btn btn-fill btn-danger btn-wd calculationBuilder-next'>Save
+				& next</a>
+		</div>
+	</div>
+</div>

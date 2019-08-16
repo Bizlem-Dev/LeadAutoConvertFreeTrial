@@ -18,7 +18,6 @@ import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.jcr.api.SlingRepository;
 
-import leadconverter.freetrail.FreeTrialandCart;
 import leadconverter.mongo.MongoDAO;
 
 @Component(immediate = true, metatype = false)
@@ -53,7 +52,7 @@ public class freeTrailServlet extends SlingAllMethodsServlet {
 				
 				MongoDAO mdao=new MongoDAO();
 				long subscribers_count=mdao.getSubscriberCountForLoggedInUserForFreeTrail("subscribers_details",logged_in_user_email);
-				String free_trail_status=new FreeTrialandCart().checkfreetrial(logged_in_user_email);
+				String free_trail_status=new FreetrialShoppingCartUpdate().checkfreetrial(logged_in_user_email);
 				//long subscribers_count=2000;
 				//String free_trail_status="0";
 				if(subscribers_count<=2000&&free_trail_status.equals("0")){

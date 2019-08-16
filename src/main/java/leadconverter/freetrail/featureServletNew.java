@@ -18,7 +18,7 @@ import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.jcr.api.SlingRepository;
 
-import leadconverter.freetrail.FreeTrialandCart;
+
 
 @Component(immediate = true, metatype = false)
 @Service(value = javax.servlet.Servlet.class)
@@ -46,9 +46,9 @@ public class featureServletNew extends SlingAllMethodsServlet {
 			if (request.getRequestPathInfo().getExtension().equals("callservice")) {
 				out.println("in callservice");
 				String rmemail = request.getParameter("rm_email");
-				FreeTrialandCart cart = new FreeTrialandCart();
-				String freetrialstatus = cart.checkfreetrial(rmemail);
-				mailtangynode = cart.getMailtangyNode(freetrialstatus, rmemail, "", session, response);
+//				FreeTrialandCart cart = new FreeTrialandCart();
+//				String freetrialstatus = cart.checkfreetrial(rmemail);
+//				mailtangynode = cart.getMailtangyNode(freetrialstatus, rmemail, "", session, response);
 
 			} else {
 				System.out.println("in else part");

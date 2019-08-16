@@ -1,0 +1,317 @@
+<div class="tab-pane" id="addRules">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="row">
+			<!-- 	<div class="col-sm-3 col-sm-offset-1 text-left">
+					<h6 class="pro-rule-name">Project Name</h6>
+					<div id="prjName_RE" class="pro-rule-name"></div>
+				</div>
+				<div class="col-sm-4">
+					<h4 class="info-text">Add Rules</h4>
+				</div>
+				<div class="col-sm-3 text-right">
+					<h6 class="pro-rule-name">Rule Engine</h6>
+					<div id="REName" class="pro-rule-name"></div>
+				</div>
+				 -->
+				<div  class="col-sm-3 col-sm-offset-1 text-left">
+					<label class="pro-rule-name"><font size="4"></font>Project Name :</label>
+				
+					<label class="pro-rule-name" id="prjName_RE"><font size="4"></font></label>
+				</div>
+				<div class="col-sm-6 text-right">
+				<label class="pro-rule-name"><font size="4"></font>Rule Engine :</label>				
+				<label class="pro-rule-name" id="REName"><font size="4"></font></label>
+				</div>
+				<div class="col-sm-12">
+					<div class="row" id="draggable">
+						<div class="col-sm-2 more-tr text-right">
+							<a class="btn btn-success sm0-btn-custom add"><i
+								class="fa fa-plus"></i></a> <a
+								class="btn btn-success sm0-btn-custom remove"><i
+								class="fa fa-minus"></i></a>
+						</div>
+						<div class="col-sm-8 draggable-table p-0">
+							<table
+								class="table table-bordered table-hover bg-light table-add-rules"
+								id="ruleheadertab">
+								<thead>
+									<tr id="rulerow">
+
+										<!--	<th class="simple-th">SR No</th>
+																		<th class="simple-th">Rule Name</th>
+																		<th class="bg-success operators-td simple-th">SF
+																			Field1
+																			<div class="btn-group float-right">
+																				<a
+																					class="btn btn-info sm0-btn-custom dropdown-toggle dropdown-toggle-addRule dropbox-transform"
+																					data-toggle="dropdown" href="#"
+																					style="margin: 0px;"> <i class="fa fa-info"></i>
+																					<span class="caret"></span></a>
+																				<ul class="dropdown-menu dropdown-menu-addRule"
+																					role="menu" aria-labelledby="dropdownMenu">
+																					<li><a tabindex="-1" value="Equals"> =
+																							Equals</a></li>
+																					<li><a tabindex="-1" value="Not Equals">
+																							!= Not Equals </a></li>
+																					<li><a tabindex="-1" value="Greater Than">
+																							> Greater Than </a></li>
+																					<li><a tabindex="-1" value="Less Than"> <
+																							Less Than </a></li>
+																					<li><a tabindex="-1"
+																						value="Greater Than Equals"> >= Greater Than
+																							Equals </a></li>
+																					<li><a tabindex="-1" value="Less Than Equals">
+																							<= Less Than Equals </a></li>
+																					<li><a tabindex="-1" value="Is Null">Is
+																							Null</a></li>
+																					<li><a tabindex="-1" value="Is Not Null">Is
+																							Not Null</a></li>
+																				</ul>
+																			</div> <span class="operators-i"></span>
+																		</th>
+																		<th class="bg-success operators-td simple-th">SF
+																			Field2
+																			<div class="btn-group float-right">
+																				<a
+																					class="btn btn-info sm0-btn-custom dropdown-toggle dropdown-toggle-addRule dropbox-transform"
+																					data-toggle="dropdown" href="#"
+																					style="margin: 0px;"> <i class="fa fa-info"></i>
+																					<span class="caret"></span></a>
+																				<ul class="dropdown-menu dropdown-menu-addRule"
+																					role="menu" aria-labelledby="dropdownMenu">
+																					<li><a tabindex="-1" value="Equals"> =
+																							Equals</a></li>
+																					<li><a tabindex="-1" value="Not Equals">
+																							!= Not Equals </a></li>
+																					<li><a tabindex="-1" value="Greater Than">
+																							> Greater Than </a></li>
+																					<li><a tabindex="-1" value="Less Than"> <
+																							Less Than </a></li>
+																					<li><a tabindex="-1"
+																						value="Greater Than Equals"> >= Greater Than
+																							Equals </a></li>
+																					<li><a tabindex="-1" value="Less Than Equals">
+																							<= Less Than Equals </a></li>
+																					<li><a tabindex="-1" value="Is Null">Is
+																							Null</a></li>
+																					<li><a tabindex="-1" value="Is Not Null">Is
+																							Not Null</a></li>
+																				</ul>
+																			</div> <span class="operators-i"></span>
+																		</th>
+																		<th class="bg-success operators-td simple-th">SF
+																			Field3
+																			<div class="btn-group float-right">
+																				<a
+																					class="btn btn-info sm0-btn-custom dropdown-toggle dropdown-toggle-addRule dropbox-transform"
+																					data-toggle="dropdown" href="#"
+																					style="margin: 0px;"> <i class="fa fa-info"></i>
+																					<span class="caret"></span></a>
+																				<ul class="dropdown-menu dropdown-menu-addRule"
+																					role="menu" aria-labelledby="dropdownMenu">
+																					<li><a tabindex="-1" value="Equals"> =
+																							Equals</a></li>
+																					<li><a tabindex="-1" value="Not Equals">
+																							!= Not Equals </a></li>
+																					<li><a tabindex="-1" value="Greater Than">
+																							> Greater Than </a></li>
+																					<li><a tabindex="-1" value="Less Than"> <
+																							Less Than </a></li>
+																					<li><a tabindex="-1"
+																						value="Greater Than Equals"> >= Greater Than
+																							Equals </a></li>
+																					<li><a tabindex="-1" value="Less Than Equals">
+																							<= Less Than Equals </a></li>
+																					<li><a tabindex="-1" value="Is Null">Is
+																							Null</a></li>
+																					<li><a tabindex="-1" value="Is Not Null">Is
+																							Not Null</a></li>
+																				</ul>
+																			</div> <span class="operators-i"></span>
+																		</th>
+																		<th class="bg-success operators-td simple-th">SF
+																			Field4
+																			<div class="btn-group float-right">
+																				<a
+																					class="btn btn-info sm0-btn-custom dropdown-toggle dropdown-toggle-addRule dropbox-transform"
+																					data-toggle="dropdown" href="#"
+																					style="margin: 0px;"> <i class="fa fa-info"></i>
+																					<span class="caret"></span></a>
+																				<ul class="dropdown-menu dropdown-menu-addRule"
+																					role="menu" aria-labelledby="dropdownMenu">
+																					<li><a tabindex="-1" value="Equals"> =
+																							Equals</a></li>
+																					<li><a tabindex="-1" value="Not Equals">
+																							!= Not Equals </a></li>
+																					<li><a tabindex="-1" value="Greater Than">
+																							> Greater Than </a></li>
+																					<li><a tabindex="-1" value="Less Than"> <
+																							Less Than </a></li>
+																					<li><a tabindex="-1"
+																						value="Greater Than Equals"> >= Greater Than
+																							Equals </a></li>
+																					<li><a tabindex="-1" value="Less Than Equals">
+																							<= Less Than Equals </a></li>
+																					<li><a tabindex="-1" value="Is Null">Is
+																							Null</a></li>
+																					<li><a tabindex="-1" value="Is Not Null">Is
+																							Not Null</a></li>
+																				</ul>
+																			</div> <span class="operators-i"></span>
+																		</th>
+																		<th class="bg-success operators-td simple-th">SF
+																			Field5
+																			<div class="btn-group float-right">
+																				<a
+																					class="btn btn-info sm0-btn-custom dropdown-toggle dropdown-toggle-addRule dropbox-transform"
+																					data-toggle="dropdown" href="#"
+																					style="margin: 0px;"> <i class="fa fa-info"></i>
+																					<span class="caret"></span></a>
+																				<ul class="dropdown-menu dropdown-menu-addRule"
+																					role="menu" aria-labelledby="dropdownMenu">
+																					<li><a tabindex="-1" value="Equals"> =
+																							Equals</a></li>
+																					<li><a tabindex="-1" value="Not Equals">
+																							!= Not Equals </a></li>
+																					<li><a tabindex="-1" value="Greater Than">
+																							> Greater Than </a></li>
+																					<li><a tabindex="-1" value="Less Than"> <
+																							Less Than </a></li>
+																					<li><a tabindex="-1"
+																						value="Greater Than Equals"> >= Greater Than
+																							Equals </a></li>
+																					<li><a tabindex="-1" value="Less Than Equals">
+																							<= Less Than Equals </a></li>
+																					<li><a tabindex="-1" value="Is Null">Is
+																							Null</a></li>
+																					<li><a tabindex="-1" value="Is Not Null">Is
+																							Not Null</a></li>
+																				</ul>
+																			</div> <span class="operators-i"></span>
+																		</th>
+																		<th class="bg-success operators-td simple-th">SF
+																			Field6
+																			<div class="btn-group float-right">
+																				<a
+																					class="btn btn-info sm0-btn-custom dropdown-toggle dropdown-toggle-addRule dropbox-transform"
+																					data-toggle="dropdown" href="#"
+																					style="margin: 0px;"> <i class="fa fa-info"></i>
+																					<span class="caret"></span></a>
+																				<ul class="dropdown-menu dropdown-menu-addRule"
+																					role="menu" aria-labelledby="dropdownMenu">
+																					<li><a tabindex="-1" value="Equals"> =
+																							Equals</a></li>
+																					<li><a tabindex="-1" value="Not Equals">
+																							!= Not Equals </a></li>
+																					<li><a tabindex="-1" value="Greater Than">
+																							> Greater Than </a></li>
+																					<li><a tabindex="-1" value="Less Than"> <
+																							Less Than </a></li>
+																					<li><a tabindex="-1"
+																						value="Greater Than Equals"> >= Greater Than
+																							Equals </a></li>
+																					<li><a tabindex="-1" value="Less Than Equals">
+																							<= Less Than Equals </a></li>
+																					<li><a tabindex="-1" value="Is Null">Is
+																							Null</a></li>
+																					<li><a tabindex="-1" value="Is Not Null">Is
+																							Not Null</a></li>
+																				</ul>
+																			</div> <span class="operators-i"></span>
+																		</th>   -->
+										<!--  <th class="bg-info">Output F1 <i
+											class="fa fa-times text-danger remove-added-new-added-rule"></i></th>   -->
+										<!-- 	<th class="bg-info">Output F2 <i
+											class="fa fa-times text-danger remove-added-new-added-rule"></i></th>
+										<th class="bg-info" data-class="lastTD">Output F3 <i
+											class="fa fa-times text-danger remove-added-new-added-rule"></i>
+										</th> -->
+									</tr>
+								</thead>
+								<!-- 	<tbody>
+									<tr class="firstTr">
+										<td>1</td>
+										<td></td>
+									 	<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>  
+									</tr>
+									<tr>
+										<td>2</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<!-- <td></td>
+										<td></td>
+										<td></td>  
+									</tr>
+									<tr>
+										<td>3</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+												<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody> -->
+								<tbody>
+									<tr class="firstTr" id="firsttr">
+										<td>1</td>
+										<td></td>
+									</tr>
+									<tr  id="secondtr">
+										<td>2</td>
+										<td></td>
+									</tr>
+									<tr id="thirdtr">
+										<td>3</td>
+										<td></td>
+									</tr>
+								</tbody>
+
+							</table>
+						</div>
+						<div class="col-sm-2 more-td">
+							<a class="btn btn-success sm0-btn-custom add" id="add_rule"><i
+								class="fa fa-plus"></i></a> <a
+								class="btn btn-success sm0-btn-custom remove"><i
+								class="fa fa-minus"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br> <br>
+	<div class="row">
+		<div class="col-sm-3 text-left">
+			<a class='btn btn-fill btn-default btn-wd addRule-pre'>previous</a>
+		</div>
+		<div class="col-sm-3 text-center">
+			<button class='btn btn-fill btn-success btn-wd'>Save</button>
+		</div>
+		<div class="col-sm-3 text-center">
+			<button class='btn btn-fill btn-warning btn-wd'>edit</button>
+		</div>
+		<div class="col-sm-3 text-right">
+			<a class='btn btn-fill btn-danger btn-wd addRule-next'>Save &
+				next</a>
+		</div>
+	</div>
+</div>

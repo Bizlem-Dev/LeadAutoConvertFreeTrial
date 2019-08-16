@@ -7,22 +7,25 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import leadconverter.doctiger.LogByFileWriter;
+
 import org.apache.sling.commons.json.JSONObject;
 
 public class MailChecker {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-        //emailValidation("akhileshyadav0308@gmail.com");
+        String email_details=emailValidation("keownliam colum@emaar.com");
+        System.out.println(email_details);
         //Exist : akhileshyadav0308@gmail.com
         //Does not Exist : akhileshyadav0308asd@gmail.com
-		emailValidationByApiLayer("akhileshyadav0308@gmail.com");
+		//emailValidationByApiLayer("akhileshyadav0308@gmail.com");
 	}
 	public static String emailValidationByApiLayer(String userid) {
 		String email_status ="NA";
-		String email_checker_api = ResourceBundle.getBundle("config").getString("apilayer_email_checker_api") + userid+"&smtp=1&format=0";
+		String apilayer_email_checker_api = ResourceBundle.getBundle("config").getString("apilayer_email_checker_api") + userid+"&smtp=1&format=0";
 		try {
-			URL url = new URL(email_checker_api);
+			URL url = new URL(apilayer_email_checker_api);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.connect();
@@ -42,7 +45,9 @@ public class MailChecker {
 	}
 	
 	public static String emailValidation(String userid) {
+		//LogByFileWriter.logger_info("MailChecker : emailValidation() " + userid);
 		String email_status ="NA";
+		String email_details =null;
 		String email_checker_api = ResourceBundle.getBundle("config").getString("email_checker_api") + userid;
 		try {
 			URL url = new URL(email_checker_api);
@@ -55,8 +60,9 @@ public class MailChecker {
 			InputStream in = conn.getInputStream();
 			//System.out.println("Step 4");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-			String text = reader.readLine();
+			email_details = reader.readLine();
 			//System.out.println("Step 5");
+			/*
 			System.out.println(text);
             if(text.contains("Does not Exist")){
             	email_status="Invalid";
@@ -65,14 +71,16 @@ public class MailChecker {
 				email_status="Valid";
 				System.out.println("Valid");
 			}
+			*/
 			//JSONObject obj = new JSONObject(text);
+			//System.out.println("obj : "+obj);
 			//expireFlag = obj.getInt("expireFlag");
 			//System.out.println(Integer.toString(expireFlag));
 			conn.disconnect();
 		} catch (Exception ex) {
 			System.out.println("Error : "+ex);
 		}
-		return email_status;
+		return email_details;
 	}
 
 }

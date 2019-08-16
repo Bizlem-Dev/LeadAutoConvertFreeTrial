@@ -1,0 +1,108 @@
+
+	                    	   <div class="tab-pane" id="advance">
+		                    	<div class="row">
+	                    			<div class="col-sm-10 col-sm-offset-1">
+                                		<div class="row">
+                                			<div class="col-sm-10 adv-rolename">
+                                			<!--	<div class="row"></div> -->
+		                                		<!-- 	<div class="col-sm-12 adv-rolename-a">
+											    		<a href="#" class="rule1">Rule 1</a>
+		                                			</div> -->
+		                                		<div class="form-group addMore m-0">
+		<div class="row addMore-main">
+		
+		<div class="col-sm-12 addMore-sub ruleengaddplus" id="ruleengplus">
+		<div class="row">
+		<div class="col-sm-2" id="ruleengone">
+		</div>
+		</div>
+		</div>
+		</div>
+		<div class="row addMore-copy" style="display: none;">
+		<div class="col-sm-12 addMore-sub ruleengaddplus">
+		<div class="row">
+		<div class="col-sm-2" >
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>  
+		                                			
+                                				
+                                			</div>
+                                			<div class="col-sm-2 text-right">
+                                				<h4 class="m-0">Project Name</h4>
+                                			</div>
+                                		</div>	
+
+                                		<div class="form-group addMore m-0">
+	                                		<div class="row addMore-main">
+	                                			<div class="col-sm-12 addMore-sub">
+	                                				<div class="row">
+	                                					<div class="col-sm-2">
+												    		<label>Add Controller</label>
+			                                			</div>
+			                                			<div class="col-sm-3">
+			                                				<input type="text" name="" placeholder="Controller" class="form-control">
+			                                			</div>
+			                                			<div class="col-sm-2 p-0">
+			                                				<a class="btn btn-success add-more-btn sm-btn-custom" ><i class="fa fa-plus"></i></a>
+			                                			</div>	
+	                                				</div>
+	                                			</div>
+	                                		</div>
+	                                		<div class="row addMore-copy" style="display: none;">
+	                                			<div class="col-sm-12 addMore-sub">
+	                                				<div class="row">
+			                                			<div class="col-sm-3 col-sm-offset-2">
+			                                				<input type="text" name="" placeholder="Controller" class="form-control">
+			                                			</div>
+			                                			<div class="col-sm-2 p-0">
+			                                				<a class="btn btn-danger copy-remove-btn sm-btn-custom"><i class="fa fa-trash"></i></a>
+			                                			</div>
+	                                				</div>
+	                                			</div>
+	                                		</div>
+										</div> 
+
+										<div class="form-group addMore m-0">
+	                                		<div class="row addMore-main">
+	                                			<div class="col-sm-12 addMore-sub ruleengadd12" id="ruleeng">
+	                                				<div class="row">
+	                                					<div class="col-sm-2">
+												    		<label>Rule Engine</label>
+			                                			</div>
+			                                			<div class="col-sm-3">
+			                                				<input type="text" name="" placeholder="Rule Engine" class="form-control" id="rulengfir" name="rulg">
+			                                			</div>
+			                                			<div class="col-sm-2 p-0">
+			                                				<a class="btn btn-success add-more-btn sm-btn-custom"  id="advplus"><i class="fa fa-plus"></i></a>
+			                                			</div>	
+	                                				</div>
+	                                			</div>
+	                                		</div>
+	                                		<div class="row addMore-copy" style="display: none;">
+	                                			<div class="col-sm-12 addMore-sub ruleengadd12">
+	                                				<div class="row">
+			                                			<div class="col-sm-3 col-sm-offset-2">
+			                                				<input type="text" name="" placeholder="Rule Engine" class="form-control" id="rulengcp" name="rulg">
+			                                			</div>
+			                                			<div class="col-sm-2 p-0">
+			                                				<a class="btn btn-danger copy-remove-btn sm-btn-custom"><i class="fa fa-trash"></i></a>
+			                                			</div>
+	                                				</div>
+	                                			</div>
+	                                		</div>
+										</div>
+										<br><br>
+										<div class="row">
+			                            	<div class="col-sm-12 text-center">
+			                            		<button class='btn btn-fill btn-warning btn-wd'>edit</button>
+			                            		<a class='btn btn-fill btn-success btn-wd save-adv'>Save</a>
+			                            		<button class='btn btn-fill btn-danger btn-wd'>Save & next</button>
+			                            	</div>
+			                            </div>	 	
+	                    			</div>
+	                    		</div>	
+                    		</div>	
+	                    

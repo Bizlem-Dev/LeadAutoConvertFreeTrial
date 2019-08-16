@@ -1,0 +1,236 @@
+  <div class="well">
+                                <div class="funnel-main-section">
+                  								<div class="row">
+                                    <div class="col-md-11 offset-md-1 text-center mt-4 pt-4 funnel-section">
+                                      <div class="row">
+                                          <div class="col-md-2 funnel-sub">
+                                            <select class="custom-btn form-control" id="explore">
+                                                <option value="Select">Select</option>
+												<option value="1 Week">1 Week</option>
+												<option value="2 Weeks">2 Weeks</option>
+												<option value="3 Weeks">3 Weeks</option>
+												<option value="4 Weeks">4 Weeks</option>
+                                            </select>
+                                            <h4 class="text-color">Explore</h4>
+                                            <div class="main-btn-section-part">
+                                              <div class="row addMore-main">
+                                                  <div class="col-md-12">
+                                                      <div class="row">
+                                                          <div class="col-md-9 set-up-btn-section pr-0">
+                                                            <button type="button"class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up EC <span>1</span> </button>
+															
+                                                          </div>
+                                                          <div class="col-md-3 pl-0">
+                                                            <button type="button" class="btn btn-warning apend-btn plus-btn add-more-btn">+</button>
+                                                          </div>
+                                                        </div>  
+                                                  </div>
+                                              </div>
+                                            </div>
+
+                                            <div class="row addMore-copy" style="display:none;">
+                                                <div class="col-md-12 addMore-sub">
+                                                    <div class="row">
+                                                        <div class="col-md-9 set-up-btn-section pr-0">
+                                                          <button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up EC <span>1</span></button>
+                                                        </div>
+                                                        <div class="col-md-3 pl-0">
+                                                          <button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                        </div>
+                                                    </div>  
+                                                </div>
+                                            </div>
+
+                                            <div class="row add-more-sub-copy">
+
+                                            </div>
+                                          </div>
+                                          <div class="col-md-2 funnel-sub">
+                                            <select class="custom-btn form-control" id="entice">
+                                                <option value="Select">Select</option>
+												<option value="1 Week">1 Week</option>
+												<option value="2 Weeks">2 Weeks</option>
+												<option value="3 Weeks">3 Weeks</option>
+												<option value="4 Weeks">4 Weeks</option>
+                                            </select>
+                                            <h4 class="text-color">Entice</h4>
+                                            <div class="main-btn-section-part">
+                                              <div class="row addMore-main">
+                                                  <div class="col-md-12">
+                                                      <div class="row">
+                                                          <div class="col-md-9 set-up-btn-section pr-0">
+                                                            <button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up EnC <span>1</span></button>
+                                                          </div>
+                                                          <div class="col-md-3 pl-0">
+                                                            <button type="button" class="btn btn-warning apend-btn add-more-btn plus-btn">+</button>
+                                                          </div>
+                                                        </div>  
+                                                  </div>
+                                              </div>
+                                            </div>
+
+                                            <div class="row addMore-copy" style="display:none;">
+                                                <div class="col-md-12 addMore-sub">
+                                                    <div class="row">
+                                                        <div class="col-md-9 set-up-btn-section pr-0">
+                                                          <button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up EnC <span>1</span></button>
+                                                        </div>
+                                                        <div class="col-md-3 pl-0">
+                                                          <button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                        </div>
+                                                    </div>  
+                                                </div>
+                                            </div>
+
+                                            <div class="row add-more-sub-copy">
+
+                                            </div>
+                                          </div>
+                                          <div class="col-md-2 funnel-sub">
+                                            <select class="custom-btn form-control" id="inform">
+                                                <option value="Select">Select</option>
+												<option value="1 Week">1 Week</option>
+												<option value="2 Weeks">2 Weeks</option>
+												<option value="3 Weeks">3 Weeks</option>
+												<option value="4 Weeks">4 Weeks</option>
+                                            </select>
+                                            <h4 class="text-color">Inform</h4>
+                                            <div class="main-btn-section-part">
+                                              <div class="row addMore-main">
+                                                  <div class="col-md-12">
+                                                      <div class="row">
+                                                          <div class="col-md-9 set-up-btn-section pr-0">
+                                                            <button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up IC <span>1</span></button>
+                                                          </div>
+                                                          <div class="col-md-3 pl-0">
+                                                            <button type="button" class="btn btn-warning apend-btn add-more-btn plus-btn">+</button>
+                                                          </div>
+                                                        </div>  
+                                                  </div>
+                                              </div>
+                                            </div>
+
+                                            <div class="row addMore-copy" style="display:none;">
+                                                <div class="col-md-12 addMore-sub">
+                                                    <div class="row">
+                                                        <div class="col-md-9 set-up-btn-section pr-0">
+                                                          <button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up IC <span>1</span></button>
+                                                        </div>
+                                                        <div class="col-md-3 pl-0">
+                                                          <button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                        </div>
+                                                    </div>  
+                                                </div>
+                                            </div>
+
+                                            <div class="row add-more-sub-copy">
+
+                                            </div>
+                                          </div>
+                                          <div class="col-md-2 funnel-sub">
+                                            <select class="custom-btn form-control" id="warm">
+                                                <option value="Select">Select</option>
+												<option value="1 Week">1 Week</option>
+												<option value="2 Weeks">2 Weeks</option>
+												<option value="3 Weeks">3 Weeks</option>
+												<option value="4 Weeks">4 Weeks</option>
+                                            </select>
+                                            <h4 class="text-color">Warm</h4>
+                                            <div class="main-btn-section-part">
+                                              <div class="row addMore-main">
+                                                  <div class="col-md-12">
+                                                      <div class="row">
+                                                          <div class="col-md-9 set-up-btn-section pr-0">
+                                                            <button type="button"class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up WC <span>1</span></button>
+                                                          </div>
+                                                          <div class="col-md-3 pl-0">
+                                                            <button type="button" class="btn btn-warning apend-btn add-more-btn plus-btn">+</button>
+                                                          </div>
+                                                        </div>  
+                                                  </div>
+                                              </div>
+                                            </div>
+
+                                            <div class="row addMore-copy" style="display:none;">
+                                                <div class="col-md-12 addMore-sub">
+                                                    <div class="row">
+                                                        <div class="col-md-9 set-up-btn-section pr-0">
+                                                          <button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up WC <span>1</span></button>
+                                                        </div>
+                                                        <div class="col-md-3 pl-0">
+                                                          <button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                        </div>
+                                                    </div>  
+                                                </div>
+                                            </div>
+
+                                            <div class="row add-more-sub-copy">
+
+                                            </div>
+                                          </div>
+                                          <div class="col-md-2 funnel-sub">
+                                            <select class="custom-btn form-control" id="connect">
+                                                <option value="Select">Select</option>
+												<option value="1 Week">1 Week</option>
+												<option value="2 Weeks">2 Weeks</option>
+												<option value="3 Weeks">3 Weeks</option>
+												<option value="4 Weeks">4 Weeks</option>
+                                            </select>
+                                            <h4 class="text-color">Connect</h4>
+                                            <div class="main-btn-section-part">
+                                              <div class="row addMore-main">
+                                                  <div class="col-md-12">
+                                                      <div class="row">
+                                                          <div class="col-md-9 set-up-btn-section pr-0">
+                                                            <button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up CC <span>1</span></button>
+                                                          </div>
+                                                          <div class="col-md-3 pl-0">
+                                                            <button type="button" class="btn btn-warning apend-btn add-more-btn plus-btn">+</button>
+                                                          </div>
+                                                        </div>  
+                                                  </div>
+                                              </div>
+                                            </div>
+
+                                            <div class="row addMore-copy" style="display:none;">
+                                                <div class="col-md-12 addMore-sub">
+                                                    <div class="row">
+                                                        <div class="col-md-9 set-up-btn-section pr-0">
+                                                          <button type="button"class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up CC <span>1</span></button>
+                                                        </div>
+                                                        <div class="col-md-3 pl-0">
+                                                          <button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                        </div>
+                                                    </div>  
+                                                </div>
+                                            </div>
+
+                                            <div class="row add-more-sub-copy">
+
+                                            </div>
+                                          </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-12 set-up-campaign-form-box" style="display:none;">
+                                      <div class="set-up-campaign-form">
+                                      <h4 class="pb-4 mb-4">Set Up Campaign</h4>
+                                      <div class="row">
+                                        <div class="col-md-6">
+                                          <form>
+                                            <div class="form-group">
+                                              <label for="campaign-name">Enter the Campaign Name</label>
+                                              <input type="text" class="form-control" id="campaign-name" placeholder="Enter the Campaign Name">
+                                            </div>
+                                          </form>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-md-12 text-center p-0">
+                                          <a href="" onclick="addQueryString()" target="_blank" id="campaign-name-nxt" class="btn btn-default new-btn funnel-next-btn custom-btn pl-4 pr-4">Next</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>

@@ -1,0 +1,323 @@
+    <div class="well">
+                              <div class="row">
+                                <div class="col-md-12 radio-section import-contact text-center import-contact-main-section">
+                                    <h5>Select/ Import/ Create the List of Leads</h5>
+                                  <br>
+                                  <br>
+                                      <div class="radio-section text-left p-0">
+                                        <label class="containers">Upload from CSV File
+                                          <input type="radio" name="radio" id="radio1-section" value="csv_file_upload" checked="checked" >
+                                          <span class="checkmark"></span>
+                                          <p>import contacts from .csv or .txt file.</p>
+                                        </label>
+                                      </div>
+                                      <div class="radio-section text-left p-0">
+                                        <label class="containers">Integrated services
+                                          <input type="radio" name="radio" id="radio2" value="integrated_ervices">
+                                          <span class="checkmark"></span>
+                                          <p>import contacts from linkedin, facebook , salesforce and others.</p>
+                                        </label>
+                                      </div>
+                                      <div class="radio-section text-left p-0">
+                                        <label class="containers">Create New List 
+                                          <input type="radio" name="radio" id="radio3" value="create_new_list">
+                                          <span class="checkmark"></span>
+                                          <p>Create New List or Import from Facebook, LinkedIn etc..</p>
+                                        </label>
+                                      </div>
+                                      <div class="radio-section text-left p-0">
+                                        <label class="containers">Existing List 
+                                          <input type="radio" name="radio" id="radio4" value="create_from_existing_list">
+                                          <span class="checkmark"></span>
+                                          <p>Select your Existing List</p>
+                                        </label>
+                                      </div>
+									  <div class="radio-section text-left p-0">
+                                        <label class="containers">Merge existing lists 
+                                          <input type="radio" name="radio" id="merge-existing" value="merge_existing">
+                                          <span class="checkmark"></span>
+                                          <p></p>
+                                        </label>
+                                      </div>
+                                  <br>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12 show-import-from-csv-file">
+                                  <br>
+                                  <div class="import-from-csv-file">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                          <div class="">
+                                            <div class="row upload-new-class">
+											  <div class="col-md-3">
+												  <h4>Import from CSV File</h4>
+												  <div class="row">
+													<div class="col-md-12">
+													  <!--
+													  <div class="m-0 fileUpload btn custom-btn btn-default new-btn">
+														 <span>Upload CSV File</span>
+														 <input id="uploadBtn" name="filename" type="file" class="custom-btn upload">
+													  </div>
+													  -->
+													  <div class="m-0 fileUpload btn custom-btn btn-default new-btn">
+														<span>Download Sample CSV File</span>
+													    <a class="btn btn-warning btn-smT1" href="<%=request.getContextPath()%>/apps/global/assets/images/img/LeadUploadSample.csv" id="w3s">
+														   <i class="fa fa-arrow-down"></i> <img src="<%=request.getContextPath()%>/apps/global/assets/images/img/dwnld_excel_icon.png" width="20px"> 
+														</a>
+													  </div>
+													  <br/>
+													  <br/>
+													  <div class="m-0 fileUpload btn custom-btn btn-default new-btn">
+														<span>Upload CSV File</span>
+													    <form method="POST" enctype="multipart/form-data">
+															 <input type="file" name="file" id="fileUploader">
+														</form>
+													  </div>
+													  <p class="pt-3 mt-4">Acceptable File Types : .csv or .txt files </p>
+												   </div>
+												  </div>
+											  </div>
+                                              <div class="col-md-12 mt-4 pt-4">
+                                                <div class="row">
+                                                  <div class="col-md-4">
+                                                      <div class="row">
+                                                          <div class="col-md-6 radio-section">
+                                                            <label class="containers">Entire List
+                                                              <input type="radio" name="radio-list" id="list1" value="list1" checked="checked">
+                                                              <span class="checkmark"></span>
+                                                            </label>
+                                                          </div>
+                                                          <div class="col-md-6 radio-section">
+                                                            <label class="containers">Part Of List 
+                                                              <input type="radio" name="radio-list" id="list2" value="list2">
+                                                              <span class="checkmark"></span>
+                                                            </label>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-8">
+                                                      <div class="to-from-list-part-section">
+                                                        <div class="row">
+                                                            <div class="col-md-12 entire-list-section">
+                                                              <p>Entire List</p>
+															  <form id="list_form">
+                                                                <div class="form-group">
+                                                                  <label for="name">Name</label>
+                                                                  <input type="text" class="form-control" id="csv_entire_list_name" placeholder="Enter Name">
+                                                                </div>
+                                                              </form>
+                                                              <!-- <p><input type="checkbox" name=""> Select All</p> -->
+                                                              <table class="table table-bordered" id="list-table" style="height: 170px; overflow-y: scroll; border:0px; display: block;">
+															    <tbody id="csv_leads_list" style="display: table; width: 100%;">
+                                                                  
+                                                                </tbody>
+                                                              </table>
+                                                            </div>
+                                                            <div class="col-md-12 part-list-section" style="display:none;">
+                                                              <p>Part Of List</p>
+                                                              <form id="csv_form">
+                                                                <div class="form-group">
+                                                                  <label for="name">Name</label>
+                                                                  <input type="text" class="form-control" id="csv_part_of_list_name" placeholder="Enter Name">
+                                                                </div>
+                                                              </form>
+                                                              <p id="csv_select_all"><input type="checkbox" name=""> Select All</p>
+                                                              <table class="table table-bordered" style="height: 170px; overflow-y: scroll; border:0px; display: block;">
+															    
+																<thead id="part_of_leads_heading">
+		                                          					
+		                                                        </thead>
+																
+                                                                <tbody id="csv_part_of_leads_list" style="display: table; width: 100%;">
+                                                                  
+                                                                </tbody>
+                                                              </table>
+                                                            </div>
+                                                        </div>
+                                                      </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+									<div class="row">
+                                      <div class="col-md-12 text-center" style="margin-top:25px;">
+                                        <button type="button" id="save_csv_lead" class="custom-btn btn btn-info funnel-next-btn select-existing-upload-save">Save</button><!--custom-btn btn btn-info funnel-next-btn-->
+                                        <button type="button" class="custom-btn btn btn-info funnel-next-btn">Cancel</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <br>
+                              <div class="row">
+                                <div class="col-md-12 up-import-from-csv-file" style="display: none;">
+                                  <div class="table-section-copy-paste-file">
+                                    <h4>Create New List</h4>
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <br>
+                                        <div class="form-group">
+                                          <label for="enter-the-list-name-1">Enter the List Name</label>
+                                          <input type="text" class="form-control" id="enter-the-txt-list-name" placeholder="Enter the List Name">
+                                        </div>
+                                      </div>
+									  <!--
+                                      <div class="col-md-6">
+                                        <br><br>
+                                        <a class="btn btn-primary btn-outline custom-btn float-right add-new-row">Add New Row</a>
+                                      </div>
+									  -->
+                                    </div>
+                                    <p>Paste Subscriber Info Tab Seprated E.g akhilesh@bizlem.com	akhilesh	Yadav	9819345687	Mulund</p>
+									</br>
+									<textarea rows="15" cols="140">
+                                                 Paste Tab Seprated Subscriber Info Here
+                                    </textarea>
+                                    <table class="table border create-new-list-table" style="height: 170px; overflow-y: scroll; border:0px; display: block;">
+                                    
+                                      </tbody>
+									  
+                                    </table>
+									
+									
+									<div class="row">
+                                      <div class="col-md-12 text-center" style="margin-top:25px;">
+                                        <button type="button" id="save_txt_lead" class="custom-btn btn btn-info funnel-next-btn manage-leads-existing-list-save">Save</button>
+                                        <button type="button" class="custom-btn btn btn-info funnel-next-btn">Cancel</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12 show-import-from-csv-file2" style="display: none;">
+                                  <br>
+                                  <div class="import-from-csv-file">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                          <div class="">
+                                            <div class="row upload-new-class">
+                                              <div class="col-md-3">
+                                                <select id="listdropbox" name="listdropbox" class="custom-btn form-control">
+                                                  <option value="">Choose a List</option>
+                                                </select>
+                                              </div>
+                                              <div class="col-md-12 mt-4 pt-4">
+                                                <div class="row">
+                                                  <div class="col-md-4">
+                                                      <div class="row">
+                                                          <div class="col-md-6 radio-section">
+                                                            <label class="containers">Entire List
+                                                              <input type="radio" name="radio-list1" id="list5" value="list5" checked="checked">
+                                                              <span class="checkmark"></span>
+                                                            </label>
+                                                          </div>
+                                                          <div class="col-md-6 radio-section">
+                                                            <label class="containers">Part Of List 
+                                                              <input type="radio" name="radio-list1" id="list6" value="list6">
+                                                              <span class="checkmark"></span>
+                                                            </label>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-8">
+                                                      <div class="to-from-list-part-section">
+                                                        <div class="row">
+                                                            <div class="col-md-12 entire-list-section">
+                                                              <p>Entire List</p>
+															  <form id="list_form">
+                                                                <div class="form-group">
+                                                                  <label for="name">Name</label>
+                                                                  <input type="text" class="form-control" id="entire_list_name" placeholder="Enter Name">
+                                                                </div>
+                                                              </form>
+                                                              <!-- <p><input type="checkbox" name=""> Select All</p> -->
+                                                              <table class="table table-bordered" id="list-table" style="height: 170px; overflow-y: scroll; border:0px; display: block;">
+															    <tbody id="leads_list" style="display: table; width: 100%;">
+                                                                
+																</tbody>
+                                                              </table>
+                                                            </div>
+                                                            <div class="col-md-12 part-list-section" style="display:none;">
+                                                              <p>Part Of List</p>
+                                                              <form id="list_form">
+                                                                <div class="form-group">
+                                                                  <label for="name">Name</label>
+                                                                  <input type="text" class="form-control" id="part_of_list_name" placeholder="Enter Name">
+                                                                </div>
+                                                              </form>
+                                                              <p id="list_select_all"><input type="checkbox" name=""> Select All</p>
+                                                              <table class="table table-bordered" style="height: 170px; overflow-y: scroll; border:0px; display: block;">
+                                                                <tbody style="display: table; width: 100%;">
+																    <tbody id="part_of_leads_list" style="display: table; width: 100%;">
+		                                          					
+		                                          				    </tbody>
+                                                                </tbody>
+                                                              </table>
+                                                            </div>
+                                                        </div>
+                                                      </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    
+                                    <div class="row">
+                                      <div class="col-md-12 text-center" style="margin-top:25px;">
+                                        <button type="button" id="save_list_lead" class="custom-btn btn btn-info funnel-next-btn manage-leads-existing-list-save">Save</button>
+                                        <button type="button" class="custom-btn btn btn-info funnel-next-btn">Cancel</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+							  <div class="row">
+                                <div class="col-md-12 show-merge-existing-list" style="display: none;">
+                                  <br>
+                                  <div class="import-from-csv-file">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                          <div class="">
+                                            <div class="row upload-new-class">
+                                              <div class="col-md-3">
+                                                <select id="mergelistdropbox1" name="mergelistdropbox" class="custom-btn form-control">
+                                                  <option value="">Choose a List</option>
+                                                </select>
+                                              </div>
+                                              <div class="col-md-3">
+											    <select id="mergelistdropbox2" name="mergelistdropbox" class="custom-btn form-control">
+                                                  <option value="">Choose a List</option>
+                                                </select>
+                                              </div>
+                                              <div class="col-md-12 mt-4 pt-4">
+                                                <div class="row">
+                                                  
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    
+                                      <div class="row">
+                                        <div class="col-md-12 text-left" style="margin-top:-15px;">
+										  <button type="button" id="save_list_merge" class="custom-btn btn btn-info funnel-next-btn manage-leads-existing-list-save">Merge</button>
+										  <!--
+                                          <button type="button" class="custom-btn btn btn-info funnel-next-btn manage-leads-existing-list-save">Merge</button>
+                                          <button type="button" class="custom-btn btn btn-info funnel-next-btn">Save</button>
+                                          <button type="button" class="custom-btn btn btn-info funnel-next-btn">Undo</button>
+										  -->
+                                        </div>
+                                      </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>

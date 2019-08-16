@@ -1,0 +1,117 @@
+
+ 
+ <br>
+                                    <div class="row upload-new-class">
+                                      <div class="col-md-12">
+                                        <form>
+                    										  <div class="row">
+                    											  <div class="col-md-6">
+                    												  <div class="form-group">
+                      													<label for="funnel-name">Funnel Name</label>
+                      													<input type="text" class="form-control" id="funnel-name" placeholder="Funnel Name">
+                      												</div>
+                    											  </div>
+                    											  <div class="col-md-6">
+                      												<div class="form-group">
+                      													<label for="from-name">From Name</label>
+                      													<input type="text" class="form-control" id="from-name" placeholder="From Name">
+                  												    </div>
+                    											  </div>
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                <label for="from-email-address">From Email Address</label>
+                                                <input type="text" class="form-control" id="from-email-address" placeholder="From Email Address">
+                                              </div>
+                                            </div>
+                    										  </div>
+                										    </form>
+                                        <br/>
+                                      </div>
+                                  <!--    <div class="col-md-12">
+                                          <div class="row">
+                                              <div class="col-md-12">
+                                                  <h4>Tracking</h4>
+                                                  <hr>
+                                              </div>
+                                              <div class="col-md-12">
+                                                  <div class="row">
+                                                      <div class="col-md-12 checkbox-section">
+                                                          <input class="styled-checkbox" id="styled-checkbox-1" type="checkbox" value="value1" >
+                                                          <label for="styled-checkbox-1">Track Opens</label><br>
+                                                          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                          tempor incididunt ut labore et dolore magna aliqua. <a href="#">Lorem ipsum</a> </span>
+                                                      </div>
+                                                  </div>
+                                              <br/>
+                                              </div>
+                                              <div class="col-md-12">
+                                                  <div class="row">
+                                                      <div class="col-md-12 checkbox-section">
+                                                          <input class="styled-checkbox" id="track-clicks" type="checkbox" value="value1" >
+                                                          <label for="track-clicks">Track Clicks</label><br>
+                                                          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                          tempor incididunt ut labore et dolore magna aliqua. <a href="#">Lorem ipsum</a> </span>
+                                                      </div>
+                                                  </div>
+                                              <br/>
+                                              </div>
+                                              <div class="col-md-12">
+                                                  <div class="row">
+                                                      <div class="col-md-12 checkbox-section">
+                                                          <input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value1" >
+                                                          <label for="styled-checkbox-2">Track plain-text Clicks</label><br>
+                                                          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                          tempor incididunt ut labore et dolore magna aliqua. <a href="#">Lorem ipsum</a> </span>
+                                                      </div>
+                                                  </div>
+                                              <br/>
+                                              </div>
+                                              <div class="col-md-12">
+                                                  <div class="row">
+                                                      <div class="col-md-12 checkbox-section">
+                                                          <input class="styled-checkbox" id="styled-checkbox-3" type="checkbox" value="value1" >
+                                                          <label for="styled-checkbox-3">Google Analyticss link tracking</label><br>
+                                                          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                          tempor incididunt ut labore et dolore magna aliqua. <a href="#">Lorem ipsum</a> </span>
+                                                      </div>
+                                                  </div>
+                                              <br/>
+                                              </div>
+                                          </div>
+                                      <br>
+                                      </div> -->
+                                      <div class="col-md-12">
+                                          <div class="row">
+                                            <!--   <div class="col-md-12">
+                                                  <h4>Social Media</h4>
+                                                  <hr>
+                                              </div>
+                                              <div class="col-md-12">
+                                                  <div class="row">
+                                                      <div class="col-md-12 checkbox-section">
+                                                          <input class="styled-checkbox" id="auto" type="checkbox" value="value1" >
+                                                          <label for="auto">Auto-tweet after sending</label><br>
+                                                          <span><button type="button" class="btn btn-primary btn-flat btn-xs">Connect to Twitter</button></span>
+                                                      <br>
+                                                      <br>
+                                                      </div>
+                                                      <div class="col-md-12 checkbox-section">
+                                                          <input class="styled-checkbox" id="Auto-post" type="checkbox" value="value1" >
+                                                          <label for="Auto-post">Auto-post to Social Media</label><br>
+                                                          <span><button type="button" class="btn btn-primary btn-flat btn-xs">Connect to Social</button></span>
+                                                      </div>
+                                                  </div>
+                                                  <br/>
+                                              </div> -->
+                                              <div class="col-md-12 create-drip-funnel text-center">
+                                                  <button type="button" onclick='saveFunnelData(this.id)' class="btn btn-default drip-funnel-save new-btn pl-4 pr-4" id='funnel_desc'>Save</button>
+                                                  <button type="button" class="btn btn-default new-btn">Cancel</button>
+                                                  <!-- 
+                                                  <button type="button" class="btn btn-default new-btn pl-4 pr-4">Next</button>
+                                                  -->
+                                              </div>
+                                          </div>
+                                      </div>
+                                      </div>
+                                      
+                                      

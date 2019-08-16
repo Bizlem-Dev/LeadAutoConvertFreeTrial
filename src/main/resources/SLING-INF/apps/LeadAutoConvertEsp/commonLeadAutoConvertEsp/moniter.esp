@@ -1,0 +1,59 @@
+
+                            <div class="row">
+							  <div class="col-md-4">
+                                    <select class="form-control select-funnel-main" id="funnel_list" style="background:#3C3692;margin-top:5px;"></select>
+                              </div>
+                              <div class="col-md-12">
+                                <table class="table table-bordered">
+								  <tbody id='sub_funnel_tbl_body'>
+								  <!--
+								  <tr style="text-align: center;">
+                                    <td colspan="15"><strong>Sub Funnel</strong></td>
+                                  </tr>
+                                  <tr style="text-align: center;">
+                                    <td colspan="3"><h3>Unknown</h3></td>
+                                    <td colspan="3"><h3>Cold</h3></td>
+                                    <td colspan="3"><h3>Warm</h3></td>
+                                    <td colspan="3"><h3>Hot</h3></td>
+                                    <td colspan="3"><h3>Connect </h3></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Date</td>
+                                    <td>Exp</td>
+                                    <td>Leads</td>
+                                    <td>Date</td>
+                                    <td>En</td>
+                                    <td>Leads</td>
+                                    <td>Date</td>
+                                    <td>Inf</td>
+                                    <td>Leads</td>
+                                    <td>Date</td>
+                                    <td>Warm</td>
+                                    <td>Leads</td>
+                                    <td>Date</td>
+                                    <td>Connect </td>
+                                    <td>Leads </td>
+                                  </tr><tr>
+                                  </tr><tr>
+                                    <td>29/7/19</td>
+                                    <td>Test1</td>
+                                    <td>10000</td>
+                                    <td>2/8/2019</td>
+                                    <td>Test1</td>
+                                    <td>5000</td>
+                                    <td>8/81/19</td>
+                                    <td>Test1</td>
+                                    <td>3000</td>
+                                    <td>15/8/19</td>
+                                    <td>Test1</td>
+                                    <td>2000</td>
+                                    <td>20/8/19</td>
+                                    <td>Test1</td>
+                                    <td>100</td>
+                                  </tr>
+                                </tbody>
+								-->
+								</table><table>
+							</div>
+						</div>
+

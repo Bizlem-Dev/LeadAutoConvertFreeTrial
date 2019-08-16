@@ -1,0 +1,184 @@
+<div class="tab-pane" id="externalParameter">
+
+	<form name="formName">
+
+		<input type=hidden id="opArr" name="opArr" value="" />
+	</form>
+
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+			<div class="row">
+				<!--	<div class="col-sm-4 text-left">
+													<h6 class="pro-rule-name">Project Name :</h6>
+											</div>-->
+				<div class="col-sm-4 text-left">
+					<label class="pro-rule-name"><font size="4"></font>Project
+						Name :</label>
+			
+					<label class="pro-rule-name" id="myprj"><font size="4"></font></label>
+				</div>
+				<div class="col-sm-4">
+					<h4 class="info-text">External Data</h4>
+				</div>
+				<div class="col-sm-9">
+					<div class="row">
+						<div class="col-sm-2">
+							<label>Primary key </label>
+						</div>
+						<div class="col-sm-4">
+							<input type="text" name="" value="" placeholder="Primary Key"
+								class="form-control primary-key-external-data"
+								disabled="disabled">
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3 text-right">
+					<a class="btn btn-danger sm-btn-custom web-services-add"
+						name="webserv">Web Services</a> <a
+						class="btn btn-success sm-btn-custom web-services-add"><i
+						class="fa fa-plus"></i></a>
+				</div>
+				<div class="col-sm-11 add-url-name-main"></div>
+				<div class="col-sm-11 add-xls-name-main"></div>
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-11 web-services">
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="form-group addMore m-0">
+										<div class="row addMore-main">
+											<div class="col-sm-12 addMore-sub">
+												<div class="row">
+													<div class="col-sm-3">
+														<input type="text" class="form-control" placeholder="URL"
+															name="url" value="" id="web-services-url">
+													</div>
+													<div class="col-sm-3">
+														<input type="text" class="form-control"
+															placeholder="Token" id="token">
+													</div>
+													<div class="col-sm-3">
+														<input type="text" class="form-control"
+															placeholder="Username" id="username">
+													</div>
+													<div class="col-sm-3">
+														<input type="password" class="form-control"
+															placeholder="Password" id="Password">
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+							 		<div class="col-sm-12">
+									<div class="form-group addMore">
+										<div class="row addMore-main">
+											<div class="col-sm-12 addMore-sub opfld" id="op">
+												<div class="row">
+													<div class="col-sm-12">
+														<label>Output Fields :</label>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-sm-3">
+														<input type="text" class="form-control"
+															placeholder="Field Name" id="fieldname" name="fieldname">
+													</div>
+													<div class="col-sm-3">
+														<select class="form-control bg-gray" id="op_fieldtype" name="op_fieldtype">
+															<option value="">Field Type</option>
+															<option value="1">Field Type 1</option>
+															<option value="2">Field Type 2</option>
+															<option value="3">Field Type 3</option>
+														</select>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" class="form-control"
+															placeholder="Field Length" id="fieldlength" name="fieldlength">
+													</div>
+													<div class="col-sm-3 p-0">
+														<a class="btn btn-success add-more-btn sm-btn-custom" id="addop"><i
+															class="fa fa-plus"></i></a>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row addMore-copy extopfield" style="display: none;">
+											<div class="col-sm-12 addMore-sub" >
+												<div class="row">
+													<div class="col-sm-3">
+														<input type="text" class="form-control"
+															placeholder="Field Name" id="fieldnamecpy" name="fieldnamecpy">
+													</div>
+													<div class="col-sm-3">
+														<select class="form-control bg-gray" id="op_fieldtypecpy"  name="op_fieldtypecpy">
+															<option value="">Field Type</option>
+															<option value="1">Field Type 1</option>
+															<option value="2">Field Type 2</option>
+															<option value="3">Field Type 3</option>
+														</select>
+													</div>
+													<div class="col-sm-3">
+														<input type="text" class="form-control"
+															placeholder="Field Length" id="fieldlengthcpy"  name="fieldlengthcpy">
+													</div>
+													<div class="col-sm-3 p-0">
+														<a class="btn btn-danger copy-remove-btn sm-btn-custom"><i
+															class="fa fa-trash"></i></a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div> 
+							</div>
+						</div>
+						<div class="col-sm-11">
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="form-group addMore">
+										<div class="row addMore-main">
+											<div class="col-sm-12 addMore-sub">
+												<div class="row">
+													<div class="col-sm-3">
+														<input type="file" name="" id="xls" style="display: none;">
+														<label class="btn btn-warning sm-btn-custom" for="xls">XLS
+														</label> <small id="xls-filename" class="color-dark">File
+															Name</small>
+													</div>
+													<div class="col-sm-6 p-0">
+														<a class="btn btn-success xls-add-more-btn sm-btn-custom"><i
+															class="fa fa-plus"></i></a>
+														<button class="btn btn-warning sm-btn-custom"  >Download</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br> <br>
+	<div class="row">
+		<div class="col-sm-3 text-left">
+			<a class='btn btn-fill btn-default btn-wd externalData-pre'>previous</a>
+		</div>
+		<div class="col-sm-3 text-center">
+			<button class='btn btn-fill btn-success btn-wd'>Save</button>
+		</div>
+		<div class="col-sm-3 text-center">
+			<button class='btn btn-fill btn-warning btn-wd'>edit</button>
+		</div>
+		<div class="col-sm-3 text-right">
+			<a class='btn btn-fill btn-danger btn-wd externalData-next'>Save
+				& next</a>
+		</div>
+	</div>
+</div>

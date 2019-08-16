@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta name="description" content="bootstrap admin template">
+  <meta name="author" content="">
+  <title>Home</title>
+  
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/css/bootstrap.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/css/bootstrap-extend.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/assets/css/site.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/asscrollable/asScrollable.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/switchery/switchery.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/intro-js/introjs.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/slidepanel/slidePanel.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/flag-icon-css/flag-icon.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/jquery-wizard/jquery-wizard.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/formvalidation/formValidation.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/fonts/web-icons/web-icons.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/fonts/brand-icons/brand-icons.min599c.css?v4.0.2">
+  
+  <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/global/css/custom.css">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/global/css/custom.css">
+  <!--
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/js/Cookies.js"></script>
+  -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script>
+
+  </script>
+  <style type="text/css">
+  .input-upload{
+	   margin-left:16px;
+  }
+  .fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+  }
+  .fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+  }
+  .product-listing {
+     background-color:#fff;
+     border-radius:5px;
+     box-shadow:0 2px 10px 0 rgba(138,168,230,.2);
+     padding:20px;
+     position:relative;
+     overflow:hidden;
+     display:block;
+     transition:box-shadow .3s ease,-webkit-transform .3s ease;
+     transition:transform .3s ease,box-shadow .3s ease;
+     transition:transform .3s ease,box-shadow .3s ease,-webkit-transform .3s ease
+  }
+  .new-btn{
+    background-color: #4dbae3;
+    border-radius: 20px;
+    color: #fff;
+  }
+  .no-click {
+	    pointer-events: none;
+	  }
+</style>
+</head>
+<body class="animsition">
+  <div class="row-fluid main-header">
+    <div class="container-fluid">
+      <div class="col-md-12 menubar">
+        <ul class="pt-5 m-0 pull-left"> 
+        <li><a href="<%=request.getContextPath()%>/servlet/service/ui.index"><img src="<%=request.getContextPath()%>/apps/global/assets/images/lead-auto-convert-logo.png" style="width:205px;margin-left:-60px;"></a></li>
+        <li><a href="<%=request.getContextPath()%>/servlet/service/ui.funnel" target="_blank"> Funnel</a></li>
+        <li><a href="<%=request.getContextPath()%>/servlet/service/ui.list" target="_blank"> List</a></li>
+        <li><a href="<%=request.getContextPath()%>/servlet/service/ui.statistic"> Dashboard</a></li>
+        </ul>
+        <ul class="pt-15 pull-right">
+          <li><a href="<%=request.getContextPath()%>/servlet/service/ui.configuration" target="_blank"><img src="<%=request.getContextPath()%>/apps/global/assets/images/shedule.png"> Configuration</a></li>
+          <li><a href="#" class="creat-new-campaigns-menu"> Create New Campaigns</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- Page -->
+  <div class="page">
+    <div class="page-content container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel" id="exampleWizardForm">
+            <div class="panel-body">
+              <form id="exampleFormContainer">
+                <div class="wizard-content">
+                      <div class="product-listing set-up-funnel-section" id="op" style="width: 81%; margin-left: 125px; margin-top: 20px;"  data-toggle="collapse" href="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
+                      <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3" style="margin-left: -55px;">
+                          <img src="<%=request.getContextPath()%>/apps/global/assets/images/set-up-funnel.png" class="img-responsive" style="height: 80px; float: right;">
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-9">
+                          <div class="row"> 
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                              <span style="font-size: 25px; float: left;color: #3C3692;">Set Up Funnel</span>
+                            </div>
+                          </div>
+                          <div class="row"> 
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                              <span style="font-size: 15px;">Import a customer list from a third-party email service.</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                  <div class="container">
+                      <div class="row">
+                        <div class="col-md-11" style="margin-left:51px;">
+                            <div class="collapse" id="collapseExample2">
+                              <div class="well">
+                                <div class="funnel-main-section">
+                                    <div class="row">
+                                       <div class="col-md-3">
+                                            <select id="funnel_list" name="funnel_list" class="custom-btn form-control"></select>
+                                       </div>            
+                                    </div>
+                  					<div class="row">
+                                    <div class="col-md-11 offset-md-1 text-center mt-4 pt-4 funnel-section">
+                                      <div class="row">
+                                          <div class="col-md-2 funnel-sub">
+                                            <select class="custom-btn form-control" id="explore">
+	                                            <option value="1 Week">1 Week</option>
+												<option value="2 Weeks">2 Weeks</option>
+												<option value="3 Weeks">3 Weeks</option>
+												<option value="4 Weeks">4 Weeks</option>
+                                            </select>
+                                            <h4 class="text-color">Explore</h4>
+                                            <div class="main-btn-section-part" id="explore_main_btn_section_part">
+                                              
+                                            </div>
+
+                                            <div class="row addMore-copy" style="display:none;" id="explore_row_add_more_copy">
+                                                
+                                            </div>
+
+                                            <div class="row add-more-sub-copy" id="explore_row_add_more_sub_copy">
+                                                
+                                            </div>
+                                          </div>
+                                          <div class="col-md-2 funnel-sub">
+                                            <select class="custom-btn form-control" id="entice">
+	                                            <option value="1 Week">1 Week</option>
+												<option value="2 Weeks">2 Weeks</option>
+												<option value="3 Weeks">3 Weeks</option>
+												<option value="4 Weeks">4 Weeks</option>
+                                            </select>
+                                            <h4 class="text-color">Entice</h4>
+                                            <div class="main-btn-section-part" id="entice_main_btn_section_part">
+                                              
+                                            </div>
+
+                                            <div class="row addMore-copy" style="display:none;" id="entice_row_add_more_copy">
+                                                
+                                            </div>
+
+                                            <div class="row add-more-sub-copy"  id="entice_row_add_more_sub_copy">
+
+                                            </div>
+                                          </div>
+                                          <div class="col-md-2 funnel-sub">
+                                            <select class="custom-btn form-control" id="inform">
+	                                            <option value="1 Week">1 Week</option>
+												<option value="2 Weeks">2 Weeks</option>
+												<option value="3 Weeks">3 Weeks</option>
+												<option value="4 Weeks">4 Weeks</option>
+                                            </select>
+                                            <h4 class="text-color">Inform</h4>
+                                            <div class="main-btn-section-part" id="inform_main_btn_section_part">
+                                              
+                                            </div>
+
+                                            <div class="row addMore-copy" style="display:none;" id="inform_row_add_more_copy">
+                                                
+                                            </div>
+
+                                            <div class="row add-more-sub-copy" id="inform_row_add_more_sub_copy">
+
+                                            </div>
+                                          </div>
+                                          <div class="col-md-2 funnel-sub">
+                                            <select class="custom-btn form-control" id="warm">
+	                                            <option value="1 Week">1 Week</option>
+												<option value="2 Weeks">2 Weeks</option>
+												<option value="3 Weeks">3 Weeks</option>
+												<option value="4 Weeks">4 Weeks</option>
+                                            </select>
+                                            <h4 class="text-color">Warm</h4>
+                                            <div class="main-btn-section-part" id="warm_main_btn_section_part">
+                                              
+                                            </div>
+
+                                            <div class="row addMore-copy" style="display:none;" id="warm_row_add_more_copy">
+                                                
+                                            </div>
+
+                                            <div class="row add-more-sub-copy" id="warm_row_add_more_sub_copy">
+
+                                                
+                                            </div>
+                                          </div>
+                                          <div class="col-md-2 funnel-sub">
+                                            <select class="custom-btn form-control" id="connect">
+	                                            <option value="1 Week">1 Week</option>
+												<option value="2 Weeks">2 Weeks</option>
+												<option value="3 Weeks">3 Weeks</option>
+												<option value="4 Weeks">4 Weeks</option>
+                                            </select>
+                                            <h4 class="text-color">Connect</h4>
+                                            <div class="main-btn-section-part" id="connect_main_btn_section_part">
+                                              
+                                            </div>
+
+                                            <div class="row addMore-copy" style="display:none;" id="connect_row_add_more_copy">
+                                                
+                                            </div>
+
+                                            <div class="row add-more-sub-copy" id="connect_row_add_more_sub_copy">
+                                                
+                                            </div>
+                                          </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-12 set-up-campaign-form-box" style="display:none;">
+                                      <div class="set-up-campaign-form">
+                                      <h4 class="pb-4 mb-4">Set Up Campaign</h4>
+                                      <div class="row">
+                                        <div class="col-md-6">
+                                          <form>
+                                            <div class="form-group">
+                                              <label for="campaign-label">Enter the Campaign Name</label>
+                                              <input type="text" class="form-control" id="campaign-name" placeholder="Enter the Campaign Name">
+                                            </div>
+                                          </form>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-md-12 text-center p-0">
+                                          <a href="<%=request.getContextPath()%>/servlet/service/ui.set-up-campaign" onclick="addQueryString()" target="_blank" id="campaign-name-nxt" class="btn btn-default new-btn funnel-next-btn custom-btn pl-4 pr-4">Next</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+				    </div>
+                    
+                    
+                    
+                </div>
+                <!-- 
+                
+                -->
+               </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- processing code start here-->
+  <script>
+ 
+    $( document).ready(function() {
+	  var remoteuser ='<%=request.getRemoteUser()%>';
+	   localStorage.setItem('remoteuser',remoteuser);
+		
+	    alert("remoteuser : "+remoteuser);
+	    var remoteuser = remoteuser.replace("@", "_");
+	  //getFunnel();
+	  getFunnelList(remoteuser);
+	});
+    
+    function getFunnelList(remoteuser){
+	    //var remoteuser ='viki_gmail.com';
+		alert("remoteuser : "+remoteuser);
+		$.ajax({
+			type : 'GET',
+			url :'<%=request.getContextPath()%>/servlet/service/createCampaign.getFunnel?userName='+remoteuser,
+			//http://prod.bizlem.io:8082/portal/servlet/service/createCampaign.getFunnel?userName=viki_gmail.com
+		    data: {},
+			success: function (dataa) {
+				alert	("Searchlist.listsearch : "+dataa);
+				var funnel_list_json_arr = JSON.parse(dataa);
+				var optionMap = "";
+					for(var i=0;i<funnel_list_json_arr.length;i++){
+						 var funnel_list_json_obj=funnel_list_json_arr[i];
+						 optionMap = optionMap + "<option value='"+funnel_list_json_obj+"'>"+funnel_list_json_obj+"</option>";
+					}
+					alert("optionMap : "+optionMap);
+				    document.getElementById("funnel_list").innerHTML  = "<option>Choose list</option>" + optionMap;
+					//document.getElementById("mergelistdropbox1").innerHTML  = "<option>Choose list</option>" + optionMap;
+					//document.getElementById("mergelistdropbox2").innerHTML  = "<option>Choose list</option>" + optionMap;
+				}
+	    });
+	}
+    $(document).ready(function(){
+		$("#funnel_list").change(function(){
+		    //var remoteuser ='viki_gmail.com';
+		    var remoteuser ='<%=request.getRemoteUser()%>';
+		    //alert("remoteuser : "+remoteuser);
+		    var remoteuser = remoteuser.replace("@", "_");
+		    //alert('hi : ');
+			var e = document.getElementById("funnel_list");
+			var funnel_name = e.options[e.selectedIndex].value; 
+			//alert('list_id : '+list_id);
+			localStorage.setItem('funnelName',funnel_name);
+			var list="";
+			   if(funnel_name!='Choose list'){
+				  getFunnel(funnel_name,remoteuser);	
+				}else{
+				   
+				
+				}
+		    });
+	});
+    
+	function getFunnel(funnel_name,remoteuser) {
+	    //"Rule_Engine" "SFDC_SELECTDATA" "External_Data" "TRANSFORM_DATA"
+	    var username="carrotrule@xyz.com";
+		var projectname="June27F01";
+		var ruleenginename="June27F01_RE";
+		$.ajax({
+			       	//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
+					//url: 'http://prod.bizlem.io:8082/portal/servlet/service/createCampaign.getFunnelDetails?userName=viki_gmail.com&funnelName=July17F02',//createListAndSubscribers
+					url: '<%=request.getContextPath()%>/servlet/service/createCampaign.getFunnelDetails?userName='+remoteuser+'&funnelName='+funnel_name,
+					type: 'GET',
+					async: false,
+                    cache: false,
+                    //timeout: 30000,
+					data: {
+					       username:username,
+						   projectname:projectname,
+						   ruleenginename:ruleenginename,
+					       },
+					success: function(data)
+					{
+					   
+					    	   var funnel_details_json_obj = JSON.parse(data);
+							   var funnelName=funnel_details_json_obj["funnelName"];
+							   
+							   var ExploreJsonArr=funnel_details_json_obj["Explore"];
+							   var EnticeJsonArr=funnel_details_json_obj["Entice"];
+							   var InformJsonArr=funnel_details_json_obj["Inform"];
+							   var WarmJsonArr=funnel_details_json_obj["Warm"];
+							   var ConnectJsonArr=funnel_details_json_obj["Connect"];
+							   //alert(ExploreJsonArr);
+							   
+							   console.log("ExploreJsonArr : "+ExploreJsonArr);
+							   var campaign_json_obj=null;
+							   var CreatedBy=null;
+							   var funnelName=null;
+							   var SubFunnelName=null;
+							   var CampaignNodeNameInSling=null;
+							   var FromName=null;
+							   var FromEmailAddress=null;
+							   var CampaignName=null;
+							   var Subject=null;
+							   var Body=null;
+							   var Type=null;
+							   var Campaign_Id=null;
+							   var List_Id=null;
+							   var campaign_status=null;
+							   var Campaign_Date=null;
+							   
+							   var explore_row_add_more_sub_copy="";
+							   var entice_row_add_more_sub_copy="";
+							   var inform_row_add_more_sub_copy="";
+							   var warm_row_add_more_sub_copy="";
+							   var connect_row_add_more_sub_copy="";
+							   
+							   document.getElementById("explore_row_add_more_sub_copy").innerHTML  ="";
+		                       document.getElementById("entice_row_add_more_sub_copy").innerHTML  ="";
+		                       document.getElementById("inform_row_add_more_sub_copy").innerHTML  ="";
+		                       document.getElementById("warm_row_add_more_sub_copy").innerHTML  ="";
+		                       document.getElementById("connect_row_add_more_sub_copy").innerHTML  ="";
+							   
+							   if(ExploreJsonArr.length>0){
+								   var explore_main_btn_section_part='<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block no-click">Set Up CC <span></span> </button></div><div class="col-md-3 pl-0"><button class="btn btn-warning apend-btn plus-btn add-more-btn">+</button></div></div></div></div>';
+								   var entice_main_btn_section_part='<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block no-click">Set Up EnC <span></span> </button></div><div class="col-md-3 pl-0"><button class="btn btn-warning apend-btn plus-btn add-more-btn">+</button></div></div></div></div>';
+								   var inform_main_btn_section_part='<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block no-click">Set Up IC <span></span> </button></div><div class="col-md-3 pl-0"><button class="btn btn-warning apend-btn plus-btn add-more-btn">+</button></div></div></div></div>';
+								   var warm_main_btn_section_part='<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block no-click">Set Up WC <span></span> </button></div><div class="col-md-3 pl-0"><button class="btn btn-warning apend-btn plus-btn add-more-btn">+</button></div></div></div></div>';
+								   var connect_main_btn_section_part='<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block no-click">Set Up CC <span></span> </button></div><div class="col-md-3 pl-0"><button class="btn btn-warning apend-btn plus-btn add-more-btn">+</button></div></div></div></div>';
+							   }else{
+							       var explore_main_btn_section_part='<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block no-click">Set Up CC <span></span> </button></div><div class="col-md-3 pl-0"><button class="btn btn-warning apend-btn plus-btn add-more-btn no-click">+</button></div></div></div></div>';
+								   var entice_main_btn_section_part='<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block no-click">Set Up EnC <span></span> </button></div><div class="col-md-3 pl-0"><button class="btn btn-warning apend-btn plus-btn add-more-btn no-click">+</button></div></div></div></div>';
+								   var inform_main_btn_section_part='<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block no-click">Set Up IC <span></span> </button></div><div class="col-md-3 pl-0"><button class="btn btn-warning apend-btn plus-btn add-more-btn no-click">+</button></div></div></div></div>';
+								   var warm_main_btn_section_part='<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block no-click">Set Up WC <span></span> </button></div><div class="col-md-3 pl-0"><button class="btn btn-warning apend-btn plus-btn add-more-btn no-click">+</button></div></div></div></div>';
+								   var connect_main_btn_section_part='<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block no-click">Set Up CC <span></span> </button></div><div class="col-md-3 pl-0"><button class="btn btn-warning apend-btn plus-btn add-more-btn no-click">+</button></div></div></div></div>';
+							   }
+							   
+							   var explore_main_btn_section_part='<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block no-click">Set Up CC <span></span> </button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-warning apend-btn plus-btn add-more-btn">+</button></div></div></div></div>';
+							   var entice_main_btn_section_part='<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block no-click">Set Up EnC <span></span> </button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-warning apend-btn plus-btn add-more-btn">+</button></div></div></div></div>';
+							   var inform_main_btn_section_part='<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block no-click">Set Up IC <span></span> </button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-warning apend-btn plus-btn add-more-btn">+</button></div></div></div></div>';
+							   var warm_main_btn_section_part='<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block no-click">Set Up WC <span></span> </button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-warning apend-btn plus-btn add-more-btn">+</button></div></div></div></div>';
+							   var connect_main_btn_section_part='<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block no-click">Set Up CC <span></span> </button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-warning apend-btn plus-btn add-more-btn">+</button></div></div></div></div>';
+							   
+							   var explore_row_add_more_copy='<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up EC <span>0</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
+							   var entice_row_add_more_copy='<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up EnC <span>0</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
+							   var inform_row_add_more_copy='<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up IC <span>0</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
+							   var warm_row_add_more_copy='<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up WC <span>0</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
+							   var connect_row_add_more_copy='<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up CC <span>0</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
+							   
+							   console.log("step 1 : ");
+							   for (var i = 0; i < ExploreJsonArr.length; i++) {
+							       campaign_json_obj = ExploreJsonArr[i];
+								   
+								   CreatedBy=campaign_json_obj.CreatedBy;
+								   funnelName=campaign_json_obj.funnelName;
+								   SubFunnelName=campaign_json_obj.SubFunnelName;
+								   CampaignNodeNameInSling=campaign_json_obj.CampaignNodeNameInSling;
+								   FromName=campaign_json_obj.FromName;
+								   FromEmailAddress=campaign_json_obj.FromEmailAddress;
+								   CampaignName=campaign_json_obj.CampaignName;
+								   Subject=campaign_json_obj.Subject;
+								   Body=campaign_json_obj.Body;
+								   Type=campaign_json_obj.Type;
+								   Campaign_Id=campaign_json_obj.Campaign_Id;
+								   List_Id=campaign_json_obj.List_Id;
+								   campaign_status=campaign_json_obj.campaign_status;
+								   Campaign_Date=campaign_json_obj.Campaign_Date;
+								   alert(CampaignNodeNameInSling);
+								   
+								   /*
+								   if(i==0){
+								   explore_main_btn_section_part=explore_main_btn_section_part+'<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up EC <span>'+(i+1)+'</span> </button></div><div class="col-md-3 pl-0"><button class="btn btn-warning apend-btn plus-btn add-more-btn">+</button></div></div></div></div>';
+								   document.getElementById("explore_main_btn_section_part").innerHTML  =explore_main_btn_section_part;
+								   }else{
+								   */
+								   explore_row_add_more_sub_copy=explore_row_add_more_sub_copy+'<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block" disabled>Set Up EC <span>'+(i+1)+'</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn" disabled><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
+								   document.getElementById("explore_row_add_more_sub_copy").innerHTML  =explore_row_add_more_sub_copy;
+								   //}
+								   explore_row_add_more_copy='<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up EC <span>'+(i+1)+'</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
+								   if(i==0){
+									   localStorage.setItem('fromName',FromName);
+									   localStorage.setItem('fromEmailAddress',FromEmailAddress);
+									   localStorage.setItem('listid',List_Id);
+								   }
+							   
+							   }
+							   console.log("step 2 : ");
+							   for (var i = 0; i < EnticeJsonArr.length; i++) {
+							       campaign_json_obj = EnticeJsonArr[i];
+								   
+								   CreatedBy=campaign_json_obj.CreatedBy;
+								   funnelName=campaign_json_obj.funnelName;
+								   SubFunnelName=campaign_json_obj.SubFunnelName;
+								   CampaignNodeNameInSling=campaign_json_obj.CampaignNodeNameInSling;
+								   FromName=campaign_json_obj.FromName;
+								   FromEmailAddress=campaign_json_obj.FromEmailAddress;
+								   CampaignName=campaign_json_obj.CampaignName;
+								   Subject=campaign_json_obj.Subject;
+								   Body=campaign_json_obj.Body;
+								   Type=campaign_json_obj.Type;
+								   Campaign_Id=campaign_json_obj.Campaign_Id;
+								   List_Id=campaign_json_obj.List_Id;
+								   campaign_status=campaign_json_obj.campaign_status;
+								   Campaign_Date=campaign_json_obj.Campaign_Date;
+								   alert(CampaignNodeNameInSling);
+								   /*
+								   if(i==0){
+								   entice_main_btn_section_part=entice_main_btn_section_part+'<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up EnC <span>'+(i+1)+'</span> </button></div><div class="col-md-3 pl-0"><button class="btn btn-warning apend-btn plus-btn add-more-btn">+</button></div></div></div></div>';
+								   document.getElementById("entice_main_btn_section_part").innerHTML  =entice_main_btn_section_part;
+								   }else{
+								   */
+								   entice_row_add_more_sub_copy=entice_row_add_more_sub_copy+'<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block" disabled>Set Up EnC <span>'+(i+1)+'</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn" disabled><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
+								   document.getElementById("entice_row_add_more_sub_copy").innerHTML  =entice_row_add_more_sub_copy;
+								   //}
+								   entice_row_add_more_copy='<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up EnC <span>'+(i+1)+'</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
+								   if(i==0){
+									   localStorage.setItem('fromName',FromName);
+									   localStorage.setItem('fromEmailAddress',FromEmailAddress);
+									   localStorage.setItem('listid',List_Id);
+								   }
+							   
+							   }
+							   console.log("step 3 : ");
+							   for (var i = 0; i < InformJsonArr.length; i++) {
+							       campaign_json_obj = InformJsonArr[i];
+								   
+								   CreatedBy=campaign_json_obj.CreatedBy;
+								   funnelName=campaign_json_obj.funnelName;
+								   SubFunnelName=campaign_json_obj.SubFunnelName;
+								   CampaignNodeNameInSling=campaign_json_obj.CampaignNodeNameInSling;
+								   FromName=campaign_json_obj.FromName;
+								   FromEmailAddress=campaign_json_obj.FromEmailAddress;
+								   CampaignName=campaign_json_obj.CampaignName;
+								   Subject=campaign_json_obj.Subject;
+								   Body=campaign_json_obj.Body;
+								   Type=campaign_json_obj.Type;
+								   Campaign_Id=campaign_json_obj.Campaign_Id;
+								   List_Id=campaign_json_obj.List_Id;
+								   campaign_status=campaign_json_obj.campaign_status;
+								   Campaign_Date=campaign_json_obj.Campaign_Date;
+								   alert(CampaignNodeNameInSling);
+								   /*
+								   if(i==0){
+								   inform_main_btn_section_part=inform_main_btn_section_part+'<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up IC <span>'+(i+1)+'</span> </button></div><div class="col-md-3 pl-0"><button class="btn btn-warning apend-btn plus-btn add-more-btn">+</button></div></div></div></div>';
+								   document.getElementById("inform_main_btn_section_part").innerHTML  =inform_main_btn_section_part;
+								   }else{
+								   */
+								   inform_row_add_more_sub_copy=inform_row_add_more_sub_copy+'<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block" disabled>Set Up IC <span>'+(i+1)+'</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn" disabled><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
+								   document.getElementById("inform_row_add_more_sub_copy").innerHTML  =inform_row_add_more_sub_copy;
+								   //}
+								   inform_row_add_more_copy='<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up IC <span>'+(i+1)+'</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
+								   if(i==0){
+									   localStorage.setItem('fromName',FromName);
+									   localStorage.setItem('fromEmailAddress',FromEmailAddress);
+									   localStorage.setItem('listid',List_Id);
+								   }
+								   
+							   }
+							   console.log("step 4 : ");
+							   for (var i = 0; i < WarmJsonArr.length; i++) {
+							       campaign_json_obj = WarmJsonArr[i];
+								   
+								   CreatedBy=campaign_json_obj.CreatedBy;
+								   funnelName=campaign_json_obj.funnelName;
+								   SubFunnelName=campaign_json_obj.SubFunnelName;
+								   CampaignNodeNameInSling=campaign_json_obj.CampaignNodeNameInSling;
+								   FromName=campaign_json_obj.FromName;
+								   FromEmailAddress=campaign_json_obj.FromEmailAddress;
+								   CampaignName=campaign_json_obj.CampaignName;
+								   Subject=campaign_json_obj.Subject;
+								   Body=campaign_json_obj.Body;
+								   Type=campaign_json_obj.Type;
+								   Campaign_Id=campaign_json_obj.Campaign_Id;
+								   List_Id=campaign_json_obj.List_Id;
+								   campaign_status=campaign_json_obj.campaign_status;
+								   Campaign_Date=campaign_json_obj.Campaign_Date;
+								   alert(CampaignNodeNameInSling);
+								   /*
+								   if(i==0){
+								   warm_main_btn_section_part=warm_main_btn_section_part+'<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up WC <span>'+(i+1)+'</span> </button></div><div class="col-md-3 pl-0"><button class="btn btn-warning apend-btn plus-btn add-more-btn">+</button></div></div></div></div>';
+								   document.getElementById("warm_main_btn_section_part").innerHTML  =warm_main_btn_section_part;
+								   }else{
+								   */
+								   warm_row_add_more_sub_copy=warm_row_add_more_sub_copy+'<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block" disabled>Set Up WC <span>'+(i+1)+'</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn" disabled><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
+								   document.getElementById("warm_row_add_more_sub_copy").innerHTML  =warm_row_add_more_sub_copy;
+							       //}
+								   warm_row_add_more_copy='<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up WC <span>'+(i+1)+'</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
+								   if(i==0){
+									   localStorage.setItem('fromName',FromName);
+									   localStorage.setItem('fromEmailAddress',FromEmailAddress);
+									   localStorage.setItem('listid',List_Id);
+								   }
+							   }
+							   console.log("step 5 : ");
+							   for (var i = 0; i < ConnectJsonArr.length; i++) {
+							       campaign_json_obj = ConnectJsonArr[i];
+								   
+								   CreatedBy=campaign_json_obj.CreatedBy;
+								   funnelName=campaign_json_obj.funnelName;
+								   SubFunnelName=campaign_json_obj.SubFunnelName;
+								   CampaignNodeNameInSling=campaign_json_obj.CampaignNodeNameInSling;
+								   FromName=campaign_json_obj.FromName;
+								   FromEmailAddress=campaign_json_obj.FromEmailAddress;
+								   CampaignName=campaign_json_obj.CampaignName;
+								   Subject=campaign_json_obj.Subject;
+								   Body=campaign_json_obj.Body;
+								   Type=campaign_json_obj.Type;
+								   Campaign_Id=campaign_json_obj.Campaign_Id;
+								   List_Id=campaign_json_obj.List_Id;
+								   campaign_status=campaign_json_obj.campaign_status;
+								   Campaign_Date=campaign_json_obj.Campaign_Date;
+								   alert(CampaignNodeNameInSling);
+								   /*
+								   if(i==0){
+								   connect_main_btn_section_part=connect_main_btn_section_part+'<div class="row addMore-main"><div class="col-md-12"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up CC <span>'+(i+1)+'</span> </button></div><div class="col-md-3 pl-0"><button class="btn btn-warning apend-btn plus-btn add-more-btn">+</button></div></div></div></div>';
+								   document.getElementById("connect_main_btn_section_part").innerHTML  =connect_main_btn_section_part;
+								   }else{
+								   */
+								   connect_row_add_more_sub_copy=connect_row_add_more_sub_copy+'<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block" disabled>Set Up CC <span>'+(i+1)+'</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn" disabled><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
+								   document.getElementById("connect_row_add_more_sub_copy").innerHTML  =connect_row_add_more_sub_copy;
+								   //}
+								   connect_row_add_more_copy='<div class="col-md-12 addMore-sub"><div class="row"><div class="col-md-9 set-up-btn-section pr-0"><button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up CC <span>'+(i+1)+'</span></button></div><div class="col-md-3 pl-0"><button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div></div></div>';
+								   if(i==0){
+									   localStorage.setItem('fromName',FromName);
+									   localStorage.setItem('fromEmailAddress',FromEmailAddress);
+									   localStorage.setItem('listid',List_Id);
+								   }
+							   }
+							   console.log("step 6 : ");
+							   document.getElementById("explore_main_btn_section_part").innerHTML  =explore_main_btn_section_part;
+							   document.getElementById("entice_main_btn_section_part").innerHTML  =entice_main_btn_section_part;
+							   document.getElementById("inform_main_btn_section_part").innerHTML  =inform_main_btn_section_part;
+							   document.getElementById("warm_main_btn_section_part").innerHTML  =warm_main_btn_section_part;
+							   document.getElementById("connect_main_btn_section_part").innerHTML  =connect_main_btn_section_part;
+							   
+							   document.getElementById("inform_row_add_more_copy").innerHTML  =inform_row_add_more_copy;
+							   document.getElementById("entice_row_add_more_copy").innerHTML  =entice_row_add_more_copy;
+							   document.getElementById("explore_row_add_more_copy").innerHTML  =explore_row_add_more_copy;
+							   document.getElementById("warm_row_add_more_copy").innerHTML  =warm_row_add_more_copy;
+							   document.getElementById("connect_row_add_more_copy").innerHTML  =connect_row_add_more_copy;
+					   
+					},
+					//timeout: 30000 // sets timeout to 30 seconds
+					
+		});
+	
+	}
+  
+	$(document).on('click', '.open-content-set-up-compaign', function() {
+	    //alert($(this).text());
+		var sub_funnel_name=$(this).text();
+		alert("sub_funnel_name : "+sub_funnel_name);// EC-Explore EnC-Entice IC-Inform WC-Warm CC-Connect
+		if(sub_funnel_name.includes("EC")==true){
+              localStorage.setItem('SubFunnelName',"Explore");
+			  localStorage.setItem('DistanceBtnCampaign',document.getElementById("explore").value);
+			  //alert('document.getElementById("explore").value; : '+document.getElementById("explore").value);
+        }else if(sub_funnel_name.includes("EnC")==true){
+              localStorage.setItem('SubFunnelName',"Entice");
+			  localStorage.setItem('DistanceBtnCampaign',document.getElementById("entice").value);
+        }else if(sub_funnel_name.includes("IC")==true){
+              localStorage.setItem('SubFunnelName',"Inform");
+			  localStorage.setItem('DistanceBtnCampaign',document.getElementById("inform").value);
+        }else if(sub_funnel_name.includes("WC")==true){
+              localStorage.setItem('SubFunnelName',"Warm");
+			  localStorage.setItem('DistanceBtnCampaign',document.getElementById("warm").value);
+        }else if(sub_funnel_name.includes("CC")==true){
+              localStorage.setItem('SubFunnelName',"Connect");
+			  localStorage.setItem('DistanceBtnCampaign',document.getElementById("connect").value);
+        }
+		//document.getElementById("campaign-name").campaign-name
+		$("#campaign-name").attr("placeholder", "Enter the Campaign Name For "+sub_funnel_name);
+		alert("placeholder", "Enter the Campaign Name For "+sub_funnel_name);
+  
+	});
+	
+	function addQueryString(){
+	  //alert("inside addQueryString");
+	  
+	  var campaignName = document.getElementById("campaign-name").value;
+	  localStorage.setItem('campaignName',campaignName);
+	  //var fromName = document.getElementById("from-name").value;
+	  //var fromEmailAddress = document.getElementById("from-email-address").value;
+	  //alert("localStorage.getItem('listid') "+localStorage.getItem('listid'));
+	  //var queryString = "?campaignName=" + campaignName + "&fromName=" + localStorage.getItem('fromName') + "&fromEmailAddress=" + localStorage.getItem('fromEmailAddress')+"&funnelName=" + localStorage.getItem('funnelName')+"&SubFunnelName=" + localStorage.getItem('SubFunnelName')+"&DistanceBtnCampaign=" + localStorage.getItem('DistanceBtnCampaign')+"&listid=" + localStorage.getItem('listid');
+	  //alert('queryString : '+queryString);
+	  //document.getElementById("campaign-name-nxt").setAttribute("href", "set-up-campaign.html"+queryString);
+	  var remoteuser=localStorage.getItem('remoteuser');
+	  var funnelName=localStorage.getItem('funnelName');
+	  var fromName=localStorage.getItem('fromName');
+	  var fromEmailAddress=localStorage.getItem('fromEmailAddress');
+	  var listid=localStorage.getItem('listid');
+	  var SubFunnelName=localStorage.getItem('SubFunnelName');
+	  var DistanceBtnCampaign=localStorage.getItem('DistanceBtnCampaign');
+	  var campaignName=localStorage.getItem('campaignName');
+	  alert("remoteuser : "+remoteuser+" funnelName : "+funnelName+" fromName : "+fromName+" fromEmailAddress : "+fromEmailAddress+" listid : "+listid+" SubFunnelName : "+SubFunnelName+" DistanceBtnCampaign : "+DistanceBtnCampaign+" campaignName : "+campaignName);
+	  document.getElementById("campaign-name-nxt").setAttribute("href", "<%=request.getContextPath()%>/servlet/service/ui.set-up-campaign");
+	  //window.location.href = "page2.html" + queryString;
+	  //<%=request.getContextPath()%>/servlet/service/ui.set-up-campaign
+	}
+	</script>
+	
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+	<link rel="stylesheet"
+		href="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css">
+	<script src="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js"></script>
+
+  <!-- processing code end here-->
+  <!-- <script data-cfasync="false" src="../../../cdn-cgi/scripts/d07b1474/cloudflare-static/email-decode.min.js"></script>-->
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/babel-external-helpers/babel-external-helpers599c.js?v4.0.2"></script> 
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery/jquery.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/popper-js/umd/popper.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/bootstrap/bootstrap.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/asscrollbar/jquery-asScrollbar.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/formvalidation/formValidation.min599c.js?v4.0.2"></script>
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery-wizard/jquery-wizard.min599c.js?v4.0.2"></script> -->
+  <script src="<%=request.getContextPath()%>/apps/global/js/Plugin.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/js/Config.min599c.js?v4.0.2"></script>
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/js/Plugin/jquery-wizard.min599c.js?v4.0.2"></script> -->
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/assets/examples/js/forms/wizard.min599c.js?v4.0.2"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+  
+  <script src="<%=request.getContextPath()%>/apps/global/js/custom.js"></script>
+  <!-- 
+  <script src="<%=request.getContextPath()%>/apps/global/js/Cookies.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  
+  <script type="text/javascript">
+    $.noConflict();
+    $(document).ready(function(){
+      var array = document.URL.split('/');
+	  //alert('array : '+array);
+      var lastsegment = array[array.length-1];
+	  //alert('lastsegment : '+lastsegment);
+      if(lastsegment == 'index.html#funnel'){
+        $('#op').trigger( "click" );
+        $('html, body').animate({
+            scrollTop: $("#op").offset().top
+        }, 2000);
+      }
+    });
+  </script>
+</body>
+</html>

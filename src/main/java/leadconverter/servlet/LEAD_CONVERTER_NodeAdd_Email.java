@@ -168,148 +168,148 @@ public class LEAD_CONVERTER_NodeAdd_Email extends SlingAllMethodsServlet {
 			
 			Node ip = session.getRootNode().getNode("content");
 			if (request.getRequestPathInfo().getExtension().equals("NodeAddNew")) {
-				out.println("NodeAdd 1   ");
-				//String value=request.getParameter("totalresult");
-				StringBuilder builder = new StringBuilder();
-
-			    BufferedReader bufferedReaderCampaign = request.getReader();
-			    
-			    String brokerageline;
-			    while ((brokerageline = bufferedReaderCampaign.readLine()) != null) {
-			     builder.append(brokerageline + "\n");
-			    }
-			    out.println("NodeAdd 2   ");
-			    out.println("builder   "+builder);
-			    String value=builder.toString();
-				out.println("totalresult 1   " + value);
-
-				JSONObject object = new JSONObject(value);
-
-				String remot = object.getString("remote_user");
-
-				String subscribers_string = object.getString("Subscribers");
-				JSONObject subscribers_json = new JSONObject(subscribers_string);
-				JSONObject jsondata = object.getJSONObject("List");
-				JSONObject listdata = jsondata.getJSONObject("data");
-				String list_id = listdata.getString("id");
-				String list_name = listdata.getString("name");
-				out.println("list_name: :" + list_name);
-				JSONArray subscribers_data = subscribers_json.getJSONArray("data");
-
-				String slingqery = "select [LIST_NAME,LIST_ID,NODE_ID] from [nt:base] where (contains('LIST_NAME','"
-						+ list_name + "'))  and ISDESCENDANTNODE('/content/LEAD_CONVERTER/LIST/')";
-
-				Workspace workspace = session.getWorkspace();
-
-				Query query = workspace.getQueryManager().createQuery(slingqery, Query.JCR_SQL2);
-
-				QueryResult queryResult = query.execute();
-				NodeIterator iterator = queryResult.getNodes();
-
-				Node list = null;
-				Node sub_list = null;
-				Node lead_converter = null;
-				Node subscriber = null;
-				Node email = null;
-				Node subscriber_list = null;
-				Node newnode = null;
-				Node campaignnode = null;
-				out.println("countvalue : : : :");
-
-				long count_Value1 = 0;
-
-				Node content = session.getRootNode().getNode("content");
-
-				if (!content.hasNode("LEAD_CONVERTER")) {
-
-					out.println("Lead Node True or False : : :" + !content.hasNode("LEAD_CONVERTER"));
-					lead_converter = content.addNode("LEAD_CONVERTER");
-					out.println("If LEAD_CONVERTER : : : " + lead_converter);
-				} else {
-
-					lead_converter = content.getNode("LEAD_CONVERTER");
-				}
-
-				if (!lead_converter.hasNode("LIST")) {
-
-					out.println("List Node True or False : : :" + !lead_converter.hasNode("LIST"));
-					list = lead_converter.addNode("LIST");
-					list.setProperty("Counter", count_Value1);
-					out.println("List id if   ...." + list.toString());
-				} else {
-					list = lead_converter.getNode("LIST");
-					count_Value1 = list.getProperty("Counter").getLong();
-					count_Value1 = count_Value1 + 1;
-					out.println("count_Value1 after : : : " + count_Value1);
-					list.setProperty("Counter", count_Value1);
-
-				}
-
-				if (iterator.hasNext()) {
-					sub_list = iterator.nextNode();
-					count_Value1 = Long.parseLong(sub_list.getProperty("NODE_ID").getString());
-					// out.println(" iterator.next=="+ iterator.nextNode());
-				}
-
-				else {
-					sub_list = list.addNode(String.valueOf(count_Value1));
-					sub_list.setProperty("LIST_ID", list_id);
-					sub_list.setProperty("LIST_NAME", list_name);
-					sub_list.setProperty("CREATED_BY", remot);
-					sub_list.setProperty("NODE_ID", count_Value1);
-				}
-
-				for (int i = 0; i < subscribers_data.length(); i++) {
-
-					JSONObject data = subscribers_data.getJSONObject(i);
-
-					String email_id = data.getString("id");
-					String email_name = data.getString("email");
-
-					out.println("Subscriber_id  : " + email_id);
-					out.println("Subscriber_Name  : " + email_name);
-
-					if (!lead_converter.hasNode("SUBSCRIBER")) {
-						subscriber = lead_converter.addNode("SUBSCRIBER");
-					} else {
-						subscriber = lead_converter.getNode("SUBSCRIBER");
-						out.println("subscriber Id else==  " + lead_converter);
-					}
-					if (!subscriber.hasNode(email_name.replace("@", "_"))) {
-						email = subscriber.addNode(email_name.replace("@", "_"));
-						email.setProperty("SUBSCRIBER_ID", email_id);
-						email.setProperty("SUBSCRIBER_NAME", email_name.replace("@", "_"));
-						email.setProperty("CURRENT DATE AND TIME", DateToStr);
-						email.setProperty("List_Id",list_id);
-
-						out.println("if EMAIL : :" + subscriber);
-
-					} else {
-						email = subscriber.getNode(email_name.replace("@", "_"));
-						email.setProperty("SUBSCRIBER_ID", email_id);
-						email.setProperty("SUBSCRIBER_NAME", email_name.replace("@", "_"));
-						email.setProperty("CURRENT DATE AND TIME", DateToStr);
-						email.setProperty("List_Id",list_id);
-
-						out.println("else  EMAIL : :" + subscriber);
-					}
-					if (!email.hasNode("List")) {
-						subscriber_list = email.addNode("List");
-					} else {
-						subscriber_list = email.getNode("List");
-
-					}
-
-					if (!subscriber_list.hasNode(String.valueOf(count_Value1))) {
-						newnode = subscriber_list.addNode(String.valueOf(count_Value1));
-
-					} else {
-						newnode = subscriber_list.addNode(String.valueOf(count_Value1));
-
-					}
-
-				}
-				session.save();
+//				out.println("NodeAdd 1   ");
+//				//String value=request.getParameter("totalresult");
+//				StringBuilder builder = new StringBuilder();
+//
+//			    BufferedReader bufferedReaderCampaign = request.getReader();
+//			    
+//			    String brokerageline;
+//			    while ((brokerageline = bufferedReaderCampaign.readLine()) != null) {
+//			     builder.append(brokerageline + "\n");
+//			    }
+//			    out.println("NodeAdd 2   ");
+//			    out.println("builder   "+builder);
+//			    String value=builder.toString();
+//				out.println("totalresult 1   " + value);
+//
+//				JSONObject object = new JSONObject(value);
+//
+//				String remot = object.getString("remote_user");
+//
+//				String subscribers_string = object.getString("Subscribers");
+//				JSONObject subscribers_json = new JSONObject(subscribers_string);
+//				JSONObject jsondata = object.getJSONObject("List");
+//				JSONObject listdata = jsondata.getJSONObject("data");
+//				String list_id = listdata.getString("id");
+//				String list_name = listdata.getString("name");
+//				out.println("list_name: :" + list_name);
+//				JSONArray subscribers_data = subscribers_json.getJSONArray("data");
+//
+//				String slingqery = "select [LIST_NAME,LIST_ID,NODE_ID] from [nt:base] where (contains('LIST_NAME','"
+//						+ list_name + "'))  and ISDESCENDANTNODE('/content/LEAD_CONVERTER/LIST/')";
+//
+//				Workspace workspace = session.getWorkspace();
+//
+//				Query query = workspace.getQueryManager().createQuery(slingqery, Query.JCR_SQL2);
+//
+//				QueryResult queryResult = query.execute();
+//				NodeIterator iterator = queryResult.getNodes();
+//
+//				Node list = null;
+//				Node sub_list = null;
+//				Node lead_converter = null;
+//				Node subscriber = null;
+//				Node email = null;
+//				Node subscriber_list = null;
+//				Node newnode = null;
+//				Node campaignnode = null;
+//				out.println("countvalue : : : :");
+//
+//				long count_Value1 = 0;
+//
+//				Node content = session.getRootNode().getNode("content");
+//
+//				if (!content.hasNode("LEAD_CONVERTER")) {
+//
+//					out.println("Lead Node True or False : : :" + !content.hasNode("LEAD_CONVERTER"));
+//					lead_converter = content.addNode("LEAD_CONVERTER");
+//					out.println("If LEAD_CONVERTER : : : " + lead_converter);
+//				} else {
+//
+//					lead_converter = content.getNode("LEAD_CONVERTER");
+//				}
+//
+//				if (!lead_converter.hasNode("LIST")) {
+//
+//					out.println("List Node True or False : : :" + !lead_converter.hasNode("LIST"));
+//					list = lead_converter.addNode("LIST");
+//					list.setProperty("Counter", count_Value1);
+//					out.println("List id if   ...." + list.toString());
+//				} else {
+//					list = lead_converter.getNode("LIST");
+//					count_Value1 = list.getProperty("Counter").getLong();
+//					count_Value1 = count_Value1 + 1;
+//					out.println("count_Value1 after : : : " + count_Value1);
+//					list.setProperty("Counter", count_Value1);
+//
+//				}
+//
+//				if (iterator.hasNext()) {
+//					sub_list = iterator.nextNode();
+//					count_Value1 = Long.parseLong(sub_list.getProperty("NODE_ID").getString());
+//					// out.println(" iterator.next=="+ iterator.nextNode());
+//				}
+//
+//				else {
+//					sub_list = list.addNode(String.valueOf(count_Value1));
+//					sub_list.setProperty("LIST_ID", list_id);
+//					sub_list.setProperty("LIST_NAME", list_name);
+//					sub_list.setProperty("CREATED_BY", remot);
+//					sub_list.setProperty("NODE_ID", count_Value1);
+//				}
+//
+//				for (int i = 0; i < subscribers_data.length(); i++) {
+//
+//					JSONObject data = subscribers_data.getJSONObject(i);
+//
+//					String email_id = data.getString("id");
+//					String email_name = data.getString("email");
+//
+//					out.println("Subscriber_id  : " + email_id);
+//					out.println("Subscriber_Name  : " + email_name);
+//
+//					if (!lead_converter.hasNode("SUBSCRIBER")) {
+//						subscriber = lead_converter.addNode("SUBSCRIBER");
+//					} else {
+//						subscriber = lead_converter.getNode("SUBSCRIBER");
+//						out.println("subscriber Id else==  " + lead_converter);
+//					}
+//					if (!subscriber.hasNode(email_name.replace("@", "_"))) {
+//						email = subscriber.addNode(email_name.replace("@", "_"));
+//						email.setProperty("SUBSCRIBER_ID", email_id);
+//						email.setProperty("SUBSCRIBER_NAME", email_name.replace("@", "_"));
+//						email.setProperty("CURRENT DATE AND TIME", DateToStr);
+//						email.setProperty("List_Id",list_id);
+//
+//						out.println("if EMAIL : :" + subscriber);
+//
+//					} else {
+//						email = subscriber.getNode(email_name.replace("@", "_"));
+//						email.setProperty("SUBSCRIBER_ID", email_id);
+//						email.setProperty("SUBSCRIBER_NAME", email_name.replace("@", "_"));
+//						email.setProperty("CURRENT DATE AND TIME", DateToStr);
+//						email.setProperty("List_Id",list_id);
+//
+//						out.println("else  EMAIL : :" + subscriber);
+//					}
+//					if (!email.hasNode("List")) {
+//						subscriber_list = email.addNode("List");
+//					} else {
+//						subscriber_list = email.getNode("List");
+//
+//					}
+//
+//					if (!subscriber_list.hasNode(String.valueOf(count_Value1))) {
+//						newnode = subscriber_list.addNode(String.valueOf(count_Value1));
+//
+//					} else {
+//						newnode = subscriber_list.addNode(String.valueOf(count_Value1));
+//
+//					}
+//
+//				}
+//				session.save();
 
 			}
 			else if (request.getRequestPathInfo().getExtension().equals("NodeAdd")) {

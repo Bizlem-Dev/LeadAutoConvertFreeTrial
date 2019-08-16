@@ -57,6 +57,7 @@ import java.net.*;
 import java.text.SimpleDateFormat;
 
 import leadconverter.doctiger.LogByFileWriter;
+import leadconverter.freetrail.FreetrialShoppingCartUpdate;
 import leadconverter.mongo.ConnectionHelper;
 import leadconverter.mongo.JSON_Reader;
 import leadconverter.mongo.MongoDAO;
@@ -107,7 +108,7 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 		    if (request.getRequestPathInfo().getExtension().equals("runBatch")) {
 		    	out.println("--------Get Campaign Statistics Data From PHPLIST Started !---------");
 		    	LogByFileWriter.logger_info("CampaignStatisticsServlet : " + "--------Get Campaign Statistics Data From PHPLIST Started !---------");
-		    	String remoteuser = request.getRemoteUser();
+		
 		    	Query query;
 				Node campaignNode = null;
 				String campaignNodeName = null;
@@ -136,6 +137,16 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 				try {
 					Session session = null;
 					String user=request.getRemoteUser().replace("@", "_");
+					String group="";
+					group=request.getParameter("group");
+					Node shoppingnode = null;
+			    	
+			 		String expstatus= new FreetrialShoppingCartUpdate().checkFreeTrialExpirationStatus(user);
+			 	
+			 		shoppingnode=new FreetrialShoppingCartUpdate().getLeadAutoConverterNode(expstatus, user, group, session, response);
+			 	
+					if(shoppingnode!=null) {
+					
 					user="viki_gmail.com";
 				    out.println("Getting Data For User  : "+user);
 				    LogByFileWriter.logger_info("CampaignStatisticsServlet : " + "Getting Data For User  : "+user);
@@ -143,7 +154,7 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 					Node content = session.getRootNode().getNode("content");
 				    
 				    String slingqery = "select * from [nt:base] where Campaign_Id is not null "
-							+ "and ISDESCENDANTNODE('/content/user/"+user+"/Lead_Converter/Email/Funnel')";
+							+ "and ISDESCENDANTNODE('"+shoppingnode+"/Lead_Converter/Email/Funnel')";
 		            Workspace workspace = session.getWorkspace();
 					query = workspace.getQueryManager().createQuery(slingqery, Query.JCR_SQL2);
 					QueryResult queryResult = query.execute();
@@ -235,7 +246,10 @@ public class CampaignStatisticsServlet extends SlingAllMethodsServlet {
 					}
 					out.println("--------Get Campaign Statistics Data From PHPLIST Ended !---------");
 			    	LogByFileWriter.logger_info("CampaignStatisticsServlet : " + "--------Get Campaign Statistics Data From PHPLIST Ended !---------");
-			    	
+				}else {
+					out.println("user not valid ");
+					
+				}
 				} catch (Exception e) {
 					out.print(e.getMessage());
 				}finally{

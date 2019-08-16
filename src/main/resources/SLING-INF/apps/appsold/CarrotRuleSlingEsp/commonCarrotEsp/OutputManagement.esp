@@ -1,0 +1,353 @@
+				
+									<div class="tab-pane" id="outputManagement">
+									<div class="row">
+										<div class="col-sm-3 col-sm-offset-1 text-left">
+											<h6 class="pro-rule-name">Project Name</h6>
+										</div>
+										<div class="col-sm-4">
+											<h4 class="info-text">Output Management</h4>
+										</div>
+										<div class="col-sm-3 text-right">
+											<h6 class="pro-rule-name">Rule Engine</h6>
+										</div>
+
+										<div class="col-sm-12">
+											<ul class="nav-tabs-custom" role="tablist">
+												<li class="active"><a href="#communication" role="tab"
+													data-toggle="tab">Communication</a></li>
+												<li><a href="#wsIntegration" role="tab"
+													data-toggle="tab">WS Integration</a></li>
+												<li><a href="#requestAndResponse" role="tab"
+													data-toggle="tab">Request & Response</a></li>
+											</ul>
+
+											<div class="tab-content tab-content-second">
+												<div class="tab-pane active" id="communication">
+													<div class="row">
+														<div class="col-sm-6">
+															<div class="form-group">
+																<div class="row">
+																	<div class="col-sm-4">
+																		<label>Select Event</label>
+																	</div>
+																	<div class="col-sm-8">
+																		<select class="form-control bg-gray">
+																			<option>--Select Event--</option>
+																			<option value="eventnew">Create New Event</option>
+																			<option value="event1">Event 1</option>
+																			<option value="event2">Event 2</option>
+																		</select>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="col-sm-12">
+															<button class="btn btn-danger sm-btn-custom">Run</button>
+															&nbsp; &nbsp;
+															<button class="btn btn-warning sm-btn-custom">Download
+																Excel</button>
+														</div>
+													</div>
+												</div>
+												<div class="tab-pane" id="wsIntegration">
+													<div class="row">
+														<div class="col-sm-12 addMore">
+															<div class="row addMore-main">
+																<div class="col-sm-12 addMore-sub">
+																	<div class="row">
+																		<div class="col-sm-11">
+																			<div class="form-group">
+																				<div class="row">
+																					<div class="col-sm-3">
+																						<input type="text" class="form-control"
+																							placeholder="URL">
+																					</div>
+																					<div class="col-sm-3">
+																						<input type="text" class="form-control"
+																							placeholder="Token">
+																					</div>
+																					<div class="col-sm-3">
+																						<input type="text" class="form-control"
+																							placeholder="Username">
+																					</div>
+																					<div class="col-sm-3">
+																						<input type="password" class="form-control"
+																							placeholder="Password">
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+
+																		<div class="col-sm-1">
+																			<a class="btn btn-success add-more-btn sm-btn-custom"><i
+																				class="fa fa-plus"></i></a>
+																		</div>
+
+																		<div class="col-sm-10">
+																			<div class="form-group addMore m-0">
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<div class="row">
+																							<div class="col-sm-12">
+																								<label>Input Fields :</label>
+																							</div>
+																						</div>
+																						<div class="row">
+																							<div class="col-sm-3">
+																								<select class="selectpicker" multiple>
+																									<option value="">SF field1</option>
+																									<option value="">SF field2</option>
+																									<option value="">SF field3</option>
+																									<option value="">SF field4</option>
+																									<option value="">SF field5</option>
+																								</select>
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+
+																		<div class="col-sm-10">
+																			<div class="form-group">
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<div class="row">
+																							<div class="col-sm-12">
+																								<label>Output Fields :</label>
+																							</div>
+																						</div>
+																						<div class="row">
+																							<div class="col-sm-4">
+																								<input type="text" class="form-control"
+																									placeholder="Field Name">
+																							</div>
+																							<div class="col-sm-4">
+																								<select class="form-control bg-gray">
+																									<option value="">Field Type</option>
+																									<option value="1">Field Type 1</option>
+																									<option value="2">Field Type 2</option>
+																									<option value="3">Field Type 3</option>
+																								</select>
+																							</div>
+																							<div class="col-sm-4">
+																								<input type="text" class="form-control"
+																									placeholder="Field Length">
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="row addMore-copy" style="display: none;">
+																<div class="col-sm-12 addMore-sub">
+																	<div class="row">
+																		<div class="col-sm-11">
+																			<div class="form-group">
+																				<div class="row">
+																					<div class="col-sm-3">
+																						<input type="text" class="form-control"
+																							placeholder="URL">
+																					</div>
+																					<div class="col-sm-3">
+																						<input type="text" class="form-control"
+																							placeholder="Token">
+																					</div>
+																					<div class="col-sm-3">
+																						<input type="text" class="form-control"
+																							placeholder="Username">
+																					</div>
+																					<div class="col-sm-3">
+																						<input type="password" class="form-control"
+																							placeholder="Password">
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+
+																		<div class="col-sm-1">
+																			<a
+																				class="btn btn-danger copy-remove-btn sm-btn-custom"><i
+																				class="fa fa-trash"></i></a>
+																		</div>
+
+																		<div class="col-sm-10">
+																			<div class="form-group addMore m-0">
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<div class="row">
+																							<div class="col-sm-12">
+																								<label>Input Fields :</label>
+																							</div>
+																						</div>
+																						<div class="row">
+																							<div class="col-sm-3">
+																								<select class="selectpicker" multiple>
+																									<option value="">SF field1</option>
+																									<option value="">SF field2</option>
+																									<option value="">SF field3</option>
+																									<option value="">SF field4</option>
+																									<option value="">SF field5</option>
+																								</select>
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+
+																		<div class="col-sm-10">
+																			<div class="form-group">
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<div class="row">
+																							<div class="col-sm-12">
+																								<label>Output Fields :</label>
+																							</div>
+																						</div>
+																						<div class="row">
+																							<div class="col-sm-4">
+																								<input type="text" class="form-control"
+																									placeholder="Field Name">
+																							</div>
+																							<div class="col-sm-4">
+																								<select class="form-control bg-gray">
+																									<option value="">Field Type</option>
+																									<option value="1">Field Type 1</option>
+																									<option value="2">Field Type 2</option>
+																									<option value="3">Field Type 3</option>
+																								</select>
+																							</div>
+																							<div class="col-sm-4">
+																								<input type="text" class="form-control"
+																									placeholder="Field Length">
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-12">
+															<input type='button' class='btn btn-danger' name='save'
+																value='Save' />
+														</div>
+													</div>
+												</div>
+												<div class="tab-pane" id="requestAndResponse">
+													<div class="row">
+														<div class="col-sm-3">
+															<label>Primary Key</label> : Selected Primary Key
+														</div>
+														<div class="col-sm-5">
+															<div class="form-group addMore m-0">
+																<div class="row addMore-main">
+																	<div class="col-sm-12 addMore-sub">
+																		<div class="row">
+																			<div class="col-sm-3">
+																				<label>Raw Data</label>
+																			</div>
+																			<div class="col-sm-7">
+																				<select class="form-control sf-object bg-gray">
+																					<option value="">Raw Data</option>
+																					<option value="">Input Data</option>
+																					<option value="">Output Data</option>
+																					<option value="">Calculation Build Data</option>
+																				</select>
+																			</div>
+																			<div class="col-sm-2 p-0">
+																				<a
+																					class="btn btn-success add-more-btn sm-btn-custom"><i
+																					class="fa fa-plus"></i></a>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="row addMore-copy" style="display: none;">
+																	<div class="col-sm-12 addMore-sub">
+																		<div class="row">
+																			<div class="col-sm-7 col-sm-offset-3">
+																				<select class="form-control sf-object bg-gray">
+																					<option value="">Raw Data</option>
+																					<option value="">Input Data</option>
+																					<option value="">Output Data</option>
+																					<option value="">Calculation Build Data</option>
+																				</select>
+																			</div>
+																			<div class="col-sm-2 p-0">
+																				<a
+																					class="btn btn-danger copy-remove-btn sm-btn-custom"><i
+																					class="fa fa-trash"></i></a>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="col-sm-12">
+															<div class="row">
+																<div class="col-sm-3">
+																	<input type="text" class="form-control"
+																		placeholder="Project Name">
+																</div>
+																<div class="col-sm-3">
+																	<input type="text" class="form-control"
+																		placeholder="Rule Engine">
+																</div>
+																<div class="col-sm-3">
+																	<input type="text" class="form-control"
+																		placeholder="Primary Key">
+																</div>
+															</div>
+														</div>
+														<div class="col-sm-12">
+															<label>External Parameter</label>
+														</div>
+														<div class="col-sm-12">
+															<div class="row">
+																<div class="col-sm-3">
+																	<input type="text" class="form-control"
+																		placeholder="Project Name">
+																</div>
+																<div class="col-sm-3">
+																	<input type="text" class="form-control"
+																		placeholder="Rule Engine">
+																</div>
+																<div class="col-sm-3">
+																	<input type="text" class="form-control"
+																		placeholder="Primary Key">
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<br>
+									<br>
+									<div class="row">
+										<div class="col-sm-3 text-left">
+											<a
+												class='btn btn-fill btn-default btn-wd outputManagement-pre'>previous</a>
+										</div>
+										<div class="col-sm-3 text-center">
+											<button class='btn btn-fill btn-success btn-wd'>Save</button>
+										</div>
+										<div class="col-sm-3 text-center">
+											<button class='btn btn-fill btn-warning btn-wd'>edit</button>
+										</div>
+										<div class="col-sm-3 text-right">
+											<button class='btn btn-fill btn-danger btn-wd'>Save
+												& next</button>
+										</div>
+									</div>
+								</div>

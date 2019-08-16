@@ -1,0 +1,134 @@
+<div class="tab-pane" id="sfObjects">
+									<div class="row">
+										<div class="col-sm-10 col-sm-offset-1">
+											<div class="row">
+												<div class="col-sm-4 text-left">
+													<h6 class="pro-rule-name">Project Name</h6>
+												</div>
+												<div class="col-sm-4">
+													<h4 class="info-text">SFDC Select Data</h4>
+												</div>
+												<div class="col-sm-8">
+													<div class="form-group addMore m-0">
+														<div class="row addMore-main">
+															<div class="col-sm-12 addMore-sub">
+																<div class="row">
+																	<div class="col-sm-3">
+																		<label>SF Objects</label>
+																	</div>
+																	<div class="col-sm-7">
+																		<select class="form-control sf-object bg-gray">
+																			<option>--Select SF Objects--</option>
+																			<option value="Account">Account</option>
+																			<option class="Case">Case</option>
+																			<option class="Lead">Lead</option>
+																			<option class="Oppurtunity">Oppurtunity</option>
+																		</select>
+																	</div>
+																	<div class="col-sm-2 p-0">
+																		<a class="btn btn-success add-more-btn sm-btn-custom"><i
+																			class="fa fa-plus"></i></a>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="row addMore-copy" style="display: none;">
+															<div class="col-sm-12 addMore-sub">
+																<div class="row">
+																	<div class="col-sm-7 col-sm-offset-3">
+																		<select class="form-control sf-object bg-gray">
+																			<option>--Select SF Objects--</option>
+																			<option value="Account">Account</option>
+																			<option class="Case">Case</option>
+																			<option class="Lead">Lead</option>
+																			<option class="Oppurtunity">Oppurtunity</option>
+																		</select>
+																	</div>
+																	<div class="col-sm-2 p-0">
+																		<a
+																			class="btn btn-danger copy-remove-btn sm-btn-custom"><i
+																			class="fa fa-trash"></i></a>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-sm-12 box-main-section">
+													<div class="row">
+														<div class="col-sm-3 p-0">
+															<div class="box box-left">
+																<h2 class="box-title">Select SF Fields</h2>
+															</div>
+														</div>
+														<div class="col-sm-1 text-center">
+															<div class="box-center">
+																<a class="btn click-right sm-btn-custom"><i
+																	class="fa fa-long-arrow-right"></i></a> <a
+																	class="btn click-left sm-btn-custom"><i
+																	class="fa fa-long-arrow-left"></i></a>
+															</div>
+														</div>
+														<div class="col-sm-3 p-0">
+															<div class="box box-right">
+																<h2 class="box-title">Selected SF Fields</h2>
+															</div>
+														</div>
+														<div class="col-sm-1 text-center">
+															<div class="box-center">
+																<a class="btn click-right-primary-key sm-btn-custom"><i
+																	class="fa fa-long-arrow-right"></i></a> <a
+																	class="btn click-left-primary-key sm-btn-custom"><i
+																	class="fa fa-long-arrow-left"></i></a>
+															</div>
+														</div>
+														<div class="col-sm-3 p-0">
+															<div class="box box-primary-key">
+																<h2 class="box-title">Select Primary Key</h2>
+															</div>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-sm-6">
+													<br>
+													<br>
+													<div class="checkRulesBased">
+														<input id="externalData" type="checkbox"
+															name="externalData" /> <label for="externalData">
+															<div class="checkbox">
+																<i class="fa fa-check"></i>
+															</div> <span>External Data</span>
+														</label>
+													</div>
+												</div>
+
+												<div class="col-sm-6">
+													<br>
+													<br>
+													<div class="checkRulesBased">
+														<input id="inputTransformation" type="checkbox"
+															name="inputTransformation" /> <label
+															for="inputTransformation">
+															<div class="checkbox">
+																<i class="fa fa-check"></i>
+															</div> <span>Input Transformation</span>
+														</label>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<br>
+									<br>
+									<div class="row">
+										<div class="col-sm-12 text-center">
+											<button class='btn btn-fill btn-warning btn-wd'>edit</button>
+											<button class='btn btn-fill btn-success btn-wd'>Save</button>
+											<a class='btn btn-fill btn-danger btn-wd save-next-createNew'>Save
+												& next</a>
+											<button class='btn btn-fill btn-default btn-wd'>Cancel</button>
+										</div>
+									</div>
+								</div>

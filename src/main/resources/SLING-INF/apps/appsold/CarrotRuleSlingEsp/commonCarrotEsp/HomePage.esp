@@ -1,0 +1,40 @@
+<div class="tab-pane" id="basic">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+			<div class="row">
+				<div class="col-sm-12">
+					<h4 class="info-text">Home Page</h4>
+				</div>
+				<div class="col-sm-6">
+					<a class="btn btn-danger m-0 createNew-btn">Create New</a>
+				</div>
+				<div class="col-sm-3">
+					<button class="btn btn-danger sm-btn-custom">
+						Run
+						<div class="ripple-container"></div>
+					</button>
+
+					<a class="btn btn-warning sm-btn-custom homePageDownloadExcel">
+						Download Excel<br /> <small class="color-dark"></small>
+					</a>
+				</div>
+				<div class="col-sm-12">
+					<table class="table table-bordered table-striped mt-15">
+						<thead class="bg-info">
+							<tr>
+								<th>No.</th>
+								<th>Project Name</th>
+								<th>Rule Name</th>
+								<th>Create Date</th>
+								<th width="180px">Action</th>
+							</tr>
+						</thead>
+						<tbody id="prjDetails">
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

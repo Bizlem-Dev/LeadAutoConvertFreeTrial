@@ -1,0 +1,1927 @@
+<html>
+<script>
+
+$('body').on('click', '#set-up .add-more-lavel1', function() {
+	$('#set-up .test-run-step-2').css('display', 'block');
+	$('#set-up .test-run-step-c2').css('display', 'block');
+	$(this).removeClass('add-more-lavel1');
+	$(this).addClass('add-more-lavel2');
+});
+
+$('body').on('click', '#set-up .add-more-lavel2', function() {
+	$('#set-up .test-run-step-3').css('display', 'block');
+	$(this).attr('disabled', 'disabled');
+});
+
+$('body').on('click', '#test .add-more-lavel1', function() {
+	$('#test .test-run-step-2').css('display', 'block');
+	$('#test .test-run-step-c2').css('display', 'block');
+	$(this).removeClass('add-more-lavel1');
+	$(this).addClass('add-more-lavel2');
+});
+
+$('body').on('click', '#test .add-more-lavel2', function() {
+	$('#test .test-run-step-3').css('display', 'block');
+	$(this).attr('disabled', 'disabled');
+});
+
+$('body').on('click', '.copy-remove-btn-b', function() {
+	$(this).parents('.addMore-sub-b').remove();
+});
+
+$('body').on('click', '.add-more-btn', function() {
+	var copy = $(this).parents('.addMore').find('.addMore-copy').html();
+	$(this).parents('.addMore').find('.addMore-main').append(copy);
+});
+
+$('body').on('click', '.copy-remove-btn', function() {
+	$(this).parents('.addMore-sub').remove();
+});
+
+$('.more-tr .add')
+		.click(
+				function() {
+					var addTr = $(this).parents('.tab-pane.active').find(
+							'#draggable table tbody tr:last-child').html();
+					addTr = '<tr>' + addTr + '</tr>';
+					$(this).parents('.tab-pane.active').find(
+							'#draggable table tbody').append(addTr);
+					var a = $(this).parents('.tab-pane.active').find(
+							'#draggable table tbody tr:last-child').find(
+							'td:first-child').html();
+					a = (parseInt(a) + 1)
+					$(this).parents('.tab-pane.active').find(
+							'#draggable table tbody tr:last-child').find('td')
+							.text('');
+					$(this).parents('.tab-pane.active').find(
+							'#draggable table tbody tr:last-child').find(
+							'td:first-child').text(a);
+				});
+
+$('.more-tr .remove').click(
+		function() {
+			var firstTr = $(this).parents('.tab-pane.active').find(
+					'#draggable table tbody tr:last-child').attr('class');
+			if (firstTr != 'firstTr') {
+				$(this).parents('.tab-pane.active').find(
+						'#draggable table tbody tr:last-child').remove();
+			}
+		});
+
+$('.more-td .add')
+		.click(
+				function() {
+					$(this)
+							.parents('.tab-pane.active')
+							.find('#draggable table thead tr')
+							.append(
+									'<th>Added New <i class="fa fa-times text-danger remove-added-new-added-rule"></i></th>');
+					$(this).parents('.tab-pane.active').find(
+							'#draggable table tbody tr').append('<td></td>');
+
+					var scrollLeft = $(this).parents('.tab-pane.active').find(
+							'#draggable .draggable-table').width();
+					$(this).parents('.tab-pane.active').find(
+							'#draggable .draggable-table').scrollLeft(
+							scrollLeft);
+				});
+
+$('.more-td .remove').click(
+		function() {
+			var lastTD = $(this).parents('.tab-pane.active').find(
+					'#draggable table thead tr th:last-child').attr(
+					'data-class');
+			if (lastTD != 'lastTD') {
+				$(this).parents('.tab-pane.active').find(
+						'#draggable table thead tr th:last-child').remove();
+				$(this).parents('.tab-pane.active').find(
+						'#draggable table tbody tr td:last-child').remove();
+			}
+		});
+
+$('#transformation .more-tdT .add')
+		.click(
+				function() {
+					$(this).parents('.tab-pane.active').find(
+							'#draggable table thead tr:nth-child(3)').append(
+							'<th class="bg-info"></th>');
+					$(this)
+							.parents('.tab-pane.active')
+							.find('#draggable table thead tr:nth-child(2)')
+							.append(
+									'<th>Added New <i class="fa fa-times text-danger remove-added-new"></i></th>');
+					$(this).parents('.tab-pane.active').find(
+							'#draggable table tbody tr').append('<td></td>');
+
+					var scrollLeft = $(this).parents('.tab-pane.active').find(
+							'#draggable .draggable-table').width();
+					$(this).parents('.tab-pane.active').find(
+							'#draggable .draggable-table').scrollLeft(
+							scrollLeft);
+				});
+
+$('#transformation .more-tdT .remove').click(
+		function() {
+			var lastTD = $(this).parents('.tab-pane.active').find(
+					'#draggable table thead tr th:last-child').attr(
+					'data-class');
+			if (lastTD != 'lastTD') {
+				$(this).parents('.tab-pane.active').find(
+						'#draggable table thead tr:nth-child(2) th:last-child')
+						.remove();
+				$(this).parents('.tab-pane.active').find(
+						'#draggable table thead tr:nth-child(3) th:last-child')
+						.remove();
+				$(this).parents('.tab-pane.active').find(
+						'#draggable table tbody tr td:last-child').remove();
+			}
+		});
+
+$('#calculationBuilder .more-tdT .add')
+		.click(
+				function() {
+					var colspan = $(this).parents('.tab-pane.active').find(
+							'table thead .transformed-data-th').attr('colspan');
+					colspan++;
+					$(this).parents('.tab-pane.active').find(
+							'table thead .transformed-data-th').attr('colspan',
+							colspan);
+					$(this)
+							.parents('.tab-pane.active')
+							.find('table thead tr:nth-child(2)')
+							.append(
+									'<th>Added New <i class="fa fa-times text-danger remove-added-new-calc-builder"></i></th>');
+					$(this).parents('.tab-pane.active').find('table tbody tr')
+							.append('<td></td>');
+
+					var scrollLeft = $(this).parents('.tab-pane.active').find(
+							'.draggable-table').width();
+					$(this).parents('.tab-pane.active')
+							.find('.draggable-table').scrollLeft(scrollLeft);
+				});
+
+$('#calculationBuilder .more-tdT .remove').click(
+		function() {
+			var colspan = $(this).parents('.tab-pane.active').find(
+					'table thead .transformed-data-th').attr('colspan');
+			colspan--;
+			$(this).parents('.tab-pane.active').find(
+					'table thead .transformed-data-th')
+					.attr('colspan', colspan);
+			var lastTD = $(this).parents('.tab-pane.active').find(
+					'table thead tr th:last-child').attr('data-class');
+			if (lastTD != 'lastTD') {
+				$(this).parents('.tab-pane.active').find(
+						'table thead tr:nth-child(2) th:last-child').remove();
+				$(this).parents('.tab-pane.active').find(
+						'table tbody tr td:last-child').remove();
+			}
+		});
+
+$('body').on(
+		'click',
+		'.remove-added-new',
+		function() {
+			var index = $(this).parent('th').index();
+			index++;
+			$(this).parents('.table').find(
+					"thead tr:nth-child(2) th:nth-child(" + index
+							+ "), thead tr:nth-child(3) th:nth-child(" + index
+							+ "), tbody tr td:nth-child(" + index + ")")
+					.remove();
+		});
+
+$('body').on(
+		'click',
+		'.remove-added-new-trans-data',
+		function() {
+			var index = $(this).parent('th').index();
+			index++;
+			$(this).parents('.table').find(
+					"thead tr:nth-child(2) th:nth-child(" + index
+							+ "), thead tr:nth-child(3) th:nth-child(" + index
+							+ "), tbody tr td:nth-child(" + index + ")")
+					.remove();
+		});
+
+$('body').on(
+		'click',
+		'.remove-added-new-added-rule',
+		function() {
+			var index = $(this).parent('th').index();
+			index++;
+			$(this).parents('.table').find(
+					"thead tr th:nth-child(" + index
+							+ "), tbody tr td:nth-child(" + index + ")")
+					.remove();
+		});
+
+$('body').on(
+		'click',
+		'.remove-added-new-calc-builder',
+		function() {
+			var index = $(this).parent('th').index();
+			index++;
+			$(this).parents('.table').find(
+					"thead tr th:nth-child(" + index
+							+ "), tbody tr td:nth-child(" + index + ")")
+					.remove();
+		});
+
+$('#transformation .more-trT .add')
+		.click(
+				function() {
+					var addTr = $(this).parents('.tab-pane.active').find(
+							'#draggable table tbody tr:last-child').html();
+					addTr = '<tr>' + addTr + '</tr>';
+					$(this).parents('.tab-pane.active').find(
+							'#draggable table tbody').append(addTr);
+					var a = $(this).parents('.tab-pane.active').find(
+							'#draggable table tbody tr:last-child').find(
+							'td:first-child').html();
+					a = (parseInt(a) + 1)
+					$(this).parents('.tab-pane.active').find(
+							'#draggable table tbody tr:last-child').find('td')
+							.text('');
+					$(this).parents('.tab-pane.active').find(
+							'#draggable table tbody tr:last-child').find(
+							'td:first-child').text(a);
+				});
+
+$('#transformation .more-trT .remove').click(
+		function() {
+			var firstTr = $(this).parents('.tab-pane.active').find(
+					'#draggable table tbody tr:last-child').attr('class');
+			if (firstTr != 'firstTr') {
+				$(this).parents('.tab-pane.active').find(
+						'#draggable table tbody tr:last-child').remove();
+			}
+		});
+
+$('.plus-minus .plus').click(function() {
+	var copy = $(this).parents('.plus-minus').find('.copy-plus-minus').html();
+	$(this).parents('.plus-minus').find('.plus-minus-sub').append(copy);
+});
+
+$('.plus-minus .minus').click(
+		function() {
+			var first = $(this).parents('.plus-minus').find(
+					'.plus-minus-sub .form-group:last-child .form-control')
+					.attr('data-class');
+			if (first != 'first') {
+				$(this).parents('.plus-minus').find(
+						'.plus-minus-sub .form-group:last-child').remove();
+			}
+		});
+
+$('.cal-main .plus').click(
+		function() {
+			var copy = $(this).parents('.cal-main').find('.copy-cal').html();
+			$(this).parents('.cal-main').find('.cal-sub').append(copy);
+
+			$('.selectpicker').selectpicker('refresh');
+			$(this).parents('.cal-main').find('.cal-sub').find(
+					".custom-cal-sub:last").find(".bs-placeholder:first").css(
+					"display", "none");
+			$(this).parents('.cal-main').find('.cal-sub').find(
+					".custom-cal-sub:last").find(".sf-remove").find(
+					".bs-placeholder:first").css("display", "none");
+		});
+
+$('.cal-main .minus').click(
+		function() {
+			var first = $(this).parents('.cal-main').find(
+					'.cal-sub .row:last-child').attr('data-class');
+			if (first != 'first') {
+				$(this).parents('.cal-main').find('.cal-sub .row:last-child')
+						.remove();
+			}
+		});
+
+$('.comunication-sectioin-main-last .plus').click(
+		function() {
+			var copy = $(this).parents('.comunication-sectioin-main-last')
+					.find('.comunication-sectioin-main-copy-sub').html();
+			$(this).parents('.comunication-sectioin-main-last').find(
+					'.comunication-sectioin-main-last-sub').append(copy);
+		});
+
+$('.comunication-sectioin-main-last .minus')
+		.click(
+				function() {
+					var first = $(this)
+							.parents('.comunication-sectioin-main-last')
+							.find(
+									'.comunication-sectioin-main-last-sub .row:last-child')
+							.attr('data-class');
+					if (first != 'first') {
+						$(this)
+								.parents('.comunication-sectioin-main-last')
+								.find(
+										'.comunication-sectioin-main-last-sub .row:last-child')
+								.remove();
+					}
+				});
+
+$('body').on(
+		'dblclick',
+		'table tr td',
+		function() {
+			if (!$(this).hasClass('simple-td')) {
+				$(this).html(
+						"<input type='text' class='inp' value='"
+								+ $(this).text() + "' />");
+			}
+		});
+
+$('body')
+		.on(
+				'dblclick',
+				'.table-transform tr th',
+				function() {
+					if (!$(this).hasClass('simple-th')) {
+						$(this)
+								.html(
+										"<input type='text' class='inp' value='"
+												+ $(this).text()
+												+ "' /><i class='fa fa-times text-danger remove-added-new-trans-data'></i>");
+					}
+				});
+
+$('body')
+		.on(
+				'focusout',
+				'.table-transform tr th .inp',
+				function() {
+					$(this)
+							.parent("th")
+							.html(
+									$(this).val()
+											+ "<i class='fa fa-times text-danger remove-added-new-trans-data'></i>");
+				});
+
+$('body').on('focusout', 'table tr td .inp', function() {
+	$(this).parent("td").html($(this).val());
+});
+
+$('body')
+		.on(
+				'dblclick',
+				'.table-add-rules tr th',
+				function() {
+					if (!$(this).hasClass('simple-th')) {
+						$(this)
+								.html(
+										"<input type='text' class='inp' value='"
+												+ $(this).text()
+												+ "' /><i class='fa fa-times text-danger remove-added-new-added-rule'></i>");
+					}
+				});
+
+$('body')
+		.on(
+				'focusout',
+				'.table-add-rules tr th .inp',
+				function() {
+					$(this)
+							.parent("th")
+							.html(
+									$(this).val()
+											+ "<i class='fa fa-times text-danger remove-added-new-added-rule'></i>");
+				});
+
+$('body')
+		.on(
+				'dblclick',
+				'.table-calc-builder tr th',
+				function() {
+					if (!$(this).hasClass('simple-th')) {
+						$(this)
+								.html(
+										"<input type='text' class='inp' value='"
+												+ $(this).text()
+												+ "' /><i class='fa fa-times text-danger remove-added-new-calc-builder'></i>");
+					}
+				});
+
+$('body')
+		.on(
+				'focusout',
+				'.table-calc-builder tr th .inp',
+				function() {
+					$(this)
+							.parent("th")
+							.html(
+									$(this).val()
+											+ "<i class='fa fa-times text-danger remove-added-new-calc-builder'></i>");
+				});
+
+$("body").on("change", ".eventnew .schedule_push", function() {
+	var val = $(this).attr('value');
+
+	if (val == "push") {
+		$('.schedule_push_hideShow').css('display', 'none');
+	} else {
+		$('.schedule_push_hideShow').css('display', 'block');
+	}
+});
+$("body").on("change", ".selectpicker-output", function() {
+	var val = $(this).val();
+	$(this).parents('.custom-cal-sub').find('.upfront').val(val);
+	$(this).parents('.custom-cal-sub').find('.annual').val(val);
+});
+
+$("body").on(
+		"click",
+		".dropdown-toggle",
+		function() {
+			var Sheight = $(this).parent('.bootstrap-select').find(
+					'.dropdown-menu.open').height();
+			Sheight = Sheight + 30;
+			$('.tab-content').css('padding-bottom', Sheight);
+		});
+$("body").on("focusout", ".dropdown-toggle", function() {
+	$('.tab-content').css('padding-bottom', '15');
+});
+
+var items = {
+	'Account' : [ 'AccountId', 'AccountName' ],
+	'Case' : [ 'CaseId', 'CaseSubject' ],
+	'Lead' : [ 'LeadId', 'LeadName' ],
+	'Oppurtunity' : [ 'OppurtunityId', 'OppurtunityName' ]
+};
+
+$("body")
+		.on(
+				"change",
+				".sf-object",
+				function() {
+					var heading = $(this).val();
+					console.log(heading);
+					if ($(".box-left").find('h3[data-name="' + heading + '"]')
+							.text() == '') {
+						$(".box-left").append(
+								'<div class="list-part"><h3 data-name="'
+										+ heading + '">' + heading
+										+ '</h3><ul><li>' + items[heading]['0']
+										+ '</li><li>' + items[heading]['1']
+										+ '</li></ul></div>');
+					}
+					console.log(items[heading]);
+				});
+
+$("body").on("click", ".box li", function() {
+	$(this).toggleClass('selected');
+});
+
+$("body")
+		.on(
+				"click",
+				".click-right",
+				function() {
+					$(".box li.selected")
+							.each(
+									function() {
+										var heading = $(this).parent("ul")
+												.parent("div").find("h3")
+												.text();
+										var liText = $(this).text();
+
+										if ($(".box-right").find(
+												'h3[data-name="' + heading
+														+ '"]').text() != '') {
+											$(".box-right").find(
+													'h3[data-name="' + heading
+															+ '"]').parent(
+													"div").find("ul").append(
+													"<li>" + liText + "</li>");
+										} else {
+											$(".box-right")
+													.append(
+															'<div class="list-part"><h3 data-name="'
+																	+ heading
+																	+ '">'
+																	+ heading
+																	+ '</h3><ul><li>'
+																	+ liText
+																	+ '</li></ul></div>');
+										}
+
+										if ($(this).parent("ul").parent("div")
+												.find("ul li").length == 1) {
+											$(this).parent("ul").parent("div")
+													.remove();
+										} else {
+											$(this).remove();
+										}
+									});
+				});
+
+$("body")
+		.on(
+				"click",
+				".click-left",
+				function() {
+					$(".box li.selected")
+							.each(
+									function() {
+										var heading = $(this).parent("ul")
+												.parent("div").find("h3")
+												.text();
+										var liText = $(this).text();
+
+										if ($(".box-left").find(
+												'h3[data-name="' + heading
+														+ '"]').text() != '') {
+											$(".box-left").find(
+													'h3[data-name="' + heading
+															+ '"]').parent(
+													"div").find("ul").append(
+													"<li>" + liText + "</li>");
+										} else {
+											$(".box-left")
+													.append(
+															'<div class="list-part"><h3 data-name="'
+																	+ heading
+																	+ '">'
+																	+ heading
+																	+ '</h3><ul><li>'
+																	+ liText
+																	+ '</li></ul></div>');
+										}
+
+										if ($(this).parent("ul").parent("div")
+												.find("ul li").length == 1) {
+											$(this).parent("ul").parent("div")
+													.remove();
+										} else {
+											$(this).remove();
+										}
+									});
+				});
+
+$("body")
+		.on(
+				"click",
+				".click-right-primary-key",
+				function() {
+					$(".box-right li.selected")
+							.each(
+									function() {
+										var heading = $(this).parent("ul")
+												.parent("div").find("h3")
+												.text();
+										var liText = $(this).text();
+										$('.primary-key-external-data').attr(
+												'value', liText);
+
+										if ($(".box-primary-key").find(
+												'h3[data-name="' + heading
+														+ '"]').text() != '') {
+											$(".box-primary-key").find(
+													'h3[data-name="' + heading
+															+ '"]').parent(
+													"div").find("ul").html(
+													"<li>" + liText + "</li>");
+										} else {
+											$(".box-primary-key")
+													.html(
+															'<h2 class="box-title">Select Primary Key</h2><div class="list-part"><h3 data-name="'
+																	+ heading
+																	+ '">'
+																	+ heading
+																	+ '</h3><ul><li>'
+																	+ liText
+																	+ '</li></ul></div>');
+										}
+									});
+				});
+
+$("body").on("click", ".click-left-primary-key", function() {
+	$(".box-primary-key li.selected").each(function() {
+		var heading = $(this).parent("ul").parent("div").find("h3").text();
+		$('.primary-key-external-data').attr('value', '');
+
+		if ($(this).parent("ul").parent("div").find("ul li").length == 1) {
+			$(this).parent("ul").parent("div").remove();
+		} else {
+			$(this).remove();
+		}
+	});
+});
+
+var input = document.getElementById('file-upload');
+var infoArea = document.getElementById('file-upload-filename');
+if (input) {
+	input.addEventListener('change', showFileName);
+}
+function showFileName(event) {
+	var input = event.srcElement;
+	var fileName = input.files[0].name;
+	infoArea.textContent = fileName;
+}
+
+var input2 = document.getElementById('xls');
+var infoArea2 = document.getElementById('xls-filename');
+if (input2) {
+	input2.addEventListener('change', showFileName2);
+}
+function showFileName2(event) {
+	var input2 = event.srcElement;
+	var fileName2 = input2.files[0].name;
+	infoArea2.textContent = fileName2;
+}
+
+var input3 = document.getElementById('file-upload-cal');
+var infoArea3 = document.getElementById('file-upload-filename-cal');
+if (input3) {
+	input3.addEventListener('change', showFileName3);
+}
+function showFileName3(event) {
+	var input3 = event.srcElement;
+	var fileName3 = input3.files[0].name;
+	infoArea3.textContent = fileName3;
+}
+
+var input4 = document.getElementById('uexcel1');
+var infoArea4 = document.getElementById('uexcel1-filename');
+if (input4) {
+	input4.addEventListener('change', showFileName4);
+}
+function showFileName4(event) {
+	var input4 = event.srcElement;
+	var fileName4 = input4.files[0].name;
+	infoArea4.textContent = fileName4;
+}
+
+$('.web-services-add')
+		.click(
+				function() {
+					$('.web-services').toggleClass('display-block',
+							'display-none');
+
+					var webUrl = document.getElementById("web-services-url").value;
+
+					if (webUrl != '') {
+						var a = '';
+						a = a + '<div class="row form-group">';
+						a = a + '<div class="col-sm-3">';
+						a = a
+								+ '<input type="text" class="form-control" value="'
+								+ webUrl + '" placeholder="URL Name">';
+						a = a + '</div>';
+						a = a + '<div class="col-sm-3">';
+						a = a
+								+ '<button class="btn btn-warning sm-btn-custom"><i class="fa fa-edit"></i></button> ';
+						a = a
+								+ '<button class="btn btn-danger sm-btn-custom"><i class="fa fa-trash"></i></button>';
+						a = a + '</div>';
+						a = a + '</div>';
+
+						$('.add-url-name-main').append(a);
+						$('.web-services input').val('');
+						$('.web-services select').val('');
+					}
+				});
+
+$('.basic-pro-edit').click(function() {
+	$('.sf-objects').trigger('click');
+});
+
+$(".dropdown-toggle").mouseenter(function() {
+	$(this).parents('#transformation').find('.float-right').addClass('open');
+}).mouseleave(
+		function() {
+			$(this).parents('#transformation').find('.float-right')
+					.removeClass('open');
+		});
+
+$(".dropdown-menu").mouseenter(function() {
+	$(this).parents('#transformation').find('.float-right').addClass('open');
+}).mouseleave(
+		function() {
+			$(this).parents('#transformation').find('.float-right')
+					.removeClass('open');
+		});
+
+$(".dropdown-toggle-addRule").mouseenter(function() {
+	$(this).parent('.float-right').addClass('open');
+}).mouseleave(function() {
+	$(this).parent('.float-right').removeClass('open');
+});
+
+$(".dropdown-menu-addRule").mouseenter(function() {
+	$(this).parent('.float-right').addClass('open');
+}).mouseleave(function() {
+	$(this).parent('.float-right').removeClass('open');
+});
+
+$('.admin').click(function() {
+	$('.createNewF').trigger('click');
+});
+$('.save-next-createNew').click(
+		function() {
+			if ($('#externalData').is(':checked')) {
+				$('.externalDataF').trigger('click');
+			} else if ($('#inputTransformation').is(':checked')) {
+				$('.transformationF').trigger('click');
+				$('.externalDataF').addClass('tab-diactive');
+				$('.transformationF').removeClass('tab-diactive');
+			} else if ($('#inputTransformation').not(':checked')
+					&& $('#externalData').not(':checked')) {
+				$('.addRulesF').trigger('click');
+				$('.externalDataF').addClass('tab-diactive');
+				$('.transformationF').addClass('tab-diactive');
+			}
+		});
+
+$('.createNew-pre').click(function() {
+	$('.basic').trigger('click');
+});
+var email = "carrotrule444_gmail.com";
+$('.createNew-next')
+		.click(
+				function() {
+					var mainJson = {};
+					var project_name = document.getElementById("project_name").value;
+					var Project_Description = document
+							.getElementById("Project_Description").value;
+					var Rule_Engine = document.getElementById("Rule_Engine").value;
+					var Rule_Engine_Description = document
+							.getElementById("Rule_Engine_Description").value;
+
+					mainJson["user_name"] = email;
+					mainJson["project_name"] = project_name;
+					mainJson["Project_Description"] = Project_Description;
+					mainJson["Rule_Engine"] = Rule_Engine;
+					mainJson["Rule_Engine_Description"] = Rule_Engine_Description;
+					document.getElementById('myprj').innerHTML = document
+							.getElementById("project_name").value;
+					console.log(JSON.stringify(mainJson));
+					$
+							.ajax(
+									{
+										type : 'POST',
+										url : '/portal/servlet/service/Create_New_page.createNode',
+										async : true,
+										data : JSON.stringify(mainJson),
+										contentType : "application/json",
+										success : function(dataa) {
+											// alert(dataa);
+											console.log(dataa);
+
+											console
+													.log("in ext- "
+															+ document
+																	.getElementById("project_name").value);
+											// var json=JSON.parse(dataa);
+											$('.externalDataF')
+													.trigger('click');
+											// $('.sf-objects').trigger('click');
+
+											// $('.table-clause-template').show();
+											// $('.table-clause-template-main').css('display','block');
+											// window.location.reload();
+										}
+									}).fail(function(err) {
+
+								console.log("error" + err);
+							});
+
+				});
+
+$('.externalData-pre').click(function() {
+	$('.sf-objects').trigger('click');
+});
+var dwldlink = "";
+var excelfields = [];
+$('.externalData-next')
+		.click(
+				function() {
+					var mainJson = {};
+					var web_services_url = document
+							.getElementById("web-services-url").value;
+					var token = document.getElementById("token").value;
+					var username = document.getElementById("username").value;
+					var Password = document.getElementById("Password").value;
+
+					document.getElementById('myprj1').innerHTML = document
+							.getElementById("project_name").value;
+					mainJson["user_name"] = email;
+					mainJson["project_name"] = document.getElementById('myprj').innerHTML;
+
+					var filearr = [];
+					var fid = "xls";
+					// get base64data of file
+					var filejs = {};
+					var reader = new FileReader();
+
+					var fname = document.getElementById(fid).value;
+					// console.log("filename-- " + fname);
+					var f = document.getElementById(fid).files;
+					reader.readAsDataURL(f[0]);
+
+					reader.onloadend = function() {
+
+						var filedata = reader.result;
+
+						var fd = filedata.substr(0, filedata.indexOf(",") + 1);
+						var fdata = filedata.replace(fd, "");
+						// console.log("filedata-- " + fdata);
+
+						filejs["filename"] = fname;
+						filejs["filedata"] = fdata;
+
+						// console.log("json file- " + JSON.stringify(filejs));
+
+						// new
+						var far = [];
+
+						far.push(filejs);
+
+						mainJson["File_Data"] = far;
+						console.log("mainJson- " + JSON.stringify(mainJson));
+
+						// if(fid){
+						// var filejson= getBase64ofFile(fid);
+						// console.log("filejson= "+JSON.stringify(filejson));
+						// var far=[];
+						// far.push(filejson);
+						// mainJson["File_Data"] =far;
+						// console.log("mainJsonmainJson=
+						// "+JSON.stringify(mainJson));
+
+						$
+								.ajax(
+										{
+											type : 'POST',
+											url : '/portal/servlet/service/Add_External_Parameter.External',
+											async : true,
+											data : JSON.stringify(mainJson),
+											contentType : "application/json",
+											success : function(dataa) {
+												// alert(dataa);
+												console.log(dataa);
+
+												console
+														.log("in ext- "
+																+ document
+																		.getElementById("project_name").value);
+												var json = JSON.parse(dataa);
+												// console.log("djson link :: "
+												// + json);
+												// dwldlink
+												dwldlink = json.Download_Excel;
+												console.log("dwld link :: "
+														+ dwldlink);
+
+											
+
+												console
+														.log(" fields length :: "
+																+ json.Message.EXCEL_DATA.length);
+
+												for (var i = 0; i < json.Message.EXCEL_DATA.length; i++) {
+													excelfields
+															.push(json.Message.EXCEL_DATA[i].field);
+													console
+															.log("json.EXCEL_DATA[i].field= "
+																	+ json.Message.EXCEL_DATA[i].field);
+												}
+												console.log("array= "
+														+ excelfields);
+
+												getRawTable(excelfields);
+											}
+										}).fail(function(err) {
+
+									console.log("error" + err);
+								});
+
+					}
+
+					$('.transformationF').trigger('click');
+				});
+
+$('.transform-pre').click(function() {
+	$('.externalDataF').trigger('click');
+});
+var fnames=[];
+var transheader=[];
+$('.transform-next').click(function() {
+	var mainJson = {};
+	var fid = "file-upload";
+
+	// get base64data of file
+	var filejs = {};
+	var reader = new FileReader();
+	var transjs = {};
+	var fname = document.getElementById(fid).value;  
+	 var columnCount = excelfields.length;
+	if(fname !=""){
+	 console.log("filename-- " + fname);
+	var f = document.getElementById(fid).files;
+	reader.readAsDataURL(f[0]);
+
+	reader.onloadend = function() {
+
+		var filedata = reader.result;
+
+		var fd = filedata.substr(0, filedata.indexOf(",") + 1);
+		var fdata = filedata.replace(fd, "");
+		// console.log("filedata-- " + fdata);Transform_File_Data
+
+		filejs["filename"] = fname;
+		filejs["filedata"] = fdata;
+		// transjs["Transform_File_Data"]=filejs;
+		mainJson["user_name"] = email;
+		mainJson["project_name"] = document.getElementById('myprj1').innerHTML;
+		mainJson["Transform_File_Data"] = filejs;
+		console.log("json file- " + JSON.stringify(mainJson));
+		
+		// to display header
+		var flds=[];
+		var customers = new Array();
+	    customers.push(["Customer Id", "Name", "Country","dept","number"]);
+	    customers.push([1, "John Hammond", "United States","cs","234"]);
+//		console.log("customers= ="+customers);
+		
+	   
+    	console.log("columnCount= ="+columnCount);
+    	
+      
+
+	
+	 $.ajax({ type : 'POST', url :
+	 '/portal/servlet/service/Transform_validation.form', async : true, data :
+	  JSON.stringify(mainJson), contentType : "application/json", success :
+	  function(dataa) { // alert(dataa); // 
+		  console.log(dataa);
+		
+		  var json = JSON.parse(dataa); 
+		  console.log("json :: " +	  JSON.stringify(json)); // dwldlink
+		 
+		
+		  for(var i=0;i<json.Save_Data.length;i++){
+			  
+			  transheader.push(json.Save_Data[i].fieldname);
+		console.log("json.Save_Data[i].fieldname= "	+json.Save_Data[i].fieldname);
+		
+		  }
+		  console.log("transheader :: " +	  JSON.stringify(transheader));
+		  
+			 for (var i = 1; i <= transheader.length; i++) {
+		  		   var row = document.getElementById("rulerow");
+		  		   var x = row.insertCell(0);
+//		  	    	  x.innerHTML = customers[0][columnCount-i];
+		  	    	  x.className += "bg-success operators-td simple-th";
+		  	    	 
+
+		  	    	   x.innerHTML=transheader[transheader.length-i]+'<select name="operators" ><option value="= Equals" >= Equals</option><option value="!= Not Equals">!= Not Equals</option><option value="> Greater Than">> Greater Than</option><option value="< Less Than">< Less Than</option><option value=">= Greater Than Equals">>= Greater Than Equals</option><option value="<= Less Than Equals"><= Less Than Equals</option><option value="Is Null">Is Null</option><option value="Is Not Null">Is Not Null</option></select>';
+//insert td
+		  	    	   var row1 = document.getElementById("firsttr");
+			  		   var x1 = row1.insertCell(-1);
+						 
+				    	  x1.innerHTML = '<td></td><td></td><td></td>';
+				    	
+				    	
+				    	  var row2 = document.getElementById("secondtr");
+				  		   var x2 = row2.insertCell(-1);
+							 
+					    	  x2.innerHTML = '<td></td><td></td><td></td>';
+					    	
+				    	  
+					    	  var row3 = document.getElementById("thirdtr");
+					  		   var x3 = row3.insertCell(-1);
+								 
+						    	  x3.innerHTML = '<td></td><td></td><td></td>';
+						    
+				    	  
+				
+			 
+			 }
+			 
+
+			   fnames.push("SR No");
+			   fnames.push("Rule Name");
+			   console.log("fnames = "+fnames);
+		
+	  	   console.log("fnames[j.length= "+fnames.length);
+	  	   for(var j=1;j<=fnames.length;j++){
+	  		   var row = document.getElementById("rulerow");
+	  		   var x = row.insertCell(0);
+				   console.log("fnames[j.length-j] = "+fnames[fnames.length-j]);
+		    	  x.innerHTML = fnames[fnames.length-j];
+		    	  x.className += "simple-th";
+		    	  
+		    	
+	
+			   }
+	      
+		
+		  
+		  
+		  
+	   } }).fail(function(err) {
+	  
+	  console.log("error" + err); });
+	 
+
+	}
+	}else{
+		
+		 for (var i = 1; i <= columnCount; i++) {
+  		   var row = document.getElementById("rulerow");
+  		   var x = row.insertCell(0);
+
+  	    	  x.className += "bg-success operators-td simple-th";
+  	    	   console.log("columnCount-i= "+columnCount-i);
+
+
+  	    	   x.innerHTML=excelfields[columnCount-i]+'<select name="operators" ><option value="= Equals" >= Equals</option><option value="!= Not Equals">!= Not Equals</option><option value="> Greater Than">> Greater Than</option><option value="< Less Than">< Less Than</option><option value=">= Greater Than Equals">>= Greater Than Equals</option><option value="<= Less Than Equals"><= Less Than Equals</option><option value="Is Null">Is Null</option><option value="Is Not Null">Is Not Null</option></select>';
+
+  	    	//insert td
+  	    	   var row1 = document.getElementById("firsttr");
+	  		   var x1 = row1.insertCell(-1);
+				 
+		    	  x1.innerHTML = '<td></td><td></td><td></td>';
+		    	
+		    	
+		    	  var row2 = document.getElementById("secondtr");
+		  		   var x2 = row2.insertCell(-1);
+					 
+			    	  x2.innerHTML = '<td></td><td></td><td></td>';
+			    	
+		    	  
+			    	  var row3 = document.getElementById("thirdtr");
+			  		   var x3 = row3.insertCell(-1);
+						 
+				    	  x3.innerHTML = '<td></td><td></td><td></td>';
+  	    	   
+  	    	   
+		 } 
+		 
+		 
+		 fnames.push("SR No");
+		   fnames.push("Rule Name");
+		    console.log("fnames = "+fnames);
+	
+	   console.log("fnames[j.length= "+fnames.length);
+	   for(var j=1;j<=fnames.length;j++){
+		   var row = document.getElementById("rulerow");
+		   var x = row.insertCell(0);
+			   console.log("fnames[j.length-j] = "+fnames[fnames.length-j]);
+	    	  x.innerHTML = fnames[fnames.length-j];
+	    	  x.className += "simple-th";
+		   }  
+	   
+		   
+    
+	
+  		  
+  	  } 
+		
+
+	$('.addRulesF').trigger('click');
+});
+
+$('.addRule-pre').click(function() {
+	$('.transformationF').trigger('click');
+});
+var caldwldlink="";
+$('.addRule-next').click(function() {
+
+//	var table = document.getElementById("ruleheadertab");
+//
+//	for (var i = 0; i < table.rows.length; i++) {
+//
+//		var row = "";
+//
+//		for (var j = 0; j < table.rows[i].cells.length; j++) {
+//
+//			row += table.rows[i].cells[j].innerHTML;
+//			row += " | ";
+//		}
+//		console.log(row)
+//		
+//		// alert(row);
+//	}
+
+	   var sfdata=[];
+		var arrfields = [];
+		
+		var fieldnamenew = document.getElementsByName("operators");
+		if(fieldnamenew!=""){
+		console.log("fieldnamenew.length= " + fieldnamenew.length);
+		for (var i = 0; i < fieldnamenew.length ; i++) {
+			var fieldsjs= {};
+			if(document.getElementById("file-upload").value !=""){
+				fieldsjs["field"]=transheader[i];
+			}else {
+			
+//			if(document.getElementById("file-upload").value ="")
+				if(excelfields.length>0){
+			fieldsjs["field"]=excelfields[i];
+			console.log("fieldsjs json=1 " + excelfields[i]);
+				}
+			}
+
+			fieldsjs["Category"]=fieldnamenew[i].value;
+			console.log("fieldsjs json= " + fieldsjs);
+			arrfields.push(fieldnamenew[i].value);
+			sfdata.push(fieldsjs);
+		}
+		console.log("fieldsjs json=all " + JSON.stringify(sfdata));
+//		console.log("arrfields oper= " + arrfields);
+	}
+
+	var oTable = document.getElementById('ruleheadertab');
+	
+    //gets rows of table
+    var rowLength = oTable.rows.length;
+    var datarrnew=[];
+    var firstrow=[];
+    //loops through rows   
+    
+    var datajsnew={};
+    
+    console.log("iiii= "+i);
+    for (var i = 0; i < rowLength; i++)
+    {
+     
+       var rowsarr=[];
+    	var sfdarr=[];  
+      //gets cells of current row  
+       var oCells = oTable.rows.item(i).cells;
+       var ruljs={};
+
+       //gets amount of cells of current row
+       var cellLength = oCells.length;
+
+
+       var checkrule="";
+       checkrule=oCells.item(1).innerHTML.replace(/<[^>]*>/g, '');
+	   
+	   if(checkrule !="" )
+	   				{
+       //loops through each cell in current row
+		   				for(var j = 0; j < cellLength; j++)
+		   				{
+		   				  
+              // get your cell info here
+		   						var headerjs={};
+		   						var cellVal ="";
+		   						cellVal = oCells.item(j).innerHTML.replace(/<[^>]*>/g, '');
+		   						
+		   						console.log("jjjjjjjj=  "+j+" :: cellVal= "+cellVal);
+              
+		   						if(i==0){
+            	  
+            	 
+		   							headerjs["field"]=  cellVal;
+              
+		   							firstrow.push(headerjs);
+		   							console.log("headerjs ====  "+JSON.stringify(headerjs));
+		   							
+		   							
+
+		   							     }
+		   						else{
+
+		   						if(cellVal != ""){
+		   							
+		   							var getfieldval=firstrow[j];
+		   						
+		   							getfieldval["value"]=  cellVal;
+//		   							console.log("getfieldval =::::::::: --- "+JSON.stringify(getfieldval));
+
+            	  
+		   										if(getfieldval.field == "Rule Name"){
+              		  
+		   											ruljs["rulename"] =getfieldval.value;
+//		   											console.log("ruljs if --- "+JSON.stringify(ruljs));
+		   																	}
+		   										
+		   										if(j>=2){
+		   											var getSffieldval={};
+		   											
+		   											if(getfieldval.field.includes("=") ){
+//		   												console.log("sfdata--- --- ");
+		   											var str=getfieldval.field;
+		   											
+
+														str=str.substring(0,str.indexOf("="));
+//														console.log("str = "+str);
+
+//	   													console.log("getSffieldvalsf" +getfieldval.field);
+	   												
+	   												getSffieldval["field"]=str;
+	   												getSffieldval["type"]="Integer"; 
+	   												getSffieldval["value"]=cellVal;
+	   					//= Equals != Not Equals  > Greater Than	< Less Than   >= Greater Than Equals  <= Less Than Equals
+	   												var cat="";
+	   												var symb="";
+	   												 if(sfdata[j-2].Category =="= Equals"){
+	   													cat="Equals";
+	   													symb="=";
+	   												}	else if(sfdata[j-2].Category =="!= Not Equals"){
+	   													cat="Not Equals";
+	   													symb="!=";
+	   												}	else if(sfdata[j-2].Category =="> Greater Than"){
+	   													cat="Greater Than";
+	   													symb=">";
+	   												}	else if(sfdata[j-2].Category =="< Less Than"){
+	   													cat="Less Than";
+	   													symb="<";
+	   												}	else if(sfdata[j-2].Category ==">= Greater Than Equals"){
+	   													cat="Greater Than Equals";
+	   													symb=">=";
+	   												}	else if(sfdata[j-2].Category =="<= Less Than Equals"){
+	   													cat="Less Than Equals";
+	   													symb="<=";
+	   												}else{
+	   													cat=sfdata[j-2].Category;
+	   													symb=sfdata[j-2].Category;
+	   												}
+	   												
+	   												
+	   												
+	   												
+	   												getSffieldval["Category"]=cat;
+	   												getSffieldval["symbol_category"]=symb;
+	   											
+//	   												console.log("getSffieldvalsf =::::::::: 12--- "+JSON.stringify(getSffieldval));
+	   												sfdarr.push(getSffieldval);
+
+	   												
+	   												
+	   																				    	}
+		   						}
+	   											
+
+		   										
+		   										if(!getfieldval.field.includes("=") ){
+		   											if(getfieldval.field !="SR No" && getfieldval.field !="Rule Name" ){
+//		   												console.log("getSffieldval.field" +getfieldval.field);
+											    		var getOPfieldval={};
+		   											getOPfieldval["field"]=getfieldval.field;
+		   											 
+		   										getOPfieldval["value"]=cellVal;		
+		   											rowsarr.push(getOPfieldval);
+//		   										console.log("getOPfieldval =::::::::: --- "+JSON.stringify(getOPfieldval));
+		   											}
+											    	}else{
+											    	
+											    		 }
+              
+              
+              
+              
+		   				}
+		   				}		
+		   				}
+
+
+//		   			 console.log("rowsarr:: "+i+"i ="+JSON.stringify(rowsarr));
+//		   			 console.log("sfdarr:: "+i+"i ="+JSON.stringify(sfdarr));
+		   			ruljs["SFdata"] =sfdarr;
+		   		  ruljs["Outputdata"] =rowsarr;
+	   		
+		   			
+     
+       console.log("final ruljs data--"+JSON.stringify(ruljs));
+
+       if(i!=0){
+   
+    	   datarrnew.push(JSON.parse(JSON.stringify(ruljs)));
+    	 }
+      
+//       console.log("datarr:: "+i+"i ="+JSON.stringify(datarrnew));
+       
+	   				
+
+        }
+    }
+    
+    datajsnew["data"]=datarrnew;
+//    console.log("datajs ------ ALL: "+JSON.stringify(datajsnew));
+
+    datajsnew["user_name"]=email;
+    datajsnew["project_name"]=document.getElementById("project_name").value;;
+    datajsnew["ruleengine_name"]=document.getElementById("Rule_Engine").value;;
+
+    console.log("Main JSON: "+JSON.stringify(datajsnew));
+  
+	$
+	.ajax(
+			{
+				type : 'POST',
+				url : '/portal/servlet/service/AddRule.postaddRule',
+				async : true,
+				data : JSON.stringify(datajsnew),
+				contentType : "application/json",
+				success : function(dataa) {
+					// alert(dataa);
+					console.log(dataa);
+
+				
+					 var json=JSON.parse(dataa);
+						console.log("json :: "+json);
+						caldwldlink = json.Download_url;
+						  console.log("caldwldlink: "+caldwldlink);
+				}
+			}).fail(function(err) {
+
+		console.log("error" + err);
+	}); 
+    
+    
+    
+//    {
+//    	"field":"id",
+//    	"type":"Integer",
+//    	"Category":"Equals",
+//    	"symbol_category":"=",
+//    	"value":"10"
+//    	}
+ 
+	
+	$('.calculationBuilder').trigger('click');
+});
+
+$('.calculationBuilder-pre').click(function() {
+	$('.addRulesF').trigger('click');
+});
+$('.calculationBuilder-next').click(function() {
+	
+	
+	var mainJson = {};
+	var fid = "file-upload-cal";
+
+	// get base64data of file
+	var filejs = {};
+	var reader = new FileReader();
+	var transjs = {};
+	var fname = document.getElementById(fid).value;
+	// console.log("filename-- " + fname);
+	var f = document.getElementById(fid).files;
+	reader.readAsDataURL(f[0]);
+
+	reader.onloadend = function() {
+
+		var filedata = reader.result;
+
+		var fd = filedata.substr(0, filedata.indexOf(",") + 1);
+		var fdata = filedata.replace(fd, "");
+		// console.log("filedata-- " + fdata);Transform_File_Data
+		filejs["rulename"] =  document.getElementById("Rule_Engine").value;
+		filejs["filename"] = fname;
+		filejs["filedata"] = fdata;
+		// transjs["Transform_File_Data"]=filejs;
+		mainJson["user_name"] = email;
+		mainJson["project_name"] = document.getElementById('myprj1').innerHTML;
+		mainJson["ruleengine_name"] = document.getElementById("Rule_Engine").value;
+		mainJson["Calculation_File_Data"] = filejs;
+		console.log(" mainJson - " + JSON.stringify(mainJson));
+		
+		
+		$
+		.ajax(
+				{
+					type : 'POST',
+					url : '/portal/servlet/service/CalBuilder.postaddCal',
+					async : true,
+					data : JSON.stringify(mainJson),
+					contentType : "application/json",
+					success : function(dataa) {
+				
+						console.log(dataa);
+
+						
+					}
+				}).fail(function(err) {
+
+			console.log("error" + err);
+		});
+		
+		
+	
+	
+	}
+	
+	
+	
+	
+	
+	
+	$('.outputManagement').trigger('click');
+});
+
+$('.outputManagement-pre').click(function() {
+	$('.calculationBuilder').trigger('click');
+});
+
+$('.createNew-btn').click(function() {
+	$('.createNewF').trigger('click');
+});
+
+$('.operators-td .dropdown-menu a').click(
+		function() {
+			var op = $(this).attr('value');
+			$(this).parents('.operators-td').find('a.btn').html(
+					op + ' <span class="caret"></span>');
+		});
+
+$('.xls-add-more-btn')
+		.click(
+				function() {
+					var fileName = $('#xls').val().split('\\').pop();
+
+					if (fileName) {
+						var a = '';
+						a = a + '<div class="row form-group">';
+						a = a + '<div class="col-sm-3">';
+						a = a
+								+ '<input type="text" class="form-control" value="'
+								+ fileName + '" placeholder="URL Name">';
+						a = a + '</div>';
+						a = a + '<div class="col-sm-3">';
+						a = a
+								+ '<button class="btn btn-warning sm-btn-custom"><i class="fa fa-edit"></i></button> ';
+						a = a
+								+ '<button class="btn btn-danger sm-btn-custom"><i class="fa fa-trash"></i></button>';
+						a = a + '</div>';
+						a = a + '</div>';
+
+						$('.add-xls-name-main').append(a);
+						$('#xls').val('');
+						$('#xls-filename').text('');
+					}
+				});
+$('#project_name').blur(
+		function() {
+			$('input[name=template2]').attr('value',
+					$('#template2').val() + $('#project_name').val());
+		});
+var outputArr = [];
+var count = 0;
+function getExparamtempObj(url, token, user, pass) {
+	var tempip = document.getElementsByClassName("extopfield");
+	console.log("tempip - " + tempip + "length - " + tempip.length);
+	var tempop = document.getElementsByClassName("extopfieldcpy");
+	console.log("tempop - " + tempop);
+	for (var i = 0; i < tempip.length; i++) {
+		var Id = document.getElementsByClassName('extopfield')[i].id;// 0-prev
+		// val
+		console.log(Id);
+		if (Id == "opfl" || Id == "opfl" + i) {
+			console.log(count);
+			count++;
+			if (count == 1) {
+				if (Id == "opfl") {
+					var fieldname = document.getElementById("fieldname").value;
+					var fieldtype = document.getElementById("op_fieldtype").value;
+					var fieldlength = parseInt(document
+							.getElementById("fieldlength").value);
+				}
+				var op_row = {};
+				op_row["fieldname"] = fieldname;
+				op_row["fieldtype"] = fieldtype;
+				op_row["fieldlength"] = fieldlength;
+				console.log("outputArr - " + op_row);
+				outputArr.push(op_row);
+			} else {
+				if (Id == "opfl" + i) {
+					var fieldname = document.getElementById("fieldnamecpy").value;
+					var fieldtype = document.getElementById("op_fieldtypecpy").value;
+					var fieldlength = parseInt(document
+							.getElementById("fieldlengthcpy").value);
+				}
+				var op_row = {};
+				op_row["fieldname"] = fieldname;
+				op_row["fieldtype"] = fieldtype;
+				op_row["fieldlength"] = fieldlength;
+				console.log("outputArr - " + op_row);
+				outputArr.push(op_row);
+			}
+			// outputArr.push(op_row);
+			console.log("outputArr - " + outputArr);
+			document.getElementById("opArr").value = JSON.stringify(outputArr);
+			console.log("JSON.stringify(outputArr) " + outputArr);
+			// console.log(document.getElementById("ipArr").value);
+		}
+	}
+
+	console.log("outputArr - " + outputArr);
+	// var ip=JSON.parse(document.getElementById("ipArr").value);
+	var op = JSON.parse(document.getElementById("opArr").value);
+	console.log("outputArr -op " + op);
+	console.log("op-- byname-" + document.getElementById("fieldname").value);
+	console.log("op-- fieldnamecpy-"
+			+ document.getElementById("fieldnamecpy").value);
+	var webservice = {};
+	webservice["type"] = "ws";
+
+	webservice["output"] = op;
+	console.log("webservice " + webservice);
+	webservice["url"] = url;
+	webservice["token"] = token;
+	webservice["username"] = user;
+	webservice["password"] = pass;
+
+	return webservice;
+}
+
+var outputArr = [];
+var count = 0;
+function getExparamObject12(url, token, user, pass) {
+
+	var opcls = document.getElementsByClassName("opfld");
+	console.log("opcls.length -- " + opcls.length);
+	count = 0;
+	for (var i = 0; i < opcls.length; i++) {
+		var Id = document.getElementsByClassName('opfld')[i].id;
+		console.log(Id);
+		if (Id == "op" || Id == "op" + i) {
+			console.log(count);
+			count++;
+			console.log(count);
+			if (count == 1) {
+				if (Id == "op") {
+					var fieldname = document.getElementById("op_fieldName").value;
+					var fieldtype = document.getElementById("op_fieldType").value;
+					var fieldlength = parseInt(document
+							.getElementById("op_fieldLength").value);
+				}
+				var op_row = {};
+				op_row["fieldname"] = fieldname;
+				op_row["fieldtype"] = fieldtype;
+				op_row["fieldlength"] = fieldlength;
+				console.log("op_row 1 " + op_row);
+				outputArr.push(op_row);
+				console.log("outputArr 1 " + outputArr);
+			} else {
+				console.log("else 1 " + i);
+				if (Id == "op" + i) {
+					var fieldname = document.getElementById("op_fieldNameCopy").value;
+					var fieldtype = document.getElementById("op_fieldTypeCopy").value;
+					var fieldlength = parseInt(document
+							.getElementById("op_fieldLengthCopy").value);
+					console
+							.log(fieldname + " " + fieldtype + " "
+									+ fieldlength);
+				}
+				var op_row = {};
+				op_row["fieldname"] = fieldname;
+				op_row["fieldtype"] = fieldtype;
+				op_row["fieldlength"] = fieldlength;
+				outputArr.push(op_row);
+			}
+			// outputArr.push(op_row);
+			document.getElementById("opArr").value = JSON.stringify(outputArr);
+			console.log("outputArr 2 " + outputArr);
+			console.log(document.getElementById("opArr").value);
+		}
+	}
+
+	var op = JSON.parse(document.getElementById("opArr").value);
+	console.log("op== " + op);
+
+	/*
+	 * {"Email":"doctiger@xyz.com","SFEmail":"user1@gmail.com","savetype":"new","ClauseId":"24","ClauseName":"C12","url":"http://json.parser.online.fr/",
+	 * "externalparamobject":[{"type":"ws","primerykey":"Accno","input":[{"fieldname":"name","fieldtype":"string","fieldlength":"255"}],
+	 * "output":[{"fieldname":"amount","fieldtype":"string","fieldlength":"255"}],"token":"yteywetryery","username":"u1","password":"pass"}]}
+	 */
+	var webservice = {};
+	webservice["type"] = "ws";
+	console.log("webservice 1== " + webservice);
+
+	webservice["output"] = op;
+	webservice["url"] = url;
+	webservice["token"] = token;
+	webservice["username"] = user;
+	webservice["password"] = pass;
+	console.log("webservice == " + webservice);
+	return webservice;
+}
+
+// xls-filename
+var data = "";
+function getBase64ofFile(fid) {
+	var filejs = {};
+	var reader = new FileReader();
+
+	var fname = document.getElementById(fid).value;
+	// console.log("filename-- " + fname);
+	var f = document.getElementById(fid).files;
+	reader.readAsDataURL(f[0]);
+
+	reader.onloadend = function() {
+
+		var filedata = reader.result;
+
+		var fd = filedata.substr(0, filedata.indexOf(",") + 1);
+		var fdata = filedata.replace(fd, "");
+		// console.log("filedata-- " + fdata);
+
+		filejs["filename"] = fname;
+		filejs["filedata"] = fdata;
+
+		console.log("json file- " + JSON.stringify(filejs));
+
+		// new
+		var far = [];
+		// for(var i=0;i<1,i++){
+		far.push(filejs);
+		// }
+		var fj = {};
+		// fj["File_Data"]=far;
+		// mainJsonext["File_Data"]=far;
+		// console.log("final -- "+JSON.stringify(fj));
+		data = JSON.stringify(fj);
+		// console.log("data-- "+data);
+	}
+	console.log("json file- out call ajax in onload" + JSON.stringify(filejs));
+	return filejs;
+}
+// id="dwldlink"
+$('.downloadexcel').click(function getlink() {
+	console.log("link dwl= " + dwldlink);
+
+	var a = document.getElementById('downldlink'); // or grab it by tagname etc
+	a.href = dwldlink;
+
+});
+//downloadcalexcel
+$('.downloadcalexcel').click(function getcalclink() {
+	console.log("calculation link dwl= " + caldwldlink);
+
+	var a = document.getElementById('downldcalclink'); // or grab it by tagname etc
+	a.href = caldwldlink;
+
+});
+
+$(document).ready(function() {
+	getPrjDetailsTable();
+	// getRawTable();
+
+});
+
+function getPrjDetailsTable() {
+	$
+			.ajax({
+				type : 'GET',
+				url : '/portal/servlet/service/carrotrule_showHome.editing?username='
+						+ email,
+				async : false,
+				success : function(dataa) {
+					try {
+						var json = JSON.parse(dataa);
+						console.log(json);
+						var prjArr = [];
+						prjArr = json.Data;
+						console.log(prjArr);
+						/* {"Data":[{"Created_Date":"20-08-2018","Project_Name":"Bizlem_project","Rule_Engine":"Bizlem_rule"},{"Created_Date":"15-03-2019","Project_Name":"cvdf","Rule_Engine":"dfg"},{"Created_Date":"15-03-2019","Project_Name":"pj12","Rule_Engine":"rule12"},{"Created_Date":"15-03-2019","Project_Name":"ggrr","Rule_Engine":"tt"},{"Created_Date":"15-03-2019","Project_Name":"dfde22","Rule_Engine":"sdf"},{"Created_Date":"15-03-2019","Project_Name":"prjtest4","Rule_Engine":"fd"},{"Created_Date":"15-03-2019","Project_Name":"pj22","Rule_Engine":"rl2"},{"Created_Date":"15-03-2019","Project_Name":"prj3451","Rule_Engine":"fgd"},{"Created_Date":"15-03-2019","Project_Name":"opo","Rule_Engine":"fgf"},{"Created_Date":"15-03-2019","Project_Name":"toioi11","Rule_Engine":"rif"},{"Created_Date":"15-03-2019","Project_Name":"moto","Rule_Engine":"vb"},{"Created_Date":"15-03-2019","Project_Name":"c11","Rule_Engine":"ds"}]} */
+						var table = document.getElementById("prjDetails");
+
+						for (var i = 0; i < prjArr.length; i++) {
+							// for(var i=prjArr.length;i>0;i--){
+							console.log(prjArr.length);
+							var prjName = prjArr[i].Project_Name;
+							var ruleName = prjArr[i].Rule_Engine;
+							var creDate = prjArr[i].Created_Date;
+
+							var row = table.insertRow(-1);
+
+							row.id = 'row' + i;
+							table.rows[i].className = "prj-tr";
+							var cell1 = row.insertCell(0);
+							var cell2 = row.insertCell(1);
+							var cell3 = row.insertCell(2);
+							var cell4 = row.insertCell(3);
+							var cell5 = row.insertCell(4);
+
+							cell5.className = "action-btn";
+							cell1.innerHTML = i + 1;
+							cell2.innerHTML = prjName;
+							cell3.innerHTML = ruleName;
+							cell4.innerHTML = creDate;
+							// cell5.innerHTML = '<a class="btn btn-info btn
+							// sm0-btn-custom basic-pro-edit"><i class="fa
+							// fa-edit"></i></a> <a href="" class="btn
+							// btn-danger btn sm0-btn-custom"><i class="fa
+							// fa-trash"></i></a> <a
+							// href="<%=request.getContextPath()%>/apps/static/advanced.esp"
+							// target="_blank" class="btn btn-success
+							// sm0-btn-custom" onclick="advance()">A</a> <a
+							// href="<%=request.getContextPath()%>/apps/static/setUp.esp"
+							// target="_blank" class="btn btn-success
+							// sm0-btn-custom" onclick="setup()">Set Up</a>';
+							cell5.innerHTML = '<a href="" class="btn btn-info btn sm0-btn-custom basic-pro-edit edit-project" id="edit' + i + '" prj-name="' + prjName + '"><i class="fa fa-edit"></i></a> <a href="" class="btn btn-danger btn sm0-btn-custom delete-prj" id="del' + i + '" prj-name="' + prjName + '"><i class="fa fa-trash"></i></a> <a href="<%=request.getContextPath()%>/apps/static/advanced.esp"	target="_blank" class="btn btn-success sm0-btn-custom" onclick="advance()">A</a> <a href="<%=request.getContextPath()%>/apps/static/setUp.esp" target="_blank" class="btn btn-success sm0-btn-custom" onclick="setup()">Set Up</a>';
+//							cell5.innerHTML = '<a class="btn btn-info btn sm0-btn-custom basic-pro-edit edit-project"><i class="fa fa-edit"></i></a> <a href="" class="btn btn-danger btn sm0-btn-custom delete-prj" id="del"'
+//									+ i
+//									+ '" prj-name="'
+//									+ prjName
+//									+ '"><i class="fa fa-trash"></i></a> <a href="<%=request.getContextPath()%>/apps/static/advanced.esp"	target="_blank" class="btn btn-success sm0-btn-custom" onclick="advance()">A</a> <a href="<%=request.getContextPath()%>/apps/static/setUp.esp" target="_blank" class="btn btn-success sm0-btn-custom" onclick="setup()">Set Up</a>';
+						}
+					} catch (err) {
+						console.log(err);
+					}
+				}
+			});
+}
+
+var mainJson = {};
+$("body").on("click", ".delete-prj", function() {
+	console.log("test");
+	var $this = $(this);
+	console.log("$this: " + $this);
+	var prjName = $this.attr("prj-name");
+
+	console.log(prjName);
+	mainJson["user_name"] = email;
+	mainJson["project_name"] = prjName;
+
+	$.ajax({
+		type : 'POST',
+		url : '/portal/servlet/service/Delete.delete', // Delete_new.delete',
+		async : true,
+		data : JSON.stringify(mainJson),
+		contentType : "application/json",
+		success : function(dataa) {
+			console.log(dataa);
+			var json = JSON.parse(dataa);
+			console.log(json);
+		}
+	});
+});
+
+function getRawTable(flds) {
+	var columnCount = flds.length;
+	console.log(" getRawTable columnCount= " + columnCount);
+	var table = document.getElementById("rawtable");
+	// Add the header row.
+	var row = table.insertRow(-1);
+	console.log("flds[0][i] = " + flds);
+	for (var i = 0; i < columnCount; i++) {
+		var headerCell = document.createElement("TH");
+// document.getElementById('TH').className = "bg-info simple-th";
+		headerCell.innerHTML = flds[i];
+
+		row.appendChild(headerCell);
+	}
+
+	// var dvTable = document.getElementById("rawtr");
+	// dvTable.innerHTML = "";
+	// dvTable.appendChild(table);
+
+}
+
+$('body').on('click', '.edit-project', function(e) {
+	console.log("on click Edit");
+	 fnames.push("SR No");
+	   fnames.push("Rule Name");
+	    console.log("fnames = "+fnames);
+
+ console.log("fnames[j.length= "+fnames.length);
+ for(var j=1;j<=fnames.length;j++){
+	   var row = document.getElementById("rulerow");
+	   var x = row.insertCell(0);
+		   console.log("fnames[j.length-j] = "+fnames[fnames.length-j]);
+  	  x.innerHTML = fnames[fnames.length-j];
+  	  x.className += "simple-th";
+	   }  
+	$('.createNewF').trigger('click');
+	e.preventDefault(); // to stop the form submitting.
+
+	var $this = $(this);
+	console.log("$this: " + $this);
+	var prjName = $this.attr("prj-name");
+
+	console.log(prjName);
+	var Rul_Engine;
+	$.ajax({
+	type: 'GET',
+	url: '/portal/servlet/service/EditProject_new?username=' + email+'&prjName='+prjName,
+	async: false,
+	success: function(dataa) {
+	try {
+	var json = JSON.parse(dataa);
+	console.log(json);
+
+	var prj_Desc=json.prj_Desc;
+	Rul_Engine=json.ruleName;
+	var Rule_Desc=json.rule_Desc;
+
+	document.getElementById("project_name").value=prjName;
+	document.getElementById("Project_Description").value=prj_Desc;
+	document.getElementById("Rule_Engine").value=Rul_Engine;
+	document.getElementById("Rule_Engine_Description").value=Rule_Desc;
+	} catch (err) {
+	console.log(err);
+	}
+	}
+	});
+
+	var ruleEngineArr;
+	var count;
+	var fieldDataArr;
+	var field;
+	var opFieldArr;
+	var opField;
+	var val;
+	var table;
+	var totalRows;
+	var Category;
+
+	console.log(Rul_Engine);
+	$.ajax({
+	type: 'GET',
+	url: '/portal/servlet/service/carrotrule.carrotrulefulldetails?username='+email+'&projectname='+prjName+'&ruleenginename='+Rul_Engine,
+	async: false,
+	success: function(dataa) {
+	try {
+	var json = JSON.parse(dataa);
+	console.log(json);
+	console.log("*"+Rul_Engine);
+	document.getElementById("prjName_RE").innerHTML=prjName;
+	document.getElementById("REName").innerHTML=Rul_Engine;
+
+	ruleEngineArr= json.Rule_Engine;
+	count= ruleEngineArr.length;
+	console.log(count);
+	table = document.getElementById("ruleheadertab"); 
+	totalRows = table.rows.length;
+	console.log(totalRows);
+	var limit= count-totalRows+1;
+
+	if(count<totalRows){
+	console.log("***");
+	addTableData();
+	}else {
+	for(var i=0; i<limit; i++){
+	var row= table.insertRow(-1);
+	var cell1 = row.insertCell(0);
+	var cell2 = row.insertCell(1);
+
+	cell1.innerHTML = totalRows+i;
+	}
+	addTableData();
+	}
+	} catch (err) {
+	console.log(err);
+	}
+	}
+	});
+
+	function addTableData(){
+		
+	console.log("In addTableData");
+	for(var i=0; i<count; i++){
+	console.log(ruleEngineArr[i].Rule_Name);
+	table.rows[i+1].cells[1].innerHTML=ruleEngineArr[i].Rule_Name;
+	fieldDataArr= ruleEngineArr[i].FieldData;
+	opfieldArr= ruleEngineArr[i].OutputField;
+
+	for(var j=0; j<fieldDataArr.length; j++){
+	field= fieldDataArr[j].field;
+	val= fieldDataArr[j].value;
+	Category= fieldDataArr[j].Category;
+	
+	 
+	
+	console.log(field);
+	if(i==0){
+	createCell(table.rows[0].insertCell(table.rows[0].cells.length), field);
+	
+	table.rows[0].cells[table.rows[0].cells.length-1].innerHTML= field+'<select name="operators"><option value="= Equals" id="Equals">= Equals</option><option value="!= Not Equals" id="Not Equals">!= Not Equals</option><option value="> Greater Than" id="Greater Than">> Greater Than</option><option value="< Less Than" id="Less Than">< Less Than</option><option value=">= Greater Than Equals" id="Greater Than Equals">>= Greater Than Equals</option><option value="<= Less Than Equals" id="Less Than Equals"><= Less Than Equals</option><option value="Is Null" id="Is Null">Is Null</option><option value="Is Not Null" id="Is Not Null">Is Not Null</option></select>';
+	console.log("****"+document.getElementById(Category).value);
+	table.rows[0].cells[table.rows[0].cells.length-1].id=j;
+	console.log(Category);
+	}	
+	$('#'+j).find('select[name="operators"]').find('option[value="'+Category+'"]').attr("selected",true);
+	createCell(table.rows[i+1].insertCell(table.rows[i+1].cells.length), val);	
+	}
+
+	for(var k=0; k<opfieldArr.length; k++){
+	field= opfieldArr[k].field;
+	val= opfieldArr[k].value;
+	console.log(field);
+	if(i==0){
+	createCell(table.rows[0].insertCell(table.rows[0].cells.length), field);	
+	}
+	createCell(table.rows[i+1].insertCell(table.rows[i+1].cells.length), val);	
+	}
+	}
+	console.log("**"+Category);
+	}
+
+	function createCell(cell, text) {
+	var div = document.createElement('div'), // create DIV element
+	txt = document.createTextNode(text); // create text node
+	div.appendChild(txt); // append text node to the DIV
+	cell.appendChild(div); // append DIV to the table cell
+	}
+	});
+</script>
+</html>

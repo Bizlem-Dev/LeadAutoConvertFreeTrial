@@ -1,3 +1,43 @@
+$(".drip-funnel-section").on( "click", function() {
+  $(this).find('.arrow').toggleClass('fa-angle-down fa-angle-up');
+});
+
+$(".manage-leades-section").on( "click", function() {
+  $(this).find('.arrow').toggleClass('fa-angle-down fa-angle-up');
+});
+
+$(".set-up-funnel-section").on( "click", function() {
+  $(this).find('.arrow').toggleClass('fa-angle-down fa-angle-up');
+});
+
+$("select.select-funnel-main").change(function(){
+    var selectedVal = $(this).children("option:selected").val();
+    if(selectedVal){
+        $('.select-catg').css('display','block');
+    }
+});
+
+$("select.select-catg").change(function(){
+    var selectedVal = $(this).children("option:selected").val();
+    if(selectedVal){
+        $('.select-campaign').css('display','block');
+    }
+});
+
+$("select.select-campaign").change(function(){
+    var selectedVal = $(this).children("option:selected").val();
+    if(selectedVal){
+        $('.current-server-box').css('display','block');
+    }
+});
+
+$("select.select-campaign-new").change(function(){
+    var selectedVal = $(this).children("option:selected").val();
+    if(selectedVal){
+        $('.campaign-name-box').css('display','block');
+    }
+});
+
 $('.add-btn-save').click(function(){
     $('.show-save-btn').css('display','block');
 });
@@ -45,7 +85,24 @@ $('body').on('change', '.select-oprater', function () {
     });
 });
 
-/* old code start */
+
+$(".hide-create-new-list-box").on( "click", function() {
+    $('.create-new-list-main').slideUp();
+});
+
+$(".hide-meege-list-box").on( "click", function() {
+    $('.import-from-csv-file').slideUp();
+});
+
+$(".merge").on( "click", function() {
+    $('.import-from-csv-file').slideDown();
+});
+
+$(".filter-list-1-section-btn").on( "click", function() {
+    $(this).parents('.container-main').find('.filter-section-list-1').css('display','block');
+    $(this).parents('.container-main').find('.filter-right-list-1-section').removeClass('col-md-12').addClass('col-md-8');
+});
+
 $('input[name=radio]').click(function () {
     if (this.id == "radio1-section") {
         $(".show-import-from-csv-file").slideDown();
@@ -92,6 +149,9 @@ $('body').on('click', '.copy-remove-btn', function() {
 });
 // append set up button end
 
+
+
+//
 $('body').on('click', '.open-content-set-up-compaign',function(){
   $('.set-up-campaign-form-box').slideDown();  
   $(this).parents('.funnel-section').find('.funnel-sub .open-content-set-up-compaign').removeClass('active');
@@ -99,7 +159,7 @@ $('body').on('click', '.open-content-set-up-compaign',function(){
 });
 
 $(function () {
-  $("#datepicker").datepicker({ 
+  $(".datepicker").datepicker({ 
         autoclose: true, 
         todayHighlight: true
   }).datepicker('update', new Date());
@@ -173,8 +233,8 @@ $(".creat-new-campaigns-menu").click(function() {
     }, 2000);
 });
 
-$('.create-new-list').click(function(){
-  $('.create-new-list-box').slideDown();  
+$('.create-new-list').on('click' , function(){
+  $('.create-new-list-main').slideDown();  
 });
 
 $('body').on('click', '.add-new-row', function(){
@@ -276,8 +336,6 @@ function toggleIcon(e) {
 $('.panel-group').on('hidden.bs.collapse', toggleIcon);
 $('.panel-group').on('shown.bs.collapse', toggleIcon);
 
-/* old code end */
-
 $('body').on('click', '.add-row-btn', function(){
     var addRow = $('.table-set-up-funnel tbody tr:last-child').html();
     var noRow = $(this).parents('.main-tbl').find('tbody tr:last-child th:first-child').html();
@@ -332,4 +390,74 @@ $('body').on('click', '.remove-row-second-tbl', function(){
         $(this).parents('.second-tbl').find('tbody tr:last-child').remove();
     }
 });
+
+$('#schedule_campaign').on('click', scheduleCampaign);
+function scheduleCampaign(event){
+     var campaign_shedule_date = document.getElementById("campaign_shedule_date").value;
+ 
+	 if(document.getElementById('radio-time').checked) {
+		  //Male radio button is checked
+		  var campaign_shedule_hr = document.getElementById("campaign_shedule_hr").value;
+		  var campaign_shedule_minute = document.getElementById("campaign_shedule_minute").value;
+		//  var campaign_shedule_AP = document.getElementById("campaign_shedule_AP").value;
+		  //alert("campaign_shedule_hr : "+campaign_shedule_hr+"\n"+"campaign_shedule_minute : "+campaign_shedule_minute+"\n"+"campaign_shedule_AP : "+campaign_shedule_AP);
+		  //campaign_shedule_date=campaign_shedule_date+" "+campaign_shedule_hr+":"+campaign_shedule_minute+":00 "+campaign_shedule_AP;
+		  campaign_shedule_date=campaign_shedule_date+" "+campaign_shedule_hr+":"+campaign_shedule_minute+":00";
+		  
+		  //2019-01-07 06:43:02 PM
+		  //2019-01-11 02:11:00 PM
+		  //01-11-2019 01:01:00 am
+	 }else{
+	 
+	     campaign_shedule_date=campaign_shedule_date+" 00:00:00";
+	 }
+	 //alert("schedule_campaign date : "+campaign_shedule_date);
+	    var campaignid=localStorage.getItem('campaignid');
+		//var campaignid='593';
+		var markup = "";
+	    var campaignName;
+		var fromName;
+		var fromEmailAddress;
+		
+		var funnelName;
+		var SubFunnelName;
+		var DistanceBtnCampaign;
+		var listid;
+		var subjectName;
+		//Time is 10:42, Saturday 2 February 2019 16:12 -05:30
+		var funnelName=localStorage.getItem('funnelName');
+		var SubFunnelName=localStorage.getItem('SubFunnelName');
+		var group=localStorage.getItem('groupname');
+		console.log("group= "+group);
+		var listid=localStorage.getItem('listid');
+		var remoteuser =localStorage.getItem('remoteuser');
+		 $.ajax({
+					//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
+					url: '/portal/servlet/service/createCampaign.updateEmbargo',//createListAndSubscribers
+					type: 'POST',
+					async:false,
+					data: {
+			               campaignid:campaignid,
+					       embargo:campaign_shedule_date,
+					       funnelName:funnelName,
+					       camp_catogery:SubFunnelName,
+					       listid:listid,
+					       remoteuser:remoteuser,
+					       group:group,
+						  },
+					cache: false,
+					//dataType: 'json',
+					//processData: false, 
+					//contentType: false, 
+					success: function(data)
+					{
+						//console.log('--------------markup---------start');
+	                    console.log('data : '+data);
+	                    //console.log('--------------markup---------end');
+	                    alert('Embargo Updated Sucessfully!');
+					}
+			    });
+		//alert("schedule_campaign date : 3");
+
+}
 

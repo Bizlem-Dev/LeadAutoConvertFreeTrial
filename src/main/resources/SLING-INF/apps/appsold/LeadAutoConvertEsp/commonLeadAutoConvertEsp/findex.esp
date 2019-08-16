@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta name="description" content="bootstrap admin template">
+  <meta name="author" content="">
+  <title>Home</title>
+  
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/css/bootstrap.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/css/bootstrap-extend.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/assets/css/site.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/asscrollable/asScrollable.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/intro-js/introjs.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/slidepanel/slidePanel.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/flag-icon-css/flag-icon.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/jquery-wizard/jquery-wizard.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/vendor/formvalidation/formValidation.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/fonts/web-icons/web-icons.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/apps/global/fonts/brand-icons/brand-icons.min599c.css?v4.0.2">
+  
+  <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/global/css/custom.css">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/apps/global/css/custom.css">
+  <!--
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/js/Cookies.js"></script>
+  -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script>
+	  var d,h,m,s,animate;
+	
+	  function init(){
+	      d=new Date();
+	  	  d.setHours(d.getHours()-5);
+	  	  d.setMinutes(d.getMinutes()-30);
+	      h=d.getHours();
+	      m=d.getMinutes();
+	      s=d.getSeconds();
+	      clock();
+	  };
+	
+	  function clock(){
+	      s++;
+	      if(s==60){
+	          s=0;
+	          m++;
+	          if(m==60){
+	              m=0;
+	              h++;
+	              if(h==24){
+	                  h=0;
+	              }
+	          }
+	      }
+	      setClock('sec',s);
+	      setClock('min',m);
+	      setClock('hr',h);
+	      animate=setTimeout(clock,1000);
+	  	//console.log("animate : "+animate);
+	  };
+	
+	  function setClock(id,val){
+	      if(val<10){
+	          val='0'+val;
+	      }
+	  	//console.log("id : "+id);
+	  	//console.log("val : "+val);
+	      document.getElementById(id).innerHTML=val;
+	  };
+	
+	  window.onload=init;
+  </script>
+  <style type="text/css">
+  .input-upload{
+	   margin-left:16px;
+  }
+  .fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+  }
+  .fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+  }
+  .product-listing {
+     background-color:#fff;
+     border-radius:5px;
+     box-shadow:0 2px 10px 0 rgba(138,168,230,.2);
+     padding:20px;
+     position:relative;
+     overflow:hidden;
+     display:block;
+     transition:box-shadow .3s ease,-webkit-transform .3s ease;
+     transition:transform .3s ease,box-shadow .3s ease;
+     transition:transform .3s ease,box-shadow .3s ease,-webkit-transform .3s ease
+  }
+  .new-btn{
+    background-color: #4dbae3;
+    border-radius: 20px;
+    color: #fff;
+  }
+  
+  .true-mail {
+background-color: #3DEB1E;
+}
+.false-mail {
+background-color: #EB341E;
+</style>
+</head>
+<body class="animsition">
+  <div class="row-fluid main-header">
+    <div class="container-fluid">
+      <div class="col-md-12 menubar">
+        <ul class="pt-5 m-0 pull-left"> 
+        <li><a href="<%=request.getContextPath()%>/servlet/service/ui.index"><img src="<%=request.getContextPath()%>/apps/global/assets/images/lead-auto-convert-logo.png" style="width:205px;margin-left:-60px;"></a></li>
+        <li><a href="<%=request.getContextPath()%>/servlet/service/ui.funnel" target="_blank"> Funnel</a></li>
+        <li><a href="<%=request.getContextPath()%>/servlet/service/ui.list" target="_blank"> List</a></li>
+        <li><a href="<%=request.getContextPath()%>/servlet/service/ui.statistic"> Dashboard</a></li>
+         <li id="grouplist"> </li>
+        </ul>
+        <ul class="pt-15 pull-right">
+          <li><a href="<%=request.getContextPath()%>/servlet/service/ui.configuration" target="_blank"><img src="<%=request.getContextPath()%>/apps/global/assets/images/shedule.png"> Configuration</a></li>
+          <li><a href="#" class="creat-new-campaigns-menu"> Create New Campaigns</a></li>
+        </ul>
+      </div>
+     
+    </div>
+  </div>
+  <!-- Page -->
+  <div class="page">
+    <div class="page-content container-fluid">
+    
+    
+    
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel" id="exampleWizardForm">
+            <div class="panel-body">
+              <form id="exampleFormContainer">
+                <div class="wizard-content">
+                  <div class="wizard-pane active" id="exampleAccountOne" role="tabpanel">
+                 
+                    <div class="product-listing drip-funnel-section" style="width: 81%; margin-left: 125px; margin-top: 100px;" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                      <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3" style="margin-left: -55px;">
+                          <img src="<%=request.getContextPath()%>/apps/global/assets/images/filter-(2).png" class="img-responsive" style="height: 80px; float: right;">
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-9">
+                          <div class="row"> 
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                              <span style="font-size: 25px; float: left;color: #3C3692;">Create Drip Funnel</span>
+                            </div>
+                          </div>
+                          <div class="row"> 
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                              <span style="font-size: 15px;">Upload a data file that contains emails, phone numbers, Facebook user IDs or mobile advertiser IDs.</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-11" style="margin-left:52px;width:80% !important;">
+                          <div class="collapse" id="collapseExample">
+                            <div class="well">
+                              <div class="tab-content">
+                                <div class="tab-pane fade in show active" id="panel11" role="tabpanel">
+                                  <br>
+                                    <div class="row upload-new-class">
+                                      <div class="col-md-12">
+                                        <form>
+                    										  <div class="row">
+                    											  <div class="col-md-6">
+                    												  <div class="form-group">
+                      													<label for="funnel-name">Funnel Name</label>
+                      													<input type="text" class="form-control" id="funnel-name" placeholder="Funnel Name">
+                      												</div>
+                    											  </div>
+                    											  <div class="col-md-6">
+                      												<div class="form-group">
+                      													<label for="from-name">From Name</label>
+                      													<input type="text" class="form-control" id="from-name" placeholder="From Name">
+                  												    </div>
+                    											  </div>
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                <label for="from-email-address">From Email Address</label>
+                                                <input type="text" class="form-control" id="from-email-address" placeholder="From Email Address">
+                                              </div>
+                                            </div>
+                    										  </div>
+                										    </form>
+                                        <br/>
+                                      </div>
+                                      <div class="col-md-12">
+                                          <div class="row">
+                                              <div class="col-md-12">
+                                                  <h4>Tracking</h4>
+                                                  <hr>
+                                              </div>
+                                              <div class="col-md-12">
+                                                  <div class="row">
+                                                      <div class="col-md-12 checkbox-section">
+                                                          <input class="styled-checkbox" id="styled-checkbox-1" type="checkbox" value="value1" >
+                                                          <label for="styled-checkbox-1">Track Opens</label><br>
+                                                          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                          tempor incididunt ut labore et dolore magna aliqua. <a href="#">Lorem ipsum</a> </span>
+                                                      </div>
+                                                  </div>
+                                              <br/>
+                                              </div>
+                                              <div class="col-md-12">
+                                                  <div class="row">
+                                                      <div class="col-md-12 checkbox-section">
+                                                          <input class="styled-checkbox" id="track-clicks" type="checkbox" value="value1" >
+                                                          <label for="track-clicks">Track Clicks</label><br>
+                                                          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                          tempor incididunt ut labore et dolore magna aliqua. <a href="#">Lorem ipsum</a> </span>
+                                                      </div>
+                                                  </div>
+                                              <br/>
+                                              </div>
+                                              <div class="col-md-12">
+                                                  <div class="row">
+                                                      <div class="col-md-12 checkbox-section">
+                                                          <input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value1" >
+                                                          <label for="styled-checkbox-2">Track plain-text Clicks</label><br>
+                                                          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                          tempor incididunt ut labore et dolore magna aliqua. <a href="#">Lorem ipsum</a> </span>
+                                                      </div>
+                                                  </div>
+                                              <br/>
+                                              </div>
+                                              <div class="col-md-12">
+                                                  <div class="row">
+                                                      <div class="col-md-12 checkbox-section">
+                                                          <input class="styled-checkbox" id="styled-checkbox-3" type="checkbox" value="value1" >
+                                                          <label for="styled-checkbox-3">Google Analyticss link tracking</label><br>
+                                                          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                          tempor incididunt ut labore et dolore magna aliqua. <a href="#">Lorem ipsum</a> </span>
+                                                      </div>
+                                                  </div>
+                                              <br/>
+                                              </div>
+                                          </div>
+                                      <br>
+                                      </div>
+                                      <div class="col-md-12">
+                                          <div class="row">
+                                              <div class="col-md-12">
+                                                  <h4>Social Media</h4>
+                                                  <hr>
+                                              </div>
+                                              <div class="col-md-12">
+                                                  <div class="row">
+                                                      <div class="col-md-12 checkbox-section">
+                                                          <input class="styled-checkbox" id="auto" type="checkbox" value="value1" >
+                                                          <label for="auto">Auto-tweet after sending</label><br>
+                                                          <span><button type="button" class="btn btn-primary btn-flat btn-xs">Connect to Twitter</button></span>
+                                                      <br>
+                                                      <br>
+                                                      </div>
+                                                      <div class="col-md-12 checkbox-section">
+                                                          <input class="styled-checkbox" id="Auto-post" type="checkbox" value="value1" >
+                                                          <label for="Auto-post">Auto-post to Social Media</label><br>
+                                                          <span><button type="button" class="btn btn-primary btn-flat btn-xs">Connect to Social</button></span>
+                                                      </div>
+                                                  </div>
+                                                  <br/>
+                                              </div>
+                                              <div class="col-md-12 create-drip-funnel text-center">
+                                                  <button type="button" onclick='saveFunnelData(this.id)' class="btn btn-default drip-funnel-save new-btn pl-4 pr-4" id='funnel_desc'>Save</button>
+                                                  <button type="button" class="btn btn-default new-btn">Cancel</button>
+                                                  <!-- 
+                                                  <button type="button" class="btn btn-default new-btn pl-4 pr-4">Next</button>
+                                                  -->
+                                              </div>
+                                          </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      //manage
+                      <div class="product-listing manage-leades-section" style="width: 81%; margin-left: 125px; margin-top: 20px;"  data-toggle="collapse" href="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
+                      <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3" style="margin-left: -55px;">
+                          <img src="<%=request.getContextPath()%>/apps/global/assets/images/funnel.png" class="img-responsive" style="height: 80px; float: right;">
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-9">
+                          <div class="row"> 
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                              <span style="font-size: 25px; float: left;color: #3C3692;">Manage Leads</span>
+                            </div>
+                          </div>
+                          <div class="row"> 
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                              <span style="font-size: 15px;">Select your Existing List, Create New List or Import from Facebook, LinkedIn etc...</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-11" style="margin-left:51px;">
+                          <div class="collapse" id="collapseExample1">
+                            <div class="well">
+                              <div class="row">
+                                <div class="col-md-12 radio-section import-contact text-center import-contact-main-section">
+                                    <h5>Select/ Import/ Create the List of Leads</h5>
+                                  <br>
+                                  <br>
+                                      <div class="radio-section text-left p-0">
+                                        <label class="containers">Upload from CSV File
+                                          <input type="radio" name="radio" id="radio1-section" value="csv_file_upload" checked="checked" >
+                                          <span class="checkmark"></span>
+                                          <p>import contacts from .csv or .txt file.</p>
+                                        </label>
+                                      </div>
+                                      <div class="radio-section text-left p-0">
+                                        <label class="containers">Integrated services
+                                          <input type="radio" name="radio" id="radio2" value="integrated_ervices">
+                                          <span class="checkmark"></span>
+                                          <p>import contacts from linkedin, facebook , salesforce and others.</p>
+                                        </label>
+                                      </div>
+                                      <div class="radio-section text-left p-0">
+                                        <label class="containers">Create New List 
+                                          <input type="radio" name="radio" id="radio3" value="create_new_list">
+                                          <span class="checkmark"></span>
+                                          <p>Create New List or Import from Facebook, LinkedIn etc..</p>
+                                        </label>
+                                      </div>
+                                      <div class="radio-section text-left p-0">
+                                        <label class="containers">Existing List 
+                                          <input type="radio" name="radio" id="radio4" value="create_from_existing_list">
+                                          <span class="checkmark"></span>
+                                          <p>Select your Existing List</p>
+                                        </label>
+                                      </div>
+									  <div class="radio-section text-left p-0">
+                                        <label class="containers">Merge existing lists 
+                                          <input type="radio" name="radio" id="merge-existing" value="merge_existing">
+                                          <span class="checkmark"></span>
+                                          <p></p>
+                                        </label>
+                                      </div>
+                                  <br>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12 show-import-from-csv-file">
+                                  <br>
+                                  <div class="import-from-csv-file">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                          <div class="">
+                                            <div class="row upload-new-class">
+											  <div class="col-md-3">
+												  <h4>Import from CSV File</h4>
+												  <div class="row">
+													<div class="col-md-12">
+													  <!--
+													  <div class="m-0 fileUpload btn custom-btn btn-default new-btn">
+														 <span>Upload CSV File</span>
+														 <input id="uploadBtn" name="filename" type="file" class="custom-btn upload">
+													  </div>
+													  -->
+													  <div class="m-0 fileUpload btn custom-btn btn-default new-btn">
+														<span>Download Sample CSV File</span>
+													    <a class="btn btn-warning btn-smT1" href="<%=request.getContextPath()%>/apps/global/assets/images/img/LeadUploadSample.csv" id="w3s">
+														   <i class="fa fa-arrow-down"></i> <img src="<%=request.getContextPath()%>/apps/global/assets/images/img/dwnld_excel_icon.png" width="20px"> 
+														</a>
+													  </div>
+													  <br/>
+													  <br/>
+													  <div class="m-0 fileUpload btn custom-btn btn-default new-btn">
+														<span>Upload CSV File</span>
+													    <form method="POST" enctype="multipart/form-data">
+															 <input type="file" name="file" id="fileUploader">
+														</form>
+													  </div>
+													  <p class="pt-3 mt-4">Acceptable File Types : .csv or .txt files </p>
+												   </div>
+												  </div>
+											  </div>
+                                              <div class="col-md-12 mt-4 pt-4">
+                                                <div class="row">
+                                                  <div class="col-md-4">
+                                                      <div class="row">
+                                                          <div class="col-md-6 radio-section">
+                                                            <label class="containers">Entire List
+                                                              <input type="radio" name="radio-list" id="list1" value="list1" checked="checked">
+                                                              <span class="checkmark"></span>
+                                                            </label>
+                                                          </div>
+                                                          <div class="col-md-6 radio-section">
+                                                            <label class="containers">Part Of List 
+                                                              <input type="radio" name="radio-list" id="list2" value="list2">
+                                                              <span class="checkmark"></span>
+                                                            </label>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-8">
+                                                      <div class="to-from-list-part-section">
+                                                        <div class="row">
+                                                            <div class="col-md-12 entire-list-section">
+                                                              <p>Entire List</p>
+															  <form id="list_form">
+                                                                <div class="form-group">
+                                                                  <label for="name">Name</label>
+                                                                  <input type="text" class="form-control" id="csv_entire_list_name" placeholder="Enter Name">
+                                                                </div>
+                                                              </form>
+                                                              <!-- <p><input type="checkbox" name=""> Select All</p> -->
+                                                              <table class="table table-bordered" id="list-table" style="height: 170px; overflow-y: scroll; border:0px; display: block;">
+															    <tbody id="csv_leads_list" style="display: table; width: 100%;">
+                                                                  
+                                                                </tbody>
+                                                              </table>
+                                                            </div>
+                                                            <div class="col-md-12 part-list-section" style="display:none;">
+                                                              <p>Part Of List</p>
+                                                              <form id="csv_form">
+                                                                <div class="form-group">
+                                                                  <label for="name">Name</label>
+                                                                  <input type="text" class="form-control" id="csv_part_of_list_name" placeholder="Enter Name">
+                                                                </div>
+                                                              </form>
+                                                              <p id="csv_select_all"><input type="checkbox" name=""> Select All</p>
+                                                              <table class="table table-bordered" style="height: 170px; overflow-y: scroll; border:0px; display: block;">
+															    
+																<thead id="part_of_leads_heading">
+		                                          					
+		                                                        </thead>
+																
+                                                                <tbody id="csv_part_of_leads_list" style="display: table; width: 100%;">
+                                                                  
+                                                                </tbody>
+                                                              </table>
+                                                            </div>
+                                                        </div>
+                                                      </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+									<div class="row">
+                                      <div class="col-md-12 text-center" style="margin-top:25px;">
+                                        <button type="button" id="save_csv_lead" class="custom-btn btn btn-info funnel-next-btn select-existing-upload-save">Save</button><!--custom-btn btn btn-info funnel-next-btn-->
+                                        <button type="button" class="custom-btn btn btn-info funnel-next-btn">Cancel</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <br>
+                              <div class="row">
+                                <div class="col-md-12 up-import-from-csv-file" style="display: none;">
+                                  <div class="table-section-copy-paste-file">
+                                    <h4>Create New List</h4>
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <br>
+                                        <div class="form-group">
+                                          <label for="enter-the-list-name-1">Enter the List Name</label>
+                                          <input type="text" class="form-control" id="enter-the-txt-list-name" placeholder="Enter the List Name">
+                                        </div>
+                                      </div>
+									  <!--
+                                      <div class="col-md-6">
+                                        <br><br>
+                                        <a class="btn btn-primary btn-outline custom-btn float-right add-new-row">Add New Row</a>
+                                      </div>
+									  -->
+                                    </div>
+                                    <p>Paste Subscriber Info Tab Seprated E.g akhilesh@bizlem.com	akhilesh	Yadav	9819345687	Mulund</p>
+									</br>
+									<textarea rows="15" cols="140">
+                                                 Paste Tab Seprated Subscriber Info Here
+                                    </textarea>
+                                    <table class="table border create-new-list-table" style="height: 170px; overflow-y: scroll; border:0px; display: block;">
+                                    
+                                      </tbody>
+									  
+                                    </table>
+									
+									
+									<div class="row">
+                                      <div class="col-md-12 text-center" style="margin-top:25px;">
+                                        <button type="button" id="save_txt_lead" class="custom-btn btn btn-info funnel-next-btn manage-leads-existing-list-save">Save</button>
+                                        <button type="button" class="custom-btn btn btn-info funnel-next-btn">Cancel</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12 show-import-from-csv-file2" style="display: none;">
+                                  <br>
+                                  <div class="import-from-csv-file">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                          <div class="">
+                                            <div class="row upload-new-class">
+                                              <div class="col-md-3">
+                                                <select id="listdropbox" name="listdropbox" class="custom-btn form-control">
+                                                  <option value="">Choose a List</option>
+                                                </select>
+                                              </div>
+                                              <div class="col-md-12 mt-4 pt-4">
+                                                <div class="row">
+                                                  <div class="col-md-4">
+                                                      <div class="row">
+                                                          <div class="col-md-6 radio-section">
+                                                            <label class="containers">Entire List
+                                                              <input type="radio" name="radio-list1" id="list5" value="list5" checked="checked">
+                                                              <span class="checkmark"></span>
+                                                            </label>
+                                                          </div>
+                                                          <div class="col-md-6 radio-section">
+                                                            <label class="containers">Part Of List 
+                                                              <input type="radio" name="radio-list1" id="list6" value="list6">
+                                                              <span class="checkmark"></span>
+                                                            </label>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-8">
+                                                      <div class="to-from-list-part-section">
+                                                        <div class="row">
+                                                            <div class="col-md-12 entire-list-section">
+                                                              <p>Entire List</p>
+															  <form id="list_form">
+                                                                <div class="form-group">
+                                                                  <label for="name">Name</label>
+                                                                  <input type="text" class="form-control" id="entire_list_name" placeholder="Enter Name">
+                                                                </div>
+                                                              </form>
+                                                              <!-- <p><input type="checkbox" name=""> Select All</p> -->
+                                                              <table class="table table-bordered" id="list-table" style="height: 170px; overflow-y: scroll; border:0px; display: block;">
+															    <tbody id="leads_list" style="display: table; width: 100%;">
+                                                                
+																</tbody>
+                                                              </table>
+                                                            </div>
+                                                            <div class="col-md-12 part-list-section" style="display:none;">
+                                                              <p>Part Of List</p>
+                                                              <form id="list_form">
+                                                                <div class="form-group">
+                                                                  <label for="name">Name</label>
+                                                                  <input type="text" class="form-control" id="part_of_list_name" placeholder="Enter Name">
+                                                                </div>
+                                                              </form>
+                                                              <p id="list_select_all"><input type="checkbox" name=""> Select All</p>
+                                                              <table class="table table-bordered" style="height: 170px; overflow-y: scroll; border:0px; display: block;">
+                                                                <tbody style="display: table; width: 100%;">
+																    <tbody id="part_of_leads_list" style="display: table; width: 100%;">
+		                                          					
+		                                          				    </tbody>
+                                                                </tbody>
+                                                              </table>
+                                                            </div>
+                                                        </div>
+                                                      </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    
+                                    <div class="row">
+                                      <div class="col-md-12 text-center" style="margin-top:25px;">
+                                        <button type="button" id="save_list_lead" class="custom-btn btn btn-info funnel-next-btn manage-leads-existing-list-save">Save</button>
+                                        <button type="button" class="custom-btn btn btn-info funnel-next-btn">Cancel</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+							  <div class="row">
+                                <div class="col-md-12 show-merge-existing-list" style="display: none;">
+                                  <br>
+                                  <div class="import-from-csv-file">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                          <div class="">
+                                            <div class="row upload-new-class">
+                                              <div class="col-md-3">
+                                                <select id="mergelistdropbox1" name="mergelistdropbox" class="custom-btn form-control">
+                                                  <option value="">Choose a List</option>
+                                                </select>
+                                              </div>
+                                              <div class="col-md-3">
+											    <select id="mergelistdropbox2" name="mergelistdropbox" class="custom-btn form-control">
+                                                  <option value="">Choose a List</option>
+                                                </select>
+                                              </div>
+                                              <div class="col-md-12 mt-4 pt-4">
+                                                <div class="row">
+                                                  
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    
+                                      <div class="row">
+                                        <div class="col-md-12 text-left" style="margin-top:-15px;">
+										  <button type="button" id="save_list_merge" class="custom-btn btn btn-info funnel-next-btn manage-leads-existing-list-save">Merge</button>
+										  <!--
+                                          <button type="button" class="custom-btn btn btn-info funnel-next-btn manage-leads-existing-list-save">Merge</button>
+                                          <button type="button" class="custom-btn btn btn-info funnel-next-btn">Save</button>
+                                          <button type="button" class="custom-btn btn btn-info funnel-next-btn">Undo</button>
+										  -->
+                                        </div>
+                                      </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>  
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    //setup funnel
+                    <div class="product-listing set-up-funnel-section" id="op" style="width: 81%; margin-left: 125px; margin-top: 20px;"  data-toggle="collapse" href="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
+                      <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3" style="margin-left: -55px;">
+                          <img src="<%=request.getContextPath()%>/apps/global/assets/images/set-up-funnel.png" class="img-responsive" style="height: 80px; float: right;">
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-9">
+                          <div class="row"> 
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                              <span style="font-size: 25px; float: left;color: #3C3692;">Set Up Funnel</span>
+                            </div>
+                          </div>
+                          <div class="row"> 
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                              <span style="font-size: 15px;">Import a customer list from a third-party email service.</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="container">
+                      <div class="row">
+                        <div class="col-md-11" style="margin-left:51px;">
+                            <div class="collapse" id="collapseExample2">
+                              <div class="well">
+                                <div class="funnel-main-section">
+                  								<div class="row">
+                                    <div class="col-md-11 offset-md-1 text-center mt-4 pt-4 funnel-section">
+                                      <div class="row">
+                                          <div class="col-md-2 funnel-sub">
+                                            <select class="custom-btn form-control" id="explore">
+                                                <option value="Select">Select</option>
+												<option value="1 Week">1 Week</option>
+												<option value="2 Weeks">2 Weeks</option>
+												<option value="3 Weeks">3 Weeks</option>
+												<option value="4 Weeks">4 Weeks</option>
+                                            </select>
+                                            <h4 class="text-color">Explore</h4>
+                                            <div class="main-btn-section-part">
+                                              <div class="row addMore-main">
+                                                  <div class="col-md-12">
+                                                      <div class="row">
+                                                          <div class="col-md-9 set-up-btn-section pr-0">
+                                                            <button type="button"class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up EC <span>1</span> </button>
+															
+                                                          </div>
+                                                          <div class="col-md-3 pl-0">
+                                                            <button type="button" class="btn btn-warning apend-btn plus-btn add-more-btn">+</button>
+                                                          </div>
+                                                        </div>  
+                                                  </div>
+                                              </div>
+                                            </div>
+
+                                            <div class="row addMore-copy" style="display:none;">
+                                                <div class="col-md-12 addMore-sub">
+                                                    <div class="row">
+                                                        <div class="col-md-9 set-up-btn-section pr-0">
+                                                          <button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up EC <span>1</span></button>
+                                                        </div>
+                                                        <div class="col-md-3 pl-0">
+                                                          <button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                        </div>
+                                                    </div>  
+                                                </div>
+                                            </div>
+
+                                            <div class="row add-more-sub-copy">
+
+                                            </div>
+                                          </div>
+                                          <div class="col-md-2 funnel-sub">
+                                            <select class="custom-btn form-control" id="entice">
+                                                <option value="Select">Select</option>
+												<option value="1 Week">1 Week</option>
+												<option value="2 Weeks">2 Weeks</option>
+												<option value="3 Weeks">3 Weeks</option>
+												<option value="4 Weeks">4 Weeks</option>
+                                            </select>
+                                            <h4 class="text-color">Entice</h4>
+                                            <div class="main-btn-section-part">
+                                              <div class="row addMore-main">
+                                                  <div class="col-md-12">
+                                                      <div class="row">
+                                                          <div class="col-md-9 set-up-btn-section pr-0">
+                                                            <button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up EnC <span>1</span></button>
+                                                          </div>
+                                                          <div class="col-md-3 pl-0">
+                                                            <button type="button" class="btn btn-warning apend-btn add-more-btn plus-btn">+</button>
+                                                          </div>
+                                                        </div>  
+                                                  </div>
+                                              </div>
+                                            </div>
+
+                                            <div class="row addMore-copy" style="display:none;">
+                                                <div class="col-md-12 addMore-sub">
+                                                    <div class="row">
+                                                        <div class="col-md-9 set-up-btn-section pr-0">
+                                                          <button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up EnC <span>1</span></button>
+                                                        </div>
+                                                        <div class="col-md-3 pl-0">
+                                                          <button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                        </div>
+                                                    </div>  
+                                                </div>
+                                            </div>
+
+                                            <div class="row add-more-sub-copy">
+
+                                            </div>
+                                          </div>
+                                          <div class="col-md-2 funnel-sub">
+                                            <select class="custom-btn form-control" id="inform">
+                                                <option value="Select">Select</option>
+												<option value="1 Week">1 Week</option>
+												<option value="2 Weeks">2 Weeks</option>
+												<option value="3 Weeks">3 Weeks</option>
+												<option value="4 Weeks">4 Weeks</option>
+                                            </select>
+                                            <h4 class="text-color">Inform</h4>
+                                            <div class="main-btn-section-part">
+                                              <div class="row addMore-main">
+                                                  <div class="col-md-12">
+                                                      <div class="row">
+                                                          <div class="col-md-9 set-up-btn-section pr-0">
+                                                            <button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up IC <span>1</span></button>
+                                                          </div>
+                                                          <div class="col-md-3 pl-0">
+                                                            <button type="button" class="btn btn-warning apend-btn add-more-btn plus-btn">+</button>
+                                                          </div>
+                                                        </div>  
+                                                  </div>
+                                              </div>
+                                            </div>
+
+                                            <div class="row addMore-copy" style="display:none;">
+                                                <div class="col-md-12 addMore-sub">
+                                                    <div class="row">
+                                                        <div class="col-md-9 set-up-btn-section pr-0">
+                                                          <button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up IC <span>1</span></button>
+                                                        </div>
+                                                        <div class="col-md-3 pl-0">
+                                                          <button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                        </div>
+                                                    </div>  
+                                                </div>
+                                            </div>
+
+                                            <div class="row add-more-sub-copy">
+
+                                            </div>
+                                          </div>
+                                          <div class="col-md-2 funnel-sub">
+                                            <select class="custom-btn form-control" id="warm">
+                                                <option value="Select">Select</option>
+												<option value="1 Week">1 Week</option>
+												<option value="2 Weeks">2 Weeks</option>
+												<option value="3 Weeks">3 Weeks</option>
+												<option value="4 Weeks">4 Weeks</option>
+                                            </select>
+                                            <h4 class="text-color">Warm</h4>
+                                            <div class="main-btn-section-part">
+                                              <div class="row addMore-main">
+                                                  <div class="col-md-12">
+                                                      <div class="row">
+                                                          <div class="col-md-9 set-up-btn-section pr-0">
+                                                            <button type="button"class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up WC <span>1</span></button>
+                                                          </div>
+                                                          <div class="col-md-3 pl-0">
+                                                            <button type="button" class="btn btn-warning apend-btn add-more-btn plus-btn">+</button>
+                                                          </div>
+                                                        </div>  
+                                                  </div>
+                                              </div>
+                                            </div>
+
+                                            <div class="row addMore-copy" style="display:none;">
+                                                <div class="col-md-12 addMore-sub">
+                                                    <div class="row">
+                                                        <div class="col-md-9 set-up-btn-section pr-0">
+                                                          <button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up WC <span>1</span></button>
+                                                        </div>
+                                                        <div class="col-md-3 pl-0">
+                                                          <button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                        </div>
+                                                    </div>  
+                                                </div>
+                                            </div>
+
+                                            <div class="row add-more-sub-copy">
+
+                                            </div>
+                                          </div>
+                                          <div class="col-md-2 funnel-sub">
+                                            <select class="custom-btn form-control" id="connect">
+                                                <option value="Select">Select</option>
+												<option value="1 Week">1 Week</option>
+												<option value="2 Weeks">2 Weeks</option>
+												<option value="3 Weeks">3 Weeks</option>
+												<option value="4 Weeks">4 Weeks</option>
+                                            </select>
+                                            <h4 class="text-color">Connect</h4>
+                                            <div class="main-btn-section-part">
+                                              <div class="row addMore-main">
+                                                  <div class="col-md-12">
+                                                      <div class="row">
+                                                          <div class="col-md-9 set-up-btn-section pr-0">
+                                                            <button type="button" class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up CC <span>1</span></button>
+                                                          </div>
+                                                          <div class="col-md-3 pl-0">
+                                                            <button type="button" class="btn btn-warning apend-btn add-more-btn plus-btn">+</button>
+                                                          </div>
+                                                        </div>  
+                                                  </div>
+                                              </div>
+                                            </div>
+
+                                            <div class="row addMore-copy" style="display:none;">
+                                                <div class="col-md-12 addMore-sub">
+                                                    <div class="row">
+                                                        <div class="col-md-9 set-up-btn-section pr-0">
+                                                          <button type="button"class="btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block">Set Up CC <span>1</span></button>
+                                                        </div>
+                                                        <div class="col-md-3 pl-0">
+                                                          <button type="button" class="btn btn-danger apend-btn copy-remove-btn plus-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                        </div>
+                                                    </div>  
+                                                </div>
+                                            </div>
+
+                                            <div class="row add-more-sub-copy">
+
+                                            </div>
+                                          </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-12 set-up-campaign-form-box" style="display:none;">
+                                      <div class="set-up-campaign-form">
+                                      <h4 class="pb-4 mb-4">Set Up Campaign</h4>
+                                      <div class="row">
+                                        <div class="col-md-6">
+                                          <form>
+                                            <div class="form-group">
+                                              <label for="campaign-name">Enter the Campaign Name</label>
+                                              <input type="text" class="form-control" id="campaign-name" placeholder="Enter the Campaign Name">
+                                            </div>
+                                          </form>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-md-12 text-center p-0">
+                                          <a href="<%=request.getContextPath()%>/servlet/service/ui.set-up-campaign" onclick="addQueryString()" target="_blank" id="campaign-name-nxt" class="btn btn-default new-btn funnel-next-btn custom-btn pl-4 pr-4">Next</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+				            </div>
+                    <div class="product-listing " style="width: 91.5%; margin-left:50px; margin-top: 20px;"  data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
+                      <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3" style="margin-left: -55px;">
+                          <img src="<%=request.getContextPath()%>/apps/global/assets/images/calendar1.png" class="img-responsive" style="height: 80px; float: right;">
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-9">
+                          <div class="row"> 
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                              <span style="font-size: 25px; float: left;color:#3C3692;">Schedule</span>
+                            </div>
+                          </div>
+                          <div class="row"> 
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                              <span style="font-size: 15px;">Copy and paste emails, phone numbers, Facebook user IDs or IDs of your customers and create a custom.</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-11" style="margin-left:35px;">
+                          <div class="collapse" id="collapseExample3">
+                            <div class="well">
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <h4 class="text-color">Set Up Your Schedule</h4>
+                                  <div class="row">
+                                    <div class="col-md-4 pt-4">
+	                                    <label>Dates and times are relative to the Server Time</label>
+	                                    <label>Current Server Time is </label>
+										<div class="clock">
+											<span id="hr">00</span>
+											<span> : </span>
+											<span id="min">00</span>
+											<span> : </span>
+											<span id="sec">00</span>
+										</div>
+                                        <label>Embargoed until</label>
+                                        <!-- <div id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy"> -->
+										<div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
+                                            <input class="form-control" id="campaign_shedule_date" type="text" readonly />
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="row mt-4">
+                                    <div class="col-md-6">
+                                        <label>Delivery time</label>
+                                        <div class="radio-section pt-2">
+                                          <label class="containers">Send at a specific time
+                                            <input type="radio" name="radio" id="radio-time">
+                                            <span class="checkmark"></span>
+                                          </label>
+                                        </div>
+
+                                        <div class="row date-time-section" style="margin-left:20px;display: none;">
+                                            <div class="col-md-2 pl-0">
+                                                <select class="custom-btn form-control" id="campaign_shedule_hr">
+                                                <option value="01">1</option>
+                                                <option value="02">2</option>
+                                                <option value="03">3</option>
+                                                <option value="04">4</option>
+                                                <option value="05">5</option>
+                                                <option value="06">6</option>
+                                                <option value="07">7</option>
+                                                <option value="08">8</option>
+                                                <option value="09">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="13">13</option>
+												<option value="14">14</option>
+												<option value="15">15</option>
+												<option value="16">16</option>
+												<option value="17">17</option>
+												<option value="18">18</option>
+												<option value="19">19</option>
+												<option value="20">20</option>
+												<option value="21">21</option>
+												<option value="22">22</option>
+												<option value="23">23</option>
+                                              </select>
+                                            </div>
+                                            <span class="comma-section">:</span>
+                                            <div class="col-md-2 pl-0">
+                                                <select class="custom-btn form-control" id="campaign_shedule_minute">
+                                                   <option value="00">00</option>   
+                                                   <option value="15">15</option>
+                                                   <option value="30">30</option>
+                                                   <option value="45">45</option>
+                                                   
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2 pl-0">
+                                              <select class="custom-btn form-control" id="campaign_shedule_AP">
+                                                <option value="AM">AM</option>
+                                                <option value="PM">PM</option>
+                                              </select>
+                                            </div>
+                                            <div class="col-md-4 pt-2">
+                                              <p>Note : Server Time is -5:30<a href="#">Edit</a></p>
+                                              <!-- Eastern Time. -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <br/>
+                                <div class="row">
+                                  <div class="col-md-12 text-center">
+                                     <button type="button" id="schedule_campaign" class="btn btn-default new-btn custom-btn">Schedule Campaign</button>
+                                     <button type="button" class="btn btn-default new-btn custom-btn">Cancel</button>
+                                  </div>
+                                  <div class="col-md-12 text-left">
+	                                  <button type="button" id="process_queue" class="btn btn-default new-btn custom-btn">Process Queue</button>
+	                              </div>            
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    //setuprule
+                    <div class="product-listing " style="width: 91.5%; margin-left:50px; margin-top: 20px;">
+						  <a href="/portal/servlet/service/ui.set-up-rule" target="_blank">
+						  <div class="row">
+							<div class="col-lg-3 col-md-3 col-sm-3" style="margin-left: -55px;">
+							  <img src="<%=request.getContextPath()%>/apps/global/assets/images/imgpsh_fullsize_anim.png" class="img-responsive" style="height: 80px; float: right;">
+							</div>
+							<div class="col-lg-9 col-md-9 col-sm-9">
+							  <div class="row"> 
+								<div class="col-lg-12 col-md-12 col-sm-12">
+								  <span style="font-size: 25px; float: left;color:#3C3692;padding-top:20px;">SetUp Rule</span>
+								</div>
+							  </div>
+							</div>
+						  </div>
+						  </a>
+					  </div>
+                </div>
+              
+               </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- processing code start here-->
+  <script>
+ 
+	
+
+	
+	</script>
+	
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+	<link rel="stylesheet"
+		href="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css">
+		
+	<script src="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js"></script>
+
+  <!-- processing code end here-->
+  <!-- <script data-cfasync="false" src="../../../cdn-cgi/scripts/d07b1474/cloudflare-static/email-decode.min.js"></script>-->
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/babel-external-helpers/babel-external-helpers599c.js?v4.0.2"></script> 
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery/jquery.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/popper-js/umd/popper.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/bootstrap/bootstrap.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/asscrollbar/jquery-asScrollbar.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/vendor/formvalidation/formValidation.min599c.js?v4.0.2"></script>
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/vendor/jquery-wizard/jquery-wizard.min599c.js?v4.0.2"></script> -->
+  <script src="<%=request.getContextPath()%>/apps/global/js/Plugin.min599c.js?v4.0.2"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/js/Config.min599c.js?v4.0.2"></script>
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/js/Plugin/jquery-wizard.min599c.js?v4.0.2"></script> -->
+  <!-- <script src="<%=request.getContextPath()%>/apps/global/assets/examples/js/forms/wizard.min599c.js?v4.0.2"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+  
+  <script src="<%=request.getContextPath()%>/apps/global/js/custom.js"></script>
+  <!-- 
+  <script src="<%=request.getContextPath()%>/apps/global/js/Cookies.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  
+  <script type="text/javascript">
+    $.noConflict();
+    $(document).ready(function(){
+      var array = document.URL.split('/');
+	  //alert('array : '+array);
+      var lastsegment = array[array.length-1];
+	  //alert('lastsegment : '+lastsegment);
+      if(lastsegment == 'index.html#funnel'){
+        $('#op').trigger( "click" );
+        $('html, body').animate({
+            scrollTop: $("#op").offset().top
+        }, 2000);
+      }
+    });
+  </script>
+</body>
+</html>

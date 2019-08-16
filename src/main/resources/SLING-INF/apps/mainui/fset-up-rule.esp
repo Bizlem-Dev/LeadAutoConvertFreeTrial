@@ -290,6 +290,24 @@
       </div>
     </div>
   </div>
+   <!-- Modal -->
+<div class="modal fade" id="demoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<!--<h4 class="modal-title" id="myModalLabel">Bootstrap Modal Popup</h4>-->
+</div>
+<div class="modal-body"><h1> Successfully Created Rule</h1></div>
+<div class="modal-footer">
+<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+<!--<button type="button" class="btn btn-primary">Save changes</button>-->
+</div>
+</div>
+</div>
+</div>
+	  
+     <!--END Modal -->
   <script>
     var rule_data_array=[];//global variable 
 	var username="carrotrule@xyz.com";
@@ -532,7 +550,7 @@
 		Outputdata_json_arr.push(Outputdata_json_obj);
 		
 		data_json_obj["rulename"]=  document.getElementById("new_rule_name").innerHTML;
-		alert("document.getElementById('new_rule_name').value"+document.getElementById("new_rule_name").innerHTML);
+		//alert("document.getElementById('new_rule_name').value"+document.getElementById("new_rule_name").innerHTML);
 		data_json_obj["SFdata"]=  sfdata_json_arr;
 		data_json_obj["Outputdata"]=  Outputdata_json_arr;
 		
@@ -594,7 +612,7 @@
 	
 	function saveRule(final_json_obj) {
 	//var remoteuser ='<%=request.getRemoteUser()%>';
-	alert("final_json_obj : "+JSON.stringify(final_json_obj));
+	//alert("final_json_obj : "+JSON.stringify(final_json_obj));
 	console.log("final_json_obj "+JSON.stringify(final_json_obj));
 	    /*
 	    $.ajax({
@@ -608,7 +626,7 @@
 		data: JSON.stringify(final_json_obj),
 		dataType: "json",
 		success: function (dataa) {
-					alert("dataa : "+dataa);
+				//	alert("dataa : "+dataa);
 					var urlClickedJsonArray = JSON.parse(dataa);
 					
 			 }
@@ -626,7 +644,10 @@
 					       },
 					success: function(data)
 					{
-					    alert("data: listid"+data);
+					    console.log("data: listid"+data);
+					   // alert("Rule Created Successfully");
+					     $('#demoModal').modal('show');
+
 					    //var jsonData = JSON.parse(data);
 						//alert("data: listid"+jsonData.Status);
 						location.reload();
@@ -722,7 +743,7 @@
 								}
 						  }
 						}
-						alert("rule_last_indx : "+(rule_last_indx+1));
+						console.log("rule_last_indx : "+(rule_last_indx+1));
 						document.getElementById("rule_fields_details").innerHTML  =rule_tr;
 						document.getElementById("new_rule_no").innerHTML  =(rule_last_indx+1);
 						document.getElementById("new_rule_name").innerHTML  ="Rule"+(rule_last_indx+1);
