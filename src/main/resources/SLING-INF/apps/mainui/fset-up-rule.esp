@@ -103,7 +103,10 @@
       border-radius: 20px;
       color: #fff;
     }
+   
+   
   </style>
+
   </head>
   <body class="animsition">
   <div class="row-fluid main-header">
@@ -291,22 +294,24 @@
     </div>
   </div>
    <!-- Modal -->
+
 <div class="modal fade" id="demoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 <div class="modal-dialog">
 <div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<!--  <div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></div> -->
 <!--<h4 class="modal-title" id="myModalLabel">Bootstrap Modal Popup</h4>-->
-</div>
-<div class="modal-body"><h1> Successfully Created Rule</h1></div>
-<div class="modal-footer">
+
+<div class="modal-body" id="mypopup" ><h4> </h4></div>
+<div class="modal-footer" >
 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 <!--<button type="button" class="btn btn-primary">Save changes</button>-->
 </div>
 </div>
 </div>
 </div>
-	  
+
+  
      <!--END Modal -->
   <script>
     var rule_data_array=[];//global variable 
@@ -613,6 +618,11 @@
 	function saveRule(final_json_obj) {
 	//var remoteuser ='<%=request.getRemoteUser()%>';
 	//alert("final_json_obj : "+JSON.stringify(final_json_obj));
+	document.getElementById("myPopup").innerHTML ="Rule created";
+	 $('#demoModal').modal('show');
+
+	 
+
 	console.log("final_json_obj "+JSON.stringify(final_json_obj));
 	    /*
 	    $.ajax({
@@ -632,6 +642,7 @@
 			 }
 		});	
 		*/
+		/*
 		$.ajax({
 			       	//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
 					url: 'http://prod.bizlem.io:8082/portal/servlet/service/rule_engine_and_rles_creation_servlet.create_rule',//createListAndSubscribers
@@ -655,7 +666,7 @@
 					},
 					//timeout: 30000 // sets timeout to 30 seconds
 					
-		});
+		}); */
 	
 	}
 	/*
@@ -797,7 +808,7 @@
   -->
   
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  
+ 
   <script type="text/javascript">
     $.noConflict();
     $(document).ready(function(){
@@ -812,6 +823,9 @@
         }, 2000);
       }
     });
+    
+   
   </script>
 </body>
 </html>
+

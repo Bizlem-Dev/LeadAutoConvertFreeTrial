@@ -29,9 +29,10 @@ public class FreetrialShoppingCartUpdate {
 		int expireFlag = 1;
 		long free_trail_subscribers_count = Long
 				.parseLong(ResourceBundle.getBundle("config").getString("free_trail_subscribers_count"));
+		long subscribers_count =0;
 		try {
 			MongoDAO mdao = new MongoDAO();
-			long subscribers_count = mdao.getSubscriberCountForLoggedInUserForFreeTrail("subscribers_details", userid);
+			 subscribers_count = mdao.getSubscriberCountForLoggedInUserForFreeTrail("subscribers_details", userid);
 			free_trail_status = checkfreetrial(userid);
 			// long subscribers_count=2000;
 			// String free_trail_status="0";
@@ -51,20 +52,21 @@ public class FreetrialShoppingCartUpdate {
 				expireFlag = 1;
 			}
 		} catch (Exception ex) {
-			System.out.println("Error : " + ex);
+			ex.printStackTrace();
 		}
 		// return Integer.toString(expireFlag);
-		LogByFileWriter.logger_info("FreeTrialandCart : Free Trail Status : " + free_trail_status);
+		LogByFileWriter.logger_info("FreeTrialandCart : Free Trail Status : " + free_trail_status +" : subscribers_count :: "+subscribers_count+" :: free_trail_status = "+free_trail_status);
 		return expireFlag + "";
 	}
 
 	public String checkfreetrial(String userid) {
 		int expireFlag = 1;
-//		String free_trial_api = ResourceBundle.getBundle("config").getString("free_trial_api") + userid
-//				+ "/LeadAutoConvFrTrial";
+		String free_trial_api = ResourceBundle.getBundle("config").getString("free_trial_api") + userid
+				+ "/LeadAutoConvFrTrial";
 		// http://prod.bizlem.io:8087/apirest/trialmgmt/trialuser/akhilesh@bizlem.com/LeadAutoConvFrTrial
 		//http://development.bizlem.io:8087/apirest/trialmgmt/trialuser/viki@gmail.com/LeadAutoConvFrTrial
-		String free_trial_api = "http://development.bizlem.io:8087/apirest/trialmgmt/trialuser/"+userid+"/LeadAutoConvFrTrial";
+		//LeadAutoConvFrTrial
+		//String free_trial_api = "http://development.bizlem.io:8087/apirest/trialmgmt/trialuser/"+userid.replaceAll("_", "@")+"/LeadAutoConvFrTrial";
 		 Character x = '_';
 		try {
 			userid = replaceLastChar(userid,x);
@@ -85,10 +87,13 @@ public class FreetrialShoppingCartUpdate {
 			expireFlag = obj.getInt("expireFlag");
 			// System.out.println(Integer.toString(expireFlag));
 			conn.disconnect();
+			LogByFileWriter.logger_info("FreeTrialandCart : Free Trail Status : " + expireFlag + "  For User " + userid);
 		} catch (Exception ex) {
 			System.out.println("Error : " + ex);
 		}
-		LogByFileWriter.logger_info("FreeTrialandCart : Free Trail Status : " + expireFlag + "  For User " + userid);
+		System.out.println("Integer.toString(expireFlag) : " + Integer.toString(expireFlag));
+		
+		
 		return Integer.toString(expireFlag);
 	}
 	public static int findLastIndex(String str, Character x) 
@@ -278,19 +283,19 @@ public class FreetrialShoppingCartUpdate {
 			} else {
 				contentNode = session1.getRootNode().addNode("content");
 			}
-			// out.println("contentNode "+contentNode);
-
+//			 out.println("contentNode "+contentNode);
+			 
 			if (freetrialstatus.equalsIgnoreCase("0")) {
 
 				if (contentNode.hasNode("services")) {
 					appserviceNode = contentNode.getNode("services");
 
-					// out.println("appserviceNode "+appserviceNode);
+//					 out.println("appserviceNode "+appserviceNode);
 
 					if (appserviceNode.hasNode("freetrial")) {
 						appfreetrialNode = appserviceNode.getNode("freetrial");
 
-						// out.println("appfreetrialNode "+appfreetrialNode);
+//						 out.println("appfreetrialNode "+appfreetrialNode);
 
 						if (appfreetrialNode.hasNode("users")
 								&& appfreetrialNode.getNode("users").hasNode(email.replace("@", "_"))) {
@@ -315,7 +320,7 @@ public class FreetrialShoppingCartUpdate {
 
 			} else {
 
-				// out.println("in else");
+//				 out.println("in else");
 
 				if (contentNode.hasNode("user") && contentNode.getNode("user").hasNode(email.replace("@", "_"))) {
 					emailNode = contentNode.getNode("user").getNode(email.replace("@", "_"));
@@ -402,7 +407,7 @@ public class FreetrialShoppingCartUpdate {
 //											 out.print("else vallidity is false");
 											validity = false;
 										}
-
+//										out.println("LeadAutoConverter validity=  "+validity);
 										if (validity) {
 //											out.println("LeadAutoConverter validity=  "+validity);
 											if (appfreetrialNode.hasNode(group)) {
@@ -619,8 +624,8 @@ public class FreetrialShoppingCartUpdate {
 	}
 	
 	public static void main(String args[]) {
-	new FreetrialShoppingCartUpdate().checkfreetrial("viki@gmail.com");
-	new FreetrialShoppingCartUpdate().checkValiditytrialCart("");
+		System.out.println("method  ret = "+	new FreetrialShoppingCartUpdate().checkfreetrial("viki@gmail.com"));
+	//new FreetrialShoppingCartUpdate().checkValiditytrialCart("");
 		
 	}
 }

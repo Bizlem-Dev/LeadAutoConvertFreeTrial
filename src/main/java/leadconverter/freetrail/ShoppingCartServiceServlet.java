@@ -92,14 +92,19 @@ public class ShoppingCartServiceServlet extends SlingAllMethodsServlet {
 //		out.println("fl "+fl.getDocTigerAdvNode( exp, email,  "",  session,
 //						 response));
 
-		/*
-		 * {"userid":"user2@gmail.com", "productCode":"doctiger", "serviceId":"6445",
-		 * "start_date":"2019-07-01", "end_date":"2019-07-30",
-		 * "owner_email":"user2@gmail.com", "quantity":"100",
-		 * "fullloaddata":[{"user":"nilesh@gmail.com", "roleid":"10","role":"setup",
-		 * "group":"g1"},{"user":"viki@gmail.com", "roleid":"9","role":"user",
-		 * "group":"G1"}] }
-		 */
+
+/*
+
+
+{"userId":"viki@gmail.com",
+"productCode":"leadautoconverter",
+"serviceId":"6450",
+"start_date":"2019-08-17",
+"end_date":"2019-09-17",
+"owner_email":"viki@gmail.com",
+"quantity":"100",
+"fullloaddata":[{"user":"ramesh@gmail.com", "roleid":"10","role":"setup", "group":"g1"},{"user":"viki@gmail.com", "roleid":"9","role":"user", "group":"G1"}]
+}*/
 
 	}
 

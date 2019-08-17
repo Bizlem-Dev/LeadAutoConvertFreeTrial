@@ -508,9 +508,9 @@ public static JSONArray getFunnelList(String CreatedBy) {
         mongoClient=ConnectionHelper.getConnection();
         database=mongoClient.getDatabase("phplisttest");
         collection=database.getCollection("campaign_details");
-        collection=database.getCollection("funnel_details");
+        //collection=database.getCollection("funnel_details");
         //Bson filter1 =eq("CreatedBy", CreatedBy);
-        Bson filter1 =eq("remoteuser", CreatedBy);
+        Bson filter1 =eq("CreatedBy", CreatedBy);
         DistinctIterable<String> di = collection.distinct("funnelName", filter1,String.class);
         MongoCursor<String> cursor = di.iterator();
         String funnelName=null;

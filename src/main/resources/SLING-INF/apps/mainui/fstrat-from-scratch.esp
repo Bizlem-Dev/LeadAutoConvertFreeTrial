@@ -222,6 +222,9 @@
 				alert("You have selected something else");
 			}
 			console.log('compose_message_txt : '+compose_message_txt);
+			var remoteuser=localStorage.getItem('remoteuser');
+			var groupname=localStorage.getItem('groupname');
+			
 			$.ajax({
 					//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
 					  url: '<%=request.getContextPath()%>/servlet/service/createCampaign.CampaignNodeAdd',//createListAndSubscribers
@@ -242,6 +245,7 @@
 						   DistanceBtnCampaign : DistanceBtnCampaign,
 						   listid : listid,
 						   logged_in_user:localStorage.getItem('remoteuser'),
+						   group : groupname,
 						  },
 					cache: false,
 					//dataType: 'json',

@@ -279,7 +279,7 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 					//shopping cart method call
 					String expstatus= new FreetrialShoppingCartUpdate().checkFreeTrialExpirationStatus(remoteuser);
 				 	
-			 		shoppingnode=new FreetrialShoppingCartUpdate().getLeadAutoConverterNode(expstatus, remoteuser, group, session, response);
+			 		shoppingnode=new FreetrialShoppingCartUpdate().getLeadAutoConverterNode(expstatus, remoteuser.replace("@", "_"), group, session, response);
 			 		if(shoppingnode!=null) {
 			 		Node groupnode=	shoppingnode.getParent();
 			 		Node servicenode=	groupnode.getParent();

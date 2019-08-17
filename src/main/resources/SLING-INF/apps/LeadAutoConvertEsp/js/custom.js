@@ -3,7 +3,7 @@ $( document).ready(function() {
 	  //  var remoteuser ='<%=request.getRemoteUser()%>';
 	
 	   remoteuser =document.getElementById("remoteemail").value;//'viki@gmail.com';
-	  localStorage.setItem('remoteuser',"viki@gmail.com");
+	  localStorage.setItem('remoteuser',remoteuser);
 	  
 	    console.log("remoteuser : "+remoteuser);
 	    console.log("storage = "+localStorage.getItem('remoteuser'));
@@ -1010,7 +1010,7 @@ $( document).ready(function() {
 		localStorage.setItem('funnelName',funnelName);
 		localStorage.setItem('fromName',fromName);
 		localStorage.setItem('fromEmailAddress',fromEmailAddress);
-		var groupname= "G1";//document.getElementById("grlist").value;
+		var groupname= document.getElementById("grlist").value;
 		localStorage.setItem('groupname',groupname);
 		console.log("groupname local = "+groupname);
         //alert("remoteuser : "+remoteuser+"\n"+" funnelName : "+funnelName+"\n"+" fromName : "+fromName+"\n"+" fromEmailAddress : "+fromEmailAddress);

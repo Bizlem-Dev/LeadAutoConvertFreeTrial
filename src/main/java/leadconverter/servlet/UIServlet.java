@@ -1,5 +1,7 @@
 package leadconverter.servlet;
 
+import static com.mongodb.client.model.Filters.eq;
+
 import java.io.*;
 import java.lang.reflect.Array;
 import java.util.*;
@@ -40,8 +42,13 @@ import org.apache.sling.commons.json.JSONArray;
 import org.apache.sling.commons.json.JSONException;
 import org.apache.sling.commons.json.JSONObject;
 import org.apache.sling.jcr.api.SlingRepository;
+import org.bson.conversions.Bson;
 import org.jsoup.Jsoup;
 import org.osgi.service.http.HttpService;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 
 import java.io.*;
 import java.net.*;
@@ -49,6 +56,7 @@ import java.text.SimpleDateFormat;
 
 import leadconverter.freetrail.FreetrialShoppingCartUpdate;
 import leadconverter.freetrail.GetValidityInfoFromEmail;
+import leadconverter.mongo.ConnectionHelper;
 import leadconverter.mongo.FunnelDetailsMongoDAO;
 import leadconverter.mongo.MongoDAO;
 
@@ -80,7 +88,25 @@ public class UIServlet extends SlingAllMethodsServlet {
 		Session session = null;
 		if (request.getRequestPathInfo().getExtension().equals("shopping45")) {
 			try {
-
+				try {
+					session = repo.login(new SimpleCredentials("admin", "admin".toCharArray()));
+				} catch (LoginException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (RepositoryException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				String remoteuser=request.getParameter("email");
+				String group=request.getParameter("group");
+			String expstatus = new FreetrialShoppingCartUpdate().checkFreeTrialExpirationStatus(remoteuser);
+			
+				out.println("group serv= "+group +" ::remoteuser"+remoteuser);
+				out.println(" ::expstatus= "+expstatus);
+				remoteuser=	remoteuser.replace("@", "_");
+			Node	shoppingnode = new FreetrialShoppingCartUpdate().getLeadAutoConverterNode(expstatus, remoteuser, group,
+						session, response);
+			out.println(" ::shoppingnode= "+shoppingnode);
 	String userName = request.getParameter("userName").replace("@", "_");
 				
 				try{
@@ -93,15 +119,7 @@ public class UIServlet extends SlingAllMethodsServlet {
 				
 				out.println("GET UI");
 
-				try {
-					session = repo.login(new SimpleCredentials("admin", "admin".toCharArray()));
-				} catch (LoginException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (RepositoryException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 				out.println("GET LACcartService");
 				String jsresp=null;
 				String email = request.getParameter("email").replace("@", "_");
@@ -127,17 +145,17 @@ public class UIServlet extends SlingAllMethodsServlet {
 				}
 				FreetrialShoppingCartUpdate fl = new FreetrialShoppingCartUpdate();
 				String exp = fl.checkFreeTrialExpirationStatus(email);
-				String group = request.getParameter("group");
+//				String group = request.getParameter("group");
 				out.println("GET  fl.checkfreetrial(email= " + exp);
 //			        Node validshoppingnode=fl.validationmethod(exp, email, group, session, response);
 //			        out.println("GET  valid --------- "+validshoppingnode);
-				Node shoppingnode = fl.getLeadAutoConverterNode(exp, email, group, session, response);
-				out.println("fl node= " + shoppingnode);
+				Node shoppingnode1 = fl.getLeadAutoConverterNode(exp, email, group, session, response);
+				out.println("fl node= " + shoppingnode1);
 				int subscount = Integer.parseInt(request.getParameter("SubscriberCount"));
 
-				if (shoppingnode != null) {
+				if (shoppingnode1 != null) {
 					String respupdate = new FreetrialShoppingCartUpdate().updateSubscriberCounter(email, exp,
-							shoppingnode, session, response, subscount);
+							shoppingnode1, session, response, subscount);
 					out.println("fl respupdate " + respupdate);
 				}
 
