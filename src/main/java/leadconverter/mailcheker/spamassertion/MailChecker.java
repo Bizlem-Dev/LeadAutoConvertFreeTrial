@@ -1,6 +1,7 @@
 package leadconverter.mailcheker.spamassertion;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -48,18 +49,23 @@ public class MailChecker {
 		//LogByFileWriter.logger_info("MailChecker : emailValidation() " + userid);
 		String email_status ="NA";
 		String email_details =null;
-		String email_checker_api = ResourceBundle.getBundle("config").getString("email_checker_api") + userid;
+		URL url = null;
+		HttpURLConnection conn = null;
+		BufferedReader reader = null;
+		String email_checker_api=null;
+		InputStream in = null;
 		try {
-			URL url = new URL(email_checker_api);
+			email_checker_api = ResourceBundle.getBundle("config").getString("email_checker_api") + userid;
+		     url = new URL(email_checker_api);
 			//System.out.println("Step 1");
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn = (HttpURLConnection) url.openConnection();
 			//System.out.println("Step 2");
 			conn.setRequestMethod("GET");
 			conn.connect();
 			//System.out.println("Step 3");
-			InputStream in = conn.getInputStream();
+		    in = conn.getInputStream();
 			//System.out.println("Step 4");
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+			reader = new BufferedReader(new InputStreamReader(in));
 			email_details = reader.readLine();
 			//System.out.println("Step 5");
 			/*
@@ -76,9 +82,35 @@ public class MailChecker {
 			//System.out.println("obj : "+obj);
 			//expireFlag = obj.getInt("expireFlag");
 			//System.out.println(Integer.toString(expireFlag));
-			conn.disconnect();
+			
 		} catch (Exception ex) {
 			System.out.println("Error : "+ex);
+		}
+		finally {
+		
+			conn.disconnect();
+			
+			try {
+				if(null !=in) {
+					
+				in.close();
+				in=null;
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				if(null !=reader) {
+					reader.close();
+					reader=null;
+				}
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			conn =null;
 		}
 		return email_details;
 	}

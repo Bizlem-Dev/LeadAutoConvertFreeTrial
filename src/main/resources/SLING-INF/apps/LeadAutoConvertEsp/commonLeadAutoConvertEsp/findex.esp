@@ -32,48 +32,7 @@
   -->
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script>
-	  var d,h,m,s,animate;
 	
-	  function init(){
-	      d=new Date();
-	  	  d.setHours(d.getHours()-5);
-	  	  d.setMinutes(d.getMinutes()-30);
-	      h=d.getHours();
-	      m=d.getMinutes();
-	      s=d.getSeconds();
-	      clock();
-	  };
-	
-	  function clock(){
-	      s++;
-	      if(s==60){
-	          s=0;
-	          m++;
-	          if(m==60){
-	              m=0;
-	              h++;
-	              if(h==24){
-	                  h=0;
-	              }
-	          }
-	      }
-	      setClock('sec',s);
-	      setClock('min',m);
-	      setClock('hr',h);
-	      animate=setTimeout(clock,1000);
-	  	//console.log("animate : "+animate);
-	  };
-	
-	  function setClock(id,val){
-	      if(val<10){
-	          val='0'+val;
-	      }
-	  	//console.log("id : "+id);
-	  	//console.log("val : "+val);
-	      document.getElementById(id).innerHTML=val;
-	  };
-	
-	  window.onload=init;
   </script>
   <style type="text/css">
   .input-upload{
@@ -120,7 +79,7 @@ background-color: #3DEB1E;
 background-color: #EB341E;
 </style>
 </head>
-<body class="animsition">
+<body class="animsition" onload="init">
   <div class="row-fluid main-header">
     <div class="container-fluid">
       <div class="col-md-12 menubar">
@@ -1121,6 +1080,49 @@ background-color: #EB341E;
         }, 2000);
       }
     });
+    
+    var d,h,m,s,animate;
+	
+	  function init(){
+	      d=new Date();
+	  	  d.setHours(d.getHours());
+	  	  d.setMinutes(d.getMinutes());
+	      h=d.getHours();
+	      m=d.getMinutes();
+	      s=d.getSeconds();
+	      clock();
+	  };
+	
+	  function clock(){
+	      s++;
+	      if(s==60){
+	          s=0;
+	          m++;
+	          if(m==60){
+	              m=0;
+	              h++;
+	              if(h==24){
+	                  h=0;
+	              }
+	          }
+	      }
+	      setClock('sec',s);
+	      setClock('min',m);
+	      setClock('hr',h);
+	      animate=setTimeout(clock,1000);
+	  	console.log("animate : "+animate);
+	  };
+	
+	  function setClock(id,val){
+	      if(val<10){
+	          val='0'+val;
+	      }
+	  	//console.log("id : "+id);
+	  	//console.log("val : "+val);
+	      document.getElementById(id).innerHTML=val;
+	  };
+	
+	 // window.onload=init;
   </script>
 </body>
 </html>

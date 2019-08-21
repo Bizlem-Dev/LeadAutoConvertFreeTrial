@@ -1,4 +1,4 @@
-$(".drip-funnel-section").on( "click", function() {
+/*$(".drip-funnel-section").on( "click", function() {
   $(this).find('.arrow').toggleClass('fa-angle-down fa-angle-up');
 });
 
@@ -391,73 +391,7 @@ $('body').on('click', '.remove-row-second-tbl', function(){
     }
 });
 
-$('#schedule_campaign').on('click', scheduleCampaign);
-function scheduleCampaign(event){
-     var campaign_shedule_date = document.getElementById("campaign_shedule_date").value;
- 
-	 if(document.getElementById('radio-time').checked) {
-		  //Male radio button is checked
-		  var campaign_shedule_hr = document.getElementById("campaign_shedule_hr").value;
-		  var campaign_shedule_minute = document.getElementById("campaign_shedule_minute").value;
-		//  var campaign_shedule_AP = document.getElementById("campaign_shedule_AP").value;
-		  //alert("campaign_shedule_hr : "+campaign_shedule_hr+"\n"+"campaign_shedule_minute : "+campaign_shedule_minute+"\n"+"campaign_shedule_AP : "+campaign_shedule_AP);
-		  //campaign_shedule_date=campaign_shedule_date+" "+campaign_shedule_hr+":"+campaign_shedule_minute+":00 "+campaign_shedule_AP;
-		  campaign_shedule_date=campaign_shedule_date+" "+campaign_shedule_hr+":"+campaign_shedule_minute+":00";
-		  
-		  //2019-01-07 06:43:02 PM
-		  //2019-01-11 02:11:00 PM
-		  //01-11-2019 01:01:00 am
-	 }else{
-	 
-	     campaign_shedule_date=campaign_shedule_date+" 00:00:00";
-	 }
-	 //alert("schedule_campaign date : "+campaign_shedule_date);
-	    var campaignid=localStorage.getItem('campaignid');
-		//var campaignid='593';
-		var markup = "";
-	    var campaignName;
-		var fromName;
-		var fromEmailAddress;
-		
-		var funnelName;
-		var SubFunnelName;
-		var DistanceBtnCampaign;
-		var listid;
-		var subjectName;
-		//Time is 10:42, Saturday 2 February 2019 16:12 -05:30
-		var funnelName=localStorage.getItem('funnelName');
-		var SubFunnelName=localStorage.getItem('SubFunnelName');
-		var group=localStorage.getItem('groupname');
-		console.log("group= "+group);
-		var listid=localStorage.getItem('listid');
-		var remoteuser =localStorage.getItem('remoteuser');
-		 $.ajax({
-					//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
-					url: '/portal/servlet/service/createCampaign.updateEmbargo',//createListAndSubscribers
-					type: 'POST',
-					async:false,
-					data: {
-			               campaignid:campaignid,
-					       embargo:campaign_shedule_date,
-					       funnelName:funnelName,
-					       camp_catogery:SubFunnelName,
-					       listid:listid,
-					       remoteuser:remoteuser,
-					       group:group,
-						  },
-					cache: false,
-					//dataType: 'json',
-					//processData: false, 
-					//contentType: false, 
-					success: function(data)
-					{
-						//console.log('--------------markup---------start');
-	                    console.log('data : '+data);
-	                    //console.log('--------------markup---------end');
-	                    alert('Embargo Updated Sucessfully!');
-					}
-			    });
-		//alert("schedule_campaign date : 3");
 
-}
 
+
+*/

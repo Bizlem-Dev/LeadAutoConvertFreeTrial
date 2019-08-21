@@ -250,7 +250,7 @@
 	$.ajax({
 		type : 'GET',
 		//url :'<%=request.getContextPath()%>/servlet/service/CampaignReportApi.urlViewData',
-		url :'http://prod.bizlem.io:8082/portal/servlet/service/rule_engine_and_rles_creation_servlet.get_fields',
+		url :'<%=request.getContextPath()%>/servlet/service/rule_engine_and_rles_creation_servlet.get_fields',
 		data: {
 	    },
 		success: function (dataa) {
@@ -402,7 +402,7 @@
 	    $.ajax({
 			       	//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
 					//url: 'http://34.74.125.253:8082/drools/callrules/carrotrule@xyz.com_LeadAutoConverter5May_LeadAutoConvertRule/fire',
-					url: 'http://prod.bizlem.io:8082/portal/servlet/service/rule_engine_and_rles_creation_servlet.fire_rule_engine',//createListAndSubscribers
+					url: '<%=request.getContextPath()%>/servlet/service/rule_engine_and_rles_creation_servlet.fire_rule_engine',//createListAndSubscribers
 					type: 'POST',
 					async: false,
                     cache: false,

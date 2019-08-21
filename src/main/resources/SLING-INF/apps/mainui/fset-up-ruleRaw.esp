@@ -34,14 +34,9 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   -->
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <!-- Modal script -->
-
-<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
-<link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css'
-    media="screen" />
   <script>
   </script>
-  
+  </script>
     <style type="text/css">
     li{
       list-style:none;
@@ -108,10 +103,7 @@
       border-radius: 20px;
       color: #fff;
     }
-   
-   
   </style>
-
   </head>
   <body class="animsition">
   <div class="row-fluid main-header">
@@ -298,34 +290,7 @@
       </div>
     </div>
   </div>
-   <!-- Modal -->
-
-
-<!-- Modal Popup -->
-<div id="MyPopup" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-           
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <input type="button" id="btnClosePopup" value="Close" class="btn btn-danger" />
-            </div>
-        </div>
-    </div>
-</div>
-
-  
-     <!--END Modal -->
-  <script type="text/javascript">
-  $(function () {
-  
-      $("#btnClosePopup").click(function () {
-          $("#MyPopup").modal("hide");
-          location.reload();
-      });
-  });
+  <script>
     var rule_data_array=[];//global variable 
 	var username="carrotrule@xyz.com";
 	var projectname=localStorage.getItem('funnelName');//"June28F01";//June28F01
@@ -339,7 +304,7 @@
 	$.ajax({
 		type : 'GET',
 		//url :'<%=request.getContextPath()%>/servlet/service/CampaignReportApi.urlViewData',
-		url :'<%=request.getContextPath()%>/servlet/service/rule_engine_and_rles_creation_servlet.get_fields',
+		url :'http://prod.bizlem.io:8082/portal/servlet/service/rule_engine_and_rles_creation_servlet.get_fields',
 		data: {
 	    },
 		success: function (dataa) {
@@ -351,24 +316,6 @@
 					for(var i=0;i<urlClickedJsonArray.length;i++){
 						field_option=field_option+"<option value='"+urlClickedJsonArray[i].toLowerCase()+"'>"+urlClickedJsonArray[i]+"</option>";						
 					}
-			/* 		var operator_option='<option value="equals">= Equals</option><option value="not-equals">!= Not Equals</option><option value="greter-than">> Greater Than</option><option value="less-than">< Less Than</option><option value="greter-than-equals">>= Greater Than Equals</option><option value="less-than-equals"><= Less Than Equals</option><option value="is-null">Is Null</option><option value="is-not-null">Is Not Null</option>';
-					
-					var type_option="<option value='String'>String</option><option value='Integer'>Numeric</option><option value='Percentage'>Percentage(%)</option><option value='Boolean'>Boolean</option>";
-					
-					//style="display:none;"
-					var first_tr='<tr class="firstTr" ><th scope="row">1</th><td><select class="form-control click-select field-ID-select" id="fieldID1">'+field_option+'</select></td>';
-					first_tr=first_tr+'<td><input type="text" name="" class="form-control open-input field-name-input" id="fieldName1" style="display:none;"></td>'
-					first_tr=first_tr+'<td><select class="form-control type-ID-select" id="typeID1">'+type_option+'</select></td>';
-					
-					first_tr=first_tr+'<td><select class="form-control select-oprater oprater-ID-select" id="operatorID1">'+operator_option+'</select></td>';
-					
-					first_tr=first_tr+'<td><input type="text" name="" class="form-control opt1-input" id="opt1Val1"></td>';
-					first_tr=first_tr+'<td><select class="form-control remove-slect  opraters-ID-select"  id="operatorIDs1">'+operator_option+'</select></td>';
-					
-					first_tr=first_tr+'<td><input type="text" name="" class="form-control remove-input opt2-input" id="opt2Val1" ></td></tr>';
-				
-					document.getElementById("fields_row").innerHTML  =first_tr;*/
-					
 					var operator_option='<option value="eqals">= Equals</option><option value="not-equals">!= Not Equals</option><option value="greter-than">> Greater Than</option><option value="less-than">< Less Than</option><option value="greter-than-equals">>= Greater Than Equals</option><option value="less-than-equals"><= Less Than Equals</option><option value="is-null">Is Null</option><option value="is-not-null">Is Not Null</option>';
 					
 					var type_option="<option value='String'>String</option><option value='Integer'>Numeric</option><option value='Percentage'>Percentage(%)</option><option value='Boolean'>Boolean</option>";
@@ -382,31 +329,16 @@
 					
 					first_tr=first_tr+'<td><input type="text" name="" class="form-control opt1-input" id="opt1Val1"></td>';
 					
-					first_tr=first_tr+'<td><select class="form-control remove-slect  opraters-ID-select"  id="operatorIDs1">'+operator_option+'</select></td>';
+					first_tr=first_tr+'<td><select class="form-control remove-slect  opraters-ID-select" style="display: none;"  id="operatorIDs1">'+operator_option+'</select></td>';
 					
-					first_tr=first_tr+'<td><input type="text" name="" class="form-control remove-input opt2-input" id="opt2Val1"></td></tr>';
+					first_tr=first_tr+'<td><input type="text" name="" class="form-control remove-input opt2-input" id="opt2Val1" style="display: none;"></td></tr>';
 					
 					document.getElementById("fields_row").innerHTML  =first_tr;
 					
-					
-				
-						
 			 }
 		});	
 	});
 	
-					/* $("operatorID1").change(function()
-					{
-					
-						var opr12 = document.getElementById("operatorID1");
-						var valopr12 = opr12.options[opr12.selectedIndex].value;
-						
-						if(valopr12 =="equals"){
-						console.log("valopr12= "+valopr12);
-						document.getElementById("operatorIDs1").style.display="none"; 
-						document.getElementById("opt2Val1").style.display="none"; 
-						}
-					}) ;*/
 	
 	function createRule() {
 	    var user_name=null;
@@ -600,7 +532,7 @@
 		Outputdata_json_arr.push(Outputdata_json_obj);
 		
 		data_json_obj["rulename"]=  document.getElementById("new_rule_name").innerHTML;
-		//alert("document.getElementById('new_rule_name').value"+document.getElementById("new_rule_name").innerHTML);
+		console.log("document.getElementById('new_rule_name').value"+document.getElementById("new_rule_name").innerHTML);
 		data_json_obj["SFdata"]=  sfdata_json_arr;
 		data_json_obj["Outputdata"]=  Outputdata_json_arr;
 		
@@ -663,10 +595,6 @@
 	function saveRule(final_json_obj) {
 	//var remoteuser ='<%=request.getRemoteUser()%>';
 	//alert("final_json_obj : "+JSON.stringify(final_json_obj));
-
-	 
-         
-
 	console.log("final_json_obj "+JSON.stringify(final_json_obj));
 	    /*
 	    $.ajax({
@@ -680,16 +608,15 @@
 		data: JSON.stringify(final_json_obj),
 		dataType: "json",
 		success: function (dataa) {
-				//	alert("dataa : "+dataa);
+					alert("dataa : "+dataa);
 					var urlClickedJsonArray = JSON.parse(dataa);
 					
 			 }
 		});	
 		*/
-		
 		$.ajax({
 			       	//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
-					url: '<%=request.getContextPath()%>/servlet/service/rule_engine_and_rles_creation_servlet.create_rule',//createListAndSubscribers
+					url: 'http://prod.bizlem.io:8082/portal/servlet/service/rule_engine_and_rles_creation_servlet.create_rule',//createListAndSubscribers
 					type: 'POST',
 					async: false,
                     cache: false,
@@ -700,23 +627,15 @@
 					success: function(data)
 					{
 					    console.log("data: listid"+data);
-					   // alert("Rule Created Successfully");
-					    
+					    alert("Rule created Successfully");
 					    //var jsonData = JSON.parse(data);
 						//alert("data: listid"+jsonData.Status);
-						 var body = '<h4>Rule created Successfully</h4>';
-
-         
-          $("#MyPopup .modal-body").html(body);
-          $("#MyPopup").modal("show");
+						location.reload();
 						
-						
-					}
-                   
-					
+					},
 					//timeout: 30000 // sets timeout to 30 seconds
 					
-		}); 
+		});
 	
 	}
 	/*
@@ -730,7 +649,7 @@
 	    //"Rule_Engine" "SFDC_SELECTDATA" "External_Data" "TRANSFORM_DATA"
 	    $.ajax({
 			       	//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
-					url: '<%=request.getContextPath()%>/servlet/service/rule_engine_and_rles_creation_servlet.get_all_rule',//createListAndSubscribers
+					url: 'http://prod.bizlem.io:8082/portal/servlet/service/rule_engine_and_rles_creation_servlet.get_all_rule',//createListAndSubscribers
 					type: 'POST',
 					async: false,
                     cache: false,
@@ -850,8 +769,7 @@
   <!-- <script src="<%=request.getContextPath()%>/apps/global/assets/examples/js/forms/wizard.min599c.js?v4.0.2"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
   
- <script src="<%=request.getContextPath()%>/apps/LeadAutoConvertEsp/js/custom.js"
-type="text/javascript"></script>
+  <script src="<%=request.getContextPath()%>/apps/global/js/custom.js"></script>
   <!-- 
   <script src="<%=request.getContextPath()%>/apps/global/js/Cookies.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -859,7 +777,7 @@ type="text/javascript"></script>
   -->
   
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
- 
+  
   <script type="text/javascript">
     $.noConflict();
     $(document).ready(function(){
@@ -874,9 +792,6 @@ type="text/javascript"></script>
         }, 2000);
       }
     });
-    
-   
   </script>
 </body>
 </html>
-

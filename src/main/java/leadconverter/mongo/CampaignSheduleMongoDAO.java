@@ -60,6 +60,16 @@ public class CampaignSheduleMongoDAO {
 		String footer = "Hi This is Footer";
 		String bodyvalue = URLEncoder.encode(body);
 		String campaignaddurl = ResourceBundle.getBundle("config").getString("Campaign_Add_Url_New");
+		String campaigngetbyid = ResourceBundle.getBundle("config").getString("campaigngetbyid");
+		String campaigngetbyid_url_parameter = "?id=" + "1472";
+		String campaigngetbyid_url_response = sendpostdata(campaigngetbyid,
+				campaigngetbyid_url_parameter);
+		System.out.println("resp= "+campaigngetbyid_url_response);
+//		JSONObject response_data_json_obj = (JSONObject) new JSONObject(
+//				campaigngetbyid_url_response.replace("<pre>", "")).get("data");
+//		String status = response_data_json_obj.getString("status");
+
+		
 		/*
 		 * String campaignaddapiurlparameters = "subject=" + subject + "&fromfield=" +
 		 * fromfield + "&replyto=" + replyto +
@@ -74,9 +84,9 @@ public class CampaignSheduleMongoDAO {
 				+ "&message=" + body + "&textmessage=hii&footer=" + footer
 				+ "&status=draft&sendformat=html&template=&embargo=" + embargo
 				+ "&rsstemplate=&owner=1&htmlformatted=&repeatinterval=&repeatuntil=&requeueinterval=&requeueuntil=";
-		String campaignresponse = sendHttpPostData(campaignaddurl,
-				campaignaddapiurlparameters.replace(" ", "%20").replace("\r", "").replace("\n", "")).replace("<pre>",
-						"");
+//		String campaignresponse = sendHttpPostData(campaignaddurl,
+//				campaignaddapiurlparameters.replace(" ", "%20").replace("\r", "").replace("\n", "")).replace("<pre>",
+//						"");
 
 	}
 

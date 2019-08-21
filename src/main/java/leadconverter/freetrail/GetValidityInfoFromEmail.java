@@ -300,7 +300,7 @@ public Node  getNodeInfo(String email,Session session,SlingHttpServletResponse r
 		String adminserviceid = "";
 		
 		Node grpnode = null;
-		
+		email=email.replace("@", "_");
 		try {
 			out=response.getWriter();
 			// out.println("freetrialstatus "+freetrialstatus);

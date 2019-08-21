@@ -3,6 +3,7 @@ package leadconverter.servlet;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -136,9 +137,10 @@ public class UICsvDataProcessServlet extends SlingAllMethodsServlet {
 										jsonobject.put("Source", data[9].toString().replace("\"", ""));
 										//LogByFileWriter.logger_info("UICsvDataProcessServlet : " + email_id);
 			// comm by tj			
+										
 										jsonobject.put("Email_Status", MailChecker.emailValidation(email_id.replace(" ", "")));
 							
-										
+										TimeUnit.SECONDS.sleep(5);
 										//	jsonobject.put("Email_Status", "true");
 										//out.println("EmailAddress : "+data[0].toString());
 								/* [

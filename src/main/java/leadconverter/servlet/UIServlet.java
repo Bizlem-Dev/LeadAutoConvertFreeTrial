@@ -280,7 +280,8 @@ public class UIServlet extends SlingAllMethodsServlet {
 			}
 		} else if (request.getRequestPathInfo().getExtension().equals("index")) {
 			try {
-				request.getRequestDispatcher("/content/mainui/.findex").forward(request, response);
+			//	request.getRequestDispatcher("/content/mainui/.findex").forward(request, response);
+				 request.getRequestDispatcher("/content/static/.Home").forward(request, response);
 			} catch (Exception ex) {
 				out.print(ex.getMessage());
 			}

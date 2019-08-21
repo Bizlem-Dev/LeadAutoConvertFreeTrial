@@ -952,6 +952,6 @@ select.form-control:not([size]):not([multiple]){
 .btn-warning:not([disabled]):not(.disabled).active, .btn-warning:not([disabled]):not(.disabled):active, .open>.btn-warning.dropdown-toggle, .show>.btn-warning.dropdown-toggle{
   border-color: #3c3692 !important;
 }
-select.form-control{
+/*select.form-control{
   background: #fff url('../img/select.png') no-repeat center right;
-}
+}*/

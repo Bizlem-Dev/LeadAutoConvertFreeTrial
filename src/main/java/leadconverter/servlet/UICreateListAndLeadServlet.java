@@ -450,7 +450,7 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 			 			out.println("User is not Valid");
 			 		}
 				} catch (Exception ex) {
-					out.println("Exception ex : " + ex.getMessage());
+					out.println("Exception ex : " + ex);
 				}
 
 			} else if (request.getRequestPathInfo().getExtension().equals("Single")) {

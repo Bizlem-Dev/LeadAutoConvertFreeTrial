@@ -181,11 +181,11 @@ public class UIDataProcessServlet extends SlingAllMethodsServlet {
 						String rule_engine_response = CreateRuleEngine.createRuleEngine(remoteuser,
 								funnelName.replace(" ", "_"));
 
-						out.print("rule_engine_response : " + rule_engine_response);
+						out.print(rule_engine_response);
 					} else {
 						funnelNameNode = funnelNode.getNode(funnelName);
 						// out.print("Funnel : "+funnelName +" Exists");
-						out.print("Funnel Exists");
+						out.print("True");
 
 					}
 
@@ -207,7 +207,7 @@ public class UIDataProcessServlet extends SlingAllMethodsServlet {
 					 */
 					session.save();
 				} else {
-					out.println("User is not Valid");
+					out.println("False");
 				}
 
 			} catch (Exception ex) {

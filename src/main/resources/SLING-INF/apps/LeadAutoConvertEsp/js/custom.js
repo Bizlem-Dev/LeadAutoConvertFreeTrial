@@ -1,6 +1,26 @@
-    var remoteuser ;
+var remoteuser ;
 $( document).ready(function() {
 	  //  var remoteuser ='<%=request.getRemoteUser()%>';
+   // alert(document.getElementById("schtime").innerHTML);
+	var currentTime = new Date();
+
+	var currentOffset = currentTime.getTimezoneOffset();
+
+	var ISTOffset = 330;   // IST offset UTC +5:30 
+
+	var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
+
+	// ISTTime now represents the time in IST coordinates
+
+	var hoursIST = ISTTime.getHours();
+	var minutesIST = ISTTime.getMinutes();
+	var secIST = ISTTime.getSeconds();
+	//document.getElementById("time").innerHTML = hoursIST+"::"+minutesIST+"::"+secIST;
+	console.log("hoursIST = "+hoursIST+"::"+minutesIST+"::"+secIST);
+	/*document.getElementById("hr").innerHTML =hoursIST;
+	document.getElementById("min").innerHTML =minutesIST;
+	document.getElementById("sec").innerHTML =secIST;*/
+//	document.write("<b>" + hoursIST + ":" + minutesIST + " " + "</b>")
 	
 	   remoteuser =document.getElementById("remoteemail").value;//'viki@gmail.com';
 	  localStorage.setItem('remoteuser',remoteuser);
@@ -36,7 +56,81 @@ $( document).ready(function() {
 				 }
 			});  
 	    getFunnelList();
+	    
+	   // init();
   });
+
+/*function checkTime(i) {
+	if (i < 10) {
+	i = "0" + i;
+	}
+	return i;
+	}
+
+	function startTime() {
+		console.log("in start time");
+	var today = new Date();
+	var h = today.getHours();
+	var m = today.getMinutes();
+	var s = today.getSeconds();
+	// add a zero in front of numbers<10
+	m = checkTime(m);
+	s = checkTime(s);
+	console.log(h + ":" + m + ":" + s);
+	document.getElementById("time").innerHTML = h + ":" + m + ":" + s;
+	
+	t = setTimeout(function() {
+	startTime()
+	}, 500);
+	}
+	*/
+	
+
+
+/*
+var d,h,m,s,animate;
+
+function init(){
+    d=new Date();
+	  d.setHours(d.getHours()-5);
+	  d.setMinutes(d.getMinutes()-30);
+    h=d.getHours();
+    m=d.getMinutes();
+    s=d.getSeconds();
+    clock();
+    console.log("calling init");
+};
+
+function clock(){
+    s++;
+    if(s==60){
+        s=0;
+        m++;
+        if(m==60){
+            m=0;
+            h++;
+            if(h==24){
+                h=0;
+            }
+        }
+    }
+    setClock('sec',s);
+    setClock('min',m);
+    setClock('hr',h);
+    animate=setTimeout(clock,1000);
+	//console.log("animate : "+animate);
+};
+
+function setClock(id,val){
+    if(val<10){
+        val='0'+val;
+    }
+    var name=id;
+	console.log("id : "+id);
+	console.log("val : "+val);
+    document.getElementById(name).textContent=val;
+};
+*/
   
   $( document).ready(function() {
 	  
@@ -68,6 +162,406 @@ $( document).ready(function() {
 			});
 	     });		
   //btn btn-warning mb-2 set-up-btn open-content-set-up-compaign btn-block
+  
+  
+  
+  $(".drip-funnel-section").on( "click", function() {
+	  $(this).find('.arrow').toggleClass('fa-angle-down fa-angle-up');
+	});
+
+	$(".manage-leades-section").on( "click", function() {
+	  $(this).find('.arrow').toggleClass('fa-angle-down fa-angle-up');
+	});
+
+	$(".set-up-funnel-section").on( "click", function() {
+	  $(this).find('.arrow').toggleClass('fa-angle-down fa-angle-up');
+	});
+
+	$("select.select-funnel-main").change(function(){
+	    var selectedVal = $(this).children("option:selected").val();
+	    if(selectedVal){
+	        $('.select-catg').css('display','block');
+	    }
+	});
+
+	$("select.select-catg").change(function(){
+	    var selectedVal = $(this).children("option:selected").val();
+	    if(selectedVal){
+	        $('.select-campaign').css('display','block');
+	    }
+	});
+
+	$("select.select-campaign").change(function(){
+	    var selectedVal = $(this).children("option:selected").val();
+	    if(selectedVal){
+	        $('.current-server-box').css('display','block');
+	    }
+	});
+
+	$("select.select-campaign-new").change(function(){
+	    var selectedVal = $(this).children("option:selected").val();
+	    if(selectedVal){
+	        $('.campaign-name-box').css('display','block');
+	    }
+	});
+
+	$('.add-btn-save').click(function(){
+	    $('.show-save-btn').css('display','block');
+	});
+
+	// $(document).ready(function(){
+	// $('body').on('change', '.select-oprater', function () {
+//	         var data = $(this).val();
+//	         if(data == 'greter-than-equals' || data == 'less-than-equals' || data == 'is-null' || data == 'is-not-null'){
+//	             $(this).parents('tr').find('td').find('.remove-slect').css('display','none');
+//	             $(this).parents('tr').find('td').find('.remove-input').css('display','none');
+//	         }else{
+//	             $(this).parents('tr').find('td').find('.remove-slect').css('display','block');
+//	             $(this).parents('tr').find('td').find('.remove-input').css('display','block');
+//	         }
+//	     });
+	// });
+
+	$(document).ready(function(){
+	$('body').on('change','.click-select', function () {
+	        var data = $(this).val();
+	        if(data == 'category'){
+	            $(this).parents('tr').find('td').find('.open-select').css('display','block');
+	            $(this).parents('tr').find('td').find('.open-input').css('display','none');
+	        }else if(data == 'url'){
+	            $(this).parents('tr').find('td').find('.open-select').css('display','none');
+	            $(this).parents('tr').find('td').find('.open-input').css('display','block');
+	        }else{
+	            $(this).parents('tr').find('td').find('.open-select').css('display','none');
+	            $(this).parents('tr').find('td').find('.open-input').css('display','none');
+
+	        }
+	    });
+	});
+
+	$(document).ready(function(){
+	$('body').on('change', '.select-oprater', function () {
+	        var data = $(this).val();
+	        if(data == 'eqals' || data == 'not-equals' || data == 'is-null' || data == 'is-not-null'){
+	            $(this).parents('tr').find('td').find('.remove-slect').css('display','none');
+	            $(this).parents('tr').find('td').find('.remove-input').css('display','none');
+	        }else{
+	            $(this).parents('tr').find('td').find('.remove-slect').css('display','block');
+	            $(this).parents('tr').find('td').find('.remove-input').css('display','block');
+	        }
+	    });
+	});
+
+
+	$(".hide-create-new-list-box").on( "click", function() {
+	    $('.create-new-list-main').slideUp();
+	});
+
+	$(".hide-meege-list-box").on( "click", function() {
+	    $('.import-from-csv-file').slideUp();
+	});
+
+	$(".merge").on( "click", function() {
+	    $('.import-from-csv-file').slideDown();
+	});
+
+	$(".filter-list-1-section-btn").on( "click", function() {
+	    $(this).parents('.container-main').find('.filter-section-list-1').css('display','block');
+	    $(this).parents('.container-main').find('.filter-right-list-1-section').removeClass('col-md-12').addClass('col-md-8');
+	});
+
+	$('input[name=radio]').click(function () {
+	    if (this.id == "radio1-section") {
+	        $(".show-import-from-csv-file").slideDown();
+	    } else {
+	        $(".show-import-from-csv-file").slideUp();
+	    }
+	});
+
+	$('input[name=radio]').click(function () {
+	    if (this.id == "radio3") {
+	        $(".up-import-from-csv-file").slideDown();
+	    } else {
+	        $(".up-import-from-csv-file").slideUp();
+	    }
+	});
+
+	$('input[name=radio]').click(function () {
+	    if (this.id == "radio4") {
+	        $(".show-import-from-csv-file2").slideDown();
+	    } else {
+	        $(".show-import-from-csv-file2").slideUp();
+	    }
+	});
+
+	$('input[name=radio]').click(function () {
+	    if (this.id == "merge-existing") {
+	        $(".show-merge-existing-list").slideDown();
+	    } else {
+	        $(".show-merge-existing-list").slideUp();
+	    }
+	});
+
+	// append set up button start
+	$('body').on('click', '.add-more-btn', function(){
+	  var copy = $(this).parents('.funnel-sub').find('.addMore-copy').html();
+	  $(this).parents('.funnel-sub').find('.add-more-sub-copy').append(copy);
+	  var sp = $(this).parents('.funnel-sub').find('.addMore-sub:last-child .set-up-btn span').html();
+	  var sp1 = Number(sp)+1;
+	  $(this).parents('.funnel-sub').find('.addMore-sub:last-child .set-up-btn span').html(sp1);
+	});
+
+	$('body').on('click', '.copy-remove-btn', function() { 
+	  $(this).parents('.addMore-sub').remove();
+	});
+	// append set up button end
+
+
+
+	//
+	$('body').on('click', '.open-content-set-up-compaign',function(){
+	  $('.set-up-campaign-form-box').slideDown();  
+	  $(this).parents('.funnel-section').find('.funnel-sub .open-content-set-up-compaign').removeClass('active');
+	  $(this).addClass('active');
+	});
+
+	/*$(function () {
+	  $(".datepicker").datepicker({ 
+	        autoclose: true, 
+	        todayHighlight: true
+	  }).datepicker('update', new Date());
+	});*/
+
+	$('input[name=radio]').click(function () {
+	    if (this.id == "radio-time") {
+	        $(".date-time-section").slideDown();
+	    } else {
+	        $(".date-time-section").slideUp();
+	    }
+	});
+
+	$('.open-import-contact-main-section').click(function(){
+	  $('.import-contact-main-form').slideUp();
+	  $('.import-contact-main-section').slideDown();  
+	});
+
+	// custom select box
+
+	$('input[name=radio-list]').click(function () {
+	    if (this.id == "list1") {
+	        $(".entire-list-section").slideDown();
+	    } else {
+	        $(".entire-list-section").slideUp();
+	    }
+	});
+	$('input[name=radio-list]').click(function () {
+	    if (this.id == "list2") {
+	        $(".part-list-section").slideDown();
+	    } else {
+	        $(".part-list-section").slideUp();
+	    }
+	});
+
+
+	$('input[name=radio-list1]').click(function () {
+	    if (this.id == "list5") {
+	        $(".entire-list-section").slideDown();
+	    } else {
+	        $(".entire-list-section").slideUp();
+	    }
+	});
+	$('input[name=radio-list1]').click(function () {
+	    if (this.id == "list6") {
+	        $(".part-list-section").slideDown();
+	    } else {
+	        $(".part-list-section").slideUp();
+	    }
+	});
+
+	$(document).ready(function () {
+	    $('.to-from-list-part-section tr').click(function () {
+	        if(this.style.background == "" || this.style.background =="white") {
+	            $(this).css('background', '#6E000B').css('color', '#fff');
+	        }
+	        else {
+	            $(this).css('background', 'white').css('color', '#000');
+	        }
+	    });
+	});
+
+	$('.creat-new-campaigns-menu').on('click' , function(){
+	  $("#collapseExample2").slideDown();
+	  $(".set-up-campaign-form-box").slideDown();
+	});
+
+	$(".creat-new-campaigns-menu").click(function() {
+	    $('html, body').animate({
+	        scrollTop: $("#op").offset().top
+	    }, 2000);
+	});
+
+	$('.create-new-list').on('click' , function(){
+	  $('.create-new-list-main').slideDown();  
+	});
+
+	$('body').on('click', '.add-new-row', function(){
+	    var addRow = $('.create-new-list-table tbody .append-row-tr').html();
+	    var noRow = $('.create-new-list-table tbody tr:last-child th:first-child').html();
+	    var noRow1 = Number(noRow)+1;
+	    $('.create-new-list-table tbody').append('<tr><th scope="row">'+noRow1+'</th>'+addRow+'</tr>');
+	});
+
+	$('input[name=radio-msg]').click(function () {
+	    if (this.id == "radio") {
+	        $(".comment-box-part").slideUp();
+	    } else {
+	        $(".comment-box-part").slideDown();
+	    }
+	});
+
+	$('input[name=radio-msg]').click(function () {
+	    if (this.id == "radio2") {
+	        $(".aend-a-webpage-section").slideUp();
+	    } else {
+	        $(".aend-a-webpage-section").slideDown();
+	    }
+	});
+
+	$('input[name=radio-tag]').click(function () {
+	    if (this.id == "radio-tag") {
+	        $(".drop-down-part").slideUp();
+	    } else {
+	        $(".drop-down-part").slideDown();
+	    }
+	});
+
+	$('input[name=radio-tag]').click(function () {
+	    if (this.id == "radio-tag-2") {
+	        $(".drop-down-part-second").slideUp();
+	    } else {
+	        $(".drop-down-part-second").slideDown();
+	    }
+	});
+
+	$(".drip-funnel-save").on( "click", function() {
+	    $(".drip-funnel-section").trigger("click");
+	    $(".manage-leades-section").trigger("click");
+	});
+
+	$(".select-existing-upload-save").on( "click", function() {
+	    $(".manage-leades-section").trigger("click");
+	    $(".set-up-funnel-section").trigger("click");
+	});
+
+	$(".manage-leads-create-new-list-save").on( "click", function() {
+	    $(".manage-leades-section").trigger("click");
+	    $(".set-up-funnel-section").trigger("click");
+	});
+
+	$(".manage-leads-existing-list-save").on( "click", function() {
+	    $(".manage-leades-section").trigger("click");
+	    $(".set-up-funnel-section").trigger("click");
+	});
+
+	// $('#op').trigger( "click" );
+
+	$('input[name=checkbox-apply-funnel]').click(function () {
+	    $('.show-apply-to-all-subfunnel-section').slideToggle();
+	});
+
+	$('input[name=checkbox-default-mass]').click(function () {
+	    $('.show-checkbox-default-mass').slideToggle();
+	});
+
+	$('input[name=table-check-1]').click(function () {
+	    $('.show-table-check-1').slideToggle();
+	});
+
+	$('input[name=table-check-2]').click(function () {
+	    $('.show-table-check-2').slideToggle();
+	});
+
+	$('input[name=table-check-3]').click(function () {
+	    $('.show-table-check-3').slideToggle();
+	});
+
+	$('input[name=table-check-4]').click(function () {
+	    $('.show-table-check-4').slideToggle();
+	});
+
+	$('.plsu-append-row').click(function(){
+	    var copy = $('.get-row-append').html();
+	    $('.append-row-part').append(copy);
+	});
+
+	function toggleIcon(e) {
+	    $(e.target)
+	        .prev('.panel-heading')
+	        .find(".more-less")
+	        .toggleClass('glyphicon-plus glyphicon-minus');
+	}
+	$('.panel-group').on('hidden.bs.collapse', toggleIcon);
+	$('.panel-group').on('shown.bs.collapse', toggleIcon);
+
+	$('body').on('click', '.add-row-btn', function(){
+	    var addRow = $('.table-set-up-funnel tbody tr:last-child').html();
+	    var noRow = $(this).parents('.main-tbl').find('tbody tr:last-child th:first-child').html();
+	    var noRow1 = Number(noRow)+1;
+
+	    var id1 = $('.table-set-up-funnel tbody tr:last-child').find(".field-ID-select").attr('id');
+	    var id2 = $('.table-set-up-funnel tbody tr:last-child').find(".type-ID-select").attr('id');
+	    var id3 = $('.table-set-up-funnel tbody tr:last-child').find(".oprater-ID-select").attr('id');
+	    var id4 = $('.table-set-up-funnel tbody tr:last-child').find(".opraters-ID-select").attr('id');
+		
+		var id5 = $('.table-set-up-funnel tbody tr:last-child').find(".field-name-input").attr('id');
+		var id6 = $('.table-set-up-funnel tbody tr:last-child').find(".opt1-input").attr('id');
+		var id7 = $('.table-set-up-funnel tbody tr:last-child').find(".opt2-input").attr('id');
+
+	    var res = addRow.replace(id1, "fieldID"+noRow1);
+	    res = res.replace(id2, "typeID"+noRow1);
+	    res = res.replace(id3, "operatorID"+noRow1);
+	    res = res.replace(id4, "operatorIDs"+noRow1);
+		
+		res = res.replace(id5, "fieldName"+noRow1);
+		res = res.replace(id6, "opt1Val"+noRow1);
+		res = res.replace(id7, "opt2Val"+noRow1);
+
+	    $(this).parents('.main-tbl').find('.table-set-up-funnel tbody').append('<tr class="new">'+res+'</tr>');
+	    $(this).parents('.main-tbl').find('.table-set-up-funnel tbody tr:last-child th').html(noRow1);
+	});
+
+	$('.add-new-form').click(function(){
+	    var getBox = $('.append-div-box').html();
+	    $('.main-box-section').append(getBox);
+	});
+
+	$('.remove-new-form').click(function(){
+	    $('.main-box-section').find('li:last-child').remove();
+	});
+
+	$('body').on('click', '.remove-row-btn', function(){
+	    var firstTr = $(this).parents('.main-tbl').find('tbody tr:last-child').attr('class');
+	    if(firstTr == 'new'){
+	        $(this).parents('.main-tbl').find('tbody tr:last-child').remove();
+	    }
+	});
+
+	$('body').on('click', '.add-row-btn-second-tbl', function(){
+	    var addRowNew = $('.second-tbl tbody tr:last-child').html();
+	    $(this).parents('.second-tbl').find('.second-tbl-sub tbody').append('<tr class="new">'+addRowNew+'</tr>');
+	});
+
+	$('body').on('click', '.remove-row-second-tbl', function(){
+	    var firstTr = $(this).parents('.second-tbl').find('.second-tbl-sub tbody tr:last-child').attr('class');
+	    if(firstTr == 'new'){
+	        $(this).parents('.second-tbl').find('tbody tr:last-child').remove();
+	    }
+	});
+
+
+
+
+
   
     $('#save_txt_lead').on('click', getSubscribersListFromTextArea);
 	
@@ -648,7 +1142,7 @@ $( document).ready(function() {
 			
 		function postFilesData(data)
 			{
-			alert("data : "+data);
+			//alert("data : "+data);
 			console.log("uicsvdata : "+data);
 			console.log("uicsvdata data: "+JSON.stringify(data));
 			var list_type = $("input[name='radio-list']:checked").val();
@@ -683,6 +1177,9 @@ $( document).ready(function() {
 						var lead_info=data[i];
 						console.log("uicsvdata : i "+i);
 						console.log("uicsvdata : i "+JSON.stringify(lead_info));
+						//var emailStatusExist= JSON.parse(lead_info);
+						if(lead_info.Email_Status){
+							console.log("uicsvdata : i checked ");
 						var email_info=JSON.parse(lead_info.Email_Status);
 						//alert('email_info : '+JSON.stringify(email_info))
 						//alert('email_info.smtp_check==true : '+email_info.smtp_check==true);
@@ -694,9 +1191,12 @@ $( document).ready(function() {
 						//part_of_list_tbody=part_of_list_tbody+"<tr id='csv_part_of_list_leadtr"+(i+1)+"' name='csv_part_of_list_leadtr'><td>"+(i+1)+"</td><td><input id='csv_part_of_list_leadchk"+(i+1)+"' name='csv_part_of_list_sub_chk_boxes' type='checkbox'/></td><td>"+lead_info.EmailAddress+"</td><td>"+lead_info.FirstName+"</td><td>"+lead_info.LastName+"</td><td>"+lead_info.PhoneNumber+"</td><td>"+lead_info.Address+"</td></tr>";
 						}else{
 						part_of_list_tbody=part_of_list_tbody+"<tr class='false-mail' id='csv_part_of_list_leadtr"+(i+1)+"' name='csv_part_of_list_leadtr'><td>"+(i+1)+"</td><td><input id='csv_part_of_list_leadchk"+(i+1)+"' name='csv_part_of_list_sub_chk_boxes' type='checkbox'/></td><td>"+lead_info.EmailAddress+"</td><td>"+lead_info.FirstName+"</td><td>"+lead_info.LastName+"</td><td>"+lead_info.PhoneNumber+"</td><td>"+lead_info.Address+"</td><td>"+lead_info.CompanyName+"</td><td>"+lead_info.CompanyHeadCount+"</td><td>"+lead_info.Industry+"</td><td>"+lead_info.Institute+"</td><td>"+lead_info.Source+"</td><td>"+email_info.smtp_check+"</td></tr>";
-
 						entire_list_tbody=entire_list_tbody+"<tr class='false-mail' id='csv_entire_list_leadtr"+(i+1)+"' name='csv_entire_list_leadtr'><td>"+(i+1)+"</td><td>"+lead_info.EmailAddress+"</td><td>"+lead_info.FirstName+"</td><td>"+lead_info.LastName+"</td><td>"+lead_info.PhoneNumber+"</td><td>"+lead_info.Address+"</td><td>"+lead_info.CompanyName+"</td><td>"+lead_info.CompanyHeadCount+"</td><td>"+lead_info.Industry+"</td><td>"+lead_info.Institute+"</td><td>"+lead_info.Source+"</td><td>"+email_info.smtp_check+"</td></tr>";
-
+						}
+						
+						}else{
+							part_of_list_tbody=part_of_list_tbody+"<tr class='false-mail' id='csv_part_of_list_leadtr"+(i+1)+"' name='csv_part_of_list_leadtr'><td>"+(i+1)+"</td><td><input id='csv_part_of_list_leadchk"+(i+1)+"' name='csv_part_of_list_sub_chk_boxes' type='checkbox'/></td><td>"+lead_info.EmailAddress+"</td><td>"+lead_info.FirstName+"</td><td>"+lead_info.LastName+"</td><td>"+lead_info.PhoneNumber+"</td><td>"+lead_info.Address+"</td><td>"+lead_info.CompanyName+"</td><td>"+lead_info.CompanyHeadCount+"</td><td>"+lead_info.Industry+"</td><td>"+lead_info.Institute+"</td><td>"+lead_info.Source+"</td><td>false</td></tr>";
+							entire_list_tbody=entire_list_tbody+"<tr class='false-mail' id='csv_entire_list_leadtr"+(i+1)+"' name='csv_entire_list_leadtr'><td>"+(i+1)+"</td><td>"+lead_info.EmailAddress+"</td><td>"+lead_info.FirstName+"</td><td>"+lead_info.LastName+"</td><td>"+lead_info.PhoneNumber+"</td><td>"+lead_info.Address+"</td><td>"+lead_info.CompanyName+"</td><td>"+lead_info.CompanyHeadCount+"</td><td>"+lead_info.Industry+"</td><td>"+lead_info.Institute+"</td><td>"+lead_info.Source+"</td><td>false</td></tr>";
 						}
 						//entire_list_tbody=entire_list_tbody+"<tr id='csv_entire_list_leadtr"+(i+1)+"' name='csv_entire_list_leadtr'><td>"+(i+1)+"</td><td>"+lead_info.EmailAddress+"</td><td>"+lead_info.FirstName+"</td><td>"+lead_info.LastName+"</td><td>"+lead_info.PhoneNumber+"</td><td>"+lead_info.Address+"</td></tr>";
 						}
@@ -931,17 +1431,20 @@ $( document).ready(function() {
 				//console.log('lesdArr: '+JSON.stringify(lesdArr));
 				//localStorage.setItem('lesdArr',JSON.stringify(lesdArr));
 				
-				//alert('funnelCreationStatus: '+localStorage.getItem('funnelCreationStatus'));
+		 console.log('funnelCreationStatus: '+localStorage.getItem('funnelCreationStatus'));
 				if(localStorage.getItem('funnelCreationStatus')=='Funnel Created'){
 				   alert('Funnel: '+localStorage.getItem('funnelName')+" Created");
 				}else if(localStorage.getItem('funnelCreationStatus')=='Funnel Exists'){
 				   alert('Funnel: '+localStorage.getItem('funnelName')+" Exists");
+				}else{
+					
 				}
 				//alert('remoteuser: '+localStorage.getItem('remoteuser'));
 			    //alert('funnelName: '+localStorage.getItem('funnelName'));
 			    //alert('fromName: '+localStorage.getItem('fromName'));
 			    //alert('fromEmailAddress: '+localStorage.getItem('fromEmailAddress'));
 				console.log("uploadedSubscriberCount :: "+uploadedSubscriberCount);
+				var gr=localStorage.getItem('groupname');
 				$.ajax({
 			       	//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
 					url: '/portal/servlet/service/createListAndSubscribers.createlistPlusLead',//createListAndSubscribers
@@ -957,7 +1460,7 @@ $( document).ready(function() {
 						   fromName:localStorage.getItem('fromName'),
 						   fromEmailAddress:localStorage.getItem('fromEmailAddress'),
 						   SubscriberCount:uploadedSubscriberCount,
-						   group:localStorage.getItem('groupname'),
+						   group:gr,
 					      },
 					//cache: false,
 					//dataType: 'json',
@@ -965,16 +1468,29 @@ $( document).ready(function() {
 					//contentType: false, 
 					success: function(data)
 					{
+						console.log("jsonData1 = "+data);
 					    var jsonData = JSON.parse(data);
+					    console.log("jsonData = "+jsonData);
 						//alert("data: listid"+jsonData.listid);
+					  
 						if(jsonData.quantity){
 						console.log("jsonData.quantity = "+jsonData.quantity);
 						alert("You can not upload leads more than "+jsonData.quantity);
+						 var body = '<h3>You can not upload leads more than '+jsonData.quantity+'</h3>';
+						 $("#MyPopup .modal-body").html(body);
 						}else{
 						localStorage.setItem('listid',jsonData.listid);
 						console.log("jsonData: "+jsonData);
-						alert("Subscribers List with id "+jsonData.listid+" created Sucessfully.");
+						//alert("Subscribers List with id "+jsonData.listid+" created Sucessfully.");
+						 var body = '<h4>Subscribers List created Sucessfully</h4>';
+						 $("#MyPopup .modal-body").html(body);
 						}
+						
+					   
+
+	                    
+	                  
+	                   $("#MyPopup").modal("show");
 						//console.log("-------------------------subscribers start-----------------------");
 						
 						//console.log("-------------------------subscribers edn-----------------------");
@@ -1050,14 +1566,20 @@ $( document).ready(function() {
 	             },
 			success: function (dataa) {
 					//subFunnelJsonObj = JSON.parse(dataa);
-						var jsonresp = JSON.parse(dataa);
-					console.log("jsonresp= "+jsonresp);
-					if(jsonresp == "false"){
+				//		var jsonresp = JSON.parse(dataa);
+					console.log("jsonresp= "+dataa);
+					if(dataa == "False"){
 					alert("Funnel not creted. User does not exist ");
 					}else{
 					localStorage.setItem('funnelCreationStatus',dataa);
-					alert("Funnel is creted sucessfully ");
+					//alert("Funnel is creted sucessfully ");
 					console.log("Funnel is creted sucessfully : "+dataa)
+					
+					 var body = '<h3>Funnel is created successfully</h3>';
+
+                    
+                    $("#MyPopup .modal-body").html(body);
+                    $("#MyPopup").modal("show");
 					}
 					/*
 					for(var i=0;i<subFunnelJsonArray.length;i++){
@@ -1116,7 +1638,7 @@ $( document).ready(function() {
 	function getFunnel(funnel_name,remoteuser) {
 	    //"Rule_Engine" "SFDC_SELECTDATA" "External_Data" "TRANSFORM_DATA"
 		console.log("inside getFunnel getFunnel : "+funnel_name);
-		alert("funnel_name : "+funnel_name);
+		 console.log("funnel_name : "+funnel_name);
 	    var username="carrotrule@xyz.com";
 		var projectname="June27F01";
 		var ruleenginename="June27F01_RE";
@@ -1176,10 +1698,10 @@ $( document).ready(function() {
 							 }
 						  
 						  }
-						  alert();
-						  alert("Greater than Zeo");
+						 // alert();
+						  console.log("Greater than Zeo");
 					   }else{
-					      alert("Less than Zeo");
+						   console.log("Less than Zeo");
 					   }
 					   /*
 					   var ConnectJsonObj=null;
@@ -1192,11 +1714,11 @@ $( document).ready(function() {
 					   }
 					   */
 					   
-					   alert("CampaignExploreJsonArr : "+CampaignExploreJsonArr);
+					   console.log("CampaignExploreJsonArr : "+CampaignExploreJsonArr);
 					   
 					   var sub_funnel_heading='<tr style="text-align: center;"><td colspan="15"><strong>Sub Funnel</strong></td></tr>';
 
-                       var category_heading='<tr style="text-align: center;"><td colspan="3"><h3>Unknown</h3></td><td colspan="3"><h3>Cold</h3></td><td colspan="3"><h3>Warm</h3></td><td colspan="3"><h3>Hot</h3></td><td colspan="3"><h3>Connect </h3></td></tr>';
+                       var category_heading='<tr style="text-align: center;"><td colspan="3"><h3>Unknown</h3></td><td colspan="3"><h3>Cold</h3></td><td colspan="3"><h3>Warm</h3></td><td colspan="3"><h3>Hot</h3></td><td colspan="3"><h3>Connect </h3></td></tr><tr><th>Explore</th><th>Date</th><th>Leads</th><th>Entice</th><th>Date</th><th>Leads</th><th>Inform</th><th>Date</th><th>Leads</th><th>Warm</th><th>Date</th><th>Leads</th><th>Connect</th><th>Date </th><th>Leads </th><tr>';
 
                        var final_tbl_body='';
 					   
@@ -1211,11 +1733,22 @@ $( document).ready(function() {
 					   
 					   
 					   var max_row_length=CampaignExploreJsonArr.length;
-					   alert('max_row_length : '+max_row_length);
+					   console.log('max_row_length : '+max_row_length);
+					
+					  /* if(i==0){
+							 exp_tbl_body='<tr><td>Explore</td><td>Date</td><td>Leads</td></tr>'; 
+						 }
+							 ent_tbl_body='<td>Entice</td><td>Date</td><td>Leads</td>';
+							 inf_tbl_body='<td>Inform</td><td>Date</td><td>Leads</td>';
+							 warm_tbl_body='<td>Warm</td><td>Date</td><td>Leads</td>';
+							 connect_tbl_body='<td>Connect</td><td>Date</td><td>Leads</td>';*/
+							 
 					   
 					   for(var i=0;i<CampaignExploreJsonArr.length;i++){
 						 var CampaignExploreJsonObj=CampaignExploreJsonArr[i];
-						 //alert	("funnel_list_json_obj : "+funnel_list_json_obj);
+						 console.log("CampaignExploreJsonObj : "+JSON.stringify(CampaignExploreJsonObj));
+						 //JSON.stringify(arr)
+						
 						 exp_tbl_body='<td>'+CampaignExploreJsonObj.CampaignName+'</td><td>'+CampaignExploreJsonObj.Campaign_Date+'</td><td>'+CampaignExploreJsonObj.Subscribers_Count+'</td>';
 						 
 						  if(CampaignEnticeJsonArr[i]!=undefined){
@@ -1241,7 +1774,7 @@ $( document).ready(function() {
 						  }
 						  if(CampaignConnectJsonArr[i]!=undefined){
 						    var CampaignConnectJsonObj=CampaignConnectJsonArr[i];
-							connect_tbl_body='<td>'+CampaignConnectJsonObj.CampaignName+'</td><td>'+CampaignConnectJsonObj.Campaign_Date+'</td><td>'+CampaignConnectJsonObj.Subscribers_Count+'</td>';
+						    connect_tbl_body='<td>'+CampaignConnectJsonObj.CampaignName+'</td><td>'+CampaignConnectJsonObj.Campaign_Date+'</td><td>'+CampaignConnectJsonObj.Subscribers_Count+'</td>';
 						  }else{
 						    connect_tbl_body='<td></td><td></td><td></td>';
 						
@@ -1280,5 +1813,113 @@ $( document).ready(function() {
 					}
 	    });
 	}
+	
+	// $('#schedule_campaign').on('click', scheduleCampaign);
+	
+	function scheduleCampaign(event){
+		
+		var today = new Date();
+		var h = today.getHours();
+		var m = today.getMinutes();
+		var s = today.getSeconds();
+		// add a zero in front of numbers<10
+		m = checkTime(m);
+		s = checkTime(s);
+		//console.log(h + ":" + m + ":" + s);
+		//alert(document.getElementById("schtime"));
+	
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth() + 1; //January is 0!
 
+		var yyyy = today.getFullYear();
+		if (dd < 10) {
+		  dd = '0' + dd;
+		} 
+		if (mm < 10) {
+		  mm = '0' + mm;
+		} 
+		var today = yyyy + '-' + mm + '-' + dd ;
+		document.getElementById("campaign_shedule_date").innerHTML =today;
+	     var campaign_shedule_date = today;
+	     console.log("today= "+today);
+		 if(document.getElementById('radio-time').checked) {
+			  //Male radio button is checked
+			  var campaign_shedule_hr = document.getElementById("campaign_shedule_hr").value;
+			  var campaign_shedule_minute = document.getElementById("campaign_shedule_minute").value;
+			//  var campaign_shedule_AP = document.getElementById("campaign_shedule_AP").value;
+			  //alert("campaign_shedule_hr : "+campaign_shedule_hr+"\n"+"campaign_shedule_minute : "+campaign_shedule_minute+"\n"+"campaign_shedule_AP : "+campaign_shedule_AP);
+			  //campaign_shedule_date=campaign_shedule_date+" "+campaign_shedule_hr+":"+campaign_shedule_minute+":00 "+campaign_shedule_AP;
+			  campaign_shedule_date=campaign_shedule_date+" "+campaign_shedule_hr+":"+campaign_shedule_minute+":00";
+			  
+			  //2019-01-07 06:43:02 PM
+			  //2019-01-11 02:11:00 PM
+			  //01-11-2019 01:01:00 am
+		 }else{
+		 
+		     campaign_shedule_date=campaign_shedule_date+" 00:00:00";
+		 }
+		 console.log("campaign_shedule_date = "+campaign_shedule_date);
+		 //alert("schedule_campaign date : "+campaign_shedule_date);
+		    var campaignid=localStorage.getItem('Expcampaignid');
+		    console.log("campaignid = "+campaignid);
+			//var campaignid='593';
+			var markup = "";
+		    var campaignName;
+			var fromName;
+			var fromEmailAddress;
+			
+			var funnelName;
+			var SubFunnelName;
+			var DistanceBtnCampaign;
+			var listid;
+			var subjectName;
+			//Time is 10:42, Saturday 2 February 2019 16:12 -05:30
+			var funnelName=localStorage.getItem('funnelName');
+			var SubFunnelName=localStorage.getItem('SubFunnelName');
+			var group=localStorage.getItem('groupname');
+			console.log("group= "+group);
+			var listid=localStorage.getItem('listid');
+			var remoteuser =localStorage.getItem('remoteuser');
+			 $.ajax({
+						//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
+						url: '/portal/servlet/service/createCampaign.updateEmbargo',//createListAndSubscribers
+						type: 'POST',
+						async:false,
+						data: {
+				               campaignid:campaignid,
+						       embargo:campaign_shedule_date,
+						       funnelName:funnelName,
+						       camp_catogery:SubFunnelName,
+						       listid:listid,
+						       remoteuser:remoteuser,
+						       group:group,
+							  },
+						cache: false,
+						//dataType: 'json',
+						//processData: false, 
+						//contentType: false, 
+						success: function(data)
+						{
+							//console.log('--------------markup---------start');
+		                    console.log('data : '+data);
+		                    //console.log('--------------markup---------end');
+		                  //  alert('Embargo Updated Sucessfully!');
+		                    
+		                    var body = '<h3>Embargo Updated Successfully</h3>';
+
+		                    
+		                    $("#MyPopup .modal-body").html(body);
+		                    $("#MyPopup").modal("show");
+						}
+				    });
+			//alert("schedule_campaign date : 3");
+
+	}
+	$(function () {
+		  
+	      $("#btnClosePopup").click(function () {
+	          $("#MyPopup").modal("hide");
+	      });
+	  });
    

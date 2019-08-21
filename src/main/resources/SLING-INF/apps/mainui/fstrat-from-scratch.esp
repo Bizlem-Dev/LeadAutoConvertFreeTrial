@@ -19,7 +19,20 @@
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="<%=request.getContextPath()%>/apps/global/js/Cookies.js"></script>
   -->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  
+  <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
+<link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css'
+    media="screen" /> -->
+     <script type="text/javascript"
+		src="https://code.jquery.com/jquery-2.1.1.min.js"></script> 
+		
+		  <!-- Modal script -->
+
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
+<link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css'
+    media="screen" />
+  
 </head>
 <body class="animsition">
   <div class="row-fluid main-header">
@@ -170,7 +183,30 @@
     		</div>
   		</div>
   </div>
-    <script>
+  
+  <!-- Modal Popup -->
+<div id="MyPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+           
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <input type="button" id="btnClosePopup" value="Close" class="btn btn-danger" />
+            </div>
+        </div>
+    </div>
+</div>
+    <script  type="text/javascript">
+    
+    $(function () {
+    	  
+        $("#btnClosePopup").click(function () {
+            $("#MyPopup").modal("hide");
+            window.close();
+        });
+    });
 	    var msg_type="compose_message";
 		var send_as="text";
         $('input[type=radio][name=radio-msg]').change(function() {
@@ -201,7 +237,7 @@
 				send_a_webpage_url=document.getElementById('send_a_webpage_url').value;
 				footer=document.getElementById('send_a_webpage_footer').value;
 				//footer=footer+"<p><small><a href='[UNSUBSCRIBEURL]'>unsubscribe me</a></small></p>";
-				alert("msg_type : "+msg_type+"\n"+"send_a_webpage_url : "+send_a_webpage_url+"\n"+"send_a_webpage_footer : "+footer+"\n"+"send_as : "+send_as);
+				console.log("msg_type : "+msg_type+"\n"+"send_a_webpage_url : "+send_a_webpage_url+"\n"+"send_a_webpage_footer : "+footer+"\n"+"send_as : "+send_as);
 			}
 			else if (msg_type == 'compose_message') {
 			     //var content = CKEDITOR.instances['DSC'].getData();
@@ -217,14 +253,14 @@
 			    footer=document.getElementById('compose_message_footer').value;
 				//footer=footer+"<p><small><a href='[UNSUBSCRIBEURL]'>unsubscribe me</a></small></p>";
 				//alert("msg_type : "+msg_type+"\n"+"compose_message_txt : "+compose_message_txt+"\n"+"compose_message_footer : "+footer+"\n"+"send_as : "+send_as);
-				alert("compose_message_txt : "+compose_message_txt);
+				console.log("compose_message_txt : "+compose_message_txt);
 			}else{
 				alert("You have selected something else");
 			}
 			console.log('compose_message_txt : '+compose_message_txt);
 			var remoteuser=localStorage.getItem('remoteuser');
 			var groupname=localStorage.getItem('groupname');
-			
+		
 			$.ajax({
 					//url: '<%=request.getContextPath()%>/servlet/service/uidata.createLead',
 					  url: '<%=request.getContextPath()%>/servlet/service/createCampaign.CampaignNodeAdd',//createListAndSubscribers
@@ -257,14 +293,21 @@
 	                    console.log('data : '+data);
 						var jsonData = JSON.parse(data);
 						//Cookies.set('campaignid',jsonData.campaignid);
+						if(SubFunnelName === "Explore"){
+							console.log("SubFunnelName= "+SubFunnelName);
+							localStorage.setItem('Expcampaignid',jsonData.campaignid);
+						}else{}
 						localStorage.setItem('campaignid',jsonData.campaignid);
 						console.log('campaignid : '+jsonData.campaignid);
-						alert("Your Campaign Is saved and Campaign Id Is "+jsonData.campaignid);
+					//	alert("Your Campaign Is saved and Campaign Id Is "+jsonData.campaignid);
+					var body = '<h3>Your Campaign created Successfully</h3>';
+					  $("#MyPopup .modal-body").html(body);
+				    $("#MyPopup").modal("show");
 						//campaignid
 	                    //console.log('--------------markup---------end');
 	                    //alert('data: '+data);
 						//window.location = "<%=request.getContextPath()%>/servlet/service/ui.index";
-						window.close();
+					//	window.close();
 					}
 					});
 	            
@@ -291,7 +334,7 @@
   <script src="<%=request.getContextPath()%>/apps/global/js/Cookies.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   -->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  
   <script type="text/javascript" src="https://cdn.ckeditor.com/4.5.1/standard/ckeditor.js"></script>
   
   <script>
