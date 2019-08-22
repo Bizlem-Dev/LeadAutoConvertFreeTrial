@@ -613,12 +613,12 @@ type="text/javascript"></script>
   function logout(uid){
 	  $.ajax({
 	  type: 'GET',
-	  url: 'http://development.bizlem.io:8078/OpenFireClient/Logout.jsp',
+	  url: 'http://bizlem.io:8078/OpenFireClient/Logout.jsp',
 	  data: {
 	  username: uid
 	  }, 
 	  complete: function(){
-	  window.location="http://development.bizlem.io:8082/portal/logout.jsp";
+	  window.location="http://bizlem.io:8082/portal/logout.jsp";
 	  }
 	  });
 	  }

@@ -1,4 +1,5 @@
 var remoteuser ;
+var uploadedSubscriberCount=0; 	
 $( document).ready(function() {
 	  //  var remoteuser ='<%=request.getRemoteUser()%>';
    // alert(document.getElementById("schtime").innerHTML);
@@ -41,6 +42,12 @@ $( document).ready(function() {
 			var json = JSON.parse(response);
 			console.log("response json : "+json);
 						console.log("groups : "+json.Groups);
+						
+						if(json.Groups.length==0){
+							json.Groups.push("NA");
+						}
+						console.log("groups : "+json.Groups);
+						if(json.Groups.length>0){
 					 var newDiv = document.getElementById("grouplist");
 				   var selectHTML = "";
 	//<div class="row" ><div class="col-sm-9">
@@ -52,7 +59,7 @@ $( document).ready(function() {
 				 //   selectHTML += '</select></div><div class="col-sm-3 p-0"><a class="btn btn-danger copy-remove-btn sm-btn-custom sm-btn-custom2"><i class="fa fa-trash"></i></a></div>';
 
 				    newDiv.innerHTML = selectHTML;	
-						
+			}	
 				 }
 			});  
 	    getFunnelList();
@@ -652,6 +659,8 @@ function setClock(id,val){
 			finalleadObj['ListData'] = lesdArr;
 			//alert(JSON.stringify(finalleadObj));
 			console.log(JSON.stringify(finalleadObj));
+			   uploadedSubscriberCount=lesdArr.length;
+			     console.log("uploadedSubscriberCount list: "+uploadedSubscriberCount);
 			saveLeadData(lesdArr,entire_list_name);
 	}
 	
@@ -1125,7 +1134,7 @@ function setClock(id,val){
 		    
 			
 		 }
-		var uploadedSubscriberCount; 			
+				
 	  $('#fileUploader').on('change', uploadFile);
 	    function uploadFile(event)
 			{
@@ -1443,6 +1452,7 @@ function setClock(id,val){
 			    //alert('funnelName: '+localStorage.getItem('funnelName'));
 			    //alert('fromName: '+localStorage.getItem('fromName'));
 			    //alert('fromEmailAddress: '+localStorage.getItem('fromEmailAddress'));
+				console.log("JSON.stringify(lesdArr) :: "+JSON.stringify(lesdArr));
 				console.log("uploadedSubscriberCount :: "+uploadedSubscriberCount);
 				var gr=localStorage.getItem('groupname');
 				$.ajax({
@@ -1526,7 +1536,14 @@ function setClock(id,val){
 		localStorage.setItem('funnelName',funnelName);
 		localStorage.setItem('fromName',fromName);
 		localStorage.setItem('fromEmailAddress',fromEmailAddress);
-		var groupname= document.getElementById("grlist").value;
+		var groupname="";
+		if(document.getElementById("grlist") && document.getElementById("grlist").value){
+		
+		groupname=	document.getElementById("grlist").value;
+		console.log("groupname local = "+groupname);
+		}else{
+			console.log("groupname local = "+groupname);
+		}
 		localStorage.setItem('groupname',groupname);
 		console.log("groupname local = "+groupname);
         //alert("remoteuser : "+remoteuser+"\n"+" funnelName : "+funnelName+"\n"+" fromName : "+fromName+"\n"+" fromEmailAddress : "+fromEmailAddress);
@@ -1906,7 +1923,7 @@ function setClock(id,val){
 		                    //console.log('--------------markup---------end');
 		                  //  alert('Embargo Updated Sucessfully!');
 		                    
-		                    var body = '<h3>Embargo Updated Successfully</h3>';
+		                    var body = '<h4>Embargo Updated Successfully</h4>';
 
 		                    
 		                    $("#MyPopup .modal-body").html(body);

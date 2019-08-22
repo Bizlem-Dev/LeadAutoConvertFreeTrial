@@ -278,21 +278,30 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 					Node shoppingnode=null;
 					//shopping cart method call
 					String expstatus= new FreetrialShoppingCartUpdate().checkFreeTrialExpirationStatus(remoteuser);
-				 	
+				 	int quantity=0;
+				 	String checkquantity="";
 			 		shoppingnode=new FreetrialShoppingCartUpdate().getLeadAutoConverterNode(expstatus, remoteuser.replace("@", "_"), group, session, response);
 			 		if(shoppingnode!=null) {
-			 		Node groupnode=	shoppingnode.getParent();
-			 		Node servicenode=	groupnode.getParent();
-			 		if(servicenode.hasProperty("quantity")) {
-			 			int quantity=Integer.parseInt(servicenode.getProperty("quantity").getString());
-			 			if(quantity>=subscount) {
-			 				
-//			 			}
-//			 		}
-			 		String respupdate=	new FreetrialShoppingCartUpdate().updateSubscriberCounter(remoteuser, expstatus, shoppingnode, session, response, subscount);
 			 			
-			 		
-		            
+			 			
+			 			if(expstatus.equalsIgnoreCase("1")) {
+			 				Node groupnode=	shoppingnode.getParent();
+					 		Node servicenode=	groupnode.getParent();
+					 		if(servicenode.hasProperty("quantity")) {
+					 			 quantity=Integer.parseInt(servicenode.getProperty("quantity").getString());
+					 			String respupdate=	new FreetrialShoppingCartUpdate().updateSubscriberCounter(remoteuser, expstatus, shoppingnode, session, response, subscount);
+					 			if(quantity>=subscount) {
+					 				checkquantity="true";	
+					 			}else {
+					 				checkquantity="false";	
+					 			}
+			 				
+			 			}
+			 			}else {
+			 				checkquantity="true";	
+			 			}
+			
+		            if(checkquantity.equalsIgnoreCase("true") && checkquantity !="") {
 			    	String funnelName = request.getParameter("funnelName");
 			    	String fromName = request.getParameter("fromName");
 			    	String fromEmailAddress = request.getParameter("fromEmailAddress");
@@ -446,7 +455,7 @@ public class UICreateListAndLeadServlet extends SlingAllMethodsServlet {
 				           out.println(res_json_obj.toString());
 //			 			out.println("You can not upload leads more than "+quantity);
 			 		}}
-			 		}else{
+			 		else{
 			 			out.println("User is not Valid");
 			 		}
 				} catch (Exception ex) {

@@ -140,7 +140,7 @@ public class UICsvDataProcessServlet extends SlingAllMethodsServlet {
 										
 										jsonobject.put("Email_Status", MailChecker.emailValidation(email_id.replace(" ", "")));
 							
-										TimeUnit.SECONDS.sleep(5);
+										TimeUnit.SECONDS.sleep(2);
 										//	jsonobject.put("Email_Status", "true");
 										//out.println("EmailAddress : "+data[0].toString());
 								/* [

@@ -422,7 +422,13 @@ public class UIServlet extends SlingAllMethodsServlet {
 			} catch (Exception ex) {
 				out.print(ex.getMessage());
 			}
-		}  
+		}  else if(request.getRequestPathInfo().getExtension().equals("googleanalytics")) {
+		     try {
+				  request.getRequestDispatcher("/content/mainui/.googleAnalytics").forward(request, response);
+			     } catch (Exception ex) {
+				     out.print(ex.getMessage());
+			     }
+		 }
 		 else {
 			out.print("Rrquested extension is not an ESP resource");
 			String remoteuser = request.getRemoteUser();

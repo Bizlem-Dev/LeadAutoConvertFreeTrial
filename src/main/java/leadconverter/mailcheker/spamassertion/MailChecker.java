@@ -16,7 +16,7 @@ public class MailChecker {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-        String email_details=emailValidation("keownliam colum@emaar.com");
+        String email_details=emailValidation("tejal.jabade10@gmail.com");
         System.out.println(email_details);
         //Exist : akhileshyadav0308@gmail.com
         //Does not Exist : akhileshyadav0308asd@gmail.com
