@@ -138,9 +138,9 @@ public class UICsvDataProcessServlet extends SlingAllMethodsServlet {
 										//LogByFileWriter.logger_info("UICsvDataProcessServlet : " + email_id);
 			// comm by tj			
 										
-										jsonobject.put("Email_Status", MailChecker.emailValidation(email_id.replace(" ", "")));
+									//	jsonobject.put("Email_Status", MailChecker.emailValidation(email_id.replace(" ", "")));
 							
-										TimeUnit.SECONDS.sleep(2);
+									//	TimeUnit.SECONDS.sleep(2);
 										//	jsonobject.put("Email_Status", "true");
 										//out.println("EmailAddress : "+data[0].toString());
 								/* [

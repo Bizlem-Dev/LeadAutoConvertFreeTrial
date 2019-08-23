@@ -1172,7 +1172,7 @@ function setClock(id,val){
 				    uploadedSubscriberCount=data.length;
 				     console.log("uploadedSubscriberCount : "+uploadedSubscriberCount);
 					var tbody="";
-				/*	for(var i=0;i<data.length;i++){
+					for(var i=0;i<data.length;i++){
 					   var lead_info=data[i];
                        part_of_list_tbody=part_of_list_tbody+"<tr id='csv_part_of_list_leadtr"+(i+1)+"' name='csv_part_of_list_leadtr'><td>"+(i+1)+"</td><td><input id='csv_part_of_list_leadchk"+(i+1)+"' name='csv_part_of_list_sub_chk_boxes' type='checkbox'/></td><td>"+lead_info.EmailAddress+"</td><td>"+lead_info.FirstName+"</td><td>"+lead_info.LastName+"</td><td>"+lead_info.PhoneNumber+"</td><td>"+lead_info.Address+"</td><td>"+lead_info.CompanyName+"</td><td>"+lead_info.CompanyHeadCount+"</td><td>"+lead_info.Industry+"</td><td>"+lead_info.Institute+"</td><td>"+lead_info.Source+"</td></tr>";
 					   
@@ -1180,9 +1180,9 @@ function setClock(id,val){
 					   //part_of_list_tbody=part_of_list_tbody+"<tr id='csv_part_of_list_leadtr"+(i+1)+"' name='csv_part_of_list_leadtr'><td>"+(i+1)+"</td><td><input id='csv_part_of_list_leadchk"+(i+1)+"' name='csv_part_of_list_sub_chk_boxes' type='checkbox'/></td><td>"+lead_info.EmailAddress+"</td><td>"+lead_info.FirstName+"</td><td>"+lead_info.LastName+"</td><td>"+lead_info.PhoneNumber+"</td><td>"+lead_info.Address+"</td></tr>";
 					   
 					   //entire_list_tbody=entire_list_tbody+"<tr id='csv_entire_list_leadtr"+(i+1)+"' name='csv_entire_list_leadtr'><td>"+(i+1)+"</td><td>"+lead_info.EmailAddress+"</td><td>"+lead_info.FirstName+"</td><td>"+lead_info.LastName+"</td><td>"+lead_info.PhoneNumber+"</td><td>"+lead_info.Address+"</td></tr>";
-					}*/
+					}
 					
-					for(var i=0;i<data.length;i++){
+				/*  for mailchecker api	for(var i=0;i<data.length;i++){
 						var lead_info=data[i];
 						console.log("uicsvdata : i "+i);
 						console.log("uicsvdata : i "+JSON.stringify(lead_info));
@@ -1208,7 +1208,7 @@ function setClock(id,val){
 							entire_list_tbody=entire_list_tbody+"<tr class='false-mail' id='csv_entire_list_leadtr"+(i+1)+"' name='csv_entire_list_leadtr'><td>"+(i+1)+"</td><td>"+lead_info.EmailAddress+"</td><td>"+lead_info.FirstName+"</td><td>"+lead_info.LastName+"</td><td>"+lead_info.PhoneNumber+"</td><td>"+lead_info.Address+"</td><td>"+lead_info.CompanyName+"</td><td>"+lead_info.CompanyHeadCount+"</td><td>"+lead_info.Industry+"</td><td>"+lead_info.Institute+"</td><td>"+lead_info.Source+"</td><td>false</td></tr>";
 						}
 						//entire_list_tbody=entire_list_tbody+"<tr id='csv_entire_list_leadtr"+(i+1)+"' name='csv_entire_list_leadtr'><td>"+(i+1)+"</td><td>"+lead_info.EmailAddress+"</td><td>"+lead_info.FirstName+"</td><td>"+lead_info.LastName+"</td><td>"+lead_info.PhoneNumber+"</td><td>"+lead_info.Address+"</td></tr>";
-						}
+						}   */
 					
 		            if (list_type == 'list1') {
 						document.getElementById("csv_leads_list").innerHTML  =entire_list_tbody;

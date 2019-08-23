@@ -117,14 +117,15 @@ public class UIDataProcessServlet extends SlingAllMethodsServlet {
 
 				remoteuser = dataJsonObj.getString("remoteuser").replace("@", "_");
 
-//				remoteuser = remoteuser.replace("@", "_");
+//				
 
 				String group = "";
 				group =dataJsonObj.getString("group");
 				Node shoppingnode = null;
 				// shopping cart method call
 				String expstatus = new FreetrialShoppingCartUpdate().checkFreeTrialExpirationStatus(remoteuser);
-//				out.println("group serv= "+group +" ::remoteuser"+remoteuser);
+			//	out.println("group serv= "+group +" ::remoteuser"+remoteuser+" expstatus="+expstatus);
+				
 				shoppingnode = new FreetrialShoppingCartUpdate().getLeadAutoConverterNode(expstatus, remoteuser, group,
 						session, response);
 //				out.println("shoppingnode = "+shoppingnode);
@@ -140,6 +141,7 @@ public class UIDataProcessServlet extends SlingAllMethodsServlet {
 				Node funnelNode = null;
 				Node funnelNameNode = null;
 				Node emailnode = null;
+				//out.print("Shop= "+shoppingnode);
 				if (shoppingnode != null) {
 				
 					if (shoppingnode.hasNode("Email")) {

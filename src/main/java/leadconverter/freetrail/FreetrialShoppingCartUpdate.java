@@ -31,8 +31,12 @@ public class FreetrialShoppingCartUpdate {
 				.parseLong(ResourceBundle.getBundle("config").getString("free_trail_subscribers_count"));
 		long subscribers_count =0;
 		try {
+			try {
 			MongoDAO mdao = new MongoDAO();
 			 subscribers_count = mdao.getSubscriberCountForLoggedInUserForFreeTrail("subscribers_details", userid);
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
 			free_trail_status = checkfreetrial(userid);
 			// long subscribers_count=2000;
 			// String free_trail_status="0";
@@ -61,33 +65,37 @@ public class FreetrialShoppingCartUpdate {
 
 	public String checkfreetrial(String userid) {
 		int expireFlag = 1;
+		 Character x = '_';
+		 userid = replaceLastChar(userid,x);
 		String free_trial_api = ResourceBundle.getBundle("config").getString("free_trial_api") + userid
 				+ "/LeadAutoConvFrTrial";
 		// http://prod.bizlem.io:8087/apirest/trialmgmt/trialuser/akhilesh@bizlem.com/LeadAutoConvFrTrial
 		//http://development.bizlem.io:8087/apirest/trialmgmt/trialuser/viki@gmail.com/LeadAutoConvFrTrial
 		//LeadAutoConvFrTrial
 		//String free_trial_api = "http://development.bizlem.io:8087/apirest/trialmgmt/trialuser/"+userid.replaceAll("_", "@")+"/LeadAutoConvFrTrial";
-		 Character x = '_';
+	
 		try {
-			userid = replaceLastChar(userid,x);
+			
 			URL url = new URL(free_trial_api);
 			// System.out.println("Step 1");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			// System.out.println("Step 2");
+			 System.out.println("Step 2");
 			conn.setRequestMethod("GET");
 			conn.connect();
-			// System.out.println("Step 3");
+			 System.out.println("Step 3");
 			InputStream in = conn.getInputStream();
-			// System.out.println("Step 4");
+			 System.out.println("Step 4");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 			String text = reader.readLine();
-			// System.out.println("Step 5");
+			 System.out.println("Step 5");
 			 System.out.println(text);
 			JSONObject obj = new JSONObject(text);
 			expireFlag = obj.getInt("expireFlag");
-			// System.out.println(Integer.toString(expireFlag));
+			 System.out.println("56"+Integer.toString(expireFlag));
 			conn.disconnect();
+			System.out.println("777");
 			LogByFileWriter.logger_info("FreeTrialandCart : Free Trail Status : " + expireFlag + "  For User " + userid);
+			System.out.println("end");
 		} catch (Exception ex) {
 			System.out.println("Error : " + ex);
 		}
@@ -437,7 +445,7 @@ public class FreetrialShoppingCartUpdate {
 
 			}
 
-			// session.save();
+		 session1.save();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			// out.println(e.getMessage());
@@ -624,7 +632,7 @@ public class FreetrialShoppingCartUpdate {
 	}
 	
 	public static void main(String args[]) {
-		System.out.println("method  ret = "+	new FreetrialShoppingCartUpdate().checkfreetrial("viki@gmail.com"));
+		System.out.println("method  ret = "+	new FreetrialShoppingCartUpdate().checkfreetrial("viki_gmail.com"));
 	//new FreetrialShoppingCartUpdate().checkValiditytrialCart("");
 		
 	}

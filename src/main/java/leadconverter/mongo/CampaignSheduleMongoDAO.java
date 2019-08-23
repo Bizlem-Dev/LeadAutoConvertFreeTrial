@@ -50,7 +50,8 @@ public class CampaignSheduleMongoDAO {
 		// findCampaignToScheduleFromCampaignListDetails();
 		String category = "Explore";
 		// String category="NoExplore";
-
+	System.out.println("new === "+new	CampaignSheduleMongoDAO().campaignListAdd("1265", "1527"));
+	
 		// findListIdForCampaignFromCampaignDetails("1118");
 		String body = "Hi This is Test Massage";
 		String subject = "Test 15-06-2019 13th Mail";
@@ -62,9 +63,9 @@ public class CampaignSheduleMongoDAO {
 		String campaignaddurl = ResourceBundle.getBundle("config").getString("Campaign_Add_Url_New");
 		String campaigngetbyid = ResourceBundle.getBundle("config").getString("campaigngetbyid");
 		String campaigngetbyid_url_parameter = "?id=" + "1472";
-		String campaigngetbyid_url_response = sendpostdata(campaigngetbyid,
-				campaigngetbyid_url_parameter);
-		System.out.println("resp= "+campaigngetbyid_url_response);
+//		String campaigngetbyid_url_response = sendpostdata(campaigngetbyid,
+//				campaigngetbyid_url_parameter);
+//		System.out.println("resp= "+campaigngetbyid_url_response);
 //		JSONObject response_data_json_obj = (JSONObject) new JSONObject(
 //				campaigngetbyid_url_response.replace("<pre>", "")).get("data");
 //		String status = response_data_json_obj.getString("status");
@@ -103,7 +104,7 @@ public class CampaignSheduleMongoDAO {
 		String List_Id = null;
 		String campaign_status = null;
 		String Campaign_Date = null;
-		String CreatedBy = null;
+//		String CreatedBy = null;
 		String free_trail_status = null;
 		int count = 0;
 		CampaignSheduleMongoDAO csmdao = null;
@@ -125,18 +126,18 @@ public class CampaignSheduleMongoDAO {
 					List_Id = campaign_details_doc.getString("List_Id");
 					campaign_status = campaign_details_doc.getString("campaign_status");
 					Campaign_Date = campaign_details_doc.getString("Campaign_Date");
-					CreatedBy = campaign_details_doc.getString("CreatedBy");
-					CreatedBy = CreatedBy.replace("_", "@");
+//					CreatedBy = campaign_details_doc.getString("CreatedBy");
+//					CreatedBy = CreatedBy.replace("_", "@");
 				//	free_trail_status = new FreetrialShoppingCartUpdate().checkFreeTrialExpirationStatus(CreatedBy);
 					// System.out.println(campaign_details_doc);
 //					if (free_trail_status.equals("0")) {
-					  String validuserresp = new FreetrialShoppingCartUpdate().checkValiditytrialCart(CreatedBy);
+//					  String validuserresp = new FreetrialShoppingCartUpdate().checkValiditytrialCart(CreatedBy);
 //					    if(free_trail_status.equals("0")){
-					   JSONObject validjs =new JSONObject(validuserresp);
-						if(validjs.has("status")&& validjs.get("status").equals("true")) {
+//					   JSONObject validjs =new JSONObject(validuserresp);
+//						if(validjs.has("status")&& validjs.get("status").equals("true")) {
 					
 					    
-						System.out.println("CampaignSheduleMongoDAO: " + "Freetrail Active for User : " + CreatedBy);
+//						System.out.println("CampaignSheduleMongoDAO: " + "Freetrail Active for User : " + CreatedBy);
 						updateCampaignStatusInCampaignDetails(collection, Campaign_Id, List_Id, "submitted");// submitted
 																												// draft
 						System.out.println(
@@ -146,10 +147,10 @@ public class CampaignSheduleMongoDAO {
 						csmdao.activateCampaign(Campaign_Id, List_Id, List_Id, Campaign_Date, campaign_status,
 								"Explore");
 						// updateCampaignStatusInCampaignDetails(collection,"1102","956","submitted");
-					} else {
-						System.out.println("Freetrail Expired for User : " + CreatedBy);
-						LogByFileWriter.logger_info("CampaignSheduleMongoDAO: " + CreatedBy);
-					}
+//					} else {
+//						System.out.println("Freetrail Expired for User : " + CreatedBy);
+//						LogByFileWriter.logger_info("CampaignSheduleMongoDAO: " + CreatedBy);
+//					}
 
 					count++;
 				}
@@ -296,7 +297,9 @@ public class CampaignSheduleMongoDAO {
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 		Date today = new Date();
 		String campaign_start_days = ResourceBundle.getBundle("config").getString("campaign_start_days");
+		LogByFileWriter.logger_info("CampaignSheduleMongoDAO: " + "date1(Today):before add " + sdf1.format(today) +" ::campaign_start_days= "+campaign_start_days);
 		today.setDate(today.getDate() + Integer.parseInt(campaign_start_days));
+		LogByFileWriter.logger_info("CampaignSheduleMongoDAO: " + "date1(Today): after add " + sdf1.format(today));
 		Date date1;
 		Date date2;
 		String status_response = null;
@@ -419,7 +422,7 @@ public class CampaignSheduleMongoDAO {
 		return campaignresponse;
 	}
 
-	// listCampaignAdd
+	// listCampaignAdd assign list tocampaign
 	public String campaignListAdd(String listid, String campid) throws ServletException, IOException {
 		String campaignaddurl = ResourceBundle.getBundle("config").getString("listCampaignAdd");
 		String campaignaddapiurlparameters = "?listid=" + listid + "&campid=" + campid;
