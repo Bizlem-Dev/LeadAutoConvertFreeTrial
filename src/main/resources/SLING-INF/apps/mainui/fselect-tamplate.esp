@@ -97,7 +97,7 @@
 		                        			</div>
 		                      			</a>
 		                    		</div>
-		                    		<!-- <div class="col-md-4">
+		                    		 <div class="col-md-4">
                                 <a href="<%=request.getContextPath()%>/servlet/service/ui.simpleLayout" id="simpleLayout" onclick="simpleLayoutClk(this.id)">
                                     <div class="imag-box-content border-set rounded">
                                       	<img src="<%=request.getContextPath()%>/apps/global/assets/images/New_Project.png" style="width:100%;">
@@ -107,7 +107,7 @@
                                         </div>
                                     </div>
                                 </a>
-                            </div>  -->
+                            </div>  
 							<!--
                             <div class="plus-box col-md-4 imag-box-content-main">
                                 <a href="#">
@@ -120,15 +120,15 @@
                                 </a>
                             </div>
 							-->
-						<!--	<div class="plus-box col-md-4 imag-box-content-main"> -->
+							<div class="plus-box col-md-4 imag-box-content-main"> 
 							    <!-- _blank // alreadycomment-->
-                               <!--  <a href="<%=request.getContextPath()%>/servlet/service/ui.select-tamplate-file">
+                               <a href="<%=request.getContextPath()%>/servlet/service/ui.select-tamplate-file">
                                   <div class="imag-box-content border-set rounded">
                                       <i class="fa fa-plus" aria-hidden="true"></i> 
                                       <p>Upload Template</p>
                                   </div>
                                 </a>
-                            </div> -->
+                            </div> 
 		                		</div>
 	              			</div>
             			</div>

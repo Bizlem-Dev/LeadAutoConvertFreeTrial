@@ -124,11 +124,11 @@ public class UIDataProcessServlet extends SlingAllMethodsServlet {
 				Node shoppingnode = null;
 				// shopping cart method call
 				String expstatus = new FreetrialShoppingCartUpdate().checkFreeTrialExpirationStatus(remoteuser);
-			//	out.println("group serv= "+group +" ::remoteuser"+remoteuser+" expstatus="+expstatus);
+//				out.println("group serv= "+group +" ::remoteuser"+remoteuser+" expstatus="+expstatus);
 				
 				shoppingnode = new FreetrialShoppingCartUpdate().getLeadAutoConverterNode(expstatus, remoteuser, group,
 						session, response);
-//				out.println("shoppingnode = "+shoppingnode);
+//				out.print("shoppingnode = "+shoppingnode);
 				funnelName = dataJsonObj.getString("funnelName");
 				fromName = dataJsonObj.getString("fromName");
 				fromEmailAddress = dataJsonObj.getString("fromEmailAddress");
@@ -176,7 +176,7 @@ public class UIDataProcessServlet extends SlingAllMethodsServlet {
 						funnelNameNode.setProperty("autoTweetAfterSending", autoTweetAfterSending);
 						funnelNameNode.setProperty("autoPost2SocialMedia", autoPost2SocialMedia);
 						// out.print("Funnel : "+funnelName +" has Created Now");
-						out.print("Funnel Created");
+//						out.print("Funnel Created");
 						// String
 						// rule_engine_response=CreateRuleEngine.createRuleEngine(funnelName.replace("
 						// ", "_"));

@@ -102,7 +102,7 @@ public class FreetrialShoppingCartUpdate {
 		System.out.println("Integer.toString(expireFlag) : " + Integer.toString(expireFlag));
 		
 		
-		return Integer.toString(expireFlag);
+		return 	"1";//pls comm outInteger.toString(expireFlag);
 	}
 	public static int findLastIndex(String str, Character x) 
 	{ 
@@ -225,7 +225,7 @@ public class FreetrialShoppingCartUpdate {
 
 									if (appserviceNode.hasNode(adminserviceid)) {
 										appfreetrialNode = appserviceNode.getNode(adminserviceid);
-//										out.println("appfreetrialNode= " + appfreetrialNode);
+										out.println("appfreetrialNode= " + appfreetrialNode);
 
 										if (appfreetrialNode.hasProperty("producttype")
 												&& appfreetrialNode.getProperty("producttype").getString().equals("leadautoconverter")) {
@@ -235,7 +235,7 @@ public class FreetrialShoppingCartUpdate {
 										} else {
 											emailNode = appfreetrialNode.addNode(group);
 										}
-//										 out.println("emailNode "+emailNode);
+										 out.println("emailNode "+emailNode);
 										if (emailNode.hasNode("LeadAutoConverter")) {
 											LeadAutoconNode = emailNode.getNode("LeadAutoConverter");
 										} else {
@@ -339,7 +339,7 @@ public class FreetrialShoppingCartUpdate {
 							adminserviceid = itr.nextNode().getName();
 							if (!adminserviceid.equalsIgnoreCase("LeadAutoConvFrTrial")) {
 
-								// out.println("adminserviceid "+adminserviceid);
+//								 out.println("adminserviceid "+adminserviceid);
 								if ((adminserviceid != "") && (!adminserviceid.equals("LeadAutoConvFrTrial"))) {
 
 									if (contentNode.hasNode("services")) {
@@ -347,12 +347,12 @@ public class FreetrialShoppingCartUpdate {
 									} else {
 										appserviceNode = contentNode.addNode("services");
 									}
-									// out.println("appserviceNode "+appserviceNode);
+//									 out.println("appserviceNode "+appserviceNode);
 
 									if (appserviceNode.hasNode(adminserviceid)) {
 										appfreetrialNode = appserviceNode.getNode(adminserviceid);
 
-										// out.println("appfreetrialNode "+appfreetrialNode);
+//										 out.println("appfreetrialNode "+appfreetrialNode);
 										String quantity = "";
 										String Subscriber_count_Id = "0";
 										String end_date = "";
@@ -423,13 +423,13 @@ public class FreetrialShoppingCartUpdate {
 											} else {
 												emailNode = appfreetrialNode.addNode(group);
 											}
-											// out.println("emailNode "+emailNode);
+//											 out.println("emailNode "+emailNode);
 											if (emailNode.hasNode("LeadAutoConverter")) {
 												LeadAutoNode = emailNode.getNode("LeadAutoConverter");
 											} else {
 												LeadAutoNode = emailNode.addNode("LeadAutoConverter");
 											}
-
+//											out.println("else LeadAutoNodes=  "+LeadAutoNode);
 										} else {
 //											out.println("else validity=  "+validity);
 										}
