@@ -1701,35 +1701,88 @@ function setClock(id,val){
 					   var CampaignWarmJsonArr=CampaignJsonObj["Warm"];
 					   var CampaignConnectJsonArr=CampaignJsonObj["Connect"];
 					   
-					   var ConnectJsonObj=null;
-					   if(ConnectJsonArr.length>0){
-					      ConnectJsonObj=ConnectJsonArr[ConnectJsonArr.length-1];
-						  //"ListStatus":"active"
-						  var list_status=ConnectJsonObj.ListStatus;
+
+					   //entice
+					   var enticeJsonObj=null;
+					    var ListActivateDateStr="";
+					   if(EnticeJsonArr.length>0){
+					  
+					      enticeJsonObj=EnticeJsonArr[EnticeJsonArr.length-1];
+						  //"ListStatus":"act  1 2  3 e"
+						  console.log("enticeJsonObj= "+enticeJsonObj);
+						  var list_status=enticeJsonObj.ListStatus;
 						  if(list_status=='active'){
-						     var list_campaign_json_arr=ConnectJsonObj.list_campaign_json_arr;
-							 
-							 for(var i=0;i<CampaignExploreJsonArr.length;i++){
-							 
-							 
-							 }
+						      ListActivateDateStr=enticeJsonObj.ListActivateDateStr;
+							 console.log("ListActivateDateStr= "+ListActivateDateStr);
+							
 						  
 						  }
-						 // alert();
-						  console.log("Greater than Zeo");
-					   }else{
-						   console.log("Less than Zeo");
+						  }
+						   else{
+					      
 					   }
-					   /*
-					   var ConnectJsonObj=null;
-					   if(CampaignExploreJsonArr.length>0){
-					      ConnectJsonObj=CampaignExploreJsonArr[ConnectJsonArr.length-1];
-						  alert("Greater than Zeo");
-						  alert(ConnectJsonObj);
-					   }else{
-					      alert("Less than Zeo");
+					   
+					   //inform
+					     var informJsonObj=null;
+					    var  infListActivateDateStr="";
+					   if(InformJsonArr.length>0){
+					  
+					      informJsonObj=InformJsonArr[InformJsonArr.length-1];
+						  //"ListStatus":"act  1 2  3 e"
+						  console.log("informJsonObj= "+informJsonObj);
+						  var list_status=informJsonObj.ListStatus;
+						  if(list_status=='active'){
+						      infListActivateDateStr=informJsonObj.ListActivateDateStr;
+							 console.log("infListActivateDateStr= "+infListActivateDateStr);
+							
+						  
+						  }
+						  }
+						   else{
+					      
 					   }
-					   */
+					   
+					   //warm 
+					     var warmJsonObj=null;
+					    var  warmListActivateDateStr="";
+					   if(WarmJsonArr.length>0){
+					  
+					      warmJsonObj=WarmJsonArr[WarmJsonArr.length-1];
+						  //"ListStatus":"act  1 2  3 e"
+						  console.log("warmJsonObj= "+warmJsonObj);
+						  var list_status=warmJsonObj.ListStatus;
+						  if(list_status=='active'){
+						      warmListActivateDateStr=warmJsonObj.ListActivateDateStr;
+							 console.log("warmListActivateDateStr= "+warmListActivateDateStr);
+							
+						  
+						  }
+						  }
+						   else{
+					      
+					   }
+					   //connect  
+					     var connectJsonObj=null;
+					    var connListActivateDateStr="";
+					   if(ConnectJsonArr.length>0){
+					  
+					      connectJsonObj=ConnectJsonArr[ConnectJsonArr.length-1];
+						  //"ListStatus":"act  1 2  3 e"
+						  console.log("connectJsonObj= "+connectJsonObj);
+						  var list_status=connectJsonObj.ListStatus;
+						  if(list_status=='active'){
+						      connListActivateDateStr=connectJsonObj.ListActivateDateStr;
+							 console.log("connListActivateDateStr= "+connListActivateDateStr);
+							
+						  
+						  }
+						  }
+						   else{
+					      
+					   } 
+					   
+					   
+				
 					   
 					   console.log("CampaignExploreJsonArr : "+CampaignExploreJsonArr);
 					   
@@ -1770,28 +1823,57 @@ function setClock(id,val){
 						 
 						  if(CampaignEnticeJsonArr[i]!=undefined){
 						    var CampaignEnticeJsonObj=CampaignEnticeJsonArr[i];
-							ent_tbl_body='<td>'+CampaignEnticeJsonObj.CampaignName+'</td><td>'+CampaignEnticeJsonObj.Campaign_Date+'</td><td>'+CampaignEnticeJsonObj.Subscribers_Count+'</td>';
+							var showdate;
+							if(ListActivateDateStr!== ''){
+							showdate=ListActivateDateStr;
+							}else{
+							showdate=CampaignEnticeJsonObj.Campaign_Date;
+							}
+							console.log("showdate= "+showdate);
+						    
+							ent_tbl_body='<td>'+CampaignEnticeJsonObj.CampaignName+'</td><td>'+showdate+'</td><td>'+CampaignEnticeJsonObj.Subscribers_Count+'</td>';
 						  }else{
 						    ent_tbl_body='<td></td><td></td><td></td>';
 						
 						  }
 						  if(CampaignInformJsonArr[i]!=undefined){
 						    var CampaignInformJsonObj=CampaignInformJsonArr[i];
-							inf_tbl_body='<td>'+CampaignInformJsonObj.CampaignName+'</td><td>'+CampaignInformJsonObj.Campaign_Date+'</td><td>'+CampaignInformJsonObj.Subscribers_Count+'</td>';
+						    var showdate;
+							if(infListActivateDateStr!== ''){
+							showdate=infListActivateDateStr;
+							}else{
+							showdate=CampaignInformJsonObj.Campaign_Date;
+							}
+						    
+							inf_tbl_body='<td>'+CampaignInformJsonObj.CampaignName+'</td><td>'+showdate+'</td><td>'+CampaignInformJsonObj.Subscribers_Count+'</td>';
 						  }else{
 						    inf_tbl_body='<td></td><td></td><td></td>';
 						
 						  }
 						  if(CampaignWarmJsonArr[i]!=undefined){
 						    var CampaignWarmJsonObj=CampaignWarmJsonArr[i];
-							warm_tbl_body='<td>'+CampaignWarmJsonObj.CampaignName+'</td><td>'+CampaignWarmJsonObj.Campaign_Date+'</td><td>'+CampaignWarmJsonObj.Subscribers_Count+'</td>';
+						    var showdate;
+							if(warmListActivateDateStr!== ''){
+							showdate=warmListActivateDateStr;
+							}else{
+							showdate=CampaignWarmJsonObj.Campaign_Date;
+							}
+						    
+							warm_tbl_body='<td>'+CampaignWarmJsonObj.CampaignName+'</td><td>'+showdate+'</td><td>'+CampaignWarmJsonObj.Subscribers_Count+'</td>';
 						  }else{
 						    warm_tbl_body='<td></td><td></td><td></td>';
 						
 						  }
 						  if(CampaignConnectJsonArr[i]!=undefined){
 						    var CampaignConnectJsonObj=CampaignConnectJsonArr[i];
-						    connect_tbl_body='<td>'+CampaignConnectJsonObj.CampaignName+'</td><td>'+CampaignConnectJsonObj.Campaign_Date+'</td><td>'+CampaignConnectJsonObj.Subscribers_Count+'</td>';
+						    var showdate;
+							if(connListActivateDateStr!== ''){
+							showdate=connListActivateDateStr;
+							}else{
+							showdate=CampaignConnectJsonObj.Campaign_Date;
+							}
+						    
+						    connect_tbl_body='<td>'+CampaignConnectJsonObj.CampaignName+'</td><td>'+showdate+'</td><td>'+CampaignConnectJsonObj.Subscribers_Count+'</td>';
 						  }else{
 						    connect_tbl_body='<td></td><td></td><td></td>';
 						

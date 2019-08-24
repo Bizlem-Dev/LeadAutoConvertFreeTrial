@@ -3,6 +3,10 @@
 							  <div class="col-md-4">
                                     <select class="form-control select-funnel-main" id="funnel_list" style="background:#3C3692;margin-top:5px;"></select>
                               </div>
+                               <div class="col-md-6">
+                                    <h4>Dates will be changed based on Behaviour Based Content Targeting</h4>
+									
+                              </div>
                               <div class="col-md-12">
                                 <table class="table table-bordered">
 								  <tbody id='sub_funnel_tbl_body'>
